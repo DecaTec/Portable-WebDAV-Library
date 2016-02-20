@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="46c3bb10-8ce5-44eb-a3fc-1217a735e9b5" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <section>
+      <title>Changes in This Release</title>
+      <content>
+
+        <list class="bullet">
+          <listItem>
+            <para>Optimized URL handling in WebDavSession.</para>
+          </listItem>
+          <listItem>
+            <para>Added a more meaningful WebDavException when ListAsync (WebDavSession) fails due to wrong response status code.</para>
+          </listItem>
+          <listItem>
+            <para>WebDavException is now thrown when parsing a response (multi status or prop) fails</para>
+          </listItem>
+
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="df5ce5b9-6c59-42e5-bccc-95ad418cc00c" />
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

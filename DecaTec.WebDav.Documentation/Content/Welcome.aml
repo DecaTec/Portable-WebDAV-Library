@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<topic id="9861c576-d072-4505-8ad3-aca80a83612f" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+        Portable WebDAV Library is a fully <externalLink><linkText>RFC 4918</linkText><linkUri>http://tools.ietf.org/html/rfc4918</linkUri></externalLink> compliant WebDAV client library which is implemented das portable class library (PCL) for use on desktop environments as well as mobile devices.
+      </para>
+    </introduction>
+
+    <section>
+      <title>Getting Started</title>
+      <content>
+        <para>To get started, add a reference to DecaTec.WebDav.dll to your project.</para>
+
+        <para>
+          There are two levels of abstractions included in this library:
+          A low level abstraction (class <legacyBold>WebDavClient</legacyBold>) which supports direct access to a WebDAV server and a higher level of abstraction
+          (class <legacyBold>WebDavSession</legacyBold>) which hides most of the direct WebDAV communication and provides an easy access to WebDAV resources.
+        </para>
+        <para>
+          <legacyBold>WebDavSession</legacyBold>
+        </para>
+        <para>The WebDavSession should be sufficient for most use cases regarding WebDAV access. It provides a high level of abstraction and hides most of the WebDAV 
+        specific details (like sending or receiving XML content strings) and supports an easy access to WebDAV servers.</para>
+        <para>See the following code which uses a WebDavSession to retrieve the content of a folder:</para>
+        <code language="c#">
+          <![CDATA[
+// Specify the user credentials and use it to create a WebDavSession instance.
+var credentials = new WebDavCredential("UserName", "MyPassword");
+var webDavSession = new WebDavSession(@"http://www.myserver/webdav/", credentials);
+var items = await webDavSession.ListAsync(@"myfolder/");
+
+foreach (var item in items)
+{
+    Console.WriteLine(item.Name);
+}
+          ]]>
+        </code>
+        
+        <para>
+          <legacyBold>WebDavClient</legacyBold>
+        </para>
+        <para>
+          When the WebDavSession is not sufficient for specific operations, there is also a low level WebDAV access: WebDavClient. This class inherits from System.Net.Http.HttpClient 
+          and offers all WebDAV specific operations in the same style as the HttpClient.
+          By using WebDavClient, you can use all of the WebDAV operations specified in RFC 4918. The use of WebDavClient is recommended for users who are familiar with the WebDAV speficifaction.
+        </para>
+        <para>See the following code which uses a WebDavClient to retrieve the content of a folder:</para>
+        <code language="c#">
+          <![CDATA[
+// Specify the user credentials and pass it to a HttpClientHandler.
+var credentials = new WebDavCredential("UserName", "MyPassword");
+var httpClientHandler = new HttpClientHandler();
+httpClientHandler.Credentials = credentials;
+httpClientHandler.PreAuthenticate = true;
+
+// Use the HttpClientHandler to create the WebDavClient.
+var webDavClient = new WebDavClient(httpClientHandler);
+
+// Create a PropFind object with represents a so called allprop request.
+PropFind pf = PropFind.CreatePropFindAllProp();
+var response = await webDavClient.PropFindAsync(@"http://www.myserver/webdav/myfolder/", WebDavDepthHeaderValue.Infinity, pf);
+
+// You could also use an XML string directly for use with the WebDavClient.
+// var xmlString = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:allprop /></D:propfind>";
+// var response = await webDavClient.PropFindAsync(@"http://www.myserver/webdav/myfolder/", WebDavDepthHeaderValue.Infinity, xmlString);
+
+// Use the WebDavResponseContentParser to parse the response message and get a MultiStatus instance (this is also an async method).
+var multistatus = await WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content);
+
+// Now you can use the MultiStatus object to get access to the items properties.
+foreach (var responseItem in multistatus.Response)
+{
+    Console.WriteLine(responseItem.Href);
+}
+          ]]>
+        </code>
+
+        <para>
+          <legacyBold>Locking</legacyBold>
+        </para>
+        <para>
+          The Portable WebDAV Library also supports WebDAV locking.</para>
+        <para>When using a WebDavClient, the locking has to be managed by the calling code, i.e. the handling of lock tokens etc.</para>
+        <para>Using a WebDavSession makes WebDAV locking pretty easy, because the WebDavSession handles all the locking mechanism by itself.
+          As an example: When the WebDavSession was used to lock a folder, all  subsequent operations affecting the locked file or folder, no lock specific details have to be
+          provided (e.g. you do not have to specify a lock token). This is all handled internally in the WebDavSession itself.
+        </para>
+        <para>For example code demonstrating locking with WebDavClient or WebDavSession, see the documentation of these classes.</para>
+        <para></para>
+        <para>
+          <legacyBold>WebDAV object model</legacyBold>
+        </para>
+        <para>
+          Most communication regarding WebDAV is realized with XML strings sent or received in the content of requests or responses. The library contains the WebDAV object 
+          model implemented in classes/enums, so there is no need to build up or parse any XML strings directly. Of course you can also use XML strings directly.
+        </para>
+        <para>As an example: For sending a so called allprop request, you'll need an XML content in the request which looks like this:</para>
+        <code language="xml">
+          <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<D:propfind xmlns:D="DAV:">
+     <D:allprop />
+</D:propfind>
+          ]]>
+        </code>
+        <para>When sending such a WebDAV request, you can simply use the XML string directly:</para>
+        <code language="c#">
+          <![CDATA[
+var xmlString = "<?xml version=\"1.0\" encoding=\"utf-8\"?>...."
+          ]]>
+        </code>
+        <para>
+          All methods which require such an XML string in the request content will accept this XML string.
+        </para>
+        <para>
+          But you can also use the WebDAV object model classes integrated in this library:
+        </para>
+        <code language="c#">
+          <![CDATA[
+PropFind pf = PropFind.CreatePropFindAllProp();
+          ]]>
+        </code>
+        <para>
+          This will create an allprop PropFind object which can be directly passed to the corresponding method in the WebDavClient. 
+          Many classes of the WebDAV object model contain static methods for creating standard WebDAV request contents. 
+          Keep in mind that the WebDAV object model implemented in this library can only be used with the WebDavClient class. When using the WebDavSession class, there is no need to 
+          bother about the content of WebDAV requests/responses, thus the WebDAV object model is not needed in this case.
+        </para>
+        <para></para>
+        <para>
+          <legacyBold>Development</legacyBold>
+        </para>
+        <para>For development, you will need:</para>
+        <list class="bullet">
+          <listItem>
+            <para>
+              Visual Studio 2012 or Visual Studio 2013
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              <externalLink>
+                <linkText>Sandcastle Help File Builder</linkText>
+                <linkUri>https://github.com/EWSoftware/SHFB</linkUri>
+              </externalLink> (for project documentation)
+            </para>
+          </listItem>
+        </list>
+        <para>
+          <legacyBold>Unit tests</legacyBold>
+        </para>
+        <para>The solution contains unit tests (testing single units of the library), but also unit integration tests, which will test the library against a specific WebDAV 
+        server (e.g. a local IIS web server with WebDAV enabled).</para>
+        <para>
+          <legacyItalic>Important:</legacyItalic>
+          In order to run the unit integrations tests, information about a speficif WebDAV server have to be provided in a configuration file. This has to be a file named "TestConfiguration.txt" 
+          located in the unit integration test project's output folder. This file has to contain exactly three lines:
+        </para>
+        <list class="nobullet">
+          <listItem>
+            <para>
+              The user name
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              The password
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              The URL of a valid WebDAV server folder
+            </para>
+          </listItem>
+        </list>
+        <para>If this configuration file is not present, all unit integration tests will fail!</para>
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="df5ce5b9-6c59-42e5-bccc-95ad418cc00c" />
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

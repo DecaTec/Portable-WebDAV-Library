@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Topics>
+  <Topic id="9861c576-d072-4505-8ad3-aca80a83612f" visible="True" isDefault="true" title="Welcome to the Portable WebDAV Library">
+    <HelpKeywords>
+      <HelpKeyword index="K" term="Welcome" />
+    </HelpKeywords>
+  </Topic>
+  <Topic id="df5ce5b9-6c59-42e5-bccc-95ad418cc00c" visible="True" isExpanded="true" title="Version History">
+    <HelpKeywords>
+      <HelpKeyword index="K" term="version, history" />
+    </HelpKeywords>
+    <Topic id="baf47b0a-668c-44ea-9527-09dfb56a40ce" visible="True" title="Version 0.1.0.0">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 0.1.0.0" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="46c3bb10-8ce5-44eb-a3fc-1217a735e9b5" visible="True" isSelected="true" title="Version 0.1.1.0">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 0.1.1.0" />
+      </HelpKeywords>
+    </Topic>
+  </Topic>
+</Topics>
