@@ -13,8 +13,8 @@
     <RootNamespace>DecaTec.WebDav.Documentation</RootNamespace>
     <Name>DecaTec.WebDav.Documentation</Name>
     <!-- SHFB properties -->
-    <FrameworkVersion>.NET Portable Library 4.6</FrameworkVersion>
-    <OutputPath>..\..\Build\Release\Doc\</OutputPath>
+    <FrameworkVersion>.NET Portable Library 4.5</FrameworkVersion>
+    <OutputPath>..\Build\Doc\</OutputPath>
     <HtmlHelpName>DecaTec.WebDav.Documentation</HtmlHelpName>
     <Language>en-US</Language>
     <TransformComponentArguments>
@@ -82,6 +82,7 @@
   <ItemGroup>
     <None Include="Content\VersionHistory\v0.1.0.0.aml" />
     <None Include="Content\VersionHistory\v0.1.1.0.aml" />
+    <None Include="Content\VersionHistory\v0.1.2.0.aml" />
     <None Include="Content\VersionHistory\VersionHistory.aml" />
     <None Include="Content\Welcome.aml" />
   </ItemGroup>

@@ -152,7 +152,10 @@ namespace DecaTec.WebDav
                 // Free any other managed objects here.
 
                 if (this.cts != null)
+                {
                     this.cts.Cancel();
+                    this.cts.Dispose();
+                }
 
                 // Unlock active lock.
                 UnlockAsync().Wait();
