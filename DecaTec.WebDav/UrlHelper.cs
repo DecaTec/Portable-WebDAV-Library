@@ -45,7 +45,7 @@ namespace DecaTec.WebDav
             if (startsWithSlash)
                 url = "/" + url;
 
-            if (slashSplit.Last().Contains('.'))
+            if (slashSplit.Last().Contains("."))
                 return url; // It's a file.
             else
                 return url + "/"; // Trailing slash not present, add it.

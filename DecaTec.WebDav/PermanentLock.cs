@@ -9,7 +9,7 @@ namespace DecaTec.WebDav
     /// </summary>
     internal class PermanentLock : IDisposable
     {
-        private Timer lockRefreshTimer;
+        private CancellationTokenSource cts;
 
         /// <summary>
         /// Initializes a new instance of PermanentLock.
@@ -28,14 +28,25 @@ namespace DecaTec.WebDav
             if (this.Timeout.HasValue)
             {
                 // No-infinite lock.
-                TimerCallback timerCallback = RefreshLock;
                 // Timer is started immediately.
                 // 5% timer offset, i.e. the time span the timer should raise before the lock expires.
+                this.cts = new CancellationTokenSource();
                 var offset = this.Timeout.Value.TotalSeconds * 0.05;
                 var timerTimeSpan = TimeSpan.FromSeconds(this.Timeout.Value.TotalSeconds - offset);
-                var tmp = Convert.ToInt32(timerTimeSpan.TotalMilliseconds);
-                this.lockRefreshTimer = new Timer(timerCallback, null, tmp, tmp);
+                StartInfiniteLock(timerTimeSpan, this.cts);
             }
+        }
+
+        private void StartInfiniteLock(TimeSpan refrehTimeSpan, CancellationTokenSource cts)
+        {
+            var task = Task.Run(async () =>
+            {
+                while (true)
+                {
+                    await Task.Delay(refrehTimeSpan, cts.Token);
+                    RefreshLock();
+                }
+            }, cts.Token);
         }
 
         #region Properties
@@ -93,7 +104,7 @@ namespace DecaTec.WebDav
 
         #region Private methods
 
-        private void RefreshLock(Object stateInfo)
+        private void RefreshLock()
         {
             var task = this.WebDavClient.RefreshLockAsync(this.LockRoot, WebDavTimeoutHeaderValue.CreateWebDavTimeout(this.Timeout.Value), this.LockToken);
             task.Wait();
@@ -140,11 +151,11 @@ namespace DecaTec.WebDav
             {
                 // Free any other managed objects here.
 
+                if (this.cts != null)
+                    this.cts.Cancel();
+
                 // Unlock active lock.
                 UnlockAsync().Wait();
-
-                if (this.lockRefreshTimer != null)
-                    this.lockRefreshTimer.Dispose();
             }
 
             // Free any unmanaged objects here.
