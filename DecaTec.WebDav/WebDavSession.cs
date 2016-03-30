@@ -26,7 +26,7 @@ namespace DecaTec.WebDav
     /// // You have to add references to DecaTec.WebDav.
     /// //
     /// // Speficy the user credentials and use it to create a WebDavSession instance.
-    /// var credentials = new WebDavCredential("UserName", "MyPassword");
+    /// var credentials = new NetworkCredential("UserName", "MyPassword");
     /// var webDavSession = new WebDavSession(@"http://www.myserver.com/webdav/", credentials);
     /// var items = await webDavSession.ListAsync(@"myfolder/");
     ///
@@ -41,7 +41,7 @@ namespace DecaTec.WebDav
     /// // You have to add references to DecaTec.WebDav.
     /// //
     /// // Speficy the user credentials and use it to create a WebDavSession instance.
-    /// var credentials = new WebDavCredential("UserName", "MyPassword");
+    /// var credentials = new NetworkDavCredential("UserName", "MyPassword");
     /// var webDavSession = new WebDavSession(@"http://www.myserver.com/webdav/", credentials);
     /// await webDavSession.LockAsync(@"Test/");
     ///

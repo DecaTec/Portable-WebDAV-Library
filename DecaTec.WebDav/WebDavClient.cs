@@ -25,7 +25,7 @@ namespace DecaTec.WebDav
     /// // You have to add references to System.Net.Http and DecaTec.WebDav.
     /// //
     /// // Speficy the user credentials and pass it to a HttpClientHandler.
-    /// var credentials = new WebDavCredential("UserName", "MyPassword");
+    /// var credentials = new NetworkCredential("UserName", "MyPassword");
     /// var httpClientHandler = new HttpClientHandler();
     /// httpClientHandler.Credentials = credentials;
     /// httpClientHandler.PreAuthenticate = true;
@@ -56,7 +56,7 @@ namespace DecaTec.WebDav
     /// // You have to add references to System.Net.Http and DecaTec.WebDav.
     /// //
     /// // Speficy the user credentials and pass it to a HttpClientHandler.
-    /// var credentials = new WebDavCredential("UserName", "MyPassword");
+    /// var credentials = new NetworkCredential("UserName", "MyPassword");
     /// var httpClientHandler = new HttpClientHandler();
     /// httpClientHandler.Credentials = credentials;
     /// httpClientHandler.PreAuthenticate = true;

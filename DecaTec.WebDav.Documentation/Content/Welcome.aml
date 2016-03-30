@@ -13,6 +13,26 @@
         <para>To get started, add a reference to DecaTec.WebDav.dll to your project.</para>
 
         <para>
+          <legacyBold>Important when using this library in a UWP (Windows 10) project</legacyBold>
+        </para>
+        <para>
+          Currently there is a bug in the System.Net.Http.HttpClient which is referenced in UWP projects (<externalLink>
+            <linkText>see MSDN forums</linkText>
+            <linkUri>https://social.msdn.microsoft.com/Forums/vstudio/en-US/ff66088c-6705-40c0-b839-491b6ed6eb76/uwpwindows-10-bug-in-httpclienthttpwebrequest-when-using-network-credentials?forum=wpdevelop</linkUri>
+          </externalLink>). The WebDavClient uses this HttpClient in order to send its WebDAV request which results in the following exception when accessing WebDAV resources:</para>
+        <quote>
+          <![CDATA[
+System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.NotSupportedException: This IRandomAccessStream does not support the GetInputStreamAt method because it requires cloning and this stream does not support cloning. 
+          ]]>
+        </quote>
+        <para>The bug will be solved in a future release of the System.Net.Http assembly. To be able to use the Portable WebDAV Library in a UWP project, you have to add a reference to the pre-release NuGet package 'System.Net.Http':</para>
+        <para>Right click on your project in Visual Studio > <legacyItalic>Manage NuGet Packages...</legacyItalic> > Browse > Search for 'System.Net.Http' and tick the option <legacyItalic>Include prerelease</legacyItalic> > Now install the latest beta version of this package.</para>
+        <para>
+          <legacyBold>Usage</legacyBold>
+        </para>
+        <para>See the following code which uses a WebDavSession to retrieve the content of a folder:</para>
+
+        <para>
           There are two levels of abstractions included in this library:
           A low level abstraction (class <legacyBold>WebDavClient</legacyBold>) which supports direct access to a WebDAV server and a higher level of abstraction
           (class <legacyBold>WebDavSession</legacyBold>) which hides most of the direct WebDAV communication and provides an easy access to WebDAV resources.
@@ -26,7 +46,7 @@
         <code language="c#">
           <![CDATA[
 // Specify the user credentials and use it to create a WebDavSession instance.
-var credentials = new WebDavCredential("UserName", "MyPassword");
+var credentials = new NetworkCredential("UserName", "MyPassword");
 var webDavSession = new WebDavSession(@"http://www.myserver.com/webdav/", credentials);
 var items = await webDavSession.ListAsync(@"myfolder/");
 
@@ -49,7 +69,7 @@ foreach (var item in items)
         <code language="c#">
           <![CDATA[
 // Specify the user credentials and pass it to a HttpClientHandler.
-var credentials = new WebDavCredential("UserName", "MyPassword");
+var credentials = new NetworkCredential("UserName", "MyPassword");
 var httpClientHandler = new HttpClientHandler();
 httpClientHandler.Credentials = credentials;
 httpClientHandler.PreAuthenticate = true;
@@ -154,8 +174,8 @@ PropFind pf = PropFind.CreatePropFindAllProp();
         server (e.g. a local IIS web server with WebDAV enabled).</para>
         <para>
           <legacyItalic>Important:</legacyItalic>
-          In order to run the unit integrations tests, information about a speficif WebDAV server have to be provided in a configuration file. This has to be a file named "TestConfiguration.txt" 
-          located in the unit integration test project's output folder. This file has to contain exactly three lines:
+          In order to run the unit integrations tests, information about a speficic WebDAV server have to be provided in a configuration file. This has to be a file named 'TestConfiguration.txt' 
+          located in the unit integration test project's output folder (e.g. <legacyItalic>Portable-WebDAV-Library\UnitTests\DecaTec.WebDav.Test.UnitIntegrationTest\bin\Release</legacyItalic>). This file has to contain exactly three lines:
         </para>
         <list class="nobullet">
           <listItem>
