@@ -7,8 +7,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using DecaTec.WebDav;
-using DecaTec.WebDav.Test.Common;
 using System.Net;
+using DecaTec.WebDav.Test.UnitTest;
 
 namespace DecaTec.WebDav.Test.UnitIntegrationTest
 {

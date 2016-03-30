@@ -57,6 +57,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DebugHttpMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTestLockToken.cs" />
     <Compile Include="UnitTestProp.cs" />
@@ -67,10 +68,6 @@
     <Compile Include="UnitTestWebDavTimeoutHeaderValue.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DecaTec.WebDavTest.Common\DecaTec.WebDav.Test.Common.csproj">
-      <Project>{0f43e187-6d28-4a30-b50e-132f7a81f20e}</Project>
-      <Name>DecaTec.WebDav.Test.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DecaTec.WebDav\DecaTec.WebDav.csproj">
       <Project>{e20b6616-b1a4-4f8b-a5a5-de33e951ecc0}</Project>
       <Name>DecaTec.WebDav</Name>

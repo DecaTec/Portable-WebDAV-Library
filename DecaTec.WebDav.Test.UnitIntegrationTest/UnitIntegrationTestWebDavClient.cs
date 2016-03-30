@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 using DecaTec.WebDav.WebDavArtifacts;
-using DecaTec.WebDav.Test.Common;
 using System.Net;
+using DecaTec.WebDav.Test.UnitTest;
 
 namespace DecaTec.WebDav.Test.UnitIntegrationTest
 {

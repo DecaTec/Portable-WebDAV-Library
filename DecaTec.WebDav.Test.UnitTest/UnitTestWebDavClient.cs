@@ -1,5 +1,4 @@
-﻿using DecaTec.WebDav.Test.Common;
-using DecaTec.WebDav.WebDavArtifacts;
+﻿using DecaTec.WebDav.WebDavArtifacts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
