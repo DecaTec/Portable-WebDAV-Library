@@ -41,9 +41,9 @@ namespace DecaTec.WebDav.Test.UnitIntegrationTest
                 this.password = configuration[1];
                 this.webDavRootFolder = configuration[2];
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new FileNotFoundException("The configuration file cannot be found. Make sure that there is a file 'TestConfiguration.txt' in the test's output folder containing data about the WebDAV server to test against.", ConfigurationFile, ex);
             }
         }
 
