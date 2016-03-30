@@ -6,7 +6,9 @@ namespace DecaTec.WebDav
     /// <summary>
     /// Class for credentials of a WebDAV request.
     /// </summary>
-    public class WebDavCredential : ICredentials
+    /// <remarks>As there is a problem using HttpClient and a (custom) class implementing ICredentials with a UWP app, the class WebDavCredential is not longer supported.
+    /// Use NetworkCredential instead.</remarks>
+    public class WebDavCredential : ICredentials, ICredentialsByHost
     {
         #region Constructor
 
@@ -44,6 +46,8 @@ namespace DecaTec.WebDav
             this.Password = password;
             this.Domain = domain;
             this.WebDavAuthenticationType = webDavAuthenticationType;
+
+            throw new WebDavException("As there is a problem using HttpClient and a (custom) class implementing ICredentials with a UWP app, the class WebDavCredential is not longer supported. Use NetworkCredential instead.");
         }
 
         #endregion Constructor
@@ -102,6 +106,21 @@ namespace DecaTec.WebDav
             var credentialCache = new CredentialCache();
             credentialCache.Add(uri, authenticationType, new NetworkCredential(this.UserName, this.Password, this.Domain));
             return credentialCache.GetCredential(uri, authType);
+        }
+
+        /// <summary>
+        /// Gets the NetworkCredential for a host/port and authenticationType specified.
+        /// </summary>
+        /// <param name="host">The host.</param>
+        /// <param name="port">The port.</param>
+        /// <param name="authType">The authentication type.</param>
+        /// <returns>The NetworkCredential.</returns>
+        public NetworkCredential GetCredential(string host, int port, string authType)
+        {
+            var authenticationType = this.WebDavAuthenticationType == null ? authType : this.WebDavAuthenticationType.ToString();
+            var credentialCache = new CredentialCache();
+            credentialCache.Add(host, port, authenticationType, new NetworkCredential(this.UserName, this.Password, this.Domain));
+            return credentialCache.GetCredential(host, port, authType);
         }
 
         #endregion Public methods

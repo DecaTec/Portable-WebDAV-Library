@@ -27,7 +27,7 @@
           <![CDATA[
 // Specify the user credentials and use it to create a WebDavSession instance.
 var credentials = new WebDavCredential("UserName", "MyPassword");
-var webDavSession = new WebDavSession(@"http://www.myserver/webdav/", credentials);
+var webDavSession = new WebDavSession(@"http://www.myserver.com/webdav/", credentials);
 var items = await webDavSession.ListAsync(@"myfolder/");
 
 foreach (var item in items)
@@ -59,11 +59,11 @@ var webDavClient = new WebDavClient(httpClientHandler);
 
 // Create a PropFind object with represents a so called allprop request.
 PropFind pf = PropFind.CreatePropFindAllProp();
-var response = await webDavClient.PropFindAsync(@"http://www.myserver/webdav/myfolder/", WebDavDepthHeaderValue.Infinity, pf);
+var response = await webDavClient.PropFindAsync(@"http://www.myserver.com/webdav/myfolder/", WebDavDepthHeaderValue.Infinity, pf);
 
 // You could also use an XML string directly for use with the WebDavClient.
 // var xmlString = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:allprop /></D:propfind>";
-// var response = await webDavClient.PropFindAsync(@"http://www.myserver/webdav/myfolder/", WebDavDepthHeaderValue.Infinity, xmlString);
+// var response = await webDavClient.PropFindAsync(@"http://www.myserver.com/webdav/myfolder/", WebDavDepthHeaderValue.Infinity, xmlString);
 
 // Use the WebDavResponseContentParser to parse the response message and get a MultiStatus instance (this is also an async method).
 var multistatus = await WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content);

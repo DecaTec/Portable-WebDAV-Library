@@ -27,7 +27,7 @@ namespace DecaTec.WebDav
     /// //
     /// // Speficy the user credentials and use it to create a WebDavSession instance.
     /// var credentials = new WebDavCredential("UserName", "MyPassword");
-    /// var webDavSession = new WebDavSession(@"http://www.myserver/webdav/", credentials);
+    /// var webDavSession = new WebDavSession(@"http://www.myserver.com/webdav/", credentials);
     /// var items = await webDavSession.ListAsync(@"myfolder/");
     ///
     /// foreach (var item in items)
@@ -42,7 +42,7 @@ namespace DecaTec.WebDav
     /// //
     /// // Speficy the user credentials and use it to create a WebDavSession instance.
     /// var credentials = new WebDavCredential("UserName", "MyPassword");
-    /// var webDavSession = new WebDavSession(@"http://www.myserver/webdav/", credentials);
+    /// var webDavSession = new WebDavSession(@"http://www.myserver.com/webdav/", credentials);
     /// await webDavSession.LockAsync(@"Test/");
     ///
     /// // Create new folder and delete it.
@@ -70,9 +70,9 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Initializes a new instance of WebDavSession with a default <see cref="System.Net.Http.HttpClientHandler"/>.
         /// </summary>
-        /// <param name="webDavCredential">The <see cref="DecaTec.WebDav.WebDavCredential"/> to use.</param>
-        public WebDavSession(WebDavCredential webDavCredential)
-            : this(new HttpClientHandler() { PreAuthenticate = true, Credentials = webDavCredential })
+        /// <param name="networkCredential">The <see cref="System.Net.NetworkCredential"/> to use.</param>
+        public WebDavSession(NetworkCredential networkCredential)
+            : this(new HttpClientHandler() { PreAuthenticate = true, Credentials = networkCredential })
         {
         }
 
@@ -80,9 +80,9 @@ namespace DecaTec.WebDav
         /// Initializes a new instance of WebDavSession with the given base URL and a default <see cref="System.Net.Http.HttpClientHandler"/>.
         /// </summary>
         /// <param name="baseUrl">The base URL to use for this WebDavSession.</param>
-        /// <param name="webDavCredential">The <see cref="DecaTec.WebDav.WebDavCredential"/> to use.</param>
-        public WebDavSession(string baseUrl, WebDavCredential webDavCredential)
-            : this(new Uri(baseUrl), new HttpClientHandler() { PreAuthenticate = true, Credentials = webDavCredential })
+        /// <param name="networkCredential">The <see cref="System.Net.NetworkCredential"/> to use.</param>
+        public WebDavSession(string baseUrl, NetworkCredential networkCredential)
+            : this(new Uri(baseUrl), new HttpClientHandler() { PreAuthenticate = true, Credentials = networkCredential })
         {
         }
 
@@ -90,9 +90,9 @@ namespace DecaTec.WebDav
         /// Initializes a new instance of WebDavSession with the given base URI and a default <see cref="System.Net.Http.HttpClientHandler"/>.
         /// </summary>
         /// <param name="baseUri">The base URI to use for this WebDavSession.</param>
-        /// <param name="webDavCredential">The <see cref="DecaTec.WebDav.WebDavCredential"/> to use.</param>
-        public WebDavSession(Uri baseUri, WebDavCredential webDavCredential)
-            : this(baseUri, new HttpClientHandler() { PreAuthenticate = true, Credentials = webDavCredential })
+        /// <param name="networkCredential">The <see cref="System.Net.NetworkCredential"/> to use.</param>
+        public WebDavSession(Uri baseUri, NetworkCredential networkCredential)
+            : this(baseUri, new HttpClientHandler() { PreAuthenticate = true, Credentials = networkCredential })
         {
         }
 

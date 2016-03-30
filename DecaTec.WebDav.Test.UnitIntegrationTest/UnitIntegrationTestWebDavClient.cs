@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using DecaTec.WebDav.WebDavArtifacts;
 using DecaTec.WebDav.Test.Common;
+using System.Net;
 
 namespace DecaTec.WebDav.Test.UnitIntegrationTest
 {
@@ -48,7 +49,7 @@ namespace DecaTec.WebDav.Test.UnitIntegrationTest
 
         private WebDavClient CreateWebDavClientWithDebugHttpMessageHandler()
         {
-            var credentials = new WebDavCredential(this.userName, this.password);
+            var credentials = new NetworkCredential(this.userName, this.password);
             var httpClientHandler = new HttpClientHandler();
             httpClientHandler.Credentials = credentials;
             httpClientHandler.PreAuthenticate = true;

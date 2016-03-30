@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DecaTec.WebDav;
 using DecaTec.WebDav.Test.Common;
+using System.Net;
 
 namespace DecaTec.WebDav.Test.UnitIntegrationTest
 {
@@ -49,7 +50,7 @@ namespace DecaTec.WebDav.Test.UnitIntegrationTest
         {
             var httpClientHandler = new HttpClientHandler();
             httpClientHandler.PreAuthenticate = true;
-            httpClientHandler.Credentials = new WebDavCredential(this.userName, this.password);
+            httpClientHandler.Credentials = new NetworkCredential(this.userName, this.password);
             var debugHttpMessageHandler = new DebugHttpMessageHandler(httpClientHandler);
             var session = new WebDavSession(debugHttpMessageHandler);
             return session;
