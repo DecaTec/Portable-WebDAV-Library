@@ -16,3 +16,8 @@ A full (online) documentation of the library can be found here:
 
 For offline use, you can download the help file (CHM) here:
 **[Portable WebDAV Library offline documentation](https://decatec.de/ext/PortableWebDAVLibrary/Doc/DecaTec.WebDav.Documentation.chm)**
+
+----
+
+## Important when using Portable WebDAV Library in a UWP project
+Currently there is a bug in the _System.Net.Http.HttpClient_ which is referenced in a Universal Windows Platform (UWP) project. See [this wiki article](https://github.com/DecaTec/Portable-WebDAV-Library/wiki/Portable-WebDAV-Library-in-UWP-projects) for more information and a workaround.
