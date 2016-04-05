@@ -332,7 +332,7 @@ namespace DecaTec.WebDav
             if (lockToken != null)
                 requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.ToString(LockTokenFormat.IfHeader));
 
-            var httpResponseMessage = await base.SendAsync(requestMethod, HttpCompletionOption.ResponseContentRead, cancellationToken);
+            var httpResponseMessage = await this.SendAsync(requestMethod, HttpCompletionOption.ResponseContentRead, cancellationToken);
             return new WebDavResponseMessage(httpResponseMessage);
         }
 
@@ -1142,7 +1142,7 @@ namespace DecaTec.WebDav
             if (lockToken != null)
                 requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.ToString(LockTokenFormat.IfHeader));
 
-            var httpResponseMessage = await base.SendAsync(requestMethod, HttpCompletionOption.ResponseContentRead, cancellationToken);
+            var httpResponseMessage = await this.SendAsync(requestMethod, HttpCompletionOption.ResponseContentRead, cancellationToken);
             return new WebDavResponseMessage(httpResponseMessage);
         }
 
@@ -1721,7 +1721,7 @@ namespace DecaTec.WebDav
             if (lockToken != null)
                 requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.ToString(LockTokenFormat.IfHeader));
 
-            var httpResponseMessage = await base.SendAsync(requestMethod, HttpCompletionOption.ResponseContentRead, cancellationToken);
+            var httpResponseMessage = await this.SendAsync(requestMethod, HttpCompletionOption.ResponseContentRead, cancellationToken);
             return new WebDavResponseMessage(httpResponseMessage);
         }
 

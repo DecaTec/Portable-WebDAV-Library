@@ -1,0 +1,787 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpKI>
+  <HelpKINode Title="Accepted enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="ActiveLock class">
+    <HelpKINode Title="ActiveLock Class" Url="html/47e87c4f-900b-8de1-c664-27372ac36ba4.htm" />
+    <HelpKINode Title="about ActiveLock class" Url="html/47e87c4f-900b-8de1-c664-27372ac36ba4.htm" />
+    <HelpKINode Title="constructor" Url="html/32b02d4b-473e-bc97-98ff-12f6518e628a.htm" />
+    <HelpKINode Title="methods" Url="html/b8e7d1d2-41ee-03cb-6fc0-b3152a111595.htm" />
+    <HelpKINode Title="properties" Url="html/09589d2a-7107-467b-a037-4d5504d50c77.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ActiveLock property" Url="html/970a768c-3c8b-9c69-65e5-79e4dcc2746d.htm" />
+  <HelpKINode Title="ActiveLock.ActiveLock constructor" Url="html/32b02d4b-473e-bc97-98ff-12f6518e628a.htm" />
+  <HelpKINode Title="ActiveLock.Depth property" Url="html/28e2b6e7-7ed0-dd20-59ae-64d74aed6994.htm" />
+  <HelpKINode Title="ActiveLock.LockRoot property" Url="html/6b4328aa-731d-4430-387a-79dd3a213a68.htm" />
+  <HelpKINode Title="ActiveLock.LockScope property" Url="html/7e38f7fb-7c32-0e8f-bf4a-952db3224959.htm" />
+  <HelpKINode Title="ActiveLock.LockToken property" Url="html/c77bc073-0dc5-f79d-dfa0-30324253cc4b.htm" />
+  <HelpKINode Title="ActiveLock.LockType property" Url="html/741f3b2f-5e0b-fd62-eee8-a8fb56e3dc7d.htm" />
+  <HelpKINode Title="ActiveLock.Owner property" Url="html/363b9854-b7c4-dd9f-f9bb-37c10c29613f.htm" />
+  <HelpKINode Title="ActiveLock.Timeout property" Url="html/d5e315d1-be13-0b46-1db6-e6b74c045095.htm" />
+  <HelpKINode Title="AddTrailingSlash method" Url="html/caef698f-9de2-52c5-2b9b-3762036ab770.htm" />
+  <HelpKINode Title="AllProp class">
+    <HelpKINode Title="AllProp Class" Url="html/617013fb-692c-4772-4a70-ffcc0757fcf9.htm" />
+    <HelpKINode Title="about AllProp class" Url="html/617013fb-692c-4772-4a70-ffcc0757fcf9.htm" />
+    <HelpKINode Title="constructor" Url="html/6b7df897-dd7c-89eb-5f99-880d2a9066a7.htm" />
+    <HelpKINode Title="methods" Url="html/05261b06-5270-9820-2e69-d1f6450158f6.htm" />
+  </HelpKINode>
+  <HelpKINode Title="AllProp.AllProp constructor" Url="html/6b7df897-dd7c-89eb-5f99-880d2a9066a7.htm" />
+  <HelpKINode Title="Ambiguous enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="BadGateway enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="BadRequest enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="BaseUri property" Url="html/8a065e31-ff35-e511-3ab4-39f9eea95e9a.htm" />
+  <HelpKINode Title="Basic field" Url="html/2abd51d2-7475-f899-ce5b-cdbbabf3904a.htm" />
+  <HelpKINode Title="Collection class">
+    <HelpKINode Title="Collection Class" Url="html/f385cafb-1f71-6c1a-c964-05678fcd7bd1.htm" />
+    <HelpKINode Title="about Collection class" Url="html/f385cafb-1f71-6c1a-c964-05678fcd7bd1.htm" />
+    <HelpKINode Title="constructor" Url="html/8abf29e2-7b3c-45d8-1753-7028a4f94412.htm" />
+    <HelpKINode Title="methods" Url="html/1cc3f09e-cb90-9144-7171-045c5c91aeb5.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Collection property" Url="html/298e1a54-d8ab-caeb-02de-03cb5dff6e34.htm" />
+  <HelpKINode Title="Collection.Collection constructor" Url="html/8abf29e2-7b3c-45d8-1753-7028a4f94412.htm" />
+  <HelpKINode Title="Conflict enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="ContentClass property" Url="html/8a82a7d7-ae4a-adbc-77bf-7e4f601624cb.htm" />
+  <HelpKINode Title="ContentType property" Url="html/ddcee8cc-9666-0f28-5081-7f59d3827977.htm" />
+  <HelpKINode Title="Continue enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="Copy field" Url="html/dd1e27ae-9d63-3182-8042-c7450b8adc55.htm" />
+  <HelpKINode Title="CopyAsync method">
+    <HelpKINode Title="WebDavClient.CopyAsync Method " Url="html/c559c5d2-3dfd-8237-a954-14a582f71696.htm" />
+    <HelpKINode Title="WebDavSession.CopyAsync Method " Url="html/3885f913-f749-03fa-0503-47469c0f6949.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Created enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="Created property" Url="html/050a9c76-3f32-d42d-e300-4b991ec54179.htm" />
+  <HelpKINode Title="CreateDirectoryAsync method" Url="html/ac50428b-2413-ea7f-b200-867bf3dc0a4c.htm" />
+  <HelpKINode Title="CreateExclusiveLockScope method" Url="html/8dc5a180-6125-a62c-ccea-1f408f5eea63.htm" />
+  <HelpKINode Title="CreateInfiniteWebDavTimeout method" Url="html/3be1e079-72e5-97fe-f4c6-adb6aa0d2664.htm" />
+  <HelpKINode Title="CreateInfiniteWebDavTimeoutWithAlternative method" Url="html/07a25a13-5ce6-d8af-fbe8-7527d82a9e8c.htm" />
+  <HelpKINode Title="CreatePropFindAllProp method" Url="html/8406f64d-2704-8954-5599-b7d3fbd2dd78.htm" />
+  <HelpKINode Title="CreatePropFindWithEmptyProperties method" Url="html/52e80c88-fc69-9271-3b6d-e82ed1729545.htm" />
+  <HelpKINode Title="CreatePropFindWithPropName method" Url="html/ba99adc1-6149-e999-8e07-42f40d33010d.htm" />
+  <HelpKINode Title="CreatePropWithEmptyProperties method" Url="html/376023d0-88b6-c017-c8e1-6e7d938c6fc1.htm" />
+  <HelpKINode Title="CreateSharedLockScope method" Url="html/ad063b1e-6711-00ac-60ca-bd3b15d2392b.htm" />
+  <HelpKINode Title="CreateWebDavTimeout method" Url="html/aa66ae8a-c63d-2454-c9db-4dc5ecd62ed1.htm" />
+  <HelpKINode Title="CreateWriteLockType method" Url="html/83076c92-3e74-39ed-6f92-00069a547efc.htm" />
+  <HelpKINode Title="CreationDate property" Url="html/8a398753-5deb-6de4-cfd6-7c7cd98eb5f6.htm" />
+  <HelpKINode Title="CreationDateSpecified property" Url="html/3a10d47a-7681-beac-98ac-0cb56ac0076e.htm" />
+  <HelpKINode Title="DecaTec.WebDav namespace" Url="html/6c7ed359-f8ac-cdef-fb54-9df85b9aed90.htm" />
+  <HelpKINode Title="DecaTec.WebDav.LockToken class" Url="html/fcf7a3d3-dc03-ff37-d5e2-6b53a8723543.htm" />
+  <HelpKINode Title="DecaTec.WebDav.LockTokenFormat enumeration" Url="html/d1acc249-d5f9-d246-c65c-30b6377d781e.htm" />
+  <HelpKINode Title="DecaTec.WebDav.UrlHelper class" Url="html/6448d8e0-ac55-203f-22ad-b3ad596d2c41.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts namespace" Url="html/52484c58-28c3-1300-ade4-ac40d6e8b08c.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.ActiveLock class" Url="html/47e87c4f-900b-8de1-c664-27372ac36ba4.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.AllProp class" Url="html/617013fb-692c-4772-4a70-ffcc0757fcf9.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.Collection class" Url="html/f385cafb-1f71-6c1a-c964-05678fcd7bd1.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.Exclusive class" Url="html/a6733bf8-c005-d432-49b9-d2e109611533.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.Include class" Url="html/c3983830-5886-6c1e-3f61-dacd201882d2.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.ItemsChoiceType enumeration" Url="html/009fa8e2-e92e-6772-9c73-4719714552b6.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.KeepAlive class" Url="html/4bbe5b80-79dc-4dbf-8562-efb70d237ff8.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.Link class" Url="html/ae57fd89-eca7-6954-31ce-148f601909cf.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.LockDiscovery class" Url="html/400efdd0-7711-110b-7480-b0dda34b9d61.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.LockEntry class" Url="html/da798f20-731c-3ef9-5f7d-2f31e1743574.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.LockInfo class" Url="html/543f116c-4822-bb6d-5e54-e47d671c01bb.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.LockRoot class" Url="html/4a75bc97-719e-6194-e87e-9064af4afa44.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.LockScope class" Url="html/d8954e9f-b200-8f0f-1c4e-75b601331335.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.LockType class" Url="html/8afc219d-b32d-240f-9081-ff93bd265a1b.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.Multistatus class" Url="html/1aac4bf7-843f-9463-1390-35f0f95c42c5.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.Omit class" Url="html/1586404f-8104-bada-745b-d241b95a12bf.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.OwnerHref class" Url="html/2d9c43a3-e115-2eb5-cd48-5fa7d9431d7d.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.Prop class" Url="html/b46d99da-27f2-84d5-2270-394c0fb28f32.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.PropertyBehavior class" Url="html/7e6ae4d4-f438-4815-ac9a-a0fc6e5db1eb.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.PropertyUpdate class" Url="html/276a6fe5-1cdf-0ede-93a7-3865da981fcb.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.PropFind class" Url="html/7187608d-5179-475a-cc53-3b3d8ac4f9c0.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.PropName class" Url="html/6b7931dc-63c6-7504-bad3-3d8de855ecec.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.Propstat class" Url="html/48b6573c-4c83-925e-cb93-a556cb64253f.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.Remove class" Url="html/0f90e0d4-f11d-6acb-f351-f5c324054eef.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.ResourceType class" Url="html/dc32565b-c63d-8027-171a-5e3e04379c7d.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.Response class" Url="html/a9cd334f-80c8-1131-5c7f-2f07fa9cfa99.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.Set class" Url="html/984e184e-df43-8feb-21fc-fd7954d0bf37.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.Shared class" Url="html/52f5fca2-7d69-35bd-c93f-98b26961ee74.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.Source class" Url="html/841f66ba-d2d6-4017-519a-ff38f987d8e9.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.SupportedLock class" Url="html/cdfd2b78-efb4-e97a-0576-08b2289b652e.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.WebDavLockToken class" Url="html/0f297c4b-bd10-4e34-f611-0d09c92cc886.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavArtifacts.Write class" Url="html/1105aa6b-9f10-fe67-cc5c-498a41a0cc3b.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavAuthenticationType class" Url="html/aa202db1-20d1-4806-c537-519f1d272118.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavClient class" Url="html/fb2b9408-0211-49cd-c8b7-ffe7f8739bf1.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavCredential class" Url="html/6973cd93-8927-020b-c829-2416b9da494e.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavDepthHeaderValue class" Url="html/d94f4857-c3bb-412b-f6de-213e4fc0cd36.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavException class" Url="html/ae3f9c9c-5dfb-bbcb-1a9e-92354a813975.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavHelper class" Url="html/ec56430b-10d9-a278-a298-2a914a534480.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavMethod class" Url="html/801be70d-4d4c-d4ab-ce4a-ad3506966541.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavOverwriteHeaderValue class" Url="html/f79bce08-89e2-8c67-3fea-56c3e49454f7.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavRequestHeader class" Url="html/d46e25d0-5d1b-eb0b-04c6-60f39ee6b587.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavResponseContentParser class" Url="html/8288755d-f0c7-e355-4b04-1038178eff6c.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavResponseMessage class" Url="html/8b43ba21-3519-cfff-6c21-ff78bd5865fc.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavSession class" Url="html/fc9275b2-c6ad-7030-9c6d-c06eae24708c.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavSessionListItem class" Url="html/818f45c3-d26c-d5e0-13ec-8ada4b49d3f9.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavStatusCode enumeration" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="DecaTec.WebDav.WebDavTimeoutHeaderValue class" Url="html/b35c1a6f-ced8-5070-e1d4-b45d2f2817cb.htm" />
+  <HelpKINode Title="DefaultDocument property" Url="html/eecdc7c0-d4ba-e204-784c-1e89d9731216.htm" />
+  <HelpKINode Title="DeleteAsync method">
+    <HelpKINode Title="WebDavClient.DeleteAsync Method " Url="html/bb5e4a2a-08e3-e5b7-0927-0dd73f94ff0d.htm" />
+    <HelpKINode Title="WebDavSession.DeleteAsync Method " Url="html/a50afebf-a462-39ca-383a-3b8a68d7155a.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Depth field" Url="html/81d2d413-2a69-9186-2773-cf3a3a124ade.htm" />
+  <HelpKINode Title="Depth property" Url="html/28e2b6e7-7ed0-dd20-59ae-64d74aed6994.htm" />
+  <HelpKINode Title="Destination field" Url="html/86107e6d-2c78-4ac6-2293-f5d5e29f60cd.htm" />
+  <HelpKINode Title="Digest field" Url="html/f212105f-5d01-6a96-9dc0-aa7da09d270e.htm" />
+  <HelpKINode Title="DisplayName property" Url="html/d5ac3743-c987-29bb-5325-a6aef90214bd.htm" />
+  <HelpKINode Title="Dispose method" Url="html/7c9ae6bb-ad2b-8822-6d3a-33b9a9c09a48.htm" />
+  <HelpKINode Title="Domain property" Url="html/c7be26cb-957f-ad48-7b31-a1c432774054.htm" />
+  <HelpKINode Title="DownloadFileAsync method" Url="html/2f2b555d-a6c3-d1d3-c2f8-f3b5c6d366a8.htm" />
+  <HelpKINode Title="Dst property" Url="html/f94fca1c-b78a-ad70-5ac6-f2e7ecd050c6.htm" />
+  <HelpKINode Title="Exclusive class">
+    <HelpKINode Title="Exclusive Class" Url="html/a6733bf8-c005-d432-49b9-d2e109611533.htm" />
+    <HelpKINode Title="about Exclusive class" Url="html/a6733bf8-c005-d432-49b9-d2e109611533.htm" />
+    <HelpKINode Title="constructor" Url="html/191adcaf-0b60-82b3-d868-1cd8b92534b1.htm" />
+    <HelpKINode Title="methods" Url="html/f4a54849-a414-54ed-b469-145012c2f5a9.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Exclusive.Exclusive constructor" Url="html/191adcaf-0b60-82b3-d868-1cd8b92534b1.htm" />
+  <HelpKINode Title="ExistsAsync method" Url="html/91cd212b-4c37-85bb-f611-12a4f1972848.htm" />
+  <HelpKINode Title="ExpectationFailed enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="FailedDependency enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="Forbidden enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="Found enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="GatewayTimeout enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="GetAbsoluteUri method" Url="html/a2b74b4a-3df1-e4ae-1fd9-201f63f21c5c.htm" />
+  <HelpKINode Title="GetAbsoluteUriWithTrailingSlash method" Url="html/4bf223e4-c20f-32e2-07f7-b621f106dc9d.htm" />
+  <HelpKINode Title="GetAsync method" Url="html/8759fdfb-0a18-ac8e-99df-8d6a52386b75.htm" />
+  <HelpKINode Title="GetContentLanguage property" Url="html/c2d2f878-a3be-34f2-4984-2ab26d2e3959.htm" />
+  <HelpKINode Title="GetContentLength property" Url="html/b333894a-31ff-f847-9860-7e98f2d487cc.htm" />
+  <HelpKINode Title="GetContentType property" Url="html/a8a986c1-c78a-949f-73c3-40793e649043.htm" />
+  <HelpKINode Title="GetCredential method" Url="html/b1d3e9c0-16ef-83b3-6082-74b81e5287d3.htm" />
+  <HelpKINode Title="GetEtag property" Url="html/9b31bacc-d11f-93e8-986a-e18fb7a371a7.htm" />
+  <HelpKINode Title="GetLastModified property" Url="html/489bff71-075d-b500-2f0e-96bbd0235707.htm" />
+  <HelpKINode Title="GetLockTokenFromWebDavResponseMessage method" Url="html/fc1f3b71-7249-9dfb-ae4a-24385eb56294.htm" />
+  <HelpKINode Title="GetUtf8EncodedXmlWebDavRequestString method" Url="html/623a8648-30f6-4d24-ff29-204ad6d61064.htm" />
+  <HelpKINode Title="Gone enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="HeadAsync method" Url="html/66b0e5db-c608-c93e-8193-3bc0f0c0a3b9.htm" />
+  <HelpKINode Title="href enumeration member" Url="html/009fa8e2-e92e-6772-9c73-4719714552b6.htm" />
+  <HelpKINode Title="Href property">
+    <HelpKINode Title="KeepAlive.Href Property " Url="html/84f7d645-b174-c493-d4c2-ab4db12b441b.htm" />
+    <HelpKINode Title="LockRoot.Href Property " Url="html/2e413359-763b-3567-8354-6493a745ed96.htm" />
+    <HelpKINode Title="OwnerHref.Href Property " Url="html/04ea89be-91db-a538-5cd1-7dd510edd6f1.htm" />
+    <HelpKINode Title="Prop.Href Property " Url="html/a8c991dd-ad18-ed91-b2f6-af9943e17bcf.htm" />
+    <HelpKINode Title="Response.Href Property " Url="html/5b5497b6-513e-e38b-ffa0-76046b78a00b.htm" />
+    <HelpKINode Title="WebDavLockToken.Href Property " Url="html/e8115b5d-c7c3-233f-2f25-b6f798170f01.htm" />
+  </HelpKINode>
+  <HelpKINode Title="HttpVersionNotSupported enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="If field" Url="html/b8124bf2-c2a8-5370-aae7-5282265f9108.htm" />
+  <HelpKINode Title="IfHeader enumeration member" Url="html/d1acc249-d5f9-d246-c65c-30b6377d781e.htm" />
+  <HelpKINode Title="Include class">
+    <HelpKINode Title="Include Class" Url="html/c3983830-5886-6c1e-3f61-dacd201882d2.htm" />
+    <HelpKINode Title="about Include class" Url="html/c3983830-5886-6c1e-3f61-dacd201882d2.htm" />
+    <HelpKINode Title="constructor" Url="html/83c9c115-7a59-f258-6736-7afb37b0841f.htm" />
+    <HelpKINode Title="methods" Url="html/13521cfc-911c-fd8f-01f7-a931c2d41429.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Include.Include constructor" Url="html/83c9c115-7a59-f258-6736-7afb37b0841f.htm" />
+  <HelpKINode Title="Infinity field" Url="html/7a3033f8-8342-ed07-1cce-3fbee30bfde2.htm" />
+  <HelpKINode Title="InsufficientStorage enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="InternalServerError enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="IsCollection property" Url="html/3544f81d-8774-e812-b52e-22ac11cd0096.htm" />
+  <HelpKINode Title="IsDirectory property" Url="html/7cefa085-ebd0-bf0d-23e2-9a34cb9ca002.htm" />
+  <HelpKINode Title="IsHidden property" Url="html/0d49e00a-df4c-b88d-e5d4-bc073a2bd4ef.htm" />
+  <HelpKINode Title="IsReadonly property" Url="html/d0dfbc27-f7e8-66c9-f9bf-d74c1aa445f0.htm" />
+  <HelpKINode Title="IsRoot property" Url="html/0322d33b-72d1-62dd-4a16-c67b0a4fc8aa.htm" />
+  <HelpKINode Title="IsStructuredDocument property" Url="html/ecbae7d2-7b58-b20e-7e9d-b42f5a0f8ac1.htm" />
+  <HelpKINode Title="Item property">
+    <HelpKINode Title="LockScope.Item Property " Url="html/017b85ed-ee36-ef30-f15c-06dbdd5b97b1.htm" />
+    <HelpKINode Title="PropertyBehavior.Item Property " Url="html/6e244e22-a853-021d-9858-0b551728394e.htm" />
+    <HelpKINode Title="PropFind.Item Property " Url="html/48f0523b-ec04-78ed-ae54-8f60cb46aa2b.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Items property">
+    <HelpKINode Title="PropertyUpdate.Items Property " Url="html/8eb17a4d-a658-8da3-5217-fe8618622279.htm" />
+    <HelpKINode Title="Response.Items Property " Url="html/77064436-266d-a524-2433-ea9aece81175.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ItemsChoiceType enumeration" Url="html/009fa8e2-e92e-6772-9c73-4719714552b6.htm" />
+  <HelpKINode Title="ItemsElementName property" Url="html/6e40aca7-44d2-7c15-aeee-f57ca5196add.htm" />
+  <HelpKINode Title="KeepAlive class">
+    <HelpKINode Title="KeepAlive Class" Url="html/4bbe5b80-79dc-4dbf-8562-efb70d237ff8.htm" />
+    <HelpKINode Title="about KeepAlive class" Url="html/4bbe5b80-79dc-4dbf-8562-efb70d237ff8.htm" />
+    <HelpKINode Title="constructor" Url="html/16364462-0026-09b4-0495-56b721fed03c.htm" />
+    <HelpKINode Title="methods" Url="html/18aa7bb2-cb55-7a06-5caa-1623589769c7.htm" />
+    <HelpKINode Title="properties" Url="html/f6bd465a-631e-0ab2-22bb-5a7059af9c9f.htm" />
+  </HelpKINode>
+  <HelpKINode Title="KeepAlive.Href property" Url="html/84f7d645-b174-c493-d4c2-ab4db12b441b.htm" />
+  <HelpKINode Title="KeepAlive.KeepAlive constructor" Url="html/16364462-0026-09b4-0495-56b721fed03c.htm" />
+  <HelpKINode Title="KeepAlive.Text property" Url="html/01c94485-7d3f-4c0c-a148-36e2e97ad22e.htm" />
+  <HelpKINode Title="Kerberos field" Url="html/0c60e527-7345-7760-c243-d9ad3286c6ac.htm" />
+  <HelpKINode Title="LastAccessed property" Url="html/9732cc7f-3aad-901e-4e37-0f8e8538c9d0.htm" />
+  <HelpKINode Title="LengthRequired enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="Link class">
+    <HelpKINode Title="Link Class" Url="html/ae57fd89-eca7-6954-31ce-148f601909cf.htm" />
+    <HelpKINode Title="about Link class" Url="html/ae57fd89-eca7-6954-31ce-148f601909cf.htm" />
+    <HelpKINode Title="constructor" Url="html/266c7a3b-ac67-29de-7062-be08cee63247.htm" />
+    <HelpKINode Title="methods" Url="html/194e4020-1592-47f0-d6fc-f94d0b412d26.htm" />
+    <HelpKINode Title="properties" Url="html/dad4f1e1-e325-9daf-036b-2f9af580d829.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Link property" Url="html/a80e4dcb-3bad-4d4d-8c5d-fa38903b3550.htm" />
+  <HelpKINode Title="Link.Dst property" Url="html/f94fca1c-b78a-ad70-5ac6-f2e7ecd050c6.htm" />
+  <HelpKINode Title="Link.Link constructor" Url="html/266c7a3b-ac67-29de-7062-be08cee63247.htm" />
+  <HelpKINode Title="Link.Src property" Url="html/b113481e-e42e-88e1-f780-2105d10b70a9.htm" />
+  <HelpKINode Title="ListAsync method" Url="html/5563e39e-799b-5362-0885-f82e1b2c804c.htm" />
+  <HelpKINode Title="Lock field" Url="html/ba22b746-5e43-4228-bcb2-42c5472343ac.htm" />
+  <HelpKINode Title="LockAsync method">
+    <HelpKINode Title="WebDavClient.LockAsync Method " Url="html/a71deb8c-d84b-f192-2fe3-1d4dbcd93958.htm" />
+    <HelpKINode Title="WebDavSession.LockAsync Method " Url="html/0c02fb72-566e-15f0-8800-4c9f3c41257d.htm" />
+  </HelpKINode>
+  <HelpKINode Title="LockDiscovery class">
+    <HelpKINode Title="LockDiscovery Class" Url="html/400efdd0-7711-110b-7480-b0dda34b9d61.htm" />
+    <HelpKINode Title="about LockDiscovery class" Url="html/400efdd0-7711-110b-7480-b0dda34b9d61.htm" />
+    <HelpKINode Title="constructor" Url="html/7a836917-a65a-75f5-0810-c7a726d1e446.htm" />
+    <HelpKINode Title="methods" Url="html/15802500-9158-2496-2d3e-fd02a6096927.htm" />
+    <HelpKINode Title="properties" Url="html/5abc9c2b-f379-13f9-7e3d-489b150629ce.htm" />
+  </HelpKINode>
+  <HelpKINode Title="LockDiscovery property" Url="html/4724b424-b7a6-9685-cc4f-dc6ab92a1939.htm" />
+  <HelpKINode Title="LockDiscovery.ActiveLock property" Url="html/970a768c-3c8b-9c69-65e5-79e4dcc2746d.htm" />
+  <HelpKINode Title="LockDiscovery.LockDiscovery constructor" Url="html/7a836917-a65a-75f5-0810-c7a726d1e446.htm" />
+  <HelpKINode Title="Locked enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="LockEntry class">
+    <HelpKINode Title="LockEntry Class" Url="html/da798f20-731c-3ef9-5f7d-2f31e1743574.htm" />
+    <HelpKINode Title="about LockEntry class" Url="html/da798f20-731c-3ef9-5f7d-2f31e1743574.htm" />
+    <HelpKINode Title="constructor" Url="html/0fb1bb4f-e2b7-90ce-0b68-023e590c768a.htm" />
+    <HelpKINode Title="methods" Url="html/aaa71738-424c-c5a4-d911-d20d0625a506.htm" />
+    <HelpKINode Title="properties" Url="html/8008ad3f-fd66-750c-3974-0e6d4424e717.htm" />
+  </HelpKINode>
+  <HelpKINode Title="LockEntry property" Url="html/f2918103-9130-b242-50dc-8419f6ce39ed.htm" />
+  <HelpKINode Title="LockEntry.LockEntry constructor" Url="html/0fb1bb4f-e2b7-90ce-0b68-023e590c768a.htm" />
+  <HelpKINode Title="LockEntry.LockScope property" Url="html/c1935b8e-54f8-9890-e192-3207e0761c22.htm" />
+  <HelpKINode Title="LockEntry.LockType property" Url="html/1930fad2-fa1c-4a16-cc47-f65f82841273.htm" />
+  <HelpKINode Title="LockInfo class">
+    <HelpKINode Title="LockInfo Class" Url="html/543f116c-4822-bb6d-5e54-e47d671c01bb.htm" />
+    <HelpKINode Title="about LockInfo class" Url="html/543f116c-4822-bb6d-5e54-e47d671c01bb.htm" />
+    <HelpKINode Title="constructor" Url="html/233ab881-c777-4d45-d6cf-cf9cc4522511.htm" />
+    <HelpKINode Title="methods" Url="html/c40c4130-9d01-e236-234e-f278a757c451.htm" />
+    <HelpKINode Title="properties" Url="html/aafadaca-7b8b-40da-b69e-49d973f8a0b9.htm" />
+  </HelpKINode>
+  <HelpKINode Title="LockInfo.LockInfo constructor" Url="html/233ab881-c777-4d45-d6cf-cf9cc4522511.htm" />
+  <HelpKINode Title="LockInfo.LockScope property" Url="html/16cd9e0a-b665-5c12-4661-ff308795f72d.htm" />
+  <HelpKINode Title="LockInfo.LockType property" Url="html/14c2b62a-c4e9-c117-bc01-d546c75afe83.htm" />
+  <HelpKINode Title="LockInfo.Owner property" Url="html/b844c5cc-4318-3691-e8a6-57667cd9736f.htm" />
+  <HelpKINode Title="LockRoot class">
+    <HelpKINode Title="LockRoot Class" Url="html/4a75bc97-719e-6194-e87e-9064af4afa44.htm" />
+    <HelpKINode Title="about LockRoot class" Url="html/4a75bc97-719e-6194-e87e-9064af4afa44.htm" />
+    <HelpKINode Title="constructor" Url="html/ecb1f9bb-51ac-d20f-a2f6-9435a67b5b72.htm" />
+    <HelpKINode Title="methods" Url="html/25897a47-6485-e91a-cdc5-055a23705423.htm" />
+    <HelpKINode Title="properties" Url="html/3631173b-5785-baa9-1a1a-bc7db6b8f03a.htm" />
+  </HelpKINode>
+  <HelpKINode Title="LockRoot property" Url="html/6b4328aa-731d-4430-387a-79dd3a213a68.htm" />
+  <HelpKINode Title="LockRoot.Href property" Url="html/2e413359-763b-3567-8354-6493a745ed96.htm" />
+  <HelpKINode Title="LockRoot.LockRoot constructor" Url="html/ecb1f9bb-51ac-d20f-a2f6-9435a67b5b72.htm" />
+  <HelpKINode Title="LockScope class">
+    <HelpKINode Title="LockScope Class" Url="html/d8954e9f-b200-8f0f-1c4e-75b601331335.htm" />
+    <HelpKINode Title="about LockScope class" Url="html/d8954e9f-b200-8f0f-1c4e-75b601331335.htm" />
+    <HelpKINode Title="constructor" Url="html/94a22223-7f6c-f6a7-0cc0-7fda6f2d3892.htm" />
+    <HelpKINode Title="methods" Url="html/d47c9ff9-f9af-9c8e-e4dd-2b779dae6782.htm" />
+    <HelpKINode Title="properties" Url="html/4c401439-3b16-6d24-d23c-0eeee941bd35.htm" />
+  </HelpKINode>
+  <HelpKINode Title="LockScope property">
+    <HelpKINode Title="ActiveLock.LockScope Property " Url="html/7e38f7fb-7c32-0e8f-bf4a-952db3224959.htm" />
+    <HelpKINode Title="LockEntry.LockScope Property " Url="html/c1935b8e-54f8-9890-e192-3207e0761c22.htm" />
+    <HelpKINode Title="LockInfo.LockScope Property " Url="html/16cd9e0a-b665-5c12-4661-ff308795f72d.htm" />
+  </HelpKINode>
+  <HelpKINode Title="LockScope.CreateExclusiveLockScope method" Url="html/8dc5a180-6125-a62c-ccea-1f408f5eea63.htm" />
+  <HelpKINode Title="LockScope.CreateSharedLockScope method" Url="html/ad063b1e-6711-00ac-60ca-bd3b15d2392b.htm" />
+  <HelpKINode Title="LockScope.Item property" Url="html/017b85ed-ee36-ef30-f15c-06dbdd5b97b1.htm" />
+  <HelpKINode Title="LockScope.LockScope constructor" Url="html/94a22223-7f6c-f6a7-0cc0-7fda6f2d3892.htm" />
+  <HelpKINode Title="LockTocken field" Url="html/bb11c26c-b06e-5140-be40-cd9f45c55881.htm" />
+  <HelpKINode Title="LockToken class">
+    <HelpKINode Title="LockToken Class" Url="html/fcf7a3d3-dc03-ff37-d5e2-6b53a8723543.htm" />
+    <HelpKINode Title="about LockToken class" Url="html/fcf7a3d3-dc03-ff37-d5e2-6b53a8723543.htm" />
+    <HelpKINode Title="constructor" Url="html/1d0135bf-aeab-dded-62db-dfc187ddc218.htm" />
+    <HelpKINode Title="methods" Url="html/27b462ec-6d85-14df-896c-8e6b81ae0cf2.htm" />
+  </HelpKINode>
+  <HelpKINode Title="LockToken property" Url="html/c77bc073-0dc5-f79d-dfa0-30324253cc4b.htm" />
+  <HelpKINode Title="LockToken.LockToken constructor" Url="html/1d0135bf-aeab-dded-62db-dfc187ddc218.htm" />
+  <HelpKINode Title="LockToken.ToString method" Url="html/74b4827e-c4bc-925d-3f76-402afc4e52f8.htm" />
+  <HelpKINode Title="LockTokenFormat enumeration" Url="html/d1acc249-d5f9-d246-c65c-30b6377d781e.htm" />
+  <HelpKINode Title="LockTokenHeader enumeration member" Url="html/d1acc249-d5f9-d246-c65c-30b6377d781e.htm" />
+  <HelpKINode Title="LockType class">
+    <HelpKINode Title="LockType Class" Url="html/8afc219d-b32d-240f-9081-ff93bd265a1b.htm" />
+    <HelpKINode Title="about LockType class" Url="html/8afc219d-b32d-240f-9081-ff93bd265a1b.htm" />
+    <HelpKINode Title="constructor" Url="html/a16e7915-d530-3e52-1778-5bc3ec5106c9.htm" />
+    <HelpKINode Title="methods" Url="html/66b14acb-99e4-6ef5-dd46-43138122e190.htm" />
+    <HelpKINode Title="properties" Url="html/99a4cb1e-3c28-bddf-3096-3d4b1362fa2f.htm" />
+  </HelpKINode>
+  <HelpKINode Title="LockType property">
+    <HelpKINode Title="ActiveLock.LockType Property " Url="html/741f3b2f-5e0b-fd62-eee8-a8fb56e3dc7d.htm" />
+    <HelpKINode Title="LockEntry.LockType Property " Url="html/1930fad2-fa1c-4a16-cc47-f65f82841273.htm" />
+    <HelpKINode Title="LockInfo.LockType Property " Url="html/14c2b62a-c4e9-c117-bc01-d546c75afe83.htm" />
+  </HelpKINode>
+  <HelpKINode Title="LockType.CreateWriteLockType method" Url="html/83076c92-3e74-39ed-6f92-00069a547efc.htm" />
+  <HelpKINode Title="LockType.LockType constructor" Url="html/a16e7915-d530-3e52-1778-5bc3ec5106c9.htm" />
+  <HelpKINode Title="LockType.Write property" Url="html/fed0722e-9e16-e490-0181-49bcb7bfc3f0.htm" />
+  <HelpKINode Title="MethodNotAllowed enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="Mkcol field" Url="html/c2db2033-dad6-8629-7d2c-d7d61d516ec1.htm" />
+  <HelpKINode Title="MkcolAsync method" Url="html/12805208-6385-7b93-2882-3657f95c7db6.htm" />
+  <HelpKINode Title="Modified property" Url="html/3c05eb3e-da6e-c8bd-969d-9f987185eddc.htm" />
+  <HelpKINode Title="Move field" Url="html/a5776b64-a46e-d503-42dc-255b1dbfd62b.htm" />
+  <HelpKINode Title="MoveAsync method">
+    <HelpKINode Title="WebDavClient.MoveAsync Method " Url="html/84da5e37-e5c0-def1-ff9d-55491feec273.htm" />
+    <HelpKINode Title="WebDavSession.MoveAsync Method " Url="html/f1a74e03-ec98-8099-1762-55c93a92aaa5.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Moved enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="MovedPermanently enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="MultipleChoices enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="Multistatus class">
+    <HelpKINode Title="Multistatus Class" Url="html/1aac4bf7-843f-9463-1390-35f0f95c42c5.htm" />
+    <HelpKINode Title="about Multistatus class" Url="html/1aac4bf7-843f-9463-1390-35f0f95c42c5.htm" />
+    <HelpKINode Title="constructor" Url="html/597bad4d-1d3b-e9ed-1cb3-3a0f9655989e.htm" />
+    <HelpKINode Title="methods" Url="html/14cdee16-5e5f-db75-0ee2-2ccf020638a3.htm" />
+    <HelpKINode Title="properties" Url="html/daa0878d-0281-dcd2-4c9a-9c4f18e5a397.htm" />
+  </HelpKINode>
+  <HelpKINode Title="MultiStatus enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="Multistatus.Multistatus constructor" Url="html/597bad4d-1d3b-e9ed-1cb3-3a0f9655989e.htm" />
+  <HelpKINode Title="Multistatus.Response property" Url="html/21ad1fdc-a966-72b6-fa71-f2ebd2ede860.htm" />
+  <HelpKINode Title="Multistatus.ResponseDescription property" Url="html/6309c5d2-71fd-bba3-7ee6-ecb6e960f55f.htm" />
+  <HelpKINode Title="Name property">
+    <HelpKINode Title="Prop.Name Property " Url="html/2ded23c1-6877-7483-d995-fdc6d4fd0ce5.htm" />
+    <HelpKINode Title="WebDavSessionListItem.Name Property " Url="html/178f67f3-a1d2-eaa5-01c8-628d908397a8.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Negotiate field" Url="html/4b4f6eaf-dab7-d6d9-6da0-b923a969401e.htm" />
+  <HelpKINode Title="NoContent enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="NonAuthoritativeInformation enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="NoOverwrite field" Url="html/2e019dc5-c558-ad92-5915-16e950860ffc.htm" />
+  <HelpKINode Title="NotAcceptable enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="NotFound enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="NotImplemented enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="NotModified enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="Ntlm field" Url="html/eb113adb-0dd4-8bcb-2e6a-50f074f66731.htm" />
+  <HelpKINode Title="OK enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="Omit class">
+    <HelpKINode Title="Omit Class" Url="html/1586404f-8104-bada-745b-d241b95a12bf.htm" />
+    <HelpKINode Title="about Omit class" Url="html/1586404f-8104-bada-745b-d241b95a12bf.htm" />
+    <HelpKINode Title="constructor" Url="html/0b8e5302-4891-bda1-9f6a-50ec79ff7a09.htm" />
+    <HelpKINode Title="methods" Url="html/2cb2eecc-8fce-668c-4310-38ae7b1d8232.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Omit.Omit constructor" Url="html/0b8e5302-4891-bda1-9f6a-50ec79ff7a09.htm" />
+  <HelpKINode Title="One field" Url="html/8e1d28b8-0b25-10ba-d33b-4c2e3ee30982.htm" />
+  <HelpKINode Title="Overwrite field">
+    <HelpKINode Title="WebDavOverwriteHeaderValue.Overwrite Field" Url="html/596d886e-9c0a-c78e-7bd2-4f0e2b9ccdcb.htm" />
+    <HelpKINode Title="WebDavRequestHeader.Overwrite Field" Url="html/0a6d4dba-c245-4274-e23a-eb2041fe82f7.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Owner property">
+    <HelpKINode Title="ActiveLock.Owner Property " Url="html/363b9854-b7c4-dd9f-f9bb-37c10c29613f.htm" />
+    <HelpKINode Title="LockInfo.Owner Property " Url="html/b844c5cc-4318-3691-e8a6-57667cd9736f.htm" />
+  </HelpKINode>
+  <HelpKINode Title="OwnerHref class">
+    <HelpKINode Title="OwnerHref Class" Url="html/2d9c43a3-e115-2eb5-cd48-5fa7d9431d7d.htm" />
+    <HelpKINode Title="about OwnerHref class" Url="html/2d9c43a3-e115-2eb5-cd48-5fa7d9431d7d.htm" />
+    <HelpKINode Title="constructor" Url="html/0127d70c-091c-042e-59a6-27f10b12dadc.htm" />
+    <HelpKINode Title="methods" Url="html/1e6c55a5-d37e-3ae3-b047-3bf4247a30d9.htm" />
+    <HelpKINode Title="properties" Url="html/cbad97bf-6803-b69c-c1d1-fa989d436d68.htm" />
+  </HelpKINode>
+  <HelpKINode Title="OwnerHref.Href property" Url="html/04ea89be-91db-a538-5cd1-7dd510edd6f1.htm" />
+  <HelpKINode Title="OwnerHref.OwnerHref constructor" Url="html/0127d70c-091c-042e-59a6-27f10b12dadc.htm" />
+  <HelpKINode Title="ParentName property" Url="html/ee1e6267-35d5-77ca-5223-ab8b685c1aa6.htm" />
+  <HelpKINode Title="ParseMultistatusResponseContentAsync method" Url="html/029850d9-e8d8-2909-419c-eb940f23f1de.htm" />
+  <HelpKINode Title="ParsePropResponseContentAsync method" Url="html/e596305e-e026-9aef-808a-a182d5d4f5ba.htm" />
+  <HelpKINode Title="PartialContent enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="Password property" Url="html/6b664cb5-94b0-6d7b-b03f-b2c498720f50.htm" />
+  <HelpKINode Title="PaymentRequired enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="PostAsync method" Url="html/4b932f7f-5f6d-f242-8bef-cf8c0a722257.htm" />
+  <HelpKINode Title="PreconditionFailed enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="Prop class">
+    <HelpKINode Title="Prop Class" Url="html/b46d99da-27f2-84d5-2270-394c0fb28f32.htm" />
+    <HelpKINode Title="about Prop class" Url="html/b46d99da-27f2-84d5-2270-394c0fb28f32.htm" />
+    <HelpKINode Title="constructor" Url="html/197bf06b-6ade-cf04-67c0-369cd8352b1a.htm" />
+    <HelpKINode Title="methods" Url="html/abe1d9f3-712f-949e-787e-0843351a26e4.htm" />
+    <HelpKINode Title="properties" Url="html/15cd4881-7212-7072-0d56-56b1d8d7846c.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Prop property">
+    <HelpKINode Title="Propstat.Prop Property " Url="html/4efb0246-8198-435d-da59-0fc6b9b366d1.htm" />
+    <HelpKINode Title="Remove.Prop Property " Url="html/e55a1d72-10bf-3490-91ee-9f3ea8b58bf1.htm" />
+    <HelpKINode Title="Set.Prop Property " Url="html/90c8f907-d9d7-4241-c1af-e96e3e7837fb.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Prop.ContentClass property" Url="html/8a82a7d7-ae4a-adbc-77bf-7e4f601624cb.htm" />
+  <HelpKINode Title="Prop.CreatePropWithEmptyProperties method" Url="html/376023d0-88b6-c017-c8e1-6e7d938c6fc1.htm" />
+  <HelpKINode Title="Prop.CreationDate property" Url="html/8a398753-5deb-6de4-cfd6-7c7cd98eb5f6.htm" />
+  <HelpKINode Title="Prop.CreationDateSpecified property" Url="html/3a10d47a-7681-beac-98ac-0cb56ac0076e.htm" />
+  <HelpKINode Title="Prop.DefaultDocument property" Url="html/eecdc7c0-d4ba-e204-784c-1e89d9731216.htm" />
+  <HelpKINode Title="Prop.DisplayName property" Url="html/d5ac3743-c987-29bb-5325-a6aef90214bd.htm" />
+  <HelpKINode Title="Prop.GetContentLanguage property" Url="html/c2d2f878-a3be-34f2-4984-2ab26d2e3959.htm" />
+  <HelpKINode Title="Prop.GetContentLength property" Url="html/b333894a-31ff-f847-9860-7e98f2d487cc.htm" />
+  <HelpKINode Title="Prop.GetContentType property" Url="html/a8a986c1-c78a-949f-73c3-40793e649043.htm" />
+  <HelpKINode Title="Prop.GetEtag property" Url="html/9b31bacc-d11f-93e8-986a-e18fb7a371a7.htm" />
+  <HelpKINode Title="Prop.GetLastModified property" Url="html/489bff71-075d-b500-2f0e-96bbd0235707.htm" />
+  <HelpKINode Title="Prop.Href property" Url="html/a8c991dd-ad18-ed91-b2f6-af9943e17bcf.htm" />
+  <HelpKINode Title="Prop.IsCollection property" Url="html/3544f81d-8774-e812-b52e-22ac11cd0096.htm" />
+  <HelpKINode Title="Prop.IsHidden property" Url="html/0d49e00a-df4c-b88d-e5d4-bc073a2bd4ef.htm" />
+  <HelpKINode Title="Prop.IsReadonly property" Url="html/d0dfbc27-f7e8-66c9-f9bf-d74c1aa445f0.htm" />
+  <HelpKINode Title="Prop.IsRoot property" Url="html/0322d33b-72d1-62dd-4a16-c67b0a4fc8aa.htm" />
+  <HelpKINode Title="Prop.IsStructuredDocument property" Url="html/ecbae7d2-7b58-b20e-7e9d-b42f5a0f8ac1.htm" />
+  <HelpKINode Title="Prop.LastAccessed property" Url="html/9732cc7f-3aad-901e-4e37-0f8e8538c9d0.htm" />
+  <HelpKINode Title="Prop.LockDiscovery property" Url="html/4724b424-b7a6-9685-cc4f-dc6ab92a1939.htm" />
+  <HelpKINode Title="Prop.Name property" Url="html/2ded23c1-6877-7483-d995-fdc6d4fd0ce5.htm" />
+  <HelpKINode Title="Prop.ParentName property" Url="html/ee1e6267-35d5-77ca-5223-ab8b685c1aa6.htm" />
+  <HelpKINode Title="Prop.Prop constructor" Url="html/197bf06b-6ade-cf04-67c0-369cd8352b1a.htm" />
+  <HelpKINode Title="Prop.ResourceType property" Url="html/ad32416e-4529-dd9e-2547-27f7a59a6b14.htm" />
+  <HelpKINode Title="Prop.Source property" Url="html/867f780a-9c9f-6c1a-71fb-ac15f46079fb.htm" />
+  <HelpKINode Title="PropertyBehavior class">
+    <HelpKINode Title="PropertyBehavior Class" Url="html/7e6ae4d4-f438-4815-ac9a-a0fc6e5db1eb.htm" />
+    <HelpKINode Title="about PropertyBehavior class" Url="html/7e6ae4d4-f438-4815-ac9a-a0fc6e5db1eb.htm" />
+    <HelpKINode Title="constructor" Url="html/d6b6fb2b-fcec-b9a5-9451-1ff495dc98a3.htm" />
+    <HelpKINode Title="methods" Url="html/037dfc0b-f35c-399d-08e3-06f66459f5b9.htm" />
+    <HelpKINode Title="properties" Url="html/77d8010e-60e2-18d4-3dd1-5802c6e32e77.htm" />
+  </HelpKINode>
+  <HelpKINode Title="PropertyBehavior.Item property" Url="html/6e244e22-a853-021d-9858-0b551728394e.htm" />
+  <HelpKINode Title="PropertyBehavior.PropertyBehavior constructor" Url="html/d6b6fb2b-fcec-b9a5-9451-1ff495dc98a3.htm" />
+  <HelpKINode Title="PropertyUpdate class">
+    <HelpKINode Title="PropertyUpdate Class" Url="html/276a6fe5-1cdf-0ede-93a7-3865da981fcb.htm" />
+    <HelpKINode Title="about PropertyUpdate class" Url="html/276a6fe5-1cdf-0ede-93a7-3865da981fcb.htm" />
+    <HelpKINode Title="constructor" Url="html/761edd95-fa39-cdfe-c93f-8c8e24eafae5.htm" />
+    <HelpKINode Title="methods" Url="html/b3042baf-e17b-d51e-78b4-2bffda4983e0.htm" />
+    <HelpKINode Title="properties" Url="html/2fd17bd6-31e7-2f5d-0d18-f6b5b711c9ec.htm" />
+  </HelpKINode>
+  <HelpKINode Title="PropertyUpdate.Items property" Url="html/8eb17a4d-a658-8da3-5217-fe8618622279.htm" />
+  <HelpKINode Title="PropertyUpdate.PropertyUpdate constructor" Url="html/761edd95-fa39-cdfe-c93f-8c8e24eafae5.htm" />
+  <HelpKINode Title="PropFind class">
+    <HelpKINode Title="PropFind Class" Url="html/7187608d-5179-475a-cc53-3b3d8ac4f9c0.htm" />
+    <HelpKINode Title="about PropFind class" Url="html/7187608d-5179-475a-cc53-3b3d8ac4f9c0.htm" />
+    <HelpKINode Title="constructor" Url="html/8033f75c-1308-a8e3-b6bc-62386b757831.htm" />
+    <HelpKINode Title="methods" Url="html/84dd47c2-5945-5a3e-7cac-69e742cac6e0.htm" />
+    <HelpKINode Title="properties" Url="html/3b2ddc86-2e78-18f8-1b42-33fde503bfac.htm" />
+  </HelpKINode>
+  <HelpKINode Title="PropFind field" Url="html/b98ccd3f-8421-cdaa-0bfa-3ca426e480ef.htm" />
+  <HelpKINode Title="PropFind.CreatePropFindAllProp method" Url="html/8406f64d-2704-8954-5599-b7d3fbd2dd78.htm" />
+  <HelpKINode Title="PropFind.CreatePropFindWithEmptyProperties method" Url="html/52e80c88-fc69-9271-3b6d-e82ed1729545.htm" />
+  <HelpKINode Title="PropFind.CreatePropFindWithPropName method" Url="html/ba99adc1-6149-e999-8e07-42f40d33010d.htm" />
+  <HelpKINode Title="PropFind.Item property" Url="html/48f0523b-ec04-78ed-ae54-8f60cb46aa2b.htm" />
+  <HelpKINode Title="PropFind.PropFind constructor" Url="html/8033f75c-1308-a8e3-b6bc-62386b757831.htm" />
+  <HelpKINode Title="PropFindAsync method" Url="html/2b823e60-5f87-dd8b-3391-db58ad89f8f1.htm" />
+  <HelpKINode Title="PropName class">
+    <HelpKINode Title="PropName Class" Url="html/6b7931dc-63c6-7504-bad3-3d8de855ecec.htm" />
+    <HelpKINode Title="about PropName class" Url="html/6b7931dc-63c6-7504-bad3-3d8de855ecec.htm" />
+    <HelpKINode Title="constructor" Url="html/436804d9-c1bf-ae44-4530-a2bd4989a07d.htm" />
+    <HelpKINode Title="methods" Url="html/b8e4f059-d78a-75ca-3233-d1e7ac5c3724.htm" />
+  </HelpKINode>
+  <HelpKINode Title="PropName.PropName constructor" Url="html/436804d9-c1bf-ae44-4530-a2bd4989a07d.htm" />
+  <HelpKINode Title="PropPatch field" Url="html/e8948609-dfdb-d054-7d81-3678427feffd.htm" />
+  <HelpKINode Title="PropPatchAsync method" Url="html/764b6632-af73-c8fc-9593-1956e7a416d8.htm" />
+  <HelpKINode Title="Propstat class">
+    <HelpKINode Title="Propstat Class" Url="html/48b6573c-4c83-925e-cb93-a556cb64253f.htm" />
+    <HelpKINode Title="about Propstat class" Url="html/48b6573c-4c83-925e-cb93-a556cb64253f.htm" />
+    <HelpKINode Title="constructor" Url="html/6d0cabb4-0174-9df5-2f33-c02ad5872d06.htm" />
+    <HelpKINode Title="methods" Url="html/ef9afb94-ec7c-1996-fcba-24b043f618a4.htm" />
+    <HelpKINode Title="properties" Url="html/81c98266-1154-f519-c298-a5a82c707819.htm" />
+  </HelpKINode>
+  <HelpKINode Title="propstat enumeration member" Url="html/009fa8e2-e92e-6772-9c73-4719714552b6.htm" />
+  <HelpKINode Title="Propstat.Prop property" Url="html/4efb0246-8198-435d-da59-0fc6b9b366d1.htm" />
+  <HelpKINode Title="Propstat.Propstat constructor" Url="html/6d0cabb4-0174-9df5-2f33-c02ad5872d06.htm" />
+  <HelpKINode Title="Propstat.ResponseDescription property" Url="html/bae367b7-8e2a-4505-8c12-9d93a1e66f3d.htm" />
+  <HelpKINode Title="Propstat.Status property" Url="html/4e4546e3-dfdc-ff68-971d-98b11c35f03e.htm" />
+  <HelpKINode Title="ProxyAuthenticationRequired enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="PutAsync method" Url="html/4ffe09dd-fd3a-a458-cb02-5e8201a307c4.htm" />
+  <HelpKINode Title="Redirect enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="RedirectKeepVerb enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="RedirectMethod enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="RefreshLockAsync method" Url="html/bf8999b7-5a8b-00a4-b414-ac608d5dd823.htm" />
+  <HelpKINode Title="Remove class">
+    <HelpKINode Title="Remove Class" Url="html/0f90e0d4-f11d-6acb-f351-f5c324054eef.htm" />
+    <HelpKINode Title="about Remove class" Url="html/0f90e0d4-f11d-6acb-f351-f5c324054eef.htm" />
+    <HelpKINode Title="constructor" Url="html/0ee55809-d6f2-a46e-d85f-2bcb6197cfaf.htm" />
+    <HelpKINode Title="methods" Url="html/d474904c-f47e-4082-d7f0-00822d8e016b.htm" />
+    <HelpKINode Title="properties" Url="html/92e31765-6a22-f6e9-a189-74ad2e6168d9.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Remove.Prop property" Url="html/e55a1d72-10bf-3490-91ee-9f3ea8b58bf1.htm" />
+  <HelpKINode Title="Remove.Remove constructor" Url="html/0ee55809-d6f2-a46e-d85f-2bcb6197cfaf.htm" />
+  <HelpKINode Title="RequestedRangeNotSatisfiable enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="RequestEntityTooLarge enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="RequestTimeout enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="RequestUriTooLong enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="ResetContent enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="ResourceType class">
+    <HelpKINode Title="ResourceType Class" Url="html/dc32565b-c63d-8027-171a-5e3e04379c7d.htm" />
+    <HelpKINode Title="about ResourceType class" Url="html/dc32565b-c63d-8027-171a-5e3e04379c7d.htm" />
+    <HelpKINode Title="constructor" Url="html/f8956bed-8c75-acad-f8bb-be68bbb9fb23.htm" />
+    <HelpKINode Title="methods" Url="html/fd047605-63b4-870b-6cd0-c858bf1bb9ee.htm" />
+    <HelpKINode Title="properties" Url="html/d3a0f434-55fe-dae6-7544-ff48832e1731.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ResourceType property" Url="html/ad32416e-4529-dd9e-2547-27f7a59a6b14.htm" />
+  <HelpKINode Title="ResourceType.Collection property" Url="html/298e1a54-d8ab-caeb-02de-03cb5dff6e34.htm" />
+  <HelpKINode Title="ResourceType.ResourceType constructor" Url="html/f8956bed-8c75-acad-f8bb-be68bbb9fb23.htm" />
+  <HelpKINode Title="Response class">
+    <HelpKINode Title="Response Class" Url="html/a9cd334f-80c8-1131-5c7f-2f07fa9cfa99.htm" />
+    <HelpKINode Title="about Response class" Url="html/a9cd334f-80c8-1131-5c7f-2f07fa9cfa99.htm" />
+    <HelpKINode Title="constructor" Url="html/2a9c0eb9-09bc-cf6f-6ec5-ab86661da093.htm" />
+    <HelpKINode Title="methods" Url="html/1f160388-e1a6-5cd1-75f8-eb1588208148.htm" />
+    <HelpKINode Title="properties" Url="html/10b616a5-2d8c-28e0-1a2a-4dfe9d8f5d5e.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Response property" Url="html/21ad1fdc-a966-72b6-fa71-f2ebd2ede860.htm" />
+  <HelpKINode Title="Response.Href property" Url="html/5b5497b6-513e-e38b-ffa0-76046b78a00b.htm" />
+  <HelpKINode Title="Response.Items property" Url="html/77064436-266d-a524-2433-ea9aece81175.htm" />
+  <HelpKINode Title="Response.ItemsElementName property" Url="html/6e40aca7-44d2-7c15-aeee-f57ca5196add.htm" />
+  <HelpKINode Title="Response.Response constructor" Url="html/2a9c0eb9-09bc-cf6f-6ec5-ab86661da093.htm" />
+  <HelpKINode Title="Response.ResponseDescription property" Url="html/1242aab9-fd58-b0e6-3562-16a1afc9fddb.htm" />
+  <HelpKINode Title="ResponseDescription property">
+    <HelpKINode Title="Multistatus.ResponseDescription Property " Url="html/6309c5d2-71fd-bba3-7ee6-ecb6e960f55f.htm" />
+    <HelpKINode Title="Propstat.ResponseDescription Property " Url="html/bae367b7-8e2a-4505-8c12-9d93a1e66f3d.htm" />
+    <HelpKINode Title="Response.ResponseDescription Property " Url="html/1242aab9-fd58-b0e6-3562-16a1afc9fddb.htm" />
+  </HelpKINode>
+  <HelpKINode Title="SeeOther enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="SendAsync method" Url="html/5f344242-b022-4b9a-d8ad-d51db0a7c09f.htm" />
+  <HelpKINode Title="ServiceUnavailable enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="Set class">
+    <HelpKINode Title="Set Class" Url="html/984e184e-df43-8feb-21fc-fd7954d0bf37.htm" />
+    <HelpKINode Title="about Set class" Url="html/984e184e-df43-8feb-21fc-fd7954d0bf37.htm" />
+    <HelpKINode Title="constructor" Url="html/a0e57e67-cd55-3433-35bc-7c210a72f2c0.htm" />
+    <HelpKINode Title="methods" Url="html/bf47da4f-7af0-118e-1c12-5aa73e48cc0b.htm" />
+    <HelpKINode Title="properties" Url="html/97406c32-a21e-2aba-73bc-84c67640377a.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Set.Prop property" Url="html/90c8f907-d9d7-4241-c1af-e96e3e7837fb.htm" />
+  <HelpKINode Title="Set.Set constructor" Url="html/a0e57e67-cd55-3433-35bc-7c210a72f2c0.htm" />
+  <HelpKINode Title="Shared class">
+    <HelpKINode Title="Shared Class" Url="html/52f5fca2-7d69-35bd-c93f-98b26961ee74.htm" />
+    <HelpKINode Title="about Shared class" Url="html/52f5fca2-7d69-35bd-c93f-98b26961ee74.htm" />
+    <HelpKINode Title="constructor" Url="html/3822ee5f-db8c-a7b3-8b64-d75c327a98a7.htm" />
+    <HelpKINode Title="methods" Url="html/b38946ac-98ca-61c2-c938-b8c1b7567113.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Shared.Shared constructor" Url="html/3822ee5f-db8c-a7b3-8b64-d75c327a98a7.htm" />
+  <HelpKINode Title="Size property" Url="html/95305788-303b-5cdc-d85d-3ce69e2e3985.htm" />
+  <HelpKINode Title="Source class">
+    <HelpKINode Title="Source Class" Url="html/841f66ba-d2d6-4017-519a-ff38f987d8e9.htm" />
+    <HelpKINode Title="about Source class" Url="html/841f66ba-d2d6-4017-519a-ff38f987d8e9.htm" />
+    <HelpKINode Title="constructor" Url="html/d5f8bede-8726-7d77-1fbf-0c71cfdc0010.htm" />
+    <HelpKINode Title="methods" Url="html/b6a94412-8005-edb8-07c2-055b862a9dc2.htm" />
+    <HelpKINode Title="properties" Url="html/e6ce2978-b1fa-8742-9e1f-ba9670d64d07.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Source property" Url="html/867f780a-9c9f-6c1a-71fb-ac15f46079fb.htm" />
+  <HelpKINode Title="Source.Link property" Url="html/a80e4dcb-3bad-4d4d-8c5d-fa38903b3550.htm" />
+  <HelpKINode Title="Source.Source constructor" Url="html/d5f8bede-8726-7d77-1fbf-0c71cfdc0010.htm" />
+  <HelpKINode Title="Src property" Url="html/b113481e-e42e-88e1-f780-2105d10b70a9.htm" />
+  <HelpKINode Title="status enumeration member" Url="html/009fa8e2-e92e-6772-9c73-4719714552b6.htm" />
+  <HelpKINode Title="Status property" Url="html/4e4546e3-dfdc-ff68-971d-98b11c35f03e.htm" />
+  <HelpKINode Title="StatusCode property" Url="html/57a9aeea-53dd-8f11-d99c-064b674173a6.htm" />
+  <HelpKINode Title="SupportedLock class">
+    <HelpKINode Title="SupportedLock Class" Url="html/cdfd2b78-efb4-e97a-0576-08b2289b652e.htm" />
+    <HelpKINode Title="about SupportedLock class" Url="html/cdfd2b78-efb4-e97a-0576-08b2289b652e.htm" />
+    <HelpKINode Title="constructor" Url="html/ba09fe8e-028d-8756-c174-a7cad18222ca.htm" />
+    <HelpKINode Title="methods" Url="html/06296917-983b-e38c-ed05-3f838dd8e63e.htm" />
+    <HelpKINode Title="properties" Url="html/a0cd5c68-0237-6dca-314b-afab4410098f.htm" />
+  </HelpKINode>
+  <HelpKINode Title="SupportedLock.LockEntry property" Url="html/f2918103-9130-b242-50dc-8419f6ce39ed.htm" />
+  <HelpKINode Title="SupportedLock.SupportedLock constructor" Url="html/ba09fe8e-028d-8756-c174-a7cad18222ca.htm" />
+  <HelpKINode Title="TemporaryRedirect enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="Text property" Url="html/01c94485-7d3f-4c0c-a148-36e2e97ad22e.htm" />
+  <HelpKINode Title="Timeout field" Url="html/dd10b963-4dbe-8470-59c6-69e8b4df4693.htm" />
+  <HelpKINode Title="Timeout property" Url="html/d5e315d1-be13-0b46-1db6-e6b74c045095.htm" />
+  <HelpKINode Title="ToString method">
+    <HelpKINode Title="LockToken.ToString Method " Url="html/74b4827e-c4bc-925d-3f76-402afc4e52f8.htm" />
+    <HelpKINode Title="WebDavAuthenticationType.ToString Method " Url="html/e0bcb3b2-0bfb-5128-973e-a1c121c9df61.htm" />
+    <HelpKINode Title="WebDavDepthHeaderValue.ToString Method " Url="html/3f0984ac-370b-118a-a071-f1d39ac202cd.htm" />
+    <HelpKINode Title="WebDavTimeoutHeaderValue.ToString Method " Url="html/537c2780-5c2d-a680-2745-0f005488af53.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Unauthorized enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="Unlock field" Url="html/f0b6268a-afda-1655-5ce0-2ed0fc696aa0.htm" />
+  <HelpKINode Title="UnlockAsync method">
+    <HelpKINode Title="WebDavClient.UnlockAsync Method " Url="html/c1715587-3772-4ade-d171-db8e3e0f4e49.htm" />
+    <HelpKINode Title="WebDavSession.UnlockAsync Method " Url="html/43448748-1296-3d8e-22ee-28cda8b15241.htm" />
+  </HelpKINode>
+  <HelpKINode Title="UnprocessableEntity enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="UnsupportedMediaType enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="Unused enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="UpgradeRequired enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="UploadFileAsync method" Url="html/7bf88580-7b62-769e-7c9d-ab53ede936ff.htm" />
+  <HelpKINode Title="Uri property" Url="html/dc32060d-6b3e-a704-d9fd-1383b1430ccd.htm" />
+  <HelpKINode Title="UrlHelper class">
+    <HelpKINode Title="UrlHelper Class" Url="html/6448d8e0-ac55-203f-22ad-b3ad596d2c41.htm" />
+    <HelpKINode Title="about UrlHelper class" Url="html/6448d8e0-ac55-203f-22ad-b3ad596d2c41.htm" />
+    <HelpKINode Title="methods" Url="html/2972b717-bfa1-f27c-485b-96973ff166f4.htm" />
+  </HelpKINode>
+  <HelpKINode Title="UrlHelper.AddTrailingSlash method" Url="html/caef698f-9de2-52c5-2b9b-3762036ab770.htm" />
+  <HelpKINode Title="UrlHelper.GetAbsoluteUri method" Url="html/a2b74b4a-3df1-e4ae-1fd9-201f63f21c5c.htm" />
+  <HelpKINode Title="UrlHelper.GetAbsoluteUriWithTrailingSlash method" Url="html/4bf223e4-c20f-32e2-07f7-b621f106dc9d.htm" />
+  <HelpKINode Title="UseProxy enumeration member" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="UserName property" Url="html/402ce827-c186-3e83-567a-8147fc8c6930.htm" />
+  <HelpKINode Title="version">
+    <HelpKINode Title="0.1.0.0" Url="html/baf47b0a-668c-44ea-9527-09dfb56a40ce.htm" />
+    <HelpKINode Title="0.1.1.0" Url="html/46c3bb10-8ce5-44eb-a3fc-1217a735e9b5.htm" />
+    <HelpKINode Title="0.2.0.0" Url="html/0108aa9e-79b7-4dd0-ae97-5b929d6d1272.htm" />
+    <HelpKINode Title="history" Url="html/df5ce5b9-6c59-42e5-bccc-95ad418cc00c.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WebDavAuthenticationType class">
+    <HelpKINode Title="WebDavAuthenticationType Class" Url="html/aa202db1-20d1-4806-c537-519f1d272118.htm" />
+    <HelpKINode Title="about WebDavAuthenticationType class" Url="html/aa202db1-20d1-4806-c537-519f1d272118.htm" />
+    <HelpKINode Title="fields" Url="html/fd2d9097-89c7-c1a1-a0e3-1243940fda2a.htm" />
+    <HelpKINode Title="methods" Url="html/1c9b9d55-43ee-77ed-ce59-fe0d40b77c02.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WebDavAuthenticationType property" Url="html/7ddabe0d-8758-2adc-072b-91bb6e083996.htm" />
+  <HelpKINode Title="WebDavAuthenticationType.Basic field" Url="html/2abd51d2-7475-f899-ce5b-cdbbabf3904a.htm" />
+  <HelpKINode Title="WebDavAuthenticationType.Digest field" Url="html/f212105f-5d01-6a96-9dc0-aa7da09d270e.htm" />
+  <HelpKINode Title="WebDavAuthenticationType.Kerberos field" Url="html/0c60e527-7345-7760-c243-d9ad3286c6ac.htm" />
+  <HelpKINode Title="WebDavAuthenticationType.Negotiate field" Url="html/4b4f6eaf-dab7-d6d9-6da0-b923a969401e.htm" />
+  <HelpKINode Title="WebDavAuthenticationType.Ntlm field" Url="html/eb113adb-0dd4-8bcb-2e6a-50f074f66731.htm" />
+  <HelpKINode Title="WebDavAuthenticationType.ToString method" Url="html/e0bcb3b2-0bfb-5128-973e-a1c121c9df61.htm" />
+  <HelpKINode Title="WebDavClient class">
+    <HelpKINode Title="WebDavClient Class" Url="html/fb2b9408-0211-49cd-c8b7-ffe7f8739bf1.htm" />
+    <HelpKINode Title="about WebDavClient class" Url="html/fb2b9408-0211-49cd-c8b7-ffe7f8739bf1.htm" />
+    <HelpKINode Title="constructor" Url="html/b8099570-b9fe-debb-4185-5828b3c3c415.htm" />
+    <HelpKINode Title="methods" Url="html/fb139f1a-8459-faf0-646e-e3d3480a9945.htm" />
+    <HelpKINode Title="properties" Url="html/d41a1525-8d36-b7f6-e59d-39626a6d4f04.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WebDavClient.CopyAsync method" Url="html/c559c5d2-3dfd-8237-a954-14a582f71696.htm" />
+  <HelpKINode Title="WebDavClient.DeleteAsync method" Url="html/bb5e4a2a-08e3-e5b7-0927-0dd73f94ff0d.htm" />
+  <HelpKINode Title="WebDavClient.GetAsync method" Url="html/8759fdfb-0a18-ac8e-99df-8d6a52386b75.htm" />
+  <HelpKINode Title="WebDavClient.HeadAsync method" Url="html/66b0e5db-c608-c93e-8193-3bc0f0c0a3b9.htm" />
+  <HelpKINode Title="WebDavClient.LockAsync method" Url="html/a71deb8c-d84b-f192-2fe3-1d4dbcd93958.htm" />
+  <HelpKINode Title="WebDavClient.MkcolAsync method" Url="html/12805208-6385-7b93-2882-3657f95c7db6.htm" />
+  <HelpKINode Title="WebDavClient.MoveAsync method" Url="html/84da5e37-e5c0-def1-ff9d-55491feec273.htm" />
+  <HelpKINode Title="WebDavClient.PostAsync method" Url="html/4b932f7f-5f6d-f242-8bef-cf8c0a722257.htm" />
+  <HelpKINode Title="WebDavClient.PropFindAsync method" Url="html/2b823e60-5f87-dd8b-3391-db58ad89f8f1.htm" />
+  <HelpKINode Title="WebDavClient.PropPatchAsync method" Url="html/764b6632-af73-c8fc-9593-1956e7a416d8.htm" />
+  <HelpKINode Title="WebDavClient.PutAsync method" Url="html/4ffe09dd-fd3a-a458-cb02-5e8201a307c4.htm" />
+  <HelpKINode Title="WebDavClient.RefreshLockAsync method" Url="html/bf8999b7-5a8b-00a4-b414-ac608d5dd823.htm" />
+  <HelpKINode Title="WebDavClient.SendAsync method" Url="html/5f344242-b022-4b9a-d8ad-d51db0a7c09f.htm" />
+  <HelpKINode Title="WebDavClient.UnlockAsync method" Url="html/c1715587-3772-4ade-d171-db8e3e0f4e49.htm" />
+  <HelpKINode Title="WebDavClient.WebDavClient constructor" Url="html/b8099570-b9fe-debb-4185-5828b3c3c415.htm" />
+  <HelpKINode Title="WebDavCredential class">
+    <HelpKINode Title="WebDavCredential Class" Url="html/6973cd93-8927-020b-c829-2416b9da494e.htm" />
+    <HelpKINode Title="about WebDavCredential class" Url="html/6973cd93-8927-020b-c829-2416b9da494e.htm" />
+    <HelpKINode Title="constructor" Url="html/538011cb-15df-81ec-a0c1-a249792137f1.htm" />
+    <HelpKINode Title="methods" Url="html/11d4a668-692b-1c07-0c24-30635db05257.htm" />
+    <HelpKINode Title="properties" Url="html/e7533131-b0b4-7f25-25ee-79bd8e8f08fe.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WebDavCredential.Domain property" Url="html/c7be26cb-957f-ad48-7b31-a1c432774054.htm" />
+  <HelpKINode Title="WebDavCredential.GetCredential method" Url="html/b1d3e9c0-16ef-83b3-6082-74b81e5287d3.htm" />
+  <HelpKINode Title="WebDavCredential.Password property" Url="html/6b664cb5-94b0-6d7b-b03f-b2c498720f50.htm" />
+  <HelpKINode Title="WebDavCredential.UserName property" Url="html/402ce827-c186-3e83-567a-8147fc8c6930.htm" />
+  <HelpKINode Title="WebDavCredential.WebDavAuthenticationType property" Url="html/7ddabe0d-8758-2adc-072b-91bb6e083996.htm" />
+  <HelpKINode Title="WebDavCredential.WebDavCredential constructor" Url="html/538011cb-15df-81ec-a0c1-a249792137f1.htm" />
+  <HelpKINode Title="WebDavDepthHeaderValue class">
+    <HelpKINode Title="WebDavDepthHeaderValue Class" Url="html/d94f4857-c3bb-412b-f6de-213e4fc0cd36.htm" />
+    <HelpKINode Title="about WebDavDepthHeaderValue class" Url="html/d94f4857-c3bb-412b-f6de-213e4fc0cd36.htm" />
+    <HelpKINode Title="fields" Url="html/1113f6d4-3a70-4a26-b2e7-8b47886c064d.htm" />
+    <HelpKINode Title="methods" Url="html/44d10169-3a8c-8861-6861-894f55254aae.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WebDavDepthHeaderValue.Infinity field" Url="html/7a3033f8-8342-ed07-1cce-3fbee30bfde2.htm" />
+  <HelpKINode Title="WebDavDepthHeaderValue.One field" Url="html/8e1d28b8-0b25-10ba-d33b-4c2e3ee30982.htm" />
+  <HelpKINode Title="WebDavDepthHeaderValue.ToString method" Url="html/3f0984ac-370b-118a-a071-f1d39ac202cd.htm" />
+  <HelpKINode Title="WebDavDepthHeaderValue.Zero field" Url="html/47f8cf78-9f31-e82f-6b3a-28bab660e4e2.htm" />
+  <HelpKINode Title="WebDavException class">
+    <HelpKINode Title="WebDavException Class" Url="html/ae3f9c9c-5dfb-bbcb-1a9e-92354a813975.htm" />
+    <HelpKINode Title="about WebDavException class" Url="html/ae3f9c9c-5dfb-bbcb-1a9e-92354a813975.htm" />
+    <HelpKINode Title="constructor" Url="html/361ae9e2-c8e0-b85c-a91b-7af29c8b3fd1.htm" />
+    <HelpKINode Title="methods" Url="html/6fa9540e-d745-7ef8-c0f6-3fe81c86ef0a.htm" />
+    <HelpKINode Title="properties" Url="html/987d44f2-ccc8-91a8-cfb7-85b36768c265.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WebDavException.WebDavException constructor" Url="html/361ae9e2-c8e0-b85c-a91b-7af29c8b3fd1.htm" />
+  <HelpKINode Title="WebDavHelper class">
+    <HelpKINode Title="WebDavHelper Class" Url="html/ec56430b-10d9-a278-a298-2a914a534480.htm" />
+    <HelpKINode Title="about WebDavHelper class" Url="html/ec56430b-10d9-a278-a298-2a914a534480.htm" />
+    <HelpKINode Title="methods" Url="html/349e84d5-5837-1ca8-90c7-234130126ba4.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WebDavHelper.GetLockTokenFromWebDavResponseMessage method" Url="html/fc1f3b71-7249-9dfb-ae4a-24385eb56294.htm" />
+  <HelpKINode Title="WebDavHelper.GetUtf8EncodedXmlWebDavRequestString method" Url="html/623a8648-30f6-4d24-ff29-204ad6d61064.htm" />
+  <HelpKINode Title="WebDavLockToken class">
+    <HelpKINode Title="WebDavLockToken Class" Url="html/0f297c4b-bd10-4e34-f611-0d09c92cc886.htm" />
+    <HelpKINode Title="about WebDavLockToken class" Url="html/0f297c4b-bd10-4e34-f611-0d09c92cc886.htm" />
+    <HelpKINode Title="constructor" Url="html/97c7e42a-5a17-e7ae-7219-5b097ece6adf.htm" />
+    <HelpKINode Title="methods" Url="html/5f4f30e8-0503-0115-b7d6-69bd34573871.htm" />
+    <HelpKINode Title="properties" Url="html/b6184922-d980-68bf-03d8-d0fbfe5fafeb.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WebDavLockToken.Href property" Url="html/e8115b5d-c7c3-233f-2f25-b6f798170f01.htm" />
+  <HelpKINode Title="WebDavLockToken.WebDavLockToken constructor" Url="html/97c7e42a-5a17-e7ae-7219-5b097ece6adf.htm" />
+  <HelpKINode Title="WebDavMethod class">
+    <HelpKINode Title="WebDavMethod Class" Url="html/801be70d-4d4c-d4ab-ce4a-ad3506966541.htm" />
+    <HelpKINode Title="about WebDavMethod class" Url="html/801be70d-4d4c-d4ab-ce4a-ad3506966541.htm" />
+    <HelpKINode Title="fields" Url="html/5ddda8f9-4f7c-b6eb-5dfe-cacbb831a12e.htm" />
+    <HelpKINode Title="methods" Url="html/0bd246de-20aa-f5f4-ed51-c5b277034aca.htm" />
+    <HelpKINode Title="properties" Url="html/83224137-c29b-7db0-f228-573639db893b.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WebDavMethod.Copy field" Url="html/dd1e27ae-9d63-3182-8042-c7450b8adc55.htm" />
+  <HelpKINode Title="WebDavMethod.Lock field" Url="html/ba22b746-5e43-4228-bcb2-42c5472343ac.htm" />
+  <HelpKINode Title="WebDavMethod.Mkcol field" Url="html/c2db2033-dad6-8629-7d2c-d7d61d516ec1.htm" />
+  <HelpKINode Title="WebDavMethod.Move field" Url="html/a5776b64-a46e-d503-42dc-255b1dbfd62b.htm" />
+  <HelpKINode Title="WebDavMethod.PropFind field" Url="html/b98ccd3f-8421-cdaa-0bfa-3ca426e480ef.htm" />
+  <HelpKINode Title="WebDavMethod.PropPatch field" Url="html/e8948609-dfdb-d054-7d81-3678427feffd.htm" />
+  <HelpKINode Title="WebDavMethod.Unlock field" Url="html/f0b6268a-afda-1655-5ce0-2ed0fc696aa0.htm" />
+  <HelpKINode Title="WebDavOverwriteHeaderValue class">
+    <HelpKINode Title="WebDavOverwriteHeaderValue Class" Url="html/f79bce08-89e2-8c67-3fea-56c3e49454f7.htm" />
+    <HelpKINode Title="about WebDavOverwriteHeaderValue class" Url="html/f79bce08-89e2-8c67-3fea-56c3e49454f7.htm" />
+    <HelpKINode Title="fields" Url="html/6874d8a4-56ee-f55e-a794-40871d14ba4f.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WebDavOverwriteHeaderValue.NoOverwrite field" Url="html/2e019dc5-c558-ad92-5915-16e950860ffc.htm" />
+  <HelpKINode Title="WebDavOverwriteHeaderValue.Overwrite field" Url="html/596d886e-9c0a-c78e-7bd2-4f0e2b9ccdcb.htm" />
+  <HelpKINode Title="WebDavRequestHeader class">
+    <HelpKINode Title="WebDavRequestHeader Class" Url="html/d46e25d0-5d1b-eb0b-04c6-60f39ee6b587.htm" />
+    <HelpKINode Title="about WebDavRequestHeader class" Url="html/d46e25d0-5d1b-eb0b-04c6-60f39ee6b587.htm" />
+    <HelpKINode Title="fields" Url="html/bdc4f052-e78e-81d3-3015-719f48a7ed59.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WebDavRequestHeader.Depth field" Url="html/81d2d413-2a69-9186-2773-cf3a3a124ade.htm" />
+  <HelpKINode Title="WebDavRequestHeader.Destination field" Url="html/86107e6d-2c78-4ac6-2293-f5d5e29f60cd.htm" />
+  <HelpKINode Title="WebDavRequestHeader.If field" Url="html/b8124bf2-c2a8-5370-aae7-5282265f9108.htm" />
+  <HelpKINode Title="WebDavRequestHeader.LockTocken field" Url="html/bb11c26c-b06e-5140-be40-cd9f45c55881.htm" />
+  <HelpKINode Title="WebDavRequestHeader.Overwrite field" Url="html/0a6d4dba-c245-4274-e23a-eb2041fe82f7.htm" />
+  <HelpKINode Title="WebDavRequestHeader.Timeout field" Url="html/dd10b963-4dbe-8470-59c6-69e8b4df4693.htm" />
+  <HelpKINode Title="WebDavResponseContentParser class">
+    <HelpKINode Title="WebDavResponseContentParser Class" Url="html/8288755d-f0c7-e355-4b04-1038178eff6c.htm" />
+    <HelpKINode Title="about WebDavResponseContentParser class" Url="html/8288755d-f0c7-e355-4b04-1038178eff6c.htm" />
+    <HelpKINode Title="methods" Url="html/36e4c9de-e540-88e5-dae8-77f42feb52e2.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WebDavResponseContentParser.ParseMultistatusResponseContentAsync method" Url="html/029850d9-e8d8-2909-419c-eb940f23f1de.htm" />
+  <HelpKINode Title="WebDavResponseContentParser.ParsePropResponseContentAsync method" Url="html/e596305e-e026-9aef-808a-a182d5d4f5ba.htm" />
+  <HelpKINode Title="WebDavResponseMessage class">
+    <HelpKINode Title="WebDavResponseMessage Class" Url="html/8b43ba21-3519-cfff-6c21-ff78bd5865fc.htm" />
+    <HelpKINode Title="about WebDavResponseMessage class" Url="html/8b43ba21-3519-cfff-6c21-ff78bd5865fc.htm" />
+    <HelpKINode Title="constructor" Url="html/7f3bc2b4-223b-f6db-1700-d38808197c06.htm" />
+    <HelpKINode Title="methods" Url="html/0be0d10e-5368-d403-a055-701a6183b9eb.htm" />
+    <HelpKINode Title="properties" Url="html/22787de6-e3d3-9a15-53a9-9688538fa7dd.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WebDavResponseMessage.StatusCode property" Url="html/57a9aeea-53dd-8f11-d99c-064b674173a6.htm" />
+  <HelpKINode Title="WebDavResponseMessage.WebDavResponseMessage constructor" Url="html/7f3bc2b4-223b-f6db-1700-d38808197c06.htm" />
+  <HelpKINode Title="WebDavSession class">
+    <HelpKINode Title="WebDavSession Class" Url="html/fc9275b2-c6ad-7030-9c6d-c06eae24708c.htm" />
+    <HelpKINode Title="about WebDavSession class" Url="html/fc9275b2-c6ad-7030-9c6d-c06eae24708c.htm" />
+    <HelpKINode Title="constructor" Url="html/113fcd05-1ba9-8dea-768d-3ad3e699edfd.htm" />
+    <HelpKINode Title="methods" Url="html/b8f52627-679c-239b-d0a9-16dde8233df2.htm" />
+    <HelpKINode Title="properties" Url="html/d69e3179-b69d-003c-d506-4e1a6c8d0c49.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WebDavSession.BaseUri property" Url="html/8a065e31-ff35-e511-3ab4-39f9eea95e9a.htm" />
+  <HelpKINode Title="WebDavSession.CopyAsync method" Url="html/3885f913-f749-03fa-0503-47469c0f6949.htm" />
+  <HelpKINode Title="WebDavSession.CreateDirectoryAsync method" Url="html/ac50428b-2413-ea7f-b200-867bf3dc0a4c.htm" />
+  <HelpKINode Title="WebDavSession.DeleteAsync method" Url="html/a50afebf-a462-39ca-383a-3b8a68d7155a.htm" />
+  <HelpKINode Title="WebDavSession.Dispose method" Url="html/7c9ae6bb-ad2b-8822-6d3a-33b9a9c09a48.htm" />
+  <HelpKINode Title="WebDavSession.DownloadFileAsync method" Url="html/2f2b555d-a6c3-d1d3-c2f8-f3b5c6d366a8.htm" />
+  <HelpKINode Title="WebDavSession.ExistsAsync method" Url="html/91cd212b-4c37-85bb-f611-12a4f1972848.htm" />
+  <HelpKINode Title="WebDavSession.ListAsync method" Url="html/5563e39e-799b-5362-0885-f82e1b2c804c.htm" />
+  <HelpKINode Title="WebDavSession.LockAsync method" Url="html/0c02fb72-566e-15f0-8800-4c9f3c41257d.htm" />
+  <HelpKINode Title="WebDavSession.MoveAsync method" Url="html/f1a74e03-ec98-8099-1762-55c93a92aaa5.htm" />
+  <HelpKINode Title="WebDavSession.UnlockAsync method" Url="html/43448748-1296-3d8e-22ee-28cda8b15241.htm" />
+  <HelpKINode Title="WebDavSession.UploadFileAsync method" Url="html/7bf88580-7b62-769e-7c9d-ab53ede936ff.htm" />
+  <HelpKINode Title="WebDavSession.WebDavSession constructor" Url="html/113fcd05-1ba9-8dea-768d-3ad3e699edfd.htm" />
+  <HelpKINode Title="WebDavSession.WebProxy property" Url="html/a7e8605c-ed82-73b0-8352-2c9cccd0fb43.htm" />
+  <HelpKINode Title="WebDavSessionListItem class">
+    <HelpKINode Title="WebDavSessionListItem Class" Url="html/818f45c3-d26c-d5e0-13ec-8ada4b49d3f9.htm" />
+    <HelpKINode Title="about WebDavSessionListItem class" Url="html/818f45c3-d26c-d5e0-13ec-8ada4b49d3f9.htm" />
+    <HelpKINode Title="constructor" Url="html/93244aae-de92-d884-fe12-ffde8068e732.htm" />
+    <HelpKINode Title="methods" Url="html/28b59ff8-ee81-5f9f-1957-9c794be93df7.htm" />
+    <HelpKINode Title="properties" Url="html/1b402c15-1293-5d93-f6bd-77e28709e752.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WebDavSessionListItem.ContentType property" Url="html/ddcee8cc-9666-0f28-5081-7f59d3827977.htm" />
+  <HelpKINode Title="WebDavSessionListItem.Created property" Url="html/050a9c76-3f32-d42d-e300-4b991ec54179.htm" />
+  <HelpKINode Title="WebDavSessionListItem.IsDirectory property" Url="html/7cefa085-ebd0-bf0d-23e2-9a34cb9ca002.htm" />
+  <HelpKINode Title="WebDavSessionListItem.Modified property" Url="html/3c05eb3e-da6e-c8bd-969d-9f987185eddc.htm" />
+  <HelpKINode Title="WebDavSessionListItem.Name property" Url="html/178f67f3-a1d2-eaa5-01c8-628d908397a8.htm" />
+  <HelpKINode Title="WebDavSessionListItem.Size property" Url="html/95305788-303b-5cdc-d85d-3ce69e2e3985.htm" />
+  <HelpKINode Title="WebDavSessionListItem.Uri property" Url="html/dc32060d-6b3e-a704-d9fd-1383b1430ccd.htm" />
+  <HelpKINode Title="WebDavSessionListItem.WebDavSessionListItem constructor" Url="html/93244aae-de92-d884-fe12-ffde8068e732.htm" />
+  <HelpKINode Title="WebDavStatusCode enumeration" Url="html/7e09ae7d-0ec2-d616-e97f-786af4c1deaf.htm" />
+  <HelpKINode Title="WebDavTimeoutHeaderValue class">
+    <HelpKINode Title="WebDavTimeoutHeaderValue Class" Url="html/b35c1a6f-ced8-5070-e1d4-b45d2f2817cb.htm" />
+    <HelpKINode Title="about WebDavTimeoutHeaderValue class" Url="html/b35c1a6f-ced8-5070-e1d4-b45d2f2817cb.htm" />
+    <HelpKINode Title="methods" Url="html/61f0b868-18cc-7eb8-71b0-ef7f0ebee349.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WebDavTimeoutHeaderValue.CreateInfiniteWebDavTimeout method" Url="html/3be1e079-72e5-97fe-f4c6-adb6aa0d2664.htm" />
+  <HelpKINode Title="WebDavTimeoutHeaderValue.CreateInfiniteWebDavTimeoutWithAlternative method" Url="html/07a25a13-5ce6-d8af-fbe8-7527d82a9e8c.htm" />
+  <HelpKINode Title="WebDavTimeoutHeaderValue.CreateWebDavTimeout method" Url="html/aa66ae8a-c63d-2454-c9db-4dc5ecd62ed1.htm" />
+  <HelpKINode Title="WebDavTimeoutHeaderValue.ToString method" Url="html/537c2780-5c2d-a680-2745-0f005488af53.htm" />
+  <HelpKINode Title="WebProxy property" Url="html/a7e8605c-ed82-73b0-8352-2c9cccd0fb43.htm" />
+  <HelpKINode Title="Welcome" Url="html/9861c576-d072-4505-8ad3-aca80a83612f.htm" />
+  <HelpKINode Title="Write class">
+    <HelpKINode Title="Write Class" Url="html/1105aa6b-9f10-fe67-cc5c-498a41a0cc3b.htm" />
+    <HelpKINode Title="about Write class" Url="html/1105aa6b-9f10-fe67-cc5c-498a41a0cc3b.htm" />
+    <HelpKINode Title="constructor" Url="html/1bef63d6-d5df-a115-12ef-16ad4a15a3a9.htm" />
+    <HelpKINode Title="methods" Url="html/94889a25-c77a-4483-1ac7-531692935513.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Write property" Url="html/fed0722e-9e16-e490-0181-49bcb7bfc3f0.htm" />
+  <HelpKINode Title="Write.Write constructor" Url="html/1bef63d6-d5df-a115-12ef-16ad4a15a3a9.htm" />
+  <HelpKINode Title="Zero field" Url="html/47f8cf78-9f31-e82f-6b3a-28bab660e4e2.htm" />
+</HelpKI>
