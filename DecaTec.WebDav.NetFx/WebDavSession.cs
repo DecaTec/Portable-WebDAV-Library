@@ -162,11 +162,11 @@ namespace DecaTec.WebDav
         /// Copies a resource from the source URL to the destination URL (without owerwriting).
         /// </summary>
         /// <param name="sourceUrl">The source URL.</param>
-        /// <param name="desitnationUrl">The destination URL.</param>
+        /// <param name="destinationUrl">The destination URL.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        public async Task<bool> CopyAsync(string sourceUrl, string desitnationUrl)
+        public async Task<bool> CopyAsync(string sourceUrl, string destinationUrl)
         {
-            return await CopyAsync(new Uri(desitnationUrl, UriKind.RelativeOrAbsolute), new Uri(desitnationUrl, UriKind.RelativeOrAbsolute), false);
+            return await CopyAsync(new Uri(destinationUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), false);
         }
 
         /// <summary>
@@ -184,12 +184,12 @@ namespace DecaTec.WebDav
         /// Copies a resource from the source URL to the destination URL.
         /// </summary>
         /// <param name="sourceUrl">The source URL.</param>
-        /// <param name="desitnationUrl">The destination URL.</param>
+        /// <param name="destinationUrl">The destination URL.</param>
         /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        public async Task<bool> CopyAsync(string sourceUrl, string desitnationUrl, bool overwrite)
+        public async Task<bool> CopyAsync(string sourceUrl, string destinationUrl, bool overwrite)
         {
-            return await CopyAsync(new Uri(desitnationUrl, UriKind.RelativeOrAbsolute), new Uri(desitnationUrl, UriKind.RelativeOrAbsolute), overwrite);
+            return await CopyAsync(new Uri(destinationUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), overwrite);
         }
 
         /// <summary>

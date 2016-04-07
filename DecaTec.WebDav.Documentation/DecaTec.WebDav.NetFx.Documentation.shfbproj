@@ -11,11 +11,11 @@
     <!-- AssemblyName, Name, and RootNamespace are not used by SHFB but Visual Studio adds them anyway -->
     <AssemblyName>DecaTec.WebDav.Documentation</AssemblyName>
     <RootNamespace>DecaTec.WebDav.Documentation</RootNamespace>
-    <Name>DecaTec.WebDav.Documentation</Name>
+    <Name>DecaTec.WebDav.NetFx.Documentation</Name>
     <!-- SHFB properties -->
     <FrameworkVersion>.NET Portable Library 4.5</FrameworkVersion>
     <OutputPath>..\Build\Doc\</OutputPath>
-    <HtmlHelpName>DecaTec.WebDav.Documentation</HtmlHelpName>
+    <HtmlHelpName>DecaTec.WebDav.NetFx.Documentation</HtmlHelpName>
     <Language>en-US</Language>
     <TransformComponentArguments>
       <Argument Key="logoFile" Value="Help.png" xmlns="" />
@@ -32,7 +32,6 @@
     <SccLocalPath>SAK</SccLocalPath>
     <DocumentationSources>
       <DocumentationSource sourceFile="..\DecaTec.WebDav.NetFx\DecaTec.WebDav.NetFx.csproj" />
-      <DocumentationSource sourceFile="..\DecaTec.WebDav.Uwp\DecaTec.WebDav.Uwp.csproj" />
     </DocumentationSources>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
     <HelpFileFormat>HtmlHelp1, Website</HelpFileFormat>
@@ -55,6 +54,7 @@
       <NamespaceSummaryItem name="DecaTec.WebDav" isDocumented="True" xmlns="">The DecaTec.WebDav namespace contains types that allow communication with a WebDAV server.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="DecaTec.WebDav.WebDavArtifacts" isDocumented="True" xmlns="">The DecaTec.WebDav.WebDavArtifacts namespace contains types representing the WebDAV object model. These types are used in order to generate the XML strings for communication with a WebDAV server.</NamespaceSummaryItem>
     </NamespaceSummaries>
+    <HelpFileVersion>1.0.0.0</HelpFileVersion>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->

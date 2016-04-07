@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{305F77CB-88DF-4954-80C3-06B50ABD26E4}"
 EndProject
-Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "DecaTec.WebDav.Documentation", "DecaTec.WebDav.Documentation\DecaTec.WebDav.Documentation.shfbproj", "{F6C99C88-722B-4346-BB06-9B8711C24183}"
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "DecaTec.WebDav.NetFx.Documentation", "DecaTec.WebDav.Documentation\DecaTec.WebDav.NetFx.Documentation.shfbproj", "{F6C99C88-722B-4346-BB06-9B8711C24183}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{C7ABB0AC-2561-404C-857F-FF1CA0DE06BD}"
 EndProject
