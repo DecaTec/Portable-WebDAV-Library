@@ -91,7 +91,7 @@ namespace DecaTec.WebDav
     /// </example>
     /// </remarks>
     /// <seealso cref="DecaTec.WebDav.WebDavSession"/>
-    public class WebDavClient
+    public class WebDavClient : IDisposable
     {
         private HttpClient httpClient;
 
@@ -1347,5 +1347,45 @@ namespace DecaTec.WebDav
         }
 
         #endregion Private methods
+
+        #region IDisposable members
+
+        bool disposed = false;
+
+        /// <summary>
+        /// Disposes the object.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Disposes the object.
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                // Free any other managed objects here.
+
+                if (this.httpClient != null)
+                {
+                    this.httpClient.Dispose();
+                    this.httpClient = null;
+                }
+            }
+
+            // Free any unmanaged objects here.
+
+            disposed = true;
+        }
+
+        #endregion IDisposable members
     }
 }
