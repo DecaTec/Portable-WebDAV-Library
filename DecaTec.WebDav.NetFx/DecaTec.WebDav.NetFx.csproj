@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E20B6616-B1A4-4F8B-A5A5-DE33E951ECC0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DecaTec.WebDav</RootNamespace>
+    <AssemblyName>DecaTec.WebDav.NetFx</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Build\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Build\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <DocumentationFile>Build\Release\\DecaTec.WebDav.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\ActiveLock.cs">
+      <Link>WebDavArtifacts\ActiveLock.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\AllProp.cs">
+      <Link>WebDavArtifacts\AllProp.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Collection.cs">
+      <Link>WebDavArtifacts\Collection.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Exclusive.cs">
+      <Link>WebDavArtifacts\Exclusive.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Include.cs">
+      <Link>WebDavArtifacts\Include.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\ItemsChoiceType.cs">
+      <Link>WebDavArtifacts\ItemsChoiceType.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\KeepAlive.cs">
+      <Link>WebDavArtifacts\KeepAlive.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Link.cs">
+      <Link>WebDavArtifacts\Link.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\LockDiscovery.cs">
+      <Link>WebDavArtifacts\LockDiscovery.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\LockEntry.cs">
+      <Link>WebDavArtifacts\LockEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\LockInfo.cs">
+      <Link>WebDavArtifacts\LockInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\LockRoot.cs">
+      <Link>WebDavArtifacts\LockRoot.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\LockScope.cs">
+      <Link>WebDavArtifacts\LockScope.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\LockType.cs">
+      <Link>WebDavArtifacts\LockType.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Multistatus.cs">
+      <Link>WebDavArtifacts\Multistatus.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Omit.cs">
+      <Link>WebDavArtifacts\Omit.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\OwnerHref.cs">
+      <Link>WebDavArtifacts\OwnerHref.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Prop.cs">
+      <Link>WebDavArtifacts\Prop.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\PropertyBehavior.cs">
+      <Link>WebDavArtifacts\PropertyBehavior.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\PropertyUpdate.cs">
+      <Link>WebDavArtifacts\PropertyUpdate.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\PropFind.cs">
+      <Link>WebDavArtifacts\PropFind.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\PropName.cs">
+      <Link>WebDavArtifacts\PropName.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Propstat.cs">
+      <Link>WebDavArtifacts\Propstat.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Remove.cs">
+      <Link>WebDavArtifacts\Remove.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\ResourceType.cs">
+      <Link>WebDavArtifacts\ResourceType.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Response.cs">
+      <Link>WebDavArtifacts\Response.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Set.cs">
+      <Link>WebDavArtifacts\Set.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Shared.cs">
+      <Link>WebDavArtifacts\Shared.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Source.cs">
+      <Link>WebDavArtifacts\Source.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\SupportedLock.cs">
+      <Link>WebDavArtifacts\SupportedLock.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\WebDavLockToken.cs">
+      <Link>WebDavArtifacts\WebDavLockToken.cs</Link>
+    </Compile>
+    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Write.cs">
+      <Link>WebDavArtifacts\Write.cs</Link>
+    </Compile>
+    <Compile Include="LockToken.cs" />
+    <Compile Include="LockTokenFormat.cs" />
+    <Compile Include="PermanentLock.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UrlHelper.cs" />
+    <Compile Include="WebDavAuthenticationType.cs" />
+    <Compile Include="WebDavClient.cs" />
+    <Compile Include="WebDavCredential.cs" />
+    <Compile Include="WebDavDepthHeaderValue.cs" />
+    <Compile Include="WebDavException.cs" />
+    <Compile Include="WebDavHelper.cs" />
+    <Compile Include="WebDavMethod.cs" />
+    <Compile Include="WebDavOverwriteHeaderValue.cs" />
+    <Compile Include="WebDavRequestHeader.cs" />
+    <Compile Include="WebDavResponseContentParser.cs" />
+    <Compile Include="WebDavResponseMessage.cs" />
+    <Compile Include="WebDavSession.cs" />
+    <Compile Include="WebDavSessionListItem.cs" />
+    <Compile Include="WebDavStatusCode.cs" />
+    <Compile Include="WebDavTimeoutHeaderValue.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
