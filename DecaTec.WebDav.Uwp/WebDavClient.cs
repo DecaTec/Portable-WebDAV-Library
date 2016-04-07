@@ -474,7 +474,6 @@ namespace DecaTec.WebDav
         /// <param name="depth">The depth value to use for the operation.</param>
         /// <param name="lockInfo">The LockInfo object specifying the lock.</param>
         /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
-        /// <param name="cancellationToken">The cancellation token to cancel operation.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> LockAsync(string requestUrl, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, LockInfo lockInfo, HttpCompletionOption completionOption)
         {
@@ -489,7 +488,6 @@ namespace DecaTec.WebDav
         /// <param name="depth">The depth value to use for the operation.</param>
         /// <param name="lockInfo">The LockInfo object specifying the lock.</param>
         /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
-        /// <param name="cancellationToken">The cancellation token to cancel operation.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> LockAsync(Uri requestUri, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, LockInfo lockInfo, HttpCompletionOption completionOption)
         {
@@ -763,7 +761,6 @@ namespace DecaTec.WebDav
         /// <param name="lockTokenSource">The lock token of the source. Speficy null if the source is not locked.</param>
         /// <param name="lockTokenDestination">The lock token of the destination. Specify null if the destination is not locked.</param>
         /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>True, if the operation completed sucessuffly, otherwise false.</returns>
         public async Task<HttpResponseMessage> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite, LockToken lockTokenSource, LockToken lockTokenDestination, HttpCompletionOption completionOption)
         {

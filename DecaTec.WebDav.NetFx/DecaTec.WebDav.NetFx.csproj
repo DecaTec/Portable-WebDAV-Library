@@ -33,7 +33,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <DocumentationFile>Build\Release\\DecaTec.WebDav.XML</DocumentationFile>
+    <DocumentationFile>..\Build\Release\DecaTec.WebDav.NetFx.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\ActiveLock.cs">

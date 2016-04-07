@@ -102,7 +102,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Initializes a new instance of WebDavSession with the <see cref="System.Net.Http.HttpMessageHandler"/> specified.
         /// </summary>
-        /// <param name="httpMessageHandler">The <see cref="System.Net.Http.HttpMessageHandler"/> to use with this WebDavSession.</param>
+        /// <param name="httpFilter">The <see cref="Windows.Web.Http.Filters.IHttpFilter"/> to use with this WebDavSession.</param>
         /// <remarks>If credentials are needed, these are part of the <see cref="System.Net.Http.HttpMessageHandler"/> and are specified with it.</remarks>
         public WebDavSession(IHttpFilter httpFilter)
             : this(string.Empty, httpFilter)
@@ -113,7 +113,7 @@ namespace DecaTec.WebDav
         /// Initializes a new instance of WebDavSession with the <see cref="System.Net.Http.HttpMessageHandler"/> specified.
         /// </summary>
         /// <param name="baseUrl">The base URL to use for this WebDavSession.</param>
-        /// <param name="httpMessageHandler">The <see cref="System.Net.Http.HttpMessageHandler"/> to use with this WebDavSession.</param>
+        /// <param name="httpFilter">The <see cref="Windows.Web.Http.Filters.IHttpFilter"/> to use with this WebDavSession.</param>
         /// <remarks>If credentials are needed, these are part of the <see cref="System.Net.Http.HttpMessageHandler"/> and are specified with it.</remarks>
         public WebDavSession(string baseUrl, IHttpFilter httpFilter)
             : this(string.IsNullOrEmpty(baseUrl) ? null : new Uri(baseUrl), httpFilter)
@@ -124,7 +124,7 @@ namespace DecaTec.WebDav
         /// Initializes a new instance of WebDavSession with the given base URI and the <see cref="System.Net.Http.HttpMessageHandler"/> specified.
         /// </summary>
         /// <param name="baseUri">The base URI to use for this WebDavSession.</param>
-        /// <param name="httpMessageHandler">The <see cref="System.Net.Http.HttpMessageHandler"/> to use with this WebDavSession.</param>
+        /// <param name="httpFilter">The <see cref="Windows.Web.Http.Filters.IHttpFilter"/> to use with this WebDavSession.</param>
         /// <remarks>If credentials are needed, these are part of the <see cref="System.Net.Http.HttpMessageHandler"/> and are specified with it.</remarks>
         public WebDavSession(Uri baseUri, IHttpFilter httpFilter)
         {

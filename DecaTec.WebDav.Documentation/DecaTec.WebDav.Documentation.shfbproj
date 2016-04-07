@@ -31,7 +31,8 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\DecaTec.WebDav\DecaTec.WebDav.csproj" xmlns="" />
+      <DocumentationSource sourceFile="..\DecaTec.WebDav.NetFx\DecaTec.WebDav.NetFx.csproj" />
+      <DocumentationSource sourceFile="..\DecaTec.WebDav.Uwp\DecaTec.WebDav.Uwp.csproj" />
     </DocumentationSources>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
     <HelpFileFormat>HtmlHelp1, Website</HelpFileFormat>
