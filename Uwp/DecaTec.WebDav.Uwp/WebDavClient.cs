@@ -14,13 +14,13 @@ namespace DecaTec.WebDav
     /// Provides a class for sending WebDAV requests and receiving WebDAV responses from a resource identified by URI.
     /// </summary>
     /// <remarks>
-    /// <para>WebDavClient inherits from <see cref="System.Net.Http.HttpClient"/> and adds WebDAV specific methods as well as some addictional methods regarding HTTP communication.</para>
+    /// <para>WebDavClient uses a <see cref="Windows.Web.Http.HttpClient"/> to provide WebDAV specific methods.</para>
     /// <para>It implements the <see href="http://tools.ietf.org/html/rfc4918">RFC 4918</see> specification and can be used to communicate directly with a WebDAV server.</para>
     /// <para>For most use cases regarding WebDAV communcation, the <see cref="DecaTec.WebDav.WebDavSession"/> is sufficient because it hides most of the WebDAV specific communication 
     /// and provides an easy access to WebDAV servers.</para>
     /// <example>To send a propfind request you can use following code:
     /// <code>
-    /// // You have to add references to System.Net.Http and DecaTec.WebDav.
+    /// // You have to add a reference to DecaTec.WebDav.Uwp.dll.
     /// //
     /// // Speficy the user credentials and pass it to a HttpClientHandler.
     /// var credentials = new NetworkCredential("UserName", "MyPassword");
