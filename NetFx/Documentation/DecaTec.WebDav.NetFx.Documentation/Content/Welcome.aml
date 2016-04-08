@@ -5,28 +5,53 @@
       <para>
         Portable WebDAV Library is a fully <externalLink><linkText>RFC 4918</linkText><linkUri>http://tools.ietf.org/html/rfc4918</linkUri></externalLink> compliant WebDAV client library which is implemented das portable class library (PCL) for use on desktop environments as well as mobile devices.
       </para>
+      <para>
+        <legacyBold>This is the documentation for the DecaTec.WebDav.NetFx part of the Portable WebDAV Library.</legacyBold>
+      </para>
     </introduction>
+
+    <section>
+      <title>Two versions of the Portable WebDAV Library</title>
+      <content>
+        <para>For a better compatibility to the different target platforms, the library is splitted into two seperate parts:</para>
+        <list class="bullet">
+          <listItem>
+            <para>
+              <legacyBold>DecaTec.WebDav.NetFx.dll:</legacyBold> This portable class library targets .NET Framework 4.5, Windows 8, Windows Phone 8.1 and ASP.NET Core.</para>
+          </listItem>
+          <listItem>
+            <para>
+              <legacyBold>DecaTec.WebDav.Uwp.dll:</legacyBold> This portable class library targets Windows 8.1 and Windows Phone 8.1.
+            </para>
+          </listItem>
+        </list>
+      </content>
+    </section>
+
+    <section>
+      <title>Which version should be used?</title>
+      <content>
+        <para>If you application/app runs under <legacyBold>.NET Framework</legacyBold>, <legacyBold>Windows 8</legacyBold> or <legacyBold>ASP.NET</legacyBold>, then use <legacyBold>DecaTec.WebDav.NetFx</legacyBold>: This implementation is based on the <externalLink><linkText>System.Net.Http.HttpClient</linkText><linkUri>https://msdn.microsoft.com/en-us/library/system.net.http.httpclient(v=vs.118).aspx</linkUri></externalLink> which offers a staightforward access to web resources.</para>
+        <para>When targeting <legacyBold>Windows 8.1</legacyBold>/<legacyBold>Windows Phone 8.1</legacyBold> or <legacyBold>Windows 10</legacyBold>/<legacyBold>Windows 10 Mobile</legacyBold>, especially <legacyBold>Universal Windows Platform (UWP)</legacyBold> apps, then use <legacyBold>DecaTec.WebDav.Uwp</legacyBold>: This is based on <externalLink><linkText>Windows.Web.Http.HttpClient</linkText><linkUri>https://msdn.microsoft.com/library/windows/apps/windows.web.http.httpclient.aspx</linkUri></externalLink>, which is the more modern API for web resource access.</para>
+      </content>
+    </section>
+
+    <section>
+      <title>Why there are two versions of the library? Why not using one portable class library for all target platforms?</title>
+      <content>
+        <para>
+          The first implementation of the Portable WebDAV Library consisted of only one DLL targetting all available target platforms. But when using the library in a UWP app, there were some compatibility issues: Not being able to ignore invalid SSL certificates or even a bug in the System.Net.Http assembly (referenced in UWP apps), which threw an exception when trying to access WebDAV resources. Due to these reasons, when implementing a UWP app, the use of <externalLink><linkText>Windows.Web.Http.HttpClient</linkText><linkUri>https://msdn.microsoft.com/library/windows/apps/windows.web.http.httpclient.aspx</linkUri></externalLink>  is recommended by Microsoft as this API offers better flexibility and compatibility. Therefor, the Portable WebDAV Library was split into to different version.
+        </para>
+        <para>
+          In the future, maybe the library gets merged into one (universal) library again as long as these is one API for web resource access which works the same on every target platform.
+        </para>
+      </content>
+    </section>
 
     <section>
       <title>Getting Started</title>
       <content>
-        <para>To get started, add a reference to DecaTec.WebDav.dll to your project.</para>
-
-        <para>
-          <legacyBold>Important when using this library in a UWP (Windows 10) project</legacyBold>
-        </para>
-        <para>
-          Currently there is a bug in the System.Net.Http.HttpClient which is referenced in UWP projects (<externalLink>
-            <linkText>see MSDN forums</linkText>
-            <linkUri>https://social.msdn.microsoft.com/Forums/vstudio/en-US/ff66088c-6705-40c0-b839-491b6ed6eb76/uwpwindows-10-bug-in-httpclienthttpwebrequest-when-using-network-credentials?forum=wpdevelop</linkUri>
-          </externalLink>). The WebDavClient uses this HttpClient in order to send its WebDAV request which results in the following exception when accessing WebDAV resources:</para>
-        <quote>
-          <![CDATA[
-System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.NotSupportedException: This IRandomAccessStream does not support the GetInputStreamAt method because it requires cloning and this stream does not support cloning. 
-          ]]>
-        </quote>
-        <para>The bug will be solved in a future release of the System.Net.Http assembly. To be able to use the Portable WebDAV Library in a UWP project, you have to add a reference to the pre-release NuGet package 'System.Net.Http':</para>
-        <para>Right click on your project in Visual Studio > <legacyItalic>Manage NuGet Packages...</legacyItalic> > Browse > Search for 'System.Net.Http' and tick the option <legacyItalic>Include prerelease</legacyItalic> > Now install the latest beta version of this package.</para>
+        <para>To get started, add a reference to <legacyBold>DecaTec.WebDav.NetFx.dll</legacyBold> to your project.</para>
         <para>
           <legacyBold>Usage</legacyBold>
         </para>
@@ -175,7 +200,7 @@ PropFind pf = PropFind.CreatePropFindAllProp();
         <para>
           <legacyItalic>Important:</legacyItalic>
           In order to run the unit integrations tests, information about a speficic WebDAV server have to be provided in a configuration file. This has to be a file named 'TestConfiguration.txt' 
-          located in the unit integration test project's output folder (e.g. <legacyItalic>Portable-WebDAV-Library\UnitTests\DecaTec.WebDav.Test.UnitIntegrationTest\bin\Release</legacyItalic>). This file has to contain exactly three lines:
+          located in the unit integration test project's output folder (e.g. <legacyItalic>Portable-WebDAV-Library\NetFx\UnitTests\DecaTec.WebDav.NetFx.UnitIntegrationTest\bin\Release</legacyItalic>). This file has to contain exactly three lines:
         </para>
         <list class="nobullet">
           <listItem>

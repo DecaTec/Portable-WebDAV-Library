@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
-  <Topic id="9861c576-d072-4505-8ad3-aca80a83612f" visible="True" isDefault="true" title="Welcome to the Portable WebDAV Library">
+  <Topic id="9861c576-d072-4505-8ad3-aca80a83612f" visible="True" isDefault="true" title="Welcome to the Portable WebDAV Library (NetFx)">
     <HelpKeywords>
       <HelpKeyword index="K" term="Welcome" />
     </HelpKeywords>
@@ -19,9 +19,14 @@
         <HelpKeyword index="K" term="version, 0.1.1.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="0108aa9e-79b7-4dd0-ae97-5b929d6d1272" visible="True" isSelected="true" title="Version 0.2.0.0">
+    <Topic id="0108aa9e-79b7-4dd0-ae97-5b929d6d1272" visible="True" title="Version 0.2.0.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.2.0.0" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="52f64b16-4bba-4d64-887a-8228747ef289" visible="True" isSelected="true" title="Version 0.3.0.0">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 0.3.0.0" />
       </HelpKeywords>
     </Topic>
   </Topic>
