@@ -5,12 +5,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Web.Http.Filters;
+using System.Threading.Tasks;
 using Windows.Security.Credentials;
 using Windows.Web.Http;
+using Windows.Web.Http.Filters;
 
 namespace DecaTec.WebDav
 {
@@ -73,9 +72,9 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Initializes a new instance of WebDavSession with a default <see cref="System.Net.Http.HttpClientHandler"/>.
         /// </summary>
-        /// <param name="networkCredential">The <see cref="System.Net.NetworkCredential"/> to use.</param>
-        public WebDavSession(NetworkCredential networkCredential)
-            : this(string.Empty, new HttpBaseProtocolFilter() { ServerCredential = new PasswordCredential(networkCredential.Domain, networkCredential.UserName, networkCredential.Password) })
+        /// <param name="passwordCredential">The <see cref="Windows.Security.Credentials.PasswordCredential"/> to use.</param>
+        public WebDavSession(PasswordCredential passwordCredential)
+            : this(string.Empty, new HttpBaseProtocolFilter() { ServerCredential = passwordCredential })
         {
         }
 
@@ -83,9 +82,9 @@ namespace DecaTec.WebDav
         /// Initializes a new instance of WebDavSession with the given base URL and a default <see cref="System.Net.Http.HttpClientHandler"/>.
         /// </summary>
         /// <param name="baseUrl">The base URL to use for this WebDavSession.</param>
-        /// <param name="networkCredential">The <see cref="System.Net.NetworkCredential"/> to use.</param>
-        public WebDavSession(string baseUrl, NetworkCredential networkCredential)
-            : this(new Uri(baseUrl), new HttpBaseProtocolFilter() { ServerCredential = new PasswordCredential(networkCredential.Domain, networkCredential.UserName, networkCredential.Password) })
+        /// <param name="passwordCredential">The <see cref="Windows.Security.Credentials.PasswordCredential"/> to use.</param>
+        public WebDavSession(string baseUrl, PasswordCredential passwordCredential)
+            : this(new Uri(baseUrl), new HttpBaseProtocolFilter() { ServerCredential = passwordCredential })
         {
         }
 
@@ -93,9 +92,9 @@ namespace DecaTec.WebDav
         /// Initializes a new instance of WebDavSession with the given base URI and a default <see cref="System.Net.Http.HttpClientHandler"/>.
         /// </summary>
         /// <param name="baseUri">The base URI to use for this WebDavSession.</param>
-        /// <param name="networkCredential">The <see cref="System.Net.NetworkCredential"/> to use.</param>
-        public WebDavSession(Uri baseUri, NetworkCredential networkCredential)
-            : this(baseUri, new HttpBaseProtocolFilter() { ServerCredential = new PasswordCredential(networkCredential.Domain, networkCredential.UserName, networkCredential.Password) })
+        /// <param name="passwordCredential">The <see cref="Windows.Security.Credentials.PasswordCredential"/> to use.</param>
+        public WebDavSession(Uri baseUri, PasswordCredential passwordCredential)
+            : this(baseUri, new HttpBaseProtocolFilter() { ServerCredential = passwordCredential })
         {
         }
 
@@ -141,15 +140,6 @@ namespace DecaTec.WebDav
         /// Gets or sets the base <see cref="System.Uri"/> of this WebDavSession.
         /// </summary>
         public Uri BaseUri
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the <see cref="System.Net.IWebProxy"/> to use with this WebDavSession.
-        /// </summary>
-        public IWebProxy WebProxy
         {
             get;
             set;
