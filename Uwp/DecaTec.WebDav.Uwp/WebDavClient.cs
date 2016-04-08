@@ -22,30 +22,32 @@ namespace DecaTec.WebDav
     /// <code>
     /// // You have to add a reference to DecaTec.WebDav.Uwp.dll.
     /// //
-    /// // Speficy the user credentials and pass it to a HttpClientHandler.
-    /// var credentials = new NetworkCredential("UserName", "MyPassword");
-    /// var httpClientHandler = new HttpClientHandler();
-    /// httpClientHandler.Credentials = credentials;
-    /// httpClientHandler.PreAuthenticate = true;
+    /// // The base URL of the WebDAV server.
+    /// var webDavServerUrl = "http://www.myserver.com/webdav/";
     ///
-    /// // Use the HttpClientHandler to create the WebDavClient.
-    /// var webDavClient = new WebDavClient(httpClientHandler);
+    /// // Speficy the user credentials and pass it to a HttpBaseProtocolFilter.
+    /// var credentials = new PasswordCredential(webDavServerUrl, "MyUserName", "MyPassword");
+    /// var httpBaseProtocolFilter = new HttpBaseProtocolFilter();
+    /// httpBaseProtocolFilter.ServerCredential = credentials;
+    ///
+    /// // Use the HttpBaseProtocolFilter (with credentials) to create a new WebDavClient.
+    ///var webDavClient = new WebDavClient(httpBaseProtocolFilter);
     ///
     /// // Create a PropFind object with represents a so called allprop request.
-    /// PropFind pf = PropFind.CreatePropFindAllProp();
-    /// var response = await webDavClient.PropFindAsync(@"http://www.myserver.com/webdav/myfolder/", WebDavDepthHeaderValue.Infinity, pf);
+    /// var pf = PropFind.CreatePropFindAllProp();
+    /// var response = await webDavClient.PropFindAsync("http://www.myserver.com/webdav/MyFolder/", WebDavDepthHeaderValue.Infinity, pf);
     ///
     /// // You could also use an XML string directly for use with the WebDavClient.
     /// //var xmlString = "&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;utf-8\&quot;?&gt;&lt;D:propfind xmlns:D=\&quot;DAV:\&quot;&gt;&lt;D:allprop /&gt;&lt;/D:propfind&gt;";
-    /// //var response = await webDavClient.PropFindAsync(@"http://www.myserver.com/webdav/myfolder/", WebDavDepthHeaderValue.Infinity, xmlString);
+    /// //var response = await webDavClient.PropFindAsync(@"http://www.myserver.com/webdav/MyFolder/", WebDavDepthHeaderValue.Infinity, xmlString);
     ///
     /// // Use the WebDavResponseContentParser to parse the response message and get a MultiStatus instance (this is also an async method).
     /// var multistatus = await WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content);
     ///
     /// // Now you can use the MultiStatus object to get access to the items properties.
-    /// foreach (var responseItem in multistatus)
+    /// foreach (var responseItem in multistatus.Response)
     /// {
-    ///     Console.WriteLine(responseItem.Href);
+    ///     // Handle propfind multistatus respnse, e.g responseItem.Href is the URL of an item (folder or file).
     /// }
     /// </code>
     /// <para></para>
@@ -91,6 +93,7 @@ namespace DecaTec.WebDav
     /// </example>
     /// </remarks>
     /// <seealso cref="DecaTec.WebDav.WebDavSession"/>
+    ///
     public class WebDavClient : IDisposable
     {
         private HttpClient httpClient;
@@ -340,7 +343,7 @@ namespace DecaTec.WebDav
         /// <param name="requestUri">The URI the request is sent to.</param>
         /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        public async Task<HttpResponseMessage> GetAsync(Uri requestUri, HttpCompletionOption completionOption )
+        public async Task<HttpResponseMessage> GetAsync(Uri requestUri, HttpCompletionOption completionOption)
         {
             var httpResponseMessage = await this.httpClient.GetAsync(requestUri, completionOption);
             return httpResponseMessage;
@@ -1337,7 +1340,7 @@ namespace DecaTec.WebDav
 
             using (XmlReader xmlReader = XmlReader.Create(responseString))
             {
-                multiStatus= (Multistatus)MultistatusSerializer.Deserialize(xmlReader);
+                multiStatus = (Multistatus)MultistatusSerializer.Deserialize(xmlReader);
             }
 
             return multiStatus;

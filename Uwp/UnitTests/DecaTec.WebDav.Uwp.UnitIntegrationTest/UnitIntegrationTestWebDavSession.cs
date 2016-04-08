@@ -70,7 +70,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
             Assert.IsTrue(deleted);
         }
 
-        [TestMethod] 
+        [TestMethod]
         public void UnitIntegrationTestWebDavSessionListWithBaseUriMissing()
         {
             Assert.ThrowsException<ArgumentException>(() =>

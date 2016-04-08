@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
-  <Topic id="ec2c4fb9-84b7-4cd1-a3a7-271e790c0df7" visible="True" isDefault="true" isSelected="true" title="Welcome to the [TODO: Add project name]">
+  <Topic id="ec2c4fb9-84b7-4cd1-a3a7-271e790c0df7" visible="True" isDefault="true" title="Welcome to the Portable WebDAV Library (UWP)">
     <HelpKeywords>
       <HelpKeyword index="K" term="Welcome" />
     </HelpKeywords>
@@ -9,9 +9,24 @@
     <HelpKeywords>
       <HelpKeyword index="K" term="version, history" />
     </HelpKeywords>
-    <Topic id="19f8035c-90f5-4762-bda1-1ac12e6c6601" visible="True" title="Version 1.0.0.0">
+    <Topic id="19f8035c-90f5-4762-bda1-1ac12e6c6601" visible="True" title="v0.1.0.0">
       <HelpKeywords>
-        <HelpKeyword index="K" term="version, 1.0.0.0" />
+        <HelpKeyword index="K" term="version, 0.1.0.0" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="6e156afc-c652-4512-b653-bd8cd0245b92" visible="True" title="v0.1.1.0">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 0.1.1.0" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="bb519010-243f-4c7f-b6ed-27d0f2791df1" visible="True" title="v0.2.0.0">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 0.2.0.0" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="c0500c5a-272a-4888-8d73-5e7b549c4dc5" visible="True" isSelected="true" title="v0.3.0.0">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 0.3.0.0" />
       </HelpKeywords>
     </Topic>
   </Topic>

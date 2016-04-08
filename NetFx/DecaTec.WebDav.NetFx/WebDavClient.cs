@@ -1,13 +1,9 @@
 ﻿using DecaTec.WebDav.WebDavArtifacts;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Serialization;
 
 namespace DecaTec.WebDav
@@ -25,7 +21,7 @@ namespace DecaTec.WebDav
     /// // You have to add a reference to DecaTec.WebDav.NetFx.dll.
     /// //
     /// // Speficy the user credentials and pass it to a HttpClientHandler.
-    /// var credentials = new NetworkCredential("UserName", "MyPassword");
+    /// var credentials = new NetworkCredential("MyUserName", "MyPassword");
     /// var httpClientHandler = new HttpClientHandler();
     /// httpClientHandler.Credentials = credentials;
     /// httpClientHandler.PreAuthenticate = true;
@@ -35,18 +31,19 @@ namespace DecaTec.WebDav
     ///
     /// // Create a PropFind object with represents a so called allprop request.
     /// PropFind pf = PropFind.CreatePropFindAllProp();
-    /// var response = await webDavClient.PropFindAsync(@"http://www.myserver.com/webdav/myfolder/", WebDavDepthHeaderValue.Infinity, pf);
+    /// var response = await webDavClient.PropFindAsync(@"http://www.myserver.com/webdav/MyFolder/", WebDavDepthHeaderValue.Infinity, pf);
     ///
     /// // You could also use an XML string directly for use with the WebDavClient.
     /// //var xmlString = "&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;utf-8\&quot;?&gt;&lt;D:propfind xmlns:D=\&quot;DAV:\&quot;&gt;&lt;D:allprop /&gt;&lt;/D:propfind&gt;";
-    /// //var response = await webDavClient.PropFindAsync(@"http://www.myserver.com/webdav/myfolder/", WebDavDepthHeaderValue.Infinity, xmlString);
+    /// //var response = await webDavClient.PropFindAsync(@"http://www.myserver.com/webdav/MyFolder/", WebDavDepthHeaderValue.Infinity, xmlString);
     ///
     /// // Use the WebDavResponseContentParser to parse the response message and get a MultiStatus instance (this is also an async method).
     /// var multistatus = await WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content);
     ///
     /// // Now you can use the MultiStatus object to get access to the items properties.
-    /// foreach (var responseItem in multistatus)
+    /// foreach (var responseItem in multistatus.Response)
     /// {
+    ///     // Handle propfind multistatus respnse, e.g responseItem.Href is the URL of an item (folder or file).
     ///     Console.WriteLine(responseItem.Href);
     /// }
     /// </code>
@@ -56,7 +53,7 @@ namespace DecaTec.WebDav
     /// // You have to add references to System.Net.Http and DecaTec.WebDav.
     /// //
     /// // Speficy the user credentials and pass it to a HttpClientHandler.
-    /// var credentials = new NetworkCredential("UserName", "MyPassword");
+    /// var credentials = new NetworkCredential("MyUserName", "MyPassword");
     /// var httpClientHandler = new HttpClientHandler();
     /// httpClientHandler.Credentials = credentials;
     /// httpClientHandler.PreAuthenticate = true;
@@ -72,7 +69,7 @@ namespace DecaTec.WebDav
     /// lockInfo.Owner = new OwnerHref("test@test.com");
     ///
     /// // Lock the desired folder by specifying a WebDavTimeOutHeaderValue (in this example, the timeout should be infinite), a value for depth and the LockInfo.
-    /// var lockResult = await webDavClient.LockAsync(@"http://www.myserver.com/webdav/myfolder/", WebDavTimeoutHeaderValue.CreateInfiniteWebDavTimeout(), WebDavDepthHeaderValue.Infinity, lockInfo);
+    /// var lockResult = await webDavClient.LockAsync(@"http://www.myserver.com/webdav/MyFolder/", WebDavTimeoutHeaderValue.CreateInfiniteWebDavTimeout(), WebDavDepthHeaderValue.Infinity, lockInfo);
     ///            
     /// // On successful locking, a lock token will be returned by the WebDAV server.
     /// // We have to save this lock token in order to use it on operations which affect a locked folder.
@@ -81,14 +78,14 @@ namespace DecaTec.WebDav
     /// // Now create a new folder in the locked location.
     /// // Notice that the LockToken has to be specified as a locked folder is affected by this operation.
     /// // If the LockToken would not be specified, the operation will fail!
-    /// await webDavClient.MkcolAsync(@"http://www.myserver.com/webdav/myfolder/NewFolder/", lockToken);
+    /// await webDavClient.MkcolAsync(@"http://www.myserver.com/webdav/MyFolder/NewFolder/", lockToken);
     ///
     /// // Delete the folder again.
-    /// await webDavClient.DeleteAsync(@"http://www.myserver.com/webdav/myfolder/NewFolder/", lockToken);
+    /// await webDavClient.DeleteAsync(@"http://www.myserver.com/webdav/MyFolder/NewFolder/", lockToken);
     ///
     /// // Unlock the locked folder.
     /// // Notice that the URL is the same as used with the lock method (see above).
-    /// await webDavClient.UnlockAsync(@"http://www.myserver.com/webdav/myfolder/", lockToken);
+    /// await webDavClient.UnlockAsync(@"http://www.myserver.com/webdav/MyFolder/", lockToken);
     /// </code>
     /// </example>
     /// </remarks>

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{0759DD55-8F5C-4CB1-AC8F-4B460EAA326A}</ProjectGuid>
+    <ProjectGuid>{138AFA4A-3E54-4577-A7B8-F3EEEE04918F}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DecaTec.WebDav.Uwp.UnitTest</RootNamespace>

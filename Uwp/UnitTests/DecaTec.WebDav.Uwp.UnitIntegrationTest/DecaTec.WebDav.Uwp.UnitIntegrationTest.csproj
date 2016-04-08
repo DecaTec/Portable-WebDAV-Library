@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{F82E7DB5-7BF6-44A9-B13F-0E6F37B010AB}</ProjectGuid>
+    <ProjectGuid>{42D16C18-94C2-4DE2-B51D-99AD7CC0749F}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DecaTec.WebDav.Uwp.UnitIntegrationTest</RootNamespace>
@@ -115,6 +115,7 @@
     <None Include="DecaTec.WebDav.Uwp.UnitIntegrationTest_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\TextFile1.txt" />
     <Content Include="Properties\UnitTestApp.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -123,7 +124,6 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-    <Content Include="Assets\TextFile1.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DecaTec.WebDav.Uwp\DecaTec.WebDav.Uwp.csproj">

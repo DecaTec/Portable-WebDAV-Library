@@ -7,7 +7,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
     [TestClass]
     public class UnitTestWebDavClient
     {
-        private const string FakeUrl = "http://localhost/";       
+        private const string FakeUrl = "http://localhost/";
 
         [TestMethod]
         public void UnitTestWebDavClientLockAsyncWithDepthOne()
@@ -33,7 +33,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
 
             try
             {
-                client.RefreshLockAsync(FakeUrl,WebDavTimeoutHeaderValue.CreateInfiniteWebDavTimeout(), null).Wait();
+                client.RefreshLockAsync(FakeUrl, WebDavTimeoutHeaderValue.CreateInfiniteWebDavTimeout(), null).Wait();
             }
             catch (AggregateException ae)
             {
