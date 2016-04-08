@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DecaTec.WebDav.UnitIntegrationTest")]
+[assembly: AssemblyTitle("DecaTec.WebDav.Uwp.UnitIntegrationTest")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DecaTec.WebDav.UnitIntegrationTest")]
+[assembly: AssemblyProduct("DecaTec.WebDav.Uwp.UnitIntegrationTest")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

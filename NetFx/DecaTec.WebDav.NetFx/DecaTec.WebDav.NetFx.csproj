@@ -20,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Build\Debug\</OutputPath>
+    <OutputPath>..\..\Build\Debug\NetFx\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -28,108 +28,108 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\Build\Release\</OutputPath>
+    <OutputPath>..\..\Build\Release\NetFx\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <DocumentationFile>..\Build\Release\DecaTec.WebDav.NetFx.XML</DocumentationFile>
+    <DocumentationFile>..\..\Build\Release\NetFx\DecaTec.WebDav.NetFx.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\ActiveLock.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\ActiveLock.cs">
       <Link>WebDavArtifacts\ActiveLock.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\AllProp.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\AllProp.cs">
       <Link>WebDavArtifacts\AllProp.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Collection.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\Collection.cs">
       <Link>WebDavArtifacts\Collection.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Exclusive.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\Exclusive.cs">
       <Link>WebDavArtifacts\Exclusive.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Include.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\Include.cs">
       <Link>WebDavArtifacts\Include.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\ItemsChoiceType.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\ItemsChoiceType.cs">
       <Link>WebDavArtifacts\ItemsChoiceType.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\KeepAlive.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\KeepAlive.cs">
       <Link>WebDavArtifacts\KeepAlive.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Link.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\Link.cs">
       <Link>WebDavArtifacts\Link.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\LockDiscovery.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\LockDiscovery.cs">
       <Link>WebDavArtifacts\LockDiscovery.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\LockEntry.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\LockEntry.cs">
       <Link>WebDavArtifacts\LockEntry.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\LockInfo.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\LockInfo.cs">
       <Link>WebDavArtifacts\LockInfo.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\LockRoot.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\LockRoot.cs">
       <Link>WebDavArtifacts\LockRoot.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\LockScope.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\LockScope.cs">
       <Link>WebDavArtifacts\LockScope.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\LockType.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\LockType.cs">
       <Link>WebDavArtifacts\LockType.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Multistatus.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\Multistatus.cs">
       <Link>WebDavArtifacts\Multistatus.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Omit.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\Omit.cs">
       <Link>WebDavArtifacts\Omit.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\OwnerHref.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\OwnerHref.cs">
       <Link>WebDavArtifacts\OwnerHref.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Prop.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\Prop.cs">
       <Link>WebDavArtifacts\Prop.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\PropertyBehavior.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\PropertyBehavior.cs">
       <Link>WebDavArtifacts\PropertyBehavior.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\PropertyUpdate.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\PropertyUpdate.cs">
       <Link>WebDavArtifacts\PropertyUpdate.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\PropFind.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\PropFind.cs">
       <Link>WebDavArtifacts\PropFind.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\PropName.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\PropName.cs">
       <Link>WebDavArtifacts\PropName.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Propstat.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\Propstat.cs">
       <Link>WebDavArtifacts\Propstat.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Remove.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\Remove.cs">
       <Link>WebDavArtifacts\Remove.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\ResourceType.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\ResourceType.cs">
       <Link>WebDavArtifacts\ResourceType.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Response.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\Response.cs">
       <Link>WebDavArtifacts\Response.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Set.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\Set.cs">
       <Link>WebDavArtifacts\Set.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Shared.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\Shared.cs">
       <Link>WebDavArtifacts\Shared.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Source.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\Source.cs">
       <Link>WebDavArtifacts\Source.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\SupportedLock.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\SupportedLock.cs">
       <Link>WebDavArtifacts\SupportedLock.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\WebDavLockToken.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\WebDavLockToken.cs">
       <Link>WebDavArtifacts\WebDavLockToken.cs</Link>
     </Compile>
-    <Compile Include="..\DecaTec.WebDav.Uwp\WebDavArtifacts\Write.cs">
+    <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\Write.cs">
       <Link>WebDavArtifacts\Write.cs</Link>
     </Compile>
     <Compile Include="LockToken.cs" />

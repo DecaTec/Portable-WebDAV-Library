@@ -364,7 +364,7 @@ namespace DecaTec.WebDav
         /// Send a GET request to the specified URL with a cancellation token as an asynchronous operation.
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.ö</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public new async Task<WebDavResponseMessage> GetAsync(string requestUrl, CancellationToken cancellationToken)
         {

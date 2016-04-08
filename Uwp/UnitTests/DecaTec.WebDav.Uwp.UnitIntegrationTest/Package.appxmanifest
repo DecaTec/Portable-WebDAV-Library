@@ -5,14 +5,14 @@
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   IgnorableNamespaces="uap mp">
 
-  <Identity Name="52efb297-27b3-456c-a0d4-2bed85e91e77"
+  <Identity Name="6d383145-2850-4f6e-94fe-2b80cb377e99"
             Publisher="CN=jr"
             Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="52efb297-27b3-456c-a0d4-2bed85e91e77" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="6d383145-2850-4f6e-94fe-2b80cb377e99" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>DecaTec.WebDav.UnitTest</DisplayName>
+    <DisplayName>DecaTec.WebDav.Uwp.UnitIntegrationTest</DisplayName>
     <PublisherDisplayName>jr</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -27,12 +27,12 @@
   <Applications>
     <Application Id="vstest.executionengine.universal.App" 
         Executable="$targetnametoken$.exe"
-        EntryPoint="DecaTec.WebDav.UnitTest.App">
+        EntryPoint="DecaTec.WebDav.Uwp.UnitIntegrationTest.App">
       <uap:VisualElements
-        DisplayName="DecaTec.WebDav.UnitTest"
+        DisplayName="DecaTec.WebDav.Uwp.UnitIntegrationTest"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="DecaTec.WebDav.UnitTest"
+        Description="DecaTec.WebDav.Uwp.UnitIntegrationTest"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />

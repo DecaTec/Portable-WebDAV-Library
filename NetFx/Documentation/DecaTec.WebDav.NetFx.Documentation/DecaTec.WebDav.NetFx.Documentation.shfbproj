@@ -14,7 +14,7 @@
     <Name>DecaTec.WebDav.NetFx.Documentation</Name>
     <!-- SHFB properties -->
     <FrameworkVersion>.NET Portable Library 4.5</FrameworkVersion>
-    <OutputPath>..\Build\Doc\</OutputPath>
+    <OutputPath>..\..\..\Build\Doc\</OutputPath>
     <HtmlHelpName>DecaTec.WebDav.NetFx.Documentation</HtmlHelpName>
     <Language>en-US</Language>
     <TransformComponentArguments>
@@ -31,7 +31,7 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\DecaTec.WebDav.NetFx\DecaTec.WebDav.NetFx.csproj" />
+      <DocumentationSource sourceFile="..\..\DecaTec.WebDav.NetFx\DecaTec.WebDav.NetFx.csproj" />
     </DocumentationSources>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
     <HelpFileFormat>HtmlHelp1, Website</HelpFileFormat>
