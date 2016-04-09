@@ -20,7 +20,7 @@ Since v0.3.0.0, the Portable WebDAV Library is split into two parts:
 
 **[Portable WebDAV Library online documentation (NetFx)](https://decatec.de/ext/PortableWebDAVLibrary/Doc/NetFx/index.html)**
 For offline use, you can download the help file (CHM) here:
-**[Portable WebDAV Library offline documentation](https://decatec.de/ext/PortableWebDAVLibrary/Doc/NetFx/DecaTec.WebDavNetFx..Documentation.chm)**
+**[Portable WebDAV Library offline documentation](https://decatec.de/ext/PortableWebDAVLibrary/Doc/NetFx/DecaTec.WebDavNetFx.Documentation.chm)**
 * **DecaTec.WebDav.Uwp**:
 
 **[Portable WebDAV Library online documentation (Uwp)](https://decatec.de/ext/PortableWebDAVLibrary/Doc/Uwp/index.html)**
