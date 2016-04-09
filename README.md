@@ -15,14 +15,14 @@ Since v0.3.0.0, the Portable WebDAV Library is split into two parts:
 * **DecaTec.WebDav.NetFx**: To be used in projects targeting .NET Framework 4.5 (or later), Windows 8 and ASP.NET Core.
 * **DecaTec.WebDav.Uwp**: To be used in projects targeting Windows 8.1, Windows Phone 8.1 and Universal Windows Platform (UWP) apps.
  
-----
-A full (online) documentation of the library can be found here:
-**[Portable WebDAV Library online documentation](https://decatec.de/ext/PortableWebDAVLibrary/Doc/index.html)**
+# Documentation
+* **DecaTec.WebDav.NetFx**:
 
+**[Portable WebDAV Library online documentation (NetFx)](https://decatec.de/ext/PortableWebDAVLibrary/Doc/NetFx/index.html)**
 For offline use, you can download the help file (CHM) here:
-**[Portable WebDAV Library offline documentation](https://decatec.de/ext/PortableWebDAVLibrary/Doc/DecaTec.WebDav.Documentation.chm)**
+**[Portable WebDAV Library offline documentation](https://decatec.de/ext/PortableWebDAVLibrary/Doc/NetFx/DecaTec.WebDavNetFx..Documentation.chm)**
+* **DecaTec.WebDav.Uwp**:
 
-----
-
-## Important when using Portable WebDAV Library in a UWP project
-Currently there is a bug in the _System.Net.Http.HttpClient_ which is referenced in a Universal Windows Platform (UWP) project. See [this wiki article](https://github.com/DecaTec/Portable-WebDAV-Library/wiki/Portable-WebDAV-Library-in-UWP-projects) for more information and a workaround.
+**[Portable WebDAV Library online documentation (Uwp)](https://decatec.de/ext/PortableWebDAVLibrary/Doc/Uwp/index.html)**
+For offline use, you can download the help file (CHM) here:
+**[Portable WebDAV Library offline documentation](https://decatec.de/ext/PortableWebDAVLibrary/Doc/Uwp/DecaTec.WebDav.Uwp.Documentation.chm)**
