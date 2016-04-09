@@ -84,12 +84,26 @@
     <Folder Include="Media" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\VersionHistory\v0.1.0.0.aml" />
-    <None Include="Content\VersionHistory\v0.1.1.0.aml" />
-    <None Include="Content\VersionHistory\v0.2.0.0.aml" />
-    <None Include="Content\VersionHistory\v0.3.0.0.aml" />
-    <None Include="Content\VersionHistory\VersionHistory.aml" />
+    <None Include="..\..\..\Uwp\Documentation\DecaTec.WebDav.Uwp.Documentation\Content\VersionHistory\v0.1.0.0.aml">
+      <Link>Content\VersionHistory\v0.1.0.0.aml</Link>
+    </None>
+    <None Include="..\..\..\Uwp\Documentation\DecaTec.WebDav.Uwp.Documentation\Content\VersionHistory\v0.1.1.0.aml">
+      <Link>Content\VersionHistory\v0.1.1.0.aml</Link>
+    </None>
+    <None Include="..\..\..\Uwp\Documentation\DecaTec.WebDav.Uwp.Documentation\Content\VersionHistory\v0.2.0.0.aml">
+      <Link>Content\VersionHistory\v0.2.0.0.aml</Link>
+    </None>
+    <None Include="..\..\..\Uwp\Documentation\DecaTec.WebDav.Uwp.Documentation\Content\VersionHistory\v0.3.0.0.aml">
+      <Link>Content\VersionHistory\v0.3.0.0.aml</Link>
+    </None>
+    <None Include="..\..\..\Uwp\Documentation\DecaTec.WebDav.Uwp.Documentation\Content\VersionHistory\VersionHistory.aml">
+      <Link>Content\VersionHistory\VersionHistory.aml</Link>
+    </None>
     <None Include="Content\Welcome.aml" />
+    <None Include="v0.3.0.0.aml" />
+    <None Include="v0.2.0.0.aml" />
+    <None Include="v0.1.1.0.aml" />
+    <None Include="v0.1.0.0.aml" />
   </ItemGroup>
   <ItemGroup>
     <ContentLayout Include="ContentLayout.content" />

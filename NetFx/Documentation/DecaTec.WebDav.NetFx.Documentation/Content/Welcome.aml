@@ -188,7 +188,7 @@ PropFind pf = PropFind.CreatePropFindAllProp();
               <externalLink>
                 <linkText>Sandcastle Help File Builder</linkText>
                 <linkUri>https://github.com/EWSoftware/SHFB</linkUri>
-              </externalLink> (for project documentation)
+              </externalLink> (optional, for project documentation)
             </para>
           </listItem>
         </list>
@@ -224,7 +224,7 @@ PropFind pf = PropFind.CreatePropFindAllProp();
     </section>
 
     <relatedTopics>
-      <link xlink:href="df5ce5b9-6c59-42e5-bccc-95ad418cc00c" />
+      <link xlink:href="a108005d-dd4f-4258-af05-4d0d8106efd0" />
     </relatedTopics>
   </developerConceptualDocument>
 </topic>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="a40f35cf-bc6d-4fe0-b681-4b3a0c6b11fe" revisionNumber="1">
+  <developerConceptualDocument
+   xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction></introduction>
+
+    <section>
+      <title>Changes in release v0.3.0.0</title>
+      <content>
+
+        <list class="bullet">
+          <listItem>
+            <para>
+              Split the Portable WebDAV Library into two parts: <legacyBold>DecaTec.WebDav.NetFx.dll</legacyBold> (to be used in projects targeting  the .NET Framework, Windows 8 or ASP.NET Core) and <legacyBold>DecaTec.WebDav.Uwp.dll</legacyBold> (to be used in projects targeting Windows 8.1, Windows Phone 8.1 and apps for the Universal Windows Platform (UWP)).
+            </para>
+          </listItem>
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="a108005d-dd4f-4258-af05-4d0d8106efd0" />
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>
