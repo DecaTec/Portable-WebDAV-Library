@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <DocumentationFile>..\..\Build\Release\NetFx\DecaTec.WebDav.NetFx.XML</DocumentationFile>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\..\Uwp\DecaTec.WebDav.Uwp\WebDavArtifacts\ActiveLock.cs">

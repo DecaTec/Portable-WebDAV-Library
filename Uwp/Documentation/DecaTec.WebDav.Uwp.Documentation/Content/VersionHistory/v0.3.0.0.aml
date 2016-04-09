@@ -12,7 +12,7 @@
         <list class="bullet">
           <listItem>
             <para>
-              Splitted the Portable WebDAV Library into two parts: <legacyBold>DecaTec.WebDav.NetFx.dll</legacyBold> (to be used in projects targetting  the .NET Framework, Windows 8 or ASP.NET Core) and <legacyBold>DecaTec.WebDav.Uwp.dll</legacyBold> (to be used in projects targetting Windows 8.1, Windows Phone 8.1 and apps for the Universal Windows Platform (UWP)).
+              Split the Portable WebDAV Library into two parts: <legacyBold>DecaTec.WebDav.NetFx.dll</legacyBold> (to be used in projects targeting  the .NET Framework, Windows 8 or ASP.NET Core) and <legacyBold>DecaTec.WebDav.Uwp.dll</legacyBold> (to be used in projects targeting Windows 8.1, Windows Phone 8.1 and apps for the Universal Windows Platform (UWP)).
             </para>
           </listItem>
         </list>

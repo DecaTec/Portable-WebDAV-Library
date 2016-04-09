@@ -3,7 +3,7 @@
     /// <summary>
     /// Class representing WebDAV methods.
     /// </summary>
-    public class WebDavMethod
+    public sealed class WebDavMethod
     {
         /// <summary>
         /// WebDavMethod for PROPFIND.

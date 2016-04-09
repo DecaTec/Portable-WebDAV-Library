@@ -12,7 +12,7 @@ namespace DecaTec.WebDav
         public const string Depth = "Depth";
 
         /// <summary>
-        /// Constant for Destination header specifying the desination for COPY and MOVE commands.
+        /// Constant for Destination header specifying the destination for COPY and MOVE commands.
         /// </summary>
         public const string Destination = "Destination";
 

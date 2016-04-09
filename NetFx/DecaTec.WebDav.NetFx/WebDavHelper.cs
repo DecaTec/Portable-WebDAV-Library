@@ -71,7 +71,7 @@ namespace DecaTec.WebDav
                         xnameSpace.Add(kvp.Key, kvp.Value);
                     }
 
-                    // Allways add WebDAV namespace.
+                    // Allays add WebDAV namespace.
                     xnameSpace.Add("D", "DAV:");
 
                     var utf8Encoding = new UTF8Encoding();

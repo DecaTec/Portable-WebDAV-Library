@@ -246,7 +246,7 @@ namespace DecaTec.WebDav
         Locked = 423,
 
         /// <summary>
-        ///  Equivalent to WebDav status 424. FailedDependency indicates that the mthod could not be performed on a resource because the requested action  
+        ///  Equivalent to WebDav status 424. FailedDependency indicates that the method could not be performed on a resource because the requested action  
         ///  depended on another action and that action failed.
         /// </summary>
         FailedDependency = 424,

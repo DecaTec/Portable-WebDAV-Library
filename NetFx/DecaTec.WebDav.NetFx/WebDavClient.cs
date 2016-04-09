@@ -14,13 +14,13 @@ namespace DecaTec.WebDav
     /// <remarks>
     /// <para>WebDavClient inherits from <see cref="System.Net.Http.HttpClient"/> and adds WebDAV specific methods.</para>
     /// <para>It implements the <see href="http://tools.ietf.org/html/rfc4918">RFC 4918</see> specification and can be used to communicate directly with a WebDAV server.</para>
-    /// <para>For most use cases regarding WebDAV communcation, the <see cref="DecaTec.WebDav.WebDavSession"/> is sufficient because it hides most of the WebDAV specific communication 
+    /// <para>For most use cases regarding WebDAV communication, the <see cref="DecaTec.WebDav.WebDavSession"/> is sufficient because it hides most of the WebDAV specific communication 
     /// and provides an easy access to WebDAV servers.</para>
     /// <example>To send a propfind request you can use following code:
     /// <code>
     /// // You have to add a reference to DecaTec.WebDav.NetFx.dll.
     /// //
-    /// // Speficy the user credentials and pass it to a HttpClientHandler.
+    /// // Specify the user credentials and pass it to a HttpClientHandler.
     /// var credentials = new NetworkCredential("MyUserName", "MyPassword");
     /// var httpClientHandler = new HttpClientHandler();
     /// httpClientHandler.Credentials = credentials;
@@ -43,7 +43,7 @@ namespace DecaTec.WebDav
     /// // Now you can use the MultiStatus object to get access to the items properties.
     /// foreach (var responseItem in multistatus.Response)
     /// {
-    ///     // Handle propfind multistatus respnse, e.g responseItem.Href is the URL of an item (folder or file).
+    ///     // Handle propfind multistatus response, e.g responseItem.Href is the URL of an item (folder or file).
     ///     Console.WriteLine(responseItem.Href);
     /// }
     /// </code>
@@ -52,7 +52,7 @@ namespace DecaTec.WebDav
     /// <code>
     /// // You have to add references to System.Net.Http and DecaTec.WebDav.
     /// //
-    /// // Speficy the user credentials and pass it to a HttpClientHandler.
+    /// // Specify the user credentials and pass it to a HttpClientHandler.
     /// var credentials = new NetworkCredential("MyUserName", "MyPassword");
     /// var httpClientHandler = new HttpClientHandler();
     /// httpClientHandler.Credentials = credentials;
@@ -99,7 +99,7 @@ namespace DecaTec.WebDav
 
         private const string MediaTypeXml = "application/xml";
 
-        #region Contructor
+        #region Constructor
 
         /// <summary>
         /// Initializes a new instance of WebDavClient.
@@ -113,7 +113,7 @@ namespace DecaTec.WebDav
         /// <summary>
         ///  Initializes a new instance of WebDavClient.
         /// </summary>
-        /// <param name="httpMessageHandler">The HttpMessageHandler responsible for processing the HTTP response mesages.</param>
+        /// <param name="httpMessageHandler">The HttpMessageHandler responsible for processing the HTTP response messages.</param>
         public WebDavClient(HttpMessageHandler httpMessageHandler)
             : base(httpMessageHandler)
         {
@@ -123,7 +123,7 @@ namespace DecaTec.WebDav
         /// <summary>
         ///  Initializes a new instance of WebDavClient.
         /// </summary>
-        /// <param name="httpMessageHandler">The HttpMessageHandler responsible for processing the HTTP response mesages.</param>
+        /// <param name="httpMessageHandler">The HttpMessageHandler responsible for processing the HTTP response messages.</param>
         /// <param name="disposeHandler">True if the inner handler should be disposed of by Dispose(), false if you intend to reuse the inner handler.</param>
         public WebDavClient(HttpMessageHandler httpMessageHandler, bool disposeHandler)
             : base(httpMessageHandler, disposeHandler)
@@ -131,7 +131,7 @@ namespace DecaTec.WebDav
 
         }
 
-        #endregion Contructor
+        #endregion Constructor
 
         #region Copy
 
@@ -798,7 +798,7 @@ namespace DecaTec.WebDav
         /// Creates a collection at the URL specified.
         /// </summary>
         /// <param name="requestUrl">The URL of the collection to create.</param>
-        /// <returns>True, if the operation completed sucessuflly, otherwise false.</returns>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<WebDavResponseMessage> MkcolAsync(string requestUrl)
         {
             return await MkcolAsync(new Uri(requestUrl), null, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
@@ -808,7 +808,7 @@ namespace DecaTec.WebDav
         /// Creates a collection at the URI specified.
         /// </summary>
         /// <param name="requestUri">The URI of the collection to create.</param>
-        /// <returns>True, if the operation completed sucessuflly, otherwise false.</returns>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<WebDavResponseMessage> MkcolAsync(Uri requestUri)
         {
             return await MkcolAsync(requestUri, null, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
@@ -819,7 +819,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="requestUrl">The URL of the collection to create.</param>
         /// <param name="lockToken">The lock token to use.</param>
-        /// <returns>True, if the operation completed sucessuflly, otherwise false.</returns>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<WebDavResponseMessage> MkcolAsync(string requestUrl, LockToken lockToken)
         {
             return await MkcolAsync(new Uri(requestUrl), lockToken, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
@@ -830,7 +830,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="requestUri">The URI of the collection to create.</param>
         /// <param name="lockToken">The lock token to use.</param>
-        /// <returns>True, if the operation completed sucessuflly, otherwise false.</returns>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<WebDavResponseMessage> MkcolAsync(Uri requestUri, LockToken lockToken)
         {
             return await MkcolAsync(requestUri, lockToken, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
@@ -842,7 +842,7 @@ namespace DecaTec.WebDav
         /// <param name="requestUrl">The URL of the collection to create.</param>
         /// <param name="lockToken">The lock token to use.</param>
         /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
-        /// <returns>True, if the operation completed sucessuflly, otherwise false.</returns>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<WebDavResponseMessage> MkcolAsync(string requestUrl, LockToken lockToken, HttpCompletionOption completionOption)
         {
             return await MkcolAsync(new Uri(requestUrl), lockToken, completionOption, CancellationToken.None);
@@ -854,7 +854,7 @@ namespace DecaTec.WebDav
         /// <param name="requestUri">The URI of the collection to create.</param>
         /// <param name="lockToken">The lock token to use.</param>
         /// <param name="completionOption">>An HTTP completion option value that indicates when the operation should be considered completed.</param>
-        /// <returns>True, if the operation completed sucessuflly, otherwise false.</returns>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<WebDavResponseMessage> MkcolAsync(Uri requestUri, LockToken lockToken, HttpCompletionOption completionOption)
         {
             return await MkcolAsync(requestUri, lockToken, completionOption, CancellationToken.None);
@@ -867,7 +867,7 @@ namespace DecaTec.WebDav
         /// <param name="lockToken">The lock token to use.</param>
         /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>True, if the operation completed sucessuflly, otherwise false.</returns>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<WebDavResponseMessage> MkcolAsync(string requestUrl, LockToken lockToken, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
             return await MkcolAsync(new Uri(requestUrl), lockToken, completionOption, cancellationToken);
@@ -880,7 +880,7 @@ namespace DecaTec.WebDav
         /// <param name="lockToken">The lock token to use.</param>
         /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>True, if the operation completed sucessuflly, otherwise false.</returns>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<WebDavResponseMessage> MkcolAsync(Uri requestUri, LockToken lockToken, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
             var requestMethod = new HttpRequestMessage(WebDavMethod.Mkcol, requestUri);
@@ -901,7 +901,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="sourceUrl">The URL of the resource which should be moved.</param>
         /// <param name="destinationUrl">The target URL.</param>
-        /// <returns>True, if the operation completed sucessuffly, otherwise false.</returns>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<WebDavResponseMessage> MoveAsync(string sourceUrl, string destinationUrl)
         {
             return await MoveAsync(new Uri(sourceUrl), new Uri(destinationUrl), false, null, null, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
@@ -912,7 +912,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="sourceUri">The URI of the resource which should be moved.</param>
         /// <param name="destinationUri">The target URI.</param>
-        /// <returns>True, if the operation completed sucessuffly, otherwise false.</returns>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<WebDavResponseMessage> MoveAsync(Uri sourceUri, Uri destinationUri)
         {
             return await MoveAsync(sourceUri, destinationUri, false, null, null, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
@@ -923,8 +923,8 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="sourceUrl">The URL of the resource which should be moved.</param>
         /// <param name="destinationUrl">The target URL.</param>
-        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwiese false.</param>
-        /// <returns>True, if the operation completed sucessuffly, otherwise false.</returns>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<WebDavResponseMessage> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite)
         {
             return await MoveAsync(new Uri(sourceUrl), new Uri(destinationUrl), overwrite, null, null, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
@@ -935,8 +935,8 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="sourceUri">The URI of the resource which should be moved.</param>
         /// <param name="destinationUri">The target URI.</param>
-        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwiese false.</param>
-        /// <returns>True, if the operation completed sucessuffly, otherwise false.</returns>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<WebDavResponseMessage> MoveAsync(Uri sourceUri, Uri destinationUri, bool overwrite)
         {
             return await MoveAsync(sourceUri, destinationUri, overwrite, null, null, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
@@ -947,10 +947,10 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="sourceUrl">The URL of the resource which should be moved.</param>
         /// <param name="destinationUrl">The target URL.</param>
-        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwiese false.</param>
-        /// <param name="lockTokenSource">The lock token of the source. Speficy null if the source is not locked.</param>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="lockTokenSource">The lock token of the source. Specify null if the source is not locked.</param>
         /// <param name="lockTokenDestination">The lock token of the destination. Specify null if the destination is not locked.</param>
-        /// <returns>True, if the operation completed sucessuffly, otherwise false.</returns>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<WebDavResponseMessage> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite, LockToken lockTokenSource, LockToken lockTokenDestination)
         {
             return await MoveAsync(new Uri(sourceUrl), new Uri(destinationUrl), overwrite, lockTokenSource, lockTokenDestination, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
@@ -961,10 +961,10 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="sourceUri">The URI of the resource which should be moved.</param>
         /// <param name="destinationUri">The target URI.</param>
-        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwiese false.</param>
-        /// <param name="lockTokenSource">The lock token of the source. Speficy null if the source is not locked.</param>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="lockTokenSource">The lock token of the source. Specify null if the source is not locked.</param>
         /// <param name="lockTokenDestination">The lock token of the destination. Specify null if the destination is not locked.</param>
-        /// <returns>True, if the operation completed sucessuffly, otherwise false.</returns>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<WebDavResponseMessage> MoveAsync(Uri sourceUri, Uri destinationUri, bool overwrite, LockToken lockTokenSource, LockToken lockTokenDestination)
         {
             return await MoveAsync(sourceUri, destinationUri, overwrite, lockTokenSource, lockTokenDestination, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
@@ -975,11 +975,11 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="sourceUrl">The URL of the resource which should be moved.</param>
         /// <param name="destinationUrl">The target URL.</param>
-        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwiese false.</param>
-        /// <param name="lockTokenSource">The lock token of the source. Speficy null if the source is not locked.</param>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="lockTokenSource">The lock token of the source. Specify null if the source is not locked.</param>
         /// <param name="lockTokenDestination">The lock token of the destination. Specify null if the destination is not locked.</param>
         /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
-        /// <returns>True, if the operation completed sucessuffly, otherwise false.</returns>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<WebDavResponseMessage> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite, LockToken lockTokenSource, LockToken lockTokenDestination, HttpCompletionOption completionOption)
         {
             return await MoveAsync(new Uri(sourceUrl), new Uri(destinationUrl), overwrite, lockTokenSource, lockTokenDestination, completionOption, CancellationToken.None);
@@ -990,11 +990,11 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="sourceUri">The URI of the resource which should be moved.</param>
         /// <param name="destinationUri">The target URI.</param>
-        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwiese false.</param>
-        /// <param name="lockTokenSource">The lock token of the source. Speficy null if the source is not locked.</param>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="lockTokenSource">The lock token of the source. Specify null if the source is not locked.</param>
         /// <param name="lockTokenDestination">The lock token of the destination. Specify null if the destination is not locked.</param>
         /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
-        /// <returns>True, if the operation completed sucessuffly, otherwise false.</returns>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<WebDavResponseMessage> MoveAsync(Uri sourceUri, Uri destinationUri, bool overwrite, LockToken lockTokenSource, LockToken lockTokenDestination, HttpCompletionOption completionOption)
         {
             return await MoveAsync(sourceUri, destinationUri, overwrite, lockTokenSource, lockTokenDestination, completionOption, CancellationToken.None);
@@ -1005,12 +1005,12 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="sourceUrl">The URL of the resource which should be moved.</param>
         /// <param name="destinationUrl">The target URL.</param>
-        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwiese false.</param>
-        /// <param name="lockTokenSource">The lock token of the source. Speficy null if the source is not locked.</param>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="lockTokenSource">The lock token of the source. Specify null if the source is not locked.</param>
         /// <param name="lockTokenDestination">The lock token of the destination. Specify null if the destination is not locked.</param>
         /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>True, if the operation completed sucessuffly, otherwise false.</returns>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<WebDavResponseMessage> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite, LockToken lockTokenSource, LockToken lockTokenDestination, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
             return await MoveAsync(new Uri(sourceUrl), new Uri(destinationUrl), overwrite, lockTokenSource, lockTokenDestination, completionOption, cancellationToken);
@@ -1021,12 +1021,12 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="sourceUri">The URI of the resource which should be moved.</param>
         /// <param name="destinationUri">The target URI.</param>
-        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwiese false.</param>
-        /// <param name="lockTokenSource">The lock token of the source. Speficy null if the source is not locked.</param>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="lockTokenSource">The lock token of the source. Specify null if the source is not locked.</param>
         /// <param name="lockTokenDestination">The lock token of the destination. Specify null if the destination is not locked.</param>
         /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>True, if the operation completed sucessuflly, otherwise false.</returns>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<WebDavResponseMessage> MoveAsync(Uri sourceUri, Uri destinationUri, bool overwrite, LockToken lockTokenSource, LockToken lockTokenDestination, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
             var requestMethod = new HttpRequestMessage(WebDavMethod.Move, sourceUri);
@@ -1129,7 +1129,7 @@ namespace DecaTec.WebDav
         /// <param name="requestUri">The URI the request is sent to.</param>
         /// <param name="content">The HTTP request content sent to the server.</param>
         /// <param name="lockToken">The lock token to use.</param>
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation´.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<WebDavResponseMessage> PostAsync(Uri requestUri, HttpContent content, LockToken lockToken, CancellationToken cancellationToken)
         {
@@ -1222,7 +1222,7 @@ namespace DecaTec.WebDav
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<WebDavResponseMessage> PropFindAsync(string requestUrl, WebDavDepthHeaderValue depth, PropFind propfind)
         {
-            return await PropFindAsync(new Uri(requestUrl), WebDavDepthHeaderValue.One, propfind, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
+            return await PropFindAsync(new Uri(requestUrl), depth, propfind, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
         }
 
         /// <summary>
@@ -1234,7 +1234,7 @@ namespace DecaTec.WebDav
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<WebDavResponseMessage> PropFindAsync(Uri requestUri, WebDavDepthHeaderValue depth, PropFind propfind)
         {
-            return await PropFindAsync(requestUri, WebDavDepthHeaderValue.One, propfind, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
+            return await PropFindAsync(requestUri, depth, propfind, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
         }
 
         /// <summary>
@@ -1858,7 +1858,7 @@ namespace DecaTec.WebDav
 
         #region Private methods
 
-        private Multistatus GetMultistatusRequestResult(HttpResponseMessage responseMessage)
+        private static Multistatus GetMultistatusRequestResult(HttpResponseMessage responseMessage)
         {
             var taskStream = responseMessage.Content.ReadAsStreamAsync();
             taskStream.Wait();

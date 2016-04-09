@@ -15,7 +15,7 @@ namespace DecaTec.WebDav
         private static readonly XmlSerializer PropSerializer = new XmlSerializer(typeof(Prop));
 
         /// <summary>
-        /// Extreacts a <see cref="DecaTec.WebDav.WebDavArtifacts.Multistatus"/> from a <see cref="System.Net.Http.HttpContent"/>.
+        /// Extracts a <see cref="DecaTec.WebDav.WebDavArtifacts.Multistatus"/> from a <see cref="System.Net.Http.HttpContent"/>.
         /// </summary>
         /// <param name="content">The HttpContent containing the <see cref="DecaTec.WebDav.WebDavArtifacts.Multistatus"/> as XML.</param>
         /// <returns>The <see cref="DecaTec.WebDav.WebDavArtifacts.Multistatus"/> object.</returns>

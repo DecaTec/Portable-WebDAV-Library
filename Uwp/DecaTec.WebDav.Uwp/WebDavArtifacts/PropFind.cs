@@ -24,7 +24,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         }
 
         /// <summary>
-        /// Creates a PropFind instance containg empty property items with the specified names.
+        /// Creates a PropFind instance containing empty property items with the specified names.
         /// </summary>
         /// <param name="propertyNames">The property names which should be contained in the PropFind instance.</param>
         /// <returns>A PropFind instance containing the empty properties specified.</returns>
@@ -37,7 +37,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         }
 
         /// <summary>
-        /// Creates a PropFind instance containg a PropertyName item.
+        /// Creates a PropFind instance containing a PropertyName item.
         /// </summary>
         /// <returns>A PropFind instance containing a PropertyName item.</returns>
         public static PropFind CreatePropFindWithPropName()

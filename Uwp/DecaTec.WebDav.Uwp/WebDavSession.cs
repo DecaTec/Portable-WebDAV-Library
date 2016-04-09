@@ -20,41 +20,45 @@ namespace DecaTec.WebDav
     /// <para>This class acts as an abstraction layer between the application and the <see cref="DecaTec.WebDav.WebDavClient"/>, which is used to communicate with the WebDAV server.</para>
     /// <para>If you want to communicate with the WebDAV server directly, you should use the <see cref="DecaTec.WebDav.WebDavClient"/>.</para>
     /// <para>The WebDavSession can be used with a base URL/<see cref="System.Uri"/>. If such a base URL/<see cref="System.Uri"/> is specified, all subsequent operations involving an 
-    /// URL/<see cref="System.Uri"/> will be relative wo this base URL/<see cref="System.Uri"/>.
+    /// URL/<see cref="System.Uri"/> will be relative to this base URL/<see cref="System.Uri"/>.
     /// If no base URL/<see cref="System.Uri"/> is specified, all operations has the be called with an absolute URL/<see cref="System.Uri"/>.</para>
     /// </remarks>
     /// <example>See the following code to list the content of a directory with the WebDavSession:
     /// <code>
-    /// // You have to add references to DecaTec.WebDav.
+    /// // You have to add a reference to DecaTec.WebDav.Uwp.dll.
     /// //
-    /// // Speficy the user credentials and use it to create a WebDavSession instance.
-    /// var credentials = new NetworkCredential("UserName", "MyPassword");
+    /// // The base URL of the WebDAV server.
+    /// var webDavServerUrl = "http://www.myserver.com/webdav/";
+    ///
+    /// // Specify the user credentials and use it to create a WebDavSession instance.
+    /// var credentials = new PasswordCredential(webDavServerUrl, "MyUsername", "MyPassword");
     /// var webDavSession = new WebDavSession(@"http://www.myserver.com/webdav/", credentials);
-    /// var items = await webDavSession.ListAsync(@"myfolder/");
+    /// var items = await webDavSession.ListAsync(@"MyFolder/");
     ///
     /// foreach (var item in items)
     /// {
-    ///     Console.WriteLine(item.Name);
+    ///     // Handle the response (list of WebDavSessionListItems), e.g item.Uri is the URL of an item (folder or file).
     /// }
     /// </code>
     /// <para></para>
     /// See the following code which uses locking with a WebDavSession:
     /// <code>
-    /// // You have to add references to DecaTec.WebDav.
-    /// //
-    /// // Speficy the user credentials and use it to create a WebDavSession instance.
-    /// var credentials = new NetworkDavCredential("UserName", "MyPassword");
+    /// // The base URL of the WebDAV server.
+    /// var webDavServerUrl = "http://www.myserver.com/webdav/";
+    /// 
+    /// // Specify the user credentials and use it to create a WebDavSession instance.
+    /// var credentials = new PasswordCredential(webDavServerUrl, "MyUsername", "MyPassword");
     /// var webDavSession = new WebDavSession(@"http://www.myserver.com/webdav/", credentials);
-    /// await webDavSession.LockAsync(@"Test/");
+    /// await webDavSession.LockAsync(@"MyFolder/");
     ///
     /// // Create new folder and delete it.
     /// // You DO NOT have to care about that the folder is locked (i.e. you do not have to submit a lock token).
     /// // This is all handled by the WebDavSession itself.
-    /// await webDavSession.CreateDirectoryAsync("Test/NewFolder");
-    /// await webDavSession.DeleteAsync("Test/NewFolder");
+    /// await webDavSession.CreateDirectoryAsync("MyFolder/NewFolder");
+    /// await webDavSession.DeleteAsync("MyFolder/NewFolder");
     ///
     /// // Unlock the folder again.
-    /// await webDavSession.UnlockAsync(@"Test/");
+    /// await webDavSession.UnlockAsync(@"MyFolder/");
     ///
     /// // You should always call Dispose on the WebDavSession when it is not longer needed.
     /// // During Dispose, all locks held by the WebDavSession will be automatically unlocked.
@@ -152,25 +156,25 @@ namespace DecaTec.WebDav
         #region Copy
 
         /// <summary>
-        /// Copies a resource from the source URL to the destination URL (without owerwriting).
+        /// Copies a resource from the source URL to the destination URL (without overwriting).
         /// </summary>
         /// <param name="sourceUrl">The source URL.</param>
         /// <param name="destinationUrl">The destination URL.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<bool> CopyAsync(string sourceUrl, string destinationUrl)
         {
-            return await CopyAsync(new Uri(destinationUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), false);
+            return await CopyAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), false);
         }
 
         /// <summary>
-        /// Copies a resource from the source URI to the destination URI (without owerwriting).
+        /// Copies a resource from the source URI to the destination URI (without overwriting).
         /// </summary>
         /// <param name="sourceUri">The source URI.</param>
         /// <param name="destinationUri">The destination URI.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<bool> CopyAsync(Uri sourceUri, Uri destinationUri)
         {
-            return await CopyAsync(destinationUri, destinationUri, false);
+            return await CopyAsync(sourceUri, destinationUri, false);
         }
 
         /// <summary>
@@ -182,7 +186,7 @@ namespace DecaTec.WebDav
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<bool> CopyAsync(string sourceUrl, string destinationUrl, bool overwrite)
         {
-            return await CopyAsync(new Uri(destinationUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), overwrite);
+            return await CopyAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), overwrite);
         }
 
         /// <summary>
@@ -348,7 +352,7 @@ namespace DecaTec.WebDav
         {
             uri = UrlHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
 
-            // Do not use an allprop here because some WebDav servers will not retun the expected results when using allprop.
+            // Do not use an allprop here because some WebDav servers will not return the expected results when using allprop.
             var propFind = PropFind.CreatePropFindWithEmptyProperties("ishidden", "displayname", "name", "getcontenttype", "creationdatespecified", "creationdate", "resourcetype", "getLastmodified", "getcontentlength");
             var response = await this.webDavClient.PropFindAsync(uri, WebDavDepthHeaderValue.One, propFind);
 
@@ -482,7 +486,7 @@ namespace DecaTec.WebDav
         #region Move
 
         /// <summary>
-        /// Moves a file or directory with the specified URL to another URL (without owerwrite)
+        /// Moves a file or directory with the specified URL to another URL (without overwrite)
         /// </summary>
         /// <param name="sourceUrl">The URL of the source.</param>
         /// <param name="destinationUrl">The URL of the destination.</param>
@@ -493,7 +497,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Moves a file or directory with the specified URI to another URI (without owerwrite).
+        /// Moves a file or directory with the specified URI to another URI (without overwrite).
         /// </summary>
         /// <param name="sourceUri">The URI of the source.</param>
         /// <param name="destinationUri">The URL of the destination.</param>
@@ -596,7 +600,7 @@ namespace DecaTec.WebDav
             {
                 // Lock couldn't be removed on WebDav server, add it again in the permanent locks.
                 if (!this.permanentLocks.TryAdd(uri, permanentLock))
-                    throw new WebDavException("Failed to unlock resouece " + uri.ToString()); ;
+                    throw new WebDavException("Failed to unlock resource " + uri.ToString()); ;
             }
 
             return success;
@@ -608,7 +612,7 @@ namespace DecaTec.WebDav
 
         #region Private methods
 
-        private WebDavClient CreateWebDavClient(IHttpFilter httpFilter)
+        private static WebDavClient CreateWebDavClient(IHttpFilter httpFilter)
         {
             return new WebDavClient(httpFilter);
         }

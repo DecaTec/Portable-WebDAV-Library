@@ -39,7 +39,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Initializes a new instance of WebDavResponseMessage.
         /// </summary>
-        /// <param name="httpResponseMessage">The Httperesponse message the WebDavResponseMessage should be based on.</param>
+        /// <param name="httpResponseMessage">The HttpResponseMessage the WebDavResponseMessage should be based on.</param>
         public WebDavResponseMessage(HttpResponseMessage httpResponseMessage)
             : base()
         {
@@ -49,7 +49,7 @@ namespace DecaTec.WebDav
             this.StatusCode = (WebDavStatusCode)httpResponseMessage.StatusCode;
             this.Version = httpResponseMessage.Version;
 
-            // Tranfser headers.
+            // Transfer headers.
             foreach (var header in httpResponseMessage.Headers)
             {
                 this.Headers.Add(header.Key, header.Value);

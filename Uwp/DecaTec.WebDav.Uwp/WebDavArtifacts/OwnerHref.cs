@@ -12,7 +12,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
     public class OwnerHref
     {
         /// <summary>
-        /// Initializes a new instace of OwnerHref.
+        /// Initializes a new instance of OwnerHref.
         /// </summary>
         public OwnerHref()
         {

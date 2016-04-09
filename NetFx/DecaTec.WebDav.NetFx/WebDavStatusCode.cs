@@ -27,7 +27,7 @@ namespace DecaTec.WebDav
         Accepted = 202,
 
         /// <summary>
-        /// Equivalent to HTTP status 203. NonAuthoritativeInformation indicates that the returned metainformation is from a cached copy instead
+        /// Equivalent to HTTP status 203. NonAuthoritativeInformation indicates that the returned meta information is from a cached copy instead
         ///  of the origin server and therefore may be incorrect.
         /// </summary>
         NonAuthoritativeInformation = 203,
@@ -246,7 +246,7 @@ namespace DecaTec.WebDav
         Locked = 423,
 
         /// <summary>
-        ///  Equivalent to WebDav status 424. FailedDependency indicates that the mthod could not be performed on a resource because the requested action  
+        ///  Equivalent to WebDav status 424. FailedDependency indicates that the method could not be performed on a resource because the requested action  
         ///  depended on another action and that action failed.
         /// </summary>
         FailedDependency = 424,
@@ -291,7 +291,7 @@ namespace DecaTec.WebDav
 
         /// <summary>
         /// Equivalent to WebDav status 507. InsufficientStorage indicates that the method could not be performed on a resource because the server is 
-        /// unable to store the representation needed to sucessfully complete the request. This condition is considered to be temporary.
+        /// unable to store the representation needed to successfully complete the request. This condition is considered to be temporary.
         /// </summary>
         InsufficientStorage = 507
     }

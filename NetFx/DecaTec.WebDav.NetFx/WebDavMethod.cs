@@ -5,7 +5,7 @@ namespace DecaTec.WebDav
     /// <summary>
     /// Class representing WebDAV methods.
     /// </summary>
-    public class WebDavMethod : HttpMethod
+    public sealed class WebDavMethod : HttpMethod
     {
         /// <summary>
         /// WebDavMethod for PROPFIND.

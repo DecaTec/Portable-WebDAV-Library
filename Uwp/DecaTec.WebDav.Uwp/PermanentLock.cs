@@ -18,7 +18,7 @@ namespace DecaTec.WebDav
         /// <param name="webDavClient">The WebDavClient to use.</param>
         /// <param name="lockToken">The LockToken to use.</param>
         /// <param name="lockRoot">The root folder of the lock.</param>
-        /// <param name="timeoutString">The timeout string od the lock.</param>
+        /// <param name="timeoutString">The timeout string of the lock.</param>
         internal PermanentLock(WebDavClient webDavClient, LockToken lockToken, Uri lockRoot, string timeoutString)
         {
             this.WebDavClient = webDavClient;
