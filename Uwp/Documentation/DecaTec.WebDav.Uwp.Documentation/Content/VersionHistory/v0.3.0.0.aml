@@ -15,7 +15,7 @@
               Split the Portable WebDAV Library into two parts: <legacyBold>DecaTec.WebDav.NetFx.dll</legacyBold> (to be used in projects targeting  the .NET Framework, Windows 8 or ASP.NET Core) and <legacyBold>DecaTec.WebDav.Uwp.dll</legacyBold> (to be used in projects targeting Windows 8.1, Windows Phone 8.1 and apps for the Universal Windows Platform (UWP)).
             </para>
             <para>
-              The split was necessary because there were some issues using the Portable WebDAV Library in Universal Windows Platform (UWP) projects (not being able to ignore invalid SSL certificates and a bug in System.Net.Http.HttpClient making it impossible to access WebDAV resources without receiving an exception). Maybe the Portable WebDAV Library gets merged into one DLL in the future, but as long as there is no consistent API to access web resources in .NET and UWP apps, the library will consist of these two part.
+              The split was necessary because there were some issues using the Portable WebDAV Library in Universal Windows Platform (UWP) projects (not being able to ignore invalid SSL certificates and a bug in System.Net.Http.HttpClient making it impossible to access WebDAV resources without receiving an exception). Maybe the Portable WebDAV Library gets merged into one DLL in the future, but as long as there is no consistent API to access web resources in .NET and UWP apps, the library will consist of these two parts.
             </para>
           </listItem>
         </list>
