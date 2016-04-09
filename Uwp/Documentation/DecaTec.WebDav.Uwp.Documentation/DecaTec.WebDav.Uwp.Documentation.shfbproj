@@ -79,6 +79,7 @@
     <Folder Include="media" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\HowTo.aml" />
     <None Include="Content\VersionHistory\v0.1.0.0.aml" />
     <None Include="Content\VersionHistory\v0.1.1.0.aml" />
     <None Include="Content\VersionHistory\v0.2.0.0.aml" />
@@ -97,6 +98,12 @@
       <ImageId>PWL</ImageId>
       <AlternateText>PWL</AlternateText>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="media\AppCapabilities.png">
+      <ImageId>AppCapabilities</ImageId>
+      <AlternateText>App Capabilities</AlternateText>
+    </Image>
   </ItemGroup>
   <!-- Import the SHFB build targets -->
   <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />
