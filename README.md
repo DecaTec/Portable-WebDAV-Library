@@ -23,10 +23,10 @@ The split was necessary because these were too many limitations when using the l
 **[Portable WebDAV Library online documentation (NetFx)](https://decatec.de/ext/PortableWebDAVLibrary/Doc/NetFx/index.html)**
 
 For offline use, you can download the help file (CHM) here:
-**[Portable WebDAV Library offline documentation](https://decatec.de/ext/PortableWebDAVLibrary/Doc/NetFx/DecaTec.WebDav.NetFx.Documentation.chm)**
+**[Portable WebDAV Library offline documentation (NexFx)](https://decatec.de/ext/PortableWebDAVLibrary/Doc/NetFx/DecaTec.WebDav.NetFx.Documentation.chm)**
 * **DecaTec.WebDav.Uwp**:
 
-**[Portable WebDAV Library online documentation (Uwp)](https://decatec.de/ext/PortableWebDAVLibrary/Doc/Uwp/index.html)**
+**[Portable WebDAV Library online documentation (UWP)](https://decatec.de/ext/PortableWebDAVLibrary/Doc/Uwp/index.html)**
 
 For offline use, you can download the help file (CHM) here:
-**[Portable WebDAV Library offline documentation](https://decatec.de/ext/PortableWebDAVLibrary/Doc/Uwp/DecaTec.WebDav.Uwp.Documentation.chm)**
+**[Portable WebDAV Library offline documentation (UWP)](https://decatec.de/ext/PortableWebDAVLibrary/Doc/Uwp/DecaTec.WebDav.Uwp.Documentation.chm)**
