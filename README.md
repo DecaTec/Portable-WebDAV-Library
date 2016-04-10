@@ -14,6 +14,8 @@ So far the project is tested against IIS and ownCloud (sabre/dav).
 Since v0.3.0.0, the Portable WebDAV Library is split into two parts:
 * **DecaTec.WebDav.NetFx**: To be used in projects targeting .NET Framework 4.5 (or later), Windows 8 and ASP.NET Core.
 * **DecaTec.WebDav.Uwp**: To be used in projects targeting Windows 8.1, Windows Phone 8.1 and Universal Windows Platform (UWP) apps.
+
+The split was necessary because these were too many limitations when using the library in UWP projects. Now, the two versions of the library use different APIs for web resource access to offer best support for all target platforms.
  
 # Documentation
 * **DecaTec.WebDav.NetFx**:
