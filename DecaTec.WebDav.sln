@@ -31,7 +31,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecaTec.WebDav.Uwp.UnitTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecaTec.WebDav.Uwp.UnitIntegrationTest", "Uwp\UnitTests\DecaTec.WebDav.Uwp.UnitIntegrationTest\DecaTec.WebDav.Uwp.UnitIntegrationTest.csproj", "{42D16C18-94C2-4DE2-B51D-99AD7CC0749F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{2CD03D27-70F0-43DD-B46C-559ACC7B7C44}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DecaTec.WebDav.Shared", "Shared\DecaTec.WebDav.Shared\DecaTec.WebDav.Shared.shproj", "{E6697624-E797-4320-BE35-1C2376A5DC37}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared\DecaTec.WebDav.Shared\DecaTec.WebDav.Shared.projitems*{e20b6616-b1a4-4f8b-a5a5-de33e951ecc0}*SharedItemsImports = 4
+		Shared\DecaTec.WebDav.Shared\DecaTec.WebDav.Shared.projitems*{98a5765e-c0c8-4549-84f9-b0b0946e1a72}*SharedItemsImports = 4
+		Shared\DecaTec.WebDav.Shared\DecaTec.WebDav.Shared.projitems*{e6697624-e797-4320-be35-1c2376a5dc37}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
@@ -196,5 +205,6 @@ Global
 		{1E09588D-03F5-40E1-AB79-707D21189763} = {F3F641DF-F0C0-46D0-8B2E-717BA76EA449}
 		{138AFA4A-3E54-4577-A7B8-F3EEEE04918F} = {AFA9E64E-B021-4331-BE57-BE1A67735638}
 		{42D16C18-94C2-4DE2-B51D-99AD7CC0749F} = {AFA9E64E-B021-4331-BE57-BE1A67735638}
+		{E6697624-E797-4320-BE35-1C2376A5DC37} = {2CD03D27-70F0-43DD-B46C-559ACC7B7C44}
 	EndGlobalSection
 EndGlobal

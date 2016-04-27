@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>e6697624-e797-4320-be35-1c2376a5dc37</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>DecaTec.WebDav</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)LockToken.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LockTokenFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PermanentLock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UrlHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\ActiveLock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\AllProp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\Collection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\Exclusive.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\Include.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\ItemsChoiceType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\KeepAlive.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\Link.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\LockDiscovery.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\LockEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\LockInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\LockRoot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\LockScope.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\LockType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\Multistatus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\Omit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\OwnerHref.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\Prop.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\PropertyBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\PropertyUpdate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\PropFind.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\PropName.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\Propstat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\Remove.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\ResourceType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\Response.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\Set.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\Shared.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\Source.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\SupportedLock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\WebDavLockToken.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\Write.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavAuthenticationType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavCredential.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavDepthHeaderValue.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavOverwriteHeaderValue.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavRequestHeader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavSession.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavSessionListItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavStatusCode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavTimeoutHeaderValue.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)ReadMe.txt" />
+  </ItemGroup>
+</Project>
