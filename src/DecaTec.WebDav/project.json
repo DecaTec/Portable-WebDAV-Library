@@ -1,0 +1,106 @@
+﻿{
+    "version": "0.3.1.0",
+    "title": "DecaTec.WebDav",
+    "description": "Portable WebDAV Library is a fully RFC 4918 compliant WebDAV client library which is implemented as portable class library (PCL) for use on desktop environments as well as mobile devices.",
+    "authors": [ "DecaTec", "Stef Heyenrath" ],
+
+    "packOptions": {
+        "summary": "Portable WebDAV Library is a fully RFC 4918 compliant WebDAV client library which is implemented as portable class library (PCL) for use on desktop environments as well as mobile devices.",
+        "tags": [ "WebDav" ],
+        "owners": [ "DecaTec" ],
+        "repository": {
+            "type": "git",
+            "url": "https://github.com/DecaTec/Portable-WebDAV-Library"
+        },
+        "projectUrl": "https://decatec.de",
+        "licenseUrl": "https://raw.githubusercontent.com/DecaTec/Portable-WebDAV-Library/master/LICENSE",
+        "releaseNotes": "new project structure"
+    },
+
+    "buildOptions": {
+        "xmlDoc": true,
+        "compile": {
+            "include": [
+                "../../NetFx/DecaTec.WebDav.NetFx/*.cs",
+                "../../Shared/DecaTec.WebDav.Shared/*.cs",
+                "../../Shared/DecaTec.WebDav.Shared/WebDavArtifacts/*.cs"
+            ]
+        }
+    },
+
+    "frameworks": {
+        ".NETPortable,Version=v4.6,Profile=Profile151": {
+            "frameworkAssemblies": {
+                "Microsoft.CSharp": "",
+                "System": "",
+                "System.Collections": "",
+                "System.Collections.Concurrent": "",
+                "System.Core": "",
+                "System.Diagnostics.Debug": "",
+                "System.Dynamic.Runtime": "",
+                "System.Globalization": "",
+                "System.IO": "",
+                "System.Linq": "",
+                "System.Linq.Expressions": "",
+                "System.Net.Http": "",
+                "System.Net.Primitives": "",
+                "System.ObjectModel": "",
+                "System.Reflection": "",
+                "System.Reflection.Extensions": "",
+                "System.Runtime": "",
+                "System.Runtime.Extensions": "",
+                "System.Runtime.InteropServices": "",
+                "System.Runtime.Serialization": "",
+                "System.Runtime.Serialization.Primitives": "",
+                "System.Text.Encoding": "",
+                "System.Text.Encoding.Extensions": "",
+                "System.Threading": "",
+                "System.Threading.Tasks": "",
+                "System.Xml": "",
+                "System.Xml.Linq": "",
+                "System.Xml.ReaderWriter": "",
+                "System.Xml.XDocument": "",
+                "System.Xml.XmlSerializer": ""
+            }
+        },
+        ".NETPortable,Version=v4.5,Profile=Profile111": {
+            "buildOptions": {
+                "define": [
+                    "PORTABLE"
+                ]
+            },
+            "frameworkAssemblies": {
+                "Microsoft.CSharp": "",
+                "System": "",
+                "System.Collections": "",
+                "System.Collections.Concurrent": "",
+                "System.Core": "",
+                "System.Diagnostics.Debug": "",
+                "System.Dynamic.Runtime": "",
+                "System.Globalization": "",
+                "System.IO": "",
+                "System.Linq": "",
+                "System.Linq.Expressions": "",
+                "System.Net.Http": "",
+                "System.Net.Primitives": "",
+                "System.ObjectModel": "",
+                "System.Reflection": "",
+                "System.Reflection.Extensions": "",
+                "System.Runtime": "",
+                "System.Runtime.Extensions": "",
+                "System.Runtime.InteropServices": "",
+                "System.Runtime.Serialization": "",
+                "System.Runtime.Serialization.Primitives": "",
+                "System.Text.Encoding": "",
+                "System.Text.Encoding.Extensions": "",
+                "System.Threading": "",
+                "System.Threading.Tasks": "",
+                "System.Xml": "",
+                "System.Xml.Linq": "",
+                "System.Xml.ReaderWriter": "",
+                "System.Xml.XDocument": "",
+                "System.Xml.XmlSerializer": ""
+            }
+        }
+    }
+}
