@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetFx", "NetFx", "{5A3E9CBE-D0E6-420F-8936-0FBDF5B8631A}"
 EndProject
@@ -35,10 +35,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{2CD03D
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DecaTec.WebDav.Shared", "Shared\DecaTec.WebDav.Shared\DecaTec.WebDav.Shared.shproj", "{E6697624-E797-4320-BE35-1C2376A5DC37}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{47502D0D-34FF-41CD-A1A9-0C2C2F9FB0BC}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3716EAD6-04E0-4787-BC5D-9C191D3C587A}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DecaTec.WebDav", "src\DecaTec.WebDav\DecaTec.WebDav.xproj", "{9910F489-65B6-45E5-878B-83052A5F6435}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Shared\DecaTec.WebDav.Shared\DecaTec.WebDav.Shared.projitems*{e20b6616-b1a4-4f8b-a5a5-de33e951ecc0}*SharedItemsImports = 4
 		Shared\DecaTec.WebDav.Shared\DecaTec.WebDav.Shared.projitems*{98a5765e-c0c8-4549-84f9-b0b0946e1a72}*SharedItemsImports = 4
+		Shared\DecaTec.WebDav.Shared\DecaTec.WebDav.Shared.projitems*{e20b6616-b1a4-4f8b-a5a5-de33e951ecc0}*SharedItemsImports = 4
 		Shared\DecaTec.WebDav.Shared\DecaTec.WebDav.Shared.projitems*{e6697624-e797-4320-be35-1c2376a5dc37}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -188,6 +198,22 @@ Global
 		{42D16C18-94C2-4DE2-B51D-99AD7CC0749F}.Release|x86.ActiveCfg = Release|x86
 		{42D16C18-94C2-4DE2-B51D-99AD7CC0749F}.Release|x86.Build.0 = Release|x86
 		{42D16C18-94C2-4DE2-B51D-99AD7CC0749F}.Release|x86.Deploy.0 = Release|x86
+		{9910F489-65B6-45E5-878B-83052A5F6435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9910F489-65B6-45E5-878B-83052A5F6435}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9910F489-65B6-45E5-878B-83052A5F6435}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{9910F489-65B6-45E5-878B-83052A5F6435}.Debug|ARM.Build.0 = Debug|Any CPU
+		{9910F489-65B6-45E5-878B-83052A5F6435}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9910F489-65B6-45E5-878B-83052A5F6435}.Debug|x64.Build.0 = Debug|Any CPU
+		{9910F489-65B6-45E5-878B-83052A5F6435}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9910F489-65B6-45E5-878B-83052A5F6435}.Debug|x86.Build.0 = Debug|Any CPU
+		{9910F489-65B6-45E5-878B-83052A5F6435}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9910F489-65B6-45E5-878B-83052A5F6435}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9910F489-65B6-45E5-878B-83052A5F6435}.Release|ARM.ActiveCfg = Release|Any CPU
+		{9910F489-65B6-45E5-878B-83052A5F6435}.Release|ARM.Build.0 = Release|Any CPU
+		{9910F489-65B6-45E5-878B-83052A5F6435}.Release|x64.ActiveCfg = Release|Any CPU
+		{9910F489-65B6-45E5-878B-83052A5F6435}.Release|x64.Build.0 = Release|Any CPU
+		{9910F489-65B6-45E5-878B-83052A5F6435}.Release|x86.ActiveCfg = Release|Any CPU
+		{9910F489-65B6-45E5-878B-83052A5F6435}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -206,5 +232,6 @@ Global
 		{138AFA4A-3E54-4577-A7B8-F3EEEE04918F} = {AFA9E64E-B021-4331-BE57-BE1A67735638}
 		{42D16C18-94C2-4DE2-B51D-99AD7CC0749F} = {AFA9E64E-B021-4331-BE57-BE1A67735638}
 		{E6697624-E797-4320-BE35-1C2376A5DC37} = {2CD03D27-70F0-43DD-B46C-559ACC7B7C44}
+		{9910F489-65B6-45E5-878B-83052A5F6435} = {3716EAD6-04E0-4787-BC5D-9C191D3C587A}
 	EndGlobalSection
 EndGlobal
