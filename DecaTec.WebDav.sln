@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetFx", "NetFx", "{5A3E9CBE-D0E6-420F-8936-0FBDF5B8631A}"
 EndProject
@@ -35,10 +35,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{2CD03D
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DecaTec.WebDav.Shared", "Shared\DecaTec.WebDav.Shared\DecaTec.WebDav.Shared.shproj", "{E6697624-E797-4320-BE35-1C2376A5DC37}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{7E4D0EB6-A947-40C5-8475-34AFC1F85798}"
+	ProjectSection(SolutionItems) = preProject
+		Assets\NuGetLogo.png = Assets\NuGetLogo.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Shared\DecaTec.WebDav.Shared\DecaTec.WebDav.Shared.projitems*{e20b6616-b1a4-4f8b-a5a5-de33e951ecc0}*SharedItemsImports = 4
 		Shared\DecaTec.WebDav.Shared\DecaTec.WebDav.Shared.projitems*{98a5765e-c0c8-4549-84f9-b0b0946e1a72}*SharedItemsImports = 4
+		Shared\DecaTec.WebDav.Shared\DecaTec.WebDav.Shared.projitems*{e20b6616-b1a4-4f8b-a5a5-de33e951ecc0}*SharedItemsImports = 4
 		Shared\DecaTec.WebDav.Shared\DecaTec.WebDav.Shared.projitems*{e6697624-e797-4320-be35-1c2376a5dc37}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
