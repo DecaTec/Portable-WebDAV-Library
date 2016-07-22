@@ -24,8 +24,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecaTec.WebDav.NetFx.UnitTest", "NetFx\UnitTests\DecaTec.WebDav.NetFx.UnitTest\DecaTec.WebDav.NetFx.UnitTest.csproj", "{84FF3C33-8230-421D-8FF8-0D506562DA2D}"
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "DecaTec.WebDav.NetFx.Documentation", "NetFx\Documentation\DecaTec.WebDav.NetFx.Documentation\DecaTec.WebDav.NetFx.Documentation.shfbproj", "{F6C99C88-722B-4346-BB06-9B8711C24183}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E20B6616-B1A4-4F8B-A5A5-DE33E951ECC0} = {E20B6616-B1A4-4F8B-A5A5-DE33E951ECC0}
+	EndProjectSection
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "DecaTec.WebDav.Uwp.Documentation", "Uwp\Documentation\DecaTec.WebDav.Uwp.Documentation\DecaTec.WebDav.Uwp.Documentation.shfbproj", "{1E09588D-03F5-40E1-AB79-707D21189763}"
+	ProjectSection(ProjectDependencies) = postProject
+		{98A5765E-C0C8-4549-84F9-B0B0946E1A72} = {98A5765E-C0C8-4549-84F9-B0B0946E1A72}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecaTec.WebDav.Uwp.UnitTest", "Uwp\UnitTests\DecaTec.WebDav.Uwp.UnitTest\DecaTec.WebDav.Uwp.UnitTest.csproj", "{138AFA4A-3E54-4577-A7B8-F3EEEE04918F}"
 EndProject

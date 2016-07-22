@@ -214,7 +214,7 @@ namespace DecaTec.WebDav
         /// <param name="destinationUrl">The destination URL.</param>
         /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
         /// <param name="depth">The depth of the copy command. On collections, depth must be '0' or 'infinity'.</param>
-        /// <param name="lockTokenDestination">The lock token of the destination.</param>
+        /// <param name="lockTokenDestination">The lock token of the destination or null if no lock token should be used.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> CopyAsync(string sourceUrl, string destinationUrl, bool overwrite, WebDavDepthHeaderValue depth, LockToken lockTokenDestination)
         {
@@ -228,7 +228,7 @@ namespace DecaTec.WebDav
         /// <param name="destinationUri">The destination URI.</param>
         /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
         /// <param name="depth">The depth of the copy command. On collections, depth must be '0' or 'infinity'.</param>
-        /// <param name="lockTokenDestination">The lock token of the destination.</param>
+        /// <param name="lockTokenDestination">The lock token of the destination or null if no lock token should be used.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> CopyAsync(Uri sourceUri, Uri destinationUri, bool overwrite, WebDavDepthHeaderValue depth, LockToken lockTokenDestination)
         {
@@ -282,7 +282,7 @@ namespace DecaTec.WebDav
         /// Sends a DELETE request to the specified URL with a cancellation token as an asynchronous operation.
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>
-        /// <param name="lockToken">The lock token to use.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> DeleteAsync(string requestUrl, LockToken lockToken)
         {
@@ -293,7 +293,7 @@ namespace DecaTec.WebDav
         /// Sends a DELETE request to the specified URI with a cancellation token as an asynchronous operation.
         /// </summary>
         /// <param name="requestUri">The URI the request is sent to.</param>
-        /// <param name="lockToken">The lock token to use.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> DeleteAsync(Uri requestUri, LockToken lockToken)
         {
@@ -636,7 +636,7 @@ namespace DecaTec.WebDav
         /// Creates a collection at the URL specified.
         /// </summary>
         /// <param name="requestUrl">The URL of the collection to create.</param>
-        /// <param name="lockToken">The lock token to use.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
         /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<HttpResponseMessage> MkcolAsync(string requestUrl, LockToken lockToken)
         {
@@ -647,7 +647,7 @@ namespace DecaTec.WebDav
         /// Creates a collection at the URI specified.
         /// </summary>
         /// <param name="requestUri">The URI of the collection to create.</param>
-        /// <param name="lockToken">The lock token to use.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
         /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<HttpResponseMessage> MkcolAsync(Uri requestUri, LockToken lockToken)
         {
@@ -658,7 +658,18 @@ namespace DecaTec.WebDav
         /// Creates a collection at the URL specified.
         /// </summary>
         /// <param name="requestUrl">The URL of the collection to create.</param>
-        /// <param name="lockToken">The lock token to use.</param>
+        /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
+        public async Task<HttpResponseMessage> MkcolAsync(string requestUrl, HttpCompletionOption completionOption)
+        {
+            return await MkcolAsync(new Uri(requestUrl), null, completionOption);
+        }
+
+        /// <summary>
+        /// Creates a collection at the URL specified.
+        /// </summary>
+        /// <param name="requestUrl">The URL of the collection to create.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
         /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
         /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<HttpResponseMessage> MkcolAsync(string requestUrl, LockToken lockToken, HttpCompletionOption completionOption)
@@ -670,7 +681,18 @@ namespace DecaTec.WebDav
         ///  Creates a collection at the URI specified.
         /// </summary>
         /// <param name="requestUri">The URI of the collection to create.</param>
-        /// <param name="lockToken">The lock token to use.</param>
+        /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
+        public async Task<HttpResponseMessage> MkcolAsync(Uri requestUri, HttpCompletionOption completionOption)
+        {
+            return await MkcolAsync(requestUri, null, completionOption);
+        }
+
+        /// <summary>
+        ///  Creates a collection at the URI specified.
+        /// </summary>
+        /// <param name="requestUri">The URI of the collection to create.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
         /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
         /// <returns>True, if the operation completed successfully, otherwise false.</returns>
         public async Task<HttpResponseMessage> MkcolAsync(Uri requestUri, LockToken lockToken, HttpCompletionOption completionOption)
@@ -768,6 +790,19 @@ namespace DecaTec.WebDav
         /// <param name="sourceUrl">The URL of the resource which should be moved.</param>
         /// <param name="destinationUrl">The target URL.</param>
         /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
+        public async Task<HttpResponseMessage> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite, HttpCompletionOption completionOption)
+        {
+            return await MoveAsync(new Uri(sourceUrl), new Uri(destinationUrl), overwrite, null, null, completionOption);
+        }
+
+        /// <summary>
+        /// Moves a resource to another URL.
+        /// </summary>
+        /// <param name="sourceUrl">The URL of the resource which should be moved.</param>
+        /// <param name="destinationUrl">The target URL.</param>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
         /// <param name="lockTokenSource">The lock token of the source. Specify null if the source is not locked.</param>
         /// <param name="lockTokenDestination">The lock token of the destination. Specify null if the destination is not locked.</param>
         /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
@@ -775,6 +810,19 @@ namespace DecaTec.WebDav
         public async Task<HttpResponseMessage> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite, LockToken lockTokenSource, LockToken lockTokenDestination, HttpCompletionOption completionOption)
         {
             return await MoveAsync(new Uri(sourceUrl), new Uri(destinationUrl), overwrite, lockTokenSource, lockTokenDestination, completionOption);
+        }
+
+        /// <summary>
+        /// Moves a resource to another URI.
+        /// </summary>
+        /// <param name="sourceUri">The URI of the resource which should be moved.</param>
+        /// <param name="destinationUri">The target URI.</param>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
+        /// <returns>True, if the operation completed successfully, otherwise false.</returns>
+        public async Task<HttpResponseMessage> MoveAsync(Uri sourceUri, Uri destinationUri, bool overwrite, HttpCompletionOption completionOption)
+        {
+            return await MoveAsync(sourceUri, destinationUri, overwrite, null, null, completionOption);
         }
 
         /// <summary>
@@ -851,7 +899,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>
         /// <param name="content">The HTTP request content sent to the server.</param>
-        /// <param name="lockToken">The lock token to use.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PostAsync(string requestUrl, IHttpContent content, LockToken lockToken)
         {
@@ -863,7 +911,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="requestUri">The URI the request is sent to.</param>
         /// <param name="content">The HTTP request content sent to the server.</param>
-        /// <param name="lockToken">The lock token to use.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PostAsync(Uri requestUri, IHttpContent content, LockToken lockToken)
         {
@@ -1084,7 +1132,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>
         /// <param name="propPatchXmlString">The XML string specifying which changes to which properties should be sent with this request.</param>
-        /// <param name="lockToken">The lock token to use.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropPatchAsync(string requestUrl, string propPatchXmlString, LockToken lockToken)
         {
@@ -1096,7 +1144,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>
         /// <param name="propertyUpdate">A PropertyUpdate which specifies the properties and values which should be updated.</param>
-        /// <param name="lockToken">The lock token to use.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropPatchAsync(string requestUrl, PropertyUpdate propertyUpdate, LockToken lockToken)
         {
@@ -1108,7 +1156,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="requestUri">The URI the request is sent to.</param>
         /// <param name="propPatchXmlString">The XML string specifying which changes to which properties should be sent with this request.</param>
-        /// <param name="lockToken">The lock token to use.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropPatchAsync(Uri requestUri, string propPatchXmlString, LockToken lockToken)
         {
@@ -1120,7 +1168,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="requestUri">The URI the request is sent to.</param>
         /// <param name="propertyUpdate">A PropertyUpdate which specifies the properties and values which should be updated.</param>
-        /// <param name="lockToken">The lock token to use.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropPatchAsync(Uri requestUri, PropertyUpdate propertyUpdate, LockToken lockToken)
         {
@@ -1132,7 +1180,19 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>
         /// <param name="propPatchXmlString">The XML string specifying which changes to which properties should be sent with this request.</param>
-        /// <param name="lockToken">The lock token to use.</param>
+        /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<HttpResponseMessage> PropPatchAsync(string requestUrl, string propPatchXmlString, HttpCompletionOption completionOption)
+        {
+            return await PropPatchAsync(new Uri(requestUrl), propPatchXmlString, null, completionOption);
+        }
+
+        /// <summary>
+        /// Sends a PROPPATCH request to the specified URL as an asynchronous operation.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="propPatchXmlString">The XML string specifying which changes to which properties should be sent with this request.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
         /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropPatchAsync(string requestUrl, string propPatchXmlString, LockToken lockToken, HttpCompletionOption completionOption)
@@ -1145,7 +1205,19 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>
         /// <param name="propertyUpdate">A PropertyUpdate which specifies the properties and values which should be updated.</param>
-        /// <param name="lockToken">The lock token to use.</param>
+        /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<HttpResponseMessage> PropPatchAsync(string requestUrl, PropertyUpdate propertyUpdate, HttpCompletionOption completionOption)
+        {
+            return await PropPatchAsync(new Uri(requestUrl), propertyUpdate, null, completionOption);
+        }
+
+        /// <summary>
+        /// Sends a PROPPATCH request to the specified URL as an asynchronous operation.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="propertyUpdate">A PropertyUpdate which specifies the properties and values which should be updated.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
         /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropPatchAsync(string requestUrl, PropertyUpdate propertyUpdate, LockToken lockToken, HttpCompletionOption completionOption)
@@ -1158,7 +1230,24 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="requestUri">The URI the request is sent to.</param>
         /// <param name="propertyUpdate">A PropertyUpdate which specifies the properties and values which should be updated.</param>
-        /// <param name="lockToken">The lock token to use.</param>
+        /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<HttpResponseMessage> PropPatchAsync(Uri requestUri, PropertyUpdate propertyUpdate, HttpCompletionOption completionOption)
+        {
+            string requestContentString = string.Empty;
+
+            if (propertyUpdate != null)
+                requestContentString = WebDavHelper.GetUtf8EncodedXmlWebDavRequestString(PropertyUpdateSerializer, propertyUpdate);
+
+            return await PropPatchAsync(requestUri, requestContentString, null, completionOption);
+        }
+
+        /// <summary>
+        /// Sends a PROPPATCH request to the specified URI as an asynchronous operation.
+        /// </summary>
+        /// <param name="requestUri">The URI the request is sent to.</param>
+        /// <param name="propertyUpdate">A PropertyUpdate which specifies the properties and values which should be updated.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
         /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropPatchAsync(Uri requestUri, PropertyUpdate propertyUpdate, LockToken lockToken, HttpCompletionOption completionOption)
@@ -1176,7 +1265,19 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="requestUri">The URI the request is sent to.</param>
         /// <param name="propPatchXmlString">The XML string specifying which changes to which properties should be sent with this request.</param>
-        /// <param name="lockToken">The lock token to use.</param>
+        /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<HttpResponseMessage> PropPatchAsync(Uri requestUri, string propPatchXmlString, HttpCompletionOption completionOption)
+        {
+            return await PropPatchAsync(requestUri, propPatchXmlString, null, completionOption);
+        }
+
+        /// <summary>
+        /// Sends a PROPPATCH request to the specified URI as an asynchronous operation.
+        /// </summary>
+        /// <param name="requestUri">The URI the request is sent to.</param>
+        /// <param name="propPatchXmlString">The XML string specifying which changes to which properties should be sent with this request.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
         /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropPatchAsync(Uri requestUri, string propPatchXmlString, LockToken lockToken, HttpCompletionOption completionOption)
@@ -1227,7 +1328,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>
         /// <param name="content">The HTTP request content sent to the server.</param>
-        /// <param name="lockToken">The lock token to use.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PutAsync(string requestUrl, IHttpContent content, LockToken lockToken)
         {
@@ -1239,7 +1340,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="requestUri">The URI the request is sent to.</param>
         /// <param name="content">The HTTP request content sent to the server.</param>
-        /// <param name="lockToken">The lock token to use.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PutAsync(Uri requestUri, IHttpContent content, LockToken lockToken)
         {
