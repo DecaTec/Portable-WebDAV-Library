@@ -10,6 +10,10 @@ Portable WebDAV Library is a fully [RFC 4918](http://tools.ietf.org/html/rfc4918
 * WebDAV object model: Object model that represents all WebDAV artifacts used in WebDAV communication (as XML request/response content). No need to build own request XML content strings or parsing the contents of a response of a WebDAV server
 So far the project is tested against IIS and ownCloud (sabre/dav) (note that WebDAV locking is only working with ownCloud 8 or earlier releases as with ownCloud 9 WebDAV locking is not supported anymore).
 
+# Obtaining the library
+* There is a NuGet package available: Just search for '**PortableWebDavLibrary**' in the '*Manage NuGet Packages...*' window in Visual Studio. You can also find the package [here](https://www.nuget.org/packages/PortableWebDavLibrary/). When using the NuGet package, you do not have to worry about which version of the library should be used (NetFx/Uwp - see below), as the correct reference is added to your project automatically.
+* If you prefer the manual installation method, you can find the current release as ZIP file on the [GitHub release page](https://github.com/DecaTec/Portable-WebDAV-Library/releases).
+
 # Two versions of the Portable WebDAV Library
 Since v0.3.0.0, the Portable WebDAV Library is split into two parts:
 * **DecaTec.WebDav.NetFx**: To be used in projects targeting .NET Framework 4.5 (or later), Windows 8 and ASP.NET Core.
