@@ -11,10 +11,10 @@
 
         <list class="bullet">
           <listItem>
-            <para>Retarget for .NET 4.5 and ASP.NET Core 5.0.</para>
+            <para>Retarget for .NET 4.5 and ASP.NET Core 5.0</para>
           </listItem>
           <listItem>
-            <para>The WebDavSession now uses the class NetworkCredential for user credentials. The class WebDavCredential is not longer supported.</para>
+            <para>The WebDavSession now uses the class NetworkCredential for user credentials. The class WebDavCredential is not longer supported</para>
           </listItem>
         </list>
 

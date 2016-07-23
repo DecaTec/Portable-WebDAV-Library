@@ -11,6 +11,19 @@
     </introduction>
 
     <section>
+      <title>Obtaining the library</title>
+      <content>
+        <para>
+          There is a NuGet package available: Just search for '<legacyBold>PortableWebDavLibrary</legacyBold>' in the 'Manage NuGet Packages...' window in Visual Studio. You can also find the package <externalLink><linkText>here</linkText><linkUri>https://www.nuget.org/packages/PortableWebDavLibrary/</linkUri></externalLink>.
+          When using the NuGet package, you do not have to worry about which version of the library should be used (NetFx/Uwp - see below), as the correct reference is added to your project automatically.
+        </para>
+        <para>
+          If you prefer the manual installation method, you can find the current release as ZIP file on the <externalLink><linkText>GitHub release page</linkText><linkUri>https://github.com/DecaTec/Portable-WebDAV-Library/releases</linkUri></externalLink>.
+        </para>
+      </content>
+    </section>
+
+    <section>
       <title>Two versions of the Portable WebDAV Library</title>
       <content>
         <para>For a better compatibility to the different target platforms, the library is split into two separate parts:</para>

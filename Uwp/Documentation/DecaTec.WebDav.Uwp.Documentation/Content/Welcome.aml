@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <topic id="ec2c4fb9-84b7-4cd1-a3a7-271e790c0df7" revisionNumber="1">
-	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>
         Portable WebDAV Library is a fully <externalLink>
@@ -12,6 +12,19 @@
         <legacyBold>This is the documentation for the DecaTec.WebDav.Uwp part of the Portable WebDAV Library.</legacyBold>
       </para>
     </introduction>
+
+    <section>
+      <title>Obtaining the library</title>
+      <content>
+        <para>
+          There is a NuGet package available: Just search for '<legacyBold>PortableWebDavLibrary</legacyBold>' in the 'Manage NuGet Packages...' window in Visual Studio. You can also find the package <externalLink><linkText>here</linkText><linkUri>https://www.nuget.org/packages/PortableWebDavLibrary/</linkUri></externalLink>. 
+          When using the NuGet package, you do not have to worry about which version of the library should be used (NetFx/Uwp - see below), as the correct reference is added to your project automatically.
+        </para>
+        <para>
+          If you prefer the manual installation method, you can find the current release as ZIP file on the <externalLink><linkText>GitHub release page</linkText><linkUri>https://github.com/DecaTec/Portable-WebDAV-Library/releases</linkUri></externalLink>.
+        </para>
+      </content>
+    </section>
 
     <section>
       <title>Two versions of the Portable WebDAV Library</title>
@@ -256,8 +269,8 @@ PropFind pf = PropFind.CreatePropFindAllProp();
       </content>
     </section>
 
-		<relatedTopics>
-			<link xlink:href="a108005d-dd4f-4258-af05-4d0d8106efd0" />
-		</relatedTopics>
-	</developerConceptualDocument>
+    <relatedTopics>
+      <link xlink:href="a108005d-dd4f-4258-af05-4d0d8106efd0" />
+    </relatedTopics>
+  </developerConceptualDocument>
 </topic>

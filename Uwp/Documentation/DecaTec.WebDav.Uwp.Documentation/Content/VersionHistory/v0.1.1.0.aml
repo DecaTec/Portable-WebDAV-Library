@@ -8,10 +8,10 @@
 
         <list class="bullet">
           <listItem>
-            <para>Optimized URL handling in WebDavSession.</para>
+            <para>Optimized URL handling in WebDavSession</para>
           </listItem>
           <listItem>
-            <para>Added a more meaningful WebDavException when ListAsync (WebDavSession) fails due to wrong response status code.</para>
+            <para>Added a more meaningful WebDavException when ListAsync (WebDavSession) fails due to wrong response status code</para>
           </listItem>
           <listItem>
             <para>WebDavException is now thrown when parsing a response (multi status or prop) fails</para>

@@ -5,7 +5,7 @@
       <HelpKeyword index="K" term="Welcome" />
     </HelpKeywords>
   </Topic>
-  <Topic id="46ec273e-119a-4fd8-bfbf-81485f76f23f" visible="True" isSelected="true" title="HowTo">
+  <Topic id="46ec273e-119a-4fd8-bfbf-81485f76f23f" visible="True" title="HowTo">
     <HelpKeywords>
       <HelpKeyword index="K" term="howto, ssl, certificate, certificates" />
     </HelpKeywords>
@@ -32,6 +32,11 @@
     <Topic id="a40f35cf-bc6d-4fe0-b681-4b3a0c6b11fe" visible="True" title="Version 0.3.0.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.3.0.0" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="7997772e-ca67-4080-9c48-44ea81dbfb5d" visible="True" isSelected="true" title="Version 0.4.0.0">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 0.4.0.0" />
       </HelpKeywords>
     </Topic>
   </Topic>
