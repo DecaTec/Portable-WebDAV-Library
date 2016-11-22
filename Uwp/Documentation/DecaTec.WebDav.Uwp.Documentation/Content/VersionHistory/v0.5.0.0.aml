@@ -14,7 +14,13 @@
             <para>
               New methods for uploading/downloading files with progres (UWP only).
             </para>
-          </listItem>          
+          </listItem>      
+        
+        <listItem>
+            <para>
+              Fixed a few things in the documentation.
+            </para>
+          </listItem>     
         </list>
 
       </content>
