@@ -1,9 +1,13 @@
 ﻿using DecaTec.WebDav.WebDavArtifacts;
 using System;
+using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
+using Windows.Foundation;
+using Windows.Storage.Streams;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 
@@ -279,7 +283,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Sends a DELETE request to the specified URL with a cancellation token as an asynchronous operation.
+        /// Sends a DELETE request to the specified URL with a lock token as an asynchronous operation.
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>
         /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
@@ -290,7 +294,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Sends a DELETE request to the specified URI with a cancellation token as an asynchronous operation.
+        /// Sends a DELETE request to the specified URI with a lock token as an asynchronous operation.
         /// </summary>
         /// <param name="requestUri">The URI the request is sent to.</param>
         /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
@@ -314,7 +318,7 @@ namespace DecaTec.WebDav
         #region Get
 
         /// <summary>
-        /// Send a GET request to the specified URL with a cancellation token as an asynchronous operation.
+        /// Send a GET request to the specified URL as an asynchronous operation.
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
@@ -324,7 +328,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Send a GET request to the specified URI with a cancellation token as an asynchronous operation.
+        /// Send a GET request to the specified URI as an asynchronous operation.
         /// </summary>
         /// <param name="requestUri">The URI the request is sent to.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
@@ -334,7 +338,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Send a GET request to the specified URL with an HTTP completion option and a cancellation token as an asynchronous operation.
+        /// Send a GET request to the specified URL with an HTTP completion option as an asynchronous operation.
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>
         /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
@@ -345,7 +349,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Send a GET request to the specified URI with an HTTP completion option and a cancellation token as an asynchronous operation.
+        /// Send a GET request to the specified URI with an HTTP completion option as an asynchronous operation.
         /// </summary>
         /// <param name="requestUri">The URI the request is sent to.</param>
         /// <param name="completionOption">An HTTP completion option value that indicates when the operation should be considered completed.</param>
@@ -895,7 +899,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Send a POST request with a cancellation token as an asynchronous operation.
+        /// Send a POST request with a lock token as an asynchronous operation.
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>
         /// <param name="content">The HTTP request content sent to the server.</param>
@@ -907,7 +911,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Send a POST request with a cancellation token as an asynchronous operation.
+        /// Send a POST request with a lock token as an asynchronous operation.
         /// </summary>
         /// <param name="requestUri">The URI the request is sent to.</param>
         /// <param name="content">The HTTP request content sent to the server.</param>
@@ -1324,7 +1328,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Send a PUT request to the specified URL with a cancellation token as an asynchronous operation.
+        /// Send a PUT request to the specified URL with a lock token as an asynchronous operation.
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>
         /// <param name="content">The HTTP request content sent to the server.</param>
@@ -1336,7 +1340,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Send a PUT request to the specified URI with a cancellation token as an asynchronous operation.
+        /// Send a PUT request to the specified URI with a lock token as an asynchronous operation.
         /// </summary>
         /// <param name="requestUri">The URI the request is sent to.</param>
         /// <param name="content">The HTTP request content sent to the server.</param>
@@ -1354,7 +1358,163 @@ namespace DecaTec.WebDav
             return httpResponseMessage;
         }
 
+        /// <summary>
+        /// Sends a PUT request to the specified URL as an asynchronous operation.
+        /// </summary>
+        /// <param name="url">The URL the request is sent to.</param>
+        /// <param name="content">The HTTP request content sent to the server.</param>
+        /// <param name="cts">The CancellationTokenSource to use.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<HttpResponseMessage> PutAsync(string url, IHttpContent content, CancellationTokenSource cts, IProgress<HttpProgress> progress)
+        {
+            return await this.PutAsync(url, content, cts, progress, null);
+        }
+
+        /// <summary>
+        /// Sends a PUT request to the specified URI as an asynchronous operation.
+        /// </summary>
+        /// <param name="uri">The URI the request is sent to.</param>
+        /// <param name="content">The HTTP request content sent to the server.</param>
+        /// <param name="cts">The CancellationTokenSource to use.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<HttpResponseMessage> PutAsync(Uri uri, IHttpContent content, CancellationTokenSource cts, IProgress<HttpProgress> progress)
+        {
+            return await this.PutAsync(uri, content, cts, progress, null);
+        }
+
+        /// <summary>
+        /// Sends a PUT request to the specified URL as an asynchronous operation.
+        /// </summary>
+        /// <param name="url">The URL the request is sent to.</param>
+        /// <param name="content">The HTTP request content sent to the server.</param>
+        /// <param name="cts">The CancellationTokenSource to use.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<HttpResponseMessage> PutAsync(string url, IHttpContent content, CancellationTokenSource cts, IProgress<HttpProgress> progress, LockToken lockToken)
+        {
+            return await this.PutAsync(new Uri(url), content, cts, progress, lockToken);
+        }
+
+        /// <summary>
+        /// Sends a PUT request to the specified URI as an asynchronous operation.
+        /// </summary>
+        /// <param name="uri">The URI the request is sent to.</param>
+        /// <param name="content">The HTTP request content sent to the server.</param>
+        /// <param name="cts">The CancellationTokenSource to use.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<HttpResponseMessage> PutAsync(Uri uri, IHttpContent content, CancellationTokenSource cts, IProgress<HttpProgress> progress, LockToken lockToken)
+        {
+            if (lockToken != null)
+                content.Headers.Add(WebDavRequestHeader.If, lockToken.ToString(LockTokenFormat.IfHeader));
+
+            return await this.httpClient.PutAsync(uri, content).AsTask(cts.Token, progress);
+        }
+
         #endregion Put
+
+        #region Upload file
+
+        /// <summary>
+        /// Uploads a file from a given IRandomAccesStream to the given URL as an asynchronous operation.
+        /// </summary>
+        /// <param name="url">The URL the request is sent to.</param>
+        /// <param name="stream">The file's content as IRandomAccessStream.</param>
+        /// <param name="contentType">The content type of the file to upload.</param>
+        /// <param name="cts">The CancellationTokenSource to use.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<HttpResponseMessage> UploadFileAsync(string url, IRandomAccessStream stream, string contentType, CancellationTokenSource cts, IProgress<HttpProgress> progress)
+        {
+            return await this.UploadFileAsync(new Uri(url), stream, contentType, cts, progress, null);
+        }
+
+        /// <summary>
+        /// Uploads a file from a given IRandomAccesStream to the given URI as an asynchronous operation.
+        /// </summary>
+        /// <param name="uri">The URI the request is sent to.</param>
+        /// <param name="stream">The file's content as IRandomAccessStream.</param>
+        /// <param name="contentType">The content type of the file to upload.</param>
+        /// <param name="cts">The CancellationTokenSource to use.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<HttpResponseMessage> UploadFileAsync(Uri uri, IRandomAccessStream stream, string contentType, CancellationTokenSource cts, IProgress<HttpProgress> progress)
+        {
+            return await this.UploadFileAsync(uri, stream, contentType, cts, progress, null);
+        }
+
+        /// <summary>
+        /// Uploads a file from a given IRandomAccesStream to the given URL as an asynchronous operation.
+        /// </summary>
+        /// <param name="url">The URL the request is sent to.</param>
+        /// <param name="stream">The file's content as IRandomAccessStream.</param>
+        /// <param name="contentType">The content type of the file to upload.</param>
+        /// <param name="cts">The CancellationTokenSource to use.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<HttpResponseMessage> UploadFileAsync(string url, IRandomAccessStream stream, string contentType, CancellationTokenSource cts, IProgress<HttpProgress> progress, LockToken lockToken)
+        {
+            return await this.UploadFileAsync(new Uri(url), stream, contentType, cts, progress, lockToken);
+        }
+
+        /// <summary>
+        /// Uploads a file from a given IRandomAccesStream to the given URI as an asynchronous operation.
+        /// </summary>
+        /// <param name="uri">The URI the request is sent to.</param>
+        /// <param name="stream">The file's content as IRandomAccessStream.</param>
+        /// <param name="contentType">The content type of the file to upload.</param>
+        /// <param name="cts">The CancellationTokenSource to use.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <param name="lockToken">The lock token to use or null if no lock token should be used.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<HttpResponseMessage> UploadFileAsync(Uri uri, IRandomAccessStream stream, string contentType, CancellationTokenSource cts, IProgress<HttpProgress> progress, LockToken lockToken)
+        {
+            var inputStream = stream.GetInputStreamAt(0);
+            var streamContent = new HttpStreamContent(inputStream);
+            //await streamContent.BufferAllAsync();
+            streamContent.Headers.Add("Content-Type", contentType);
+            streamContent.Headers.Add("Content-Length", stream.Size.ToString());
+
+            if (lockToken != null)
+                streamContent.Headers.Add(WebDavRequestHeader.If, lockToken.ToString(LockTokenFormat.IfHeader));
+
+            return await this.PutAsync(uri, streamContent, cts, progress, lockToken);
+        }
+
+        #endregion Upload file
+
+        #region Download file
+
+        /// <summary>
+        /// Downloads a file from the given URL.
+        /// </summary>
+        /// <param name="url">Te URL of the file to download.</param>
+        /// <param name="cts">The CancellationTokenSource to use.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<IBuffer> DownloadFileAsync(string url, CancellationTokenSource cts, IProgress<HttpProgress> progress)
+        {
+            return await this.httpClient.GetBufferAsync(new Uri(url)).AsTask(cts.Token, progress);
+        }
+
+        /// <summary>
+        /// Downloads a file from the given URI.
+        /// </summary>
+        /// <param name="uri">Te URI of the file to download.</param>
+        /// <param name="cts">The CancellationTokenSource to use.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<IBuffer> DownloadFileAsync(Uri uri, CancellationTokenSource cts, IProgress<HttpProgress> progress)
+        {
+            return await this.httpClient.GetBufferAsync(uri).AsTask(cts.Token, progress);
+        }
+
+        #endregion Download file
 
         #region Send
 

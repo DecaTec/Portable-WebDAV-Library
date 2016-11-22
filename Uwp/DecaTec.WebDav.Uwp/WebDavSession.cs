@@ -6,8 +6,10 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Security.Credentials;
+using Windows.Storage.Streams;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 
@@ -168,6 +170,19 @@ namespace DecaTec.WebDav
                 return false;
         }
 
+        /// <summary>
+        /// Downloads a file from the given URI.
+        /// </summary>
+        /// <param name="uri">Te URI of the file to download.</param>
+        /// <param name="cts">The CancellationTokenSource to use.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<IBuffer> DownloadFileAsync(Uri uri, CancellationTokenSource cts, IProgress<HttpProgress> progress)
+        {
+            uri = UrlHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
+            return await this.webDavClient.DownloadFileAsync(uri, cts, progress);
+        }
+
         #endregion Download file
 
         #region List
@@ -271,6 +286,23 @@ namespace DecaTec.WebDav
             var lockToken = GetAffectedLockToken(uri);
             var content = new HttpStreamContent(localStream.AsInputStream());
             var response = await this.webDavClient.PutAsync(uri, content, lockToken);
+            return response.IsSuccessStatusCode;
+        }
+
+        /// <summary>
+        /// Uploads a file to the URI specified.
+        /// </summary>
+        /// <param name="uri">The URI of the file to upload.</param>
+        /// <param name="stream">The stream containing the file to upload.</param>
+        /// <param name="contentType">The content type of the file to upload.</param>
+        /// <param name="cts">The CancellationTokenSource to use.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<bool> UploadFileAsync(Uri uri, IRandomAccessStream stream, string contentType, CancellationTokenSource cts, IProgress<HttpProgress> progress)
+        {
+            uri = UrlHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
+            var lockToken = GetAffectedLockToken(uri);
+            var response = await this.webDavClient.UploadFileAsync(uri, stream, contentType, cts, progress, lockToken);
             return response.IsSuccessStatusCode;
         }
 

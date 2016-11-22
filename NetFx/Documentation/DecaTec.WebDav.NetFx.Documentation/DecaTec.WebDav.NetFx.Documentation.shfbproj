@@ -99,9 +99,13 @@
     <None Include="..\..\..\Uwp\Documentation\DecaTec.WebDav.Uwp.Documentation\Content\VersionHistory\v0.4.0.0.aml">
       <Link>Content\VersionHistory\v0.4.0.0.aml</Link>
     </None>
+    <None Include="..\..\..\Uwp\Documentation\DecaTec.WebDav.Uwp.Documentation\Content\VersionHistory\v0.5.0.0.aml">
+      <Link>Content\VersionHistory\v0.5.0.0.aml</Link>
+    </None>
     <None Include="..\..\..\Uwp\Documentation\DecaTec.WebDav.Uwp.Documentation\Content\VersionHistory\VersionHistory.aml">
       <Link>Content\VersionHistory\VersionHistory.aml</Link>
     </None>
+    <None Include="v0.5.0.0.aml" />
     <None Include="Content\HowTo.aml" />
     <None Include="Content\Welcome.aml" />
   </ItemGroup>

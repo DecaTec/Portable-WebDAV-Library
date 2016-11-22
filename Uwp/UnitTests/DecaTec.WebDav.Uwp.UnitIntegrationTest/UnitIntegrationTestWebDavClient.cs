@@ -2,7 +2,9 @@
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using System;
 using System.IO;
+using System.Threading;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 
@@ -104,7 +106,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
             var testFile = this.webDavRootFolder + TestFile;
 
             // Put file.
-            StorageFile file = StorageFile.GetFileFromApplicationUriAsync(new Uri(@"ms-appx:///Assets/TextFile1.txt")).AsTask().Result;
+            StorageFile file = StorageFile.GetFileFromApplicationUriAsync(new Uri(@"ms-appx:///TextFile1.txt")).AsTask().Result;
             HttpStreamContent content;
             HttpResponseMessage response;
 
@@ -161,6 +163,74 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
 
         #endregion PropPatch / put / delete file
 
+        #region Upload / PropPatch / delete file
+
+        [TestMethod]
+        public void UnitIntegrationTestWebDavClientUpload()
+        {
+            var client = CreateWebDavClient();
+            var testFile = this.webDavRootFolder + TestFile;
+
+            // Upload file.
+            var file = ApplicationData.Current.LocalFolder.CreateFileAsync(TestFile, CreationCollisionOption.OpenIfExists).AsTask().Result;
+            HttpResponseMessage response;
+            var cts = new CancellationTokenSource();
+            var progress = new Progress<HttpProgress>();
+            var stream = file.OpenAsync(FileAccessMode.ReadWrite).AsTask().Result;
+            response = client.UploadFileAsync(testFile, stream, file.ContentType, cts, progress, null).Result;
+            var uploadResponseSuccess = response.IsSuccessStatusCode;
+
+            // PropPatch (set).
+            var propertyUpdate = new PropertyUpdate();
+            var set = new Set();
+            var prop = new Prop();
+            prop.DisplayName = "TestFileDisplayName";
+            set.Prop = prop;
+            propertyUpdate.Items = new object[] { set };
+            response = client.PropPatchAsync(testFile, propertyUpdate).Result;
+            var propPatchResponseSuccess = response.IsSuccessStatusCode;
+
+            // PropFind.
+            PropFind pf = PropFind.CreatePropFindWithEmptyProperties("displayname");
+            response = client.PropFindAsync(testFile, WebDavDepthHeaderValue.Zero, pf).Result;
+            var propFindResponseSuccess = response.IsSuccessStatusCode;
+            var multistatus = (Multistatus)WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+            var displayName = ((Propstat)multistatus.Response[0].Items[0]).Prop.DisplayName;
+            // IIS ignores display name and always puts the file name as display name.
+            var displayNameResult = "TestFileDisplayName" == displayName || TestFile == displayName;
+
+            // PropPatch (remove).
+            propertyUpdate = new PropertyUpdate();
+            var remove = new Remove();
+            prop = Prop.CreatePropWithEmptyProperties("displayname");
+            remove.Prop = prop;
+            propertyUpdate.Items = new object[] { remove };
+            response = client.PropPatchAsync(testFile, propertyUpdate).Result;
+            var propPatchRemoveResponseSuccess = response.IsSuccessStatusCode;
+            multistatus = (Multistatus)WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+            var multistatusResult = ((Propstat)multistatus.Response[0].Items[0]).Prop.DisplayName;
+
+            // Download.
+            cts = new CancellationTokenSource();
+            progress = new Progress<HttpProgress>();
+            var buffer = client.DownloadFileAsync(testFile, cts, progress).Result;
+
+            // Delete file.
+            response = client.DeleteAsync(testFile).Result;
+            var deleteResponseSuccess = response.IsSuccessStatusCode;
+
+            Assert.IsTrue(uploadResponseSuccess, "putResponseSuccess");
+            Assert.IsTrue(propPatchResponseSuccess, "propPatchResponseSuccess");
+            Assert.IsTrue(propFindResponseSuccess, "propFindResponseSuccess");
+            Assert.IsTrue(displayNameResult, "displayNameResult");
+            Assert.IsTrue(propPatchRemoveResponseSuccess, "propPatchRemoveResponseSuccess");
+            Assert.AreEqual(string.Empty, multistatusResult, "multistatusResult");
+            Assert.IsTrue(deleteResponseSuccess, "deleteResponseSuccess");
+            Assert.IsNotNull(buffer);
+        }
+
+        #endregion Upload / PropPatch / delete file
+
         #region Mkcol / delete collection
 
         [TestMethod]
@@ -212,7 +282,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
             var testFile = this.webDavRootFolder + TestFile;
 
             // Put file.
-            StorageFile file = StorageFile.GetFileFromApplicationUriAsync(new Uri(@"ms-appx:///Assets/TextFile1.txt")).AsTask().Result;
+            StorageFile file = StorageFile.GetFileFromApplicationUriAsync(new Uri(@"ms-appx:///TextFile1.txt")).AsTask().Result;
             HttpStreamContent content;
             HttpResponseMessage response;
 
@@ -258,7 +328,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
             var mkColResponseSuccess = response.IsSuccessStatusCode;
 
             // Put file.
-            StorageFile file = StorageFile.GetFileFromApplicationUriAsync(new Uri(@"ms-appx:///Assets/TextFile1.txt")).AsTask().Result;
+            StorageFile file = StorageFile.GetFileFromApplicationUriAsync(new Uri(@"ms-appx:///TextFile1.txt")).AsTask().Result;
             HttpStreamContent content;
 
             using (Stream stream = (file.OpenReadAsync().AsTask().Result).AsStreamForRead())
@@ -324,7 +394,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
             var mkColResponseSuccess = response.IsSuccessStatusCode;
 
             // Put file.
-            StorageFile file = StorageFile.GetFileFromApplicationUriAsync(new Uri(@"ms-appx:///Assets/TextFile1.txt")).AsTask().Result;
+            StorageFile file = StorageFile.GetFileFromApplicationUriAsync(new Uri(@"ms-appx:///TextFile1.txt")).AsTask().Result;
             HttpStreamContent content;
 
             using (Stream stream = (file.OpenReadAsync().AsTask().Result).AsStreamForRead())
