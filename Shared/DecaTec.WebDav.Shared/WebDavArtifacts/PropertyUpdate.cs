@@ -8,8 +8,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// Class representing an 'propertyupdate' XML element for WebDAV communication.
     /// </summary>
     [DataContract]
-    [XmlType(TypeName = "propertyupdate", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.PropertyUpdate, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class PropertyUpdate
     {
         private object[] itemsField;
@@ -17,8 +17,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Items.
         /// </summary>
-        [XmlElement(ElementName = "remove", Type = typeof(Remove))]
-        [XmlElement(ElementName = "set", Type = typeof(Set))]
+        [XmlElement(ElementName = WebDavConstants.Remove, Type = typeof(Remove))]
+        [XmlElement(ElementName = WebDavConstants.Set, Type = typeof(Set))]
         public object[] Items
         {
             get

@@ -63,15 +63,19 @@ namespace DecaTec.WebDav
                 return relativeUri;
             else
             {
-                var url1 = baseUri.ToString();
-                url1 = url1.TrimEnd('/');
-                var url2 = relativeUri.ToString();
-                url2 = url2.TrimStart('/');
+                return new Uri(baseUri, relativeUri) ;
+                //var t = Uri.TryCreate($"{baseUri.ToString()}{relativeUri.ToString()}", UriKind.Absolute, out er);
+                ////return new Uri(string.Concat(baseUri.Scheme, baseUri.)
 
-                if(url2.StartsWith(url1))
-                    url2 = url2.Substring(url1.Length).TrimStart('/');
+                //var url1 = baseUri.ToString();
+                //url1 = url1.TrimEnd('/');
+                //var url2 = relativeUri.ToString();
+                //url2 = url2.TrimStart('/');
 
-                return new Uri(string.Concat(url1, @"/", url2));
+                //if(url2.StartsWith(url1))
+                //    url2 = url2.Substring(url1.Length).TrimStart('/');              
+
+                //return new Uri(string.Concat(url1, @"/", url2));
 
             }
         }

@@ -9,8 +9,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// </summary>
     [DataContract]
     [DebuggerStepThrough]
-    [XmlType(TypeName = "propname", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.PropName, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class PropName
     {
     }

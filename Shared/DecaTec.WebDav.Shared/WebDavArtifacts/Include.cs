@@ -9,8 +9,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// </summary>
     [DataContract]
     [DebuggerStepThrough]
-    [XmlType(TypeName = "include", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.Include, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class Include
     {
     }

@@ -9,8 +9,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// </summary>
     [DataContract]
     [DebuggerStepThrough]
-    [XmlType(TypeName = "resourcetype", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.ResourceType, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class ResourceType
     {
         private Collection collectionField;
@@ -18,7 +18,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Collection.
         /// </summary>
-        [XmlElement(ElementName = "collection")]
+        [XmlElement(ElementName = WebDavConstants.Collection)]
         public Collection Collection
         {
             get

@@ -12,10 +12,10 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
 {
     /// <summary>
     /// Unit integration test class for WebDavClient.
-    /// You'll need a file 'TestConfiguration.txt' in the test's ouuput folder with the following content:
+    /// You'll need a file 'TestConfiguration.txt' in the test's output folder with the following content:
     /// Line 1: The user name to use for WebDAV connections
     /// Line 2: The password to use for WebDAV connections
-    /// Line 3: The URL of an already exisiting WebDAV folder in the server used for tests
+    /// Line 3: The URL of an already existing WebDAV folder in the server used for tests
     ///  
     /// If this file is not present, all test will fail!
     /// </summary>

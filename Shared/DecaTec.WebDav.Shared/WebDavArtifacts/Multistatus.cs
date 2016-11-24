@@ -9,8 +9,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// </summary>
     [DataContract]
     [DebuggerStepThrough]
-    [XmlType(TypeName = "multistatus", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.MultiStatus, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class Multistatus
     {
         private Response[] responseField;
@@ -19,7 +19,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Response.
         /// </summary>
-        [XmlElement(ElementName = "response")]
+        [XmlElement(ElementName = WebDavConstants.Response)]
         public Response[] Response
         {
             get
@@ -35,7 +35,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the ResponseDescription.
         /// </summary>
-        [XmlElement(ElementName = "responsedescription")]
+        [XmlElement(ElementName = WebDavConstants.ResponseDescription)]
         public string ResponseDescription
         {
             get

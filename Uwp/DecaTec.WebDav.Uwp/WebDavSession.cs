@@ -197,7 +197,7 @@ namespace DecaTec.WebDav
             uri = UrlHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
 
             // Do not use an allprop here because some WebDav servers will not return the expected results when using allprop.
-            var propFind = PropFind.CreatePropFindWithEmptyProperties("ishidden", "displayname", "name", "getcontenttype", "creationdatespecified", "creationdate", "resourcetype", "getLastmodified", "getcontentlength");
+            var propFind = PropFind.CreatePropFindWithEmptyPropertiesAll();
             var response = await this.webDavClient.PropFindAsync(uri, WebDavDepthHeaderValue.One, propFind);
 
             if (response.StatusCode.ToString() != WebDavStatusCode.MultiStatus.ToString())
@@ -216,7 +216,10 @@ namespace DecaTec.WebDav
                 if (!string.IsNullOrEmpty(responseItem.Href))
                 {
                     if (Uri.TryCreate(responseItem.Href, UriKind.RelativeOrAbsolute, out href))
-                        webDavSessionItem.Uri = href;
+                    {
+                        var fullQualifiedUri = UrlHelper.GetAbsoluteUri(uri, href);
+                        webDavSessionItem.Uri = fullQualifiedUri;
+                    }
                 }
 
                 // Skip the folder which contents were requested, only add children.
@@ -234,6 +237,54 @@ namespace DecaTec.WebDav
                     if (propStat.Prop.IsHidden == "1")
                         continue;
 
+                    webDavSessionItem.ContentClass = propStat.Prop.ContentClass;
+                    webDavSessionItem.ContentLanguage = propStat.Prop.GetContentLanguage;
+
+                    if (!string.IsNullOrEmpty(propStat.Prop.GetContentLength))
+                        webDavSessionItem.ContentLength = long.Parse(propStat.Prop.GetContentLength, CultureInfo.InvariantCulture);
+                   
+                    webDavSessionItem.ContentType = propStat.Prop.GetContentType;
+
+                    if (propStat.Prop.CreationDateSpecified && !string.IsNullOrEmpty(propStat.Prop.CreationDate))
+                        webDavSessionItem.CreationDate = DateTime.Parse(propStat.Prop.CreationDate, CultureInfo.InvariantCulture);
+
+                    webDavSessionItem.DefaultDocument = propStat.Prop.DefaultDocument;
+                    webDavSessionItem.DisplayName = propStat.Prop.DisplayName;
+                    webDavSessionItem.ETag = propStat.Prop.GetEtag;
+
+                    if (!string.IsNullOrEmpty(propStat.Prop.GetLastModified))
+                        webDavSessionItem.LastModified = DateTime.Parse(propStat.Prop.GetLastModified, CultureInfo.InvariantCulture);
+
+                    if (!string.IsNullOrEmpty(propStat.Prop.IsReadonly))
+                        webDavSessionItem.IsReadonly = bool.Parse(propStat.Prop.IsReadonly);
+
+                    if (!string.IsNullOrEmpty(propStat.Prop.IsRoot))
+                        webDavSessionItem.IsRoot = bool.Parse(propStat.Prop.IsRoot);
+
+                    if (!string.IsNullOrEmpty(propStat.Prop.IsStructuredDocument))
+                        webDavSessionItem.IsStructuredDocument = bool.Parse(propStat.Prop.IsStructuredDocument);
+
+                    if (!string.IsNullOrEmpty(propStat.Prop.LastAccessed))
+                        webDavSessionItem.LastAccessed = DateTime.Parse(propStat.Prop.LastAccessed, CultureInfo.InvariantCulture);
+
+                    webDavSessionItem.Name = propStat.Prop.Name;
+                    webDavSessionItem.ParentName = propStat.Prop.ParentName;
+
+                    if (!string.IsNullOrEmpty(propStat.Prop.QuotaAvailableBytes))
+                        webDavSessionItem.QuotaAvailableBytes = long.Parse(propStat.Prop.QuotaAvailableBytes, CultureInfo.InvariantCulture);
+
+                    if (!string.IsNullOrEmpty(propStat.Prop.QuotaUsedBytes))
+                        webDavSessionItem.QuotaUsedBytes = long.Parse(propStat.Prop.QuotaUsedBytes, CultureInfo.InvariantCulture);
+
+                    // Make sure that the IsDirectory property is set if it's a directory.
+                    if (!string.IsNullOrEmpty(propStat.Prop.IsCollection))
+                        webDavSessionItem.IsCollection = bool.Parse(propStat.Prop.IsCollection);
+                    else if (propStat.Prop.ResourceType != null && propStat.Prop.ResourceType.Collection != null)
+                    {
+                        webDavSessionItem.IsCollection = true;
+                    }
+
+                    // Make sure that the name property is set.
                     // Naming priority:
                     // 1. displayname
                     // 2. name
@@ -245,23 +296,6 @@ namespace DecaTec.WebDav
 
                     if (string.IsNullOrEmpty(webDavSessionItem.Name) && href != null)
                         webDavSessionItem.Name = href.ToString().Split('/').Last(x => !string.IsNullOrEmpty(x));
-
-                    if (!string.IsNullOrEmpty(propStat.Prop.GetContentType))
-                        webDavSessionItem.ContentType = propStat.Prop.GetContentType;
-
-                    if (propStat.Prop.CreationDateSpecified && !string.IsNullOrEmpty(propStat.Prop.CreationDate))
-                        webDavSessionItem.Created = DateTime.Parse(propStat.Prop.CreationDate, CultureInfo.InvariantCulture);
-
-                    webDavSessionItem.IsDirectory = false;
-
-                    if (propStat.Prop.ResourceType != null)
-                        webDavSessionItem.IsDirectory = propStat.Prop.ResourceType.Collection != null;
-
-                    if (!string.IsNullOrEmpty(propStat.Prop.GetLastModified))
-                        webDavSessionItem.Modified = DateTime.Parse(propStat.Prop.GetLastModified, CultureInfo.InvariantCulture);
-
-                    if (!string.IsNullOrEmpty(propStat.Prop.GetContentLength))
-                        webDavSessionItem.Size = long.Parse(propStat.Prop.GetContentLength, CultureInfo.InvariantCulture);
                 }
 
                 itemList.Add(webDavSessionItem);

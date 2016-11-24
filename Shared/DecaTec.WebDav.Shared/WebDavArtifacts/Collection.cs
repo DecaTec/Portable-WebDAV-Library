@@ -9,8 +9,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// </summary>
     [DataContract]
     [DebuggerStepThrough]
-    [XmlType(TypeName = "collection", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.Collection, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class Collection
     {
     }

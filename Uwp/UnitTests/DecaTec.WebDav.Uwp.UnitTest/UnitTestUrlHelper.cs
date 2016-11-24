@@ -85,6 +85,26 @@ namespace DecaTec.WebDav.Uwp.UnitTest
         }
 
         [TestMethod]
+        public void UnitTestUrlHelperGetAbsoluteUriWithBaseUriAndAbsoluteUri()
+        {
+            Uri baseUri = new Uri("http://www.google.de/test/test2");
+            Uri relativeUri = new Uri("test2/test.txt", UriKind.Relative);
+            Uri combinedUri = UrlHelper.GetAbsoluteUri(baseUri, relativeUri);
+            Uri expected = new Uri("http://www.google.de/test/test2/test.txt");
+            Assert.AreEqual(expected, combinedUri);
+        }
+
+        [TestMethod]
+        public void UnitTestUrlHelperGetAbsoluteUriWithBaseUriAndAbsoluteUriAndPathRepetition()
+        {
+            Uri baseUri = new Uri("http://www.google.de/test/test");
+            Uri relativeUri = new Uri("test/test.txt", UriKind.Relative);
+            Uri combinedUri = UrlHelper.GetAbsoluteUri(baseUri, relativeUri);
+            Uri expected = new Uri("http://www.google.de/test/test/test.txt");
+            Assert.AreEqual(expected, combinedUri);
+        }
+
+        [TestMethod]
         public void UnitTestUrlHelperGetAbsoluteUriWithDoubleBaseUri()
         {
             Uri baseUri = new Uri("http://www.google.de/test/");

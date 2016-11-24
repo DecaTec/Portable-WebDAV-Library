@@ -7,8 +7,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// Class representing an 'lockroot' XML element for WebDAV communication.
     /// </summary>
     [DataContract]
-    [XmlType(TypeName = "lockroot", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.LockRoot, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class LockRoot
     {
         private string hrefField;
@@ -16,7 +16,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Href.
         /// </summary>
-        [XmlElement(ElementName = "href")]
+        [XmlElement(ElementName = WebDavConstants.Href)]
         public string Href
         {
             get

@@ -12,9 +12,27 @@
         <list class="bullet">
           <listItem>
             <para>
-              New methods for uploading/downloading files with progres (UWP only).
+              BREAKING CHANGE: WebDavSession.ListAsync now returns WebDavSessionListItems which contain all WebDAV properties available.
             </para>
-          </listItem>      
+          </listItem>
+
+          <listItem>
+            <para>
+              WebDavSession.ListAsync now returns WebDavSessionListItems with full qualified URIs (not relative URIs anymore).
+            </para>
+          </listItem>
+          
+          <listItem>
+            <para>
+              Extension of WebDAV object model: Implementation of RFC 4331 (Quota and Size Properties for Distributed Authoring and Versioning (DAV) Collections).
+            </para>
+          </listItem>
+          
+          <listItem>
+            <para>
+              New methods for uploading/downloading files with progress (UWP only).
+            </para>
+          </listItem>
         
         <listItem>
             <para>

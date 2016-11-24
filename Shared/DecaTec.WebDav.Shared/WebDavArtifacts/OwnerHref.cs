@@ -7,8 +7,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// Class representing an 'owner' XML element for WebDAV communication.
     /// </summary>
     [DataContract]
-    [XmlType(TypeName = "owner", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.Owner, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class OwnerHref
     {
         /// <summary>
@@ -32,7 +32,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Href.
         /// </summary>
-        [XmlElement(ElementName = "href")]
+        [XmlElement(ElementName = WebDavConstants.Href)]
         public string[] Href
         {
             get

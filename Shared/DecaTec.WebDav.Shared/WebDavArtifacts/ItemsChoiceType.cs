@@ -7,7 +7,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// Enum representing a choice for items in XML fragments for WebDAV communication.
     /// </summary>
     [DataContract]
-    [XmlType(Namespace = "DAV:", IncludeInSchema = false)]
+    [XmlType(Namespace = WebDavConstants.DAV, IncludeInSchema = false)]
     public enum ItemsChoiceType
     {       
         /// <summary>

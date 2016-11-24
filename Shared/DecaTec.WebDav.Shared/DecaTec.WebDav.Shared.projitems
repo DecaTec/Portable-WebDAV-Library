@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)LockToken.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LockTokenFormat.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PermanentLock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PropNameConstants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UrlHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\ActiveLock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\AllProp.cs" />
@@ -46,6 +47,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\WebDavLockToken.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\Write.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebDavAuthenticationType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebDavConstants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebDavCredential.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebDavDepthHeaderValue.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebDavException.cs" />

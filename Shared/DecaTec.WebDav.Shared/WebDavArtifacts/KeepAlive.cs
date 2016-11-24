@@ -9,8 +9,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// </summary>
     [DataContract]
     [DebuggerStepThrough]
-    [XmlType(TypeName = "keepalive", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.KeepAlive, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class KeepAlive
     {
         private string[] hrefField;
@@ -19,7 +19,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Href.
         /// </summary>
-        [XmlElement(ElementName = "href")]
+        [XmlElement(ElementName = WebDavConstants.Href)]
         public string[] Href
         {
             get
@@ -36,7 +36,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// Gets or sets the Text.
         /// </summary>
         [XmlText]
-        [XmlElement(ElementName = "text")]
+        [XmlElement(ElementName = WebDavConstants.Text)]
         public string[] Text
         {
             get

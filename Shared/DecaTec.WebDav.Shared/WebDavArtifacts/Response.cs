@@ -9,8 +9,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// </summary>
     [DataContract]
     [DebuggerStepThrough]
-    [XmlType(TypeName = "response", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.Response, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class Response
     {
         private string hrefField;
@@ -21,7 +21,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Href.
         /// </summary>
-        [XmlElement(ElementName = "href", Order = 0)]
+        [XmlElement(ElementName = WebDavConstants.Href, Order = 0)]
         public string Href
         {
             get
@@ -37,10 +37,10 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Items.
         /// </summary>
-        [XmlElement(ElementName = "href", Type = typeof(string), Order = 1)]
-        [XmlElement(ElementName = "propstat", Type = typeof(Propstat), Order = 1)]
-        [XmlElement(ElementName = "status", Type = typeof(string), Order = 1)]
-        [XmlChoiceIdentifier("ItemsElementName")]
+        [XmlElement(ElementName = WebDavConstants.Href, Type = typeof(string), Order = 1)]
+        [XmlElement(ElementName = WebDavConstants.PropStat, Type = typeof(Propstat), Order = 1)]
+        [XmlElement(ElementName = WebDavConstants.Status, Type = typeof(string), Order = 1)]
+        [XmlChoiceIdentifier(WebDavConstants.ItemsElementName)]
         public object[] Items
         {
             get
@@ -56,7 +56,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the ItemsElementName.
         /// </summary>
-        [XmlElement(ElementName = "itemselementname", Order = 2)]
+        [XmlElement(ElementName = WebDavConstants.ItemsElementName, Order = 2)]
         [XmlIgnore()]
         public ItemsChoiceType[] ItemsElementName
         {
@@ -73,7 +73,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the ResponseDescription.
         /// </summary>
-        [XmlElement(ElementName = "responsedescription", Order = 3)]
+        [XmlElement(ElementName = WebDavConstants.ResponseDescription, Order = 3)]
         public string ResponseDescription
         {
             get

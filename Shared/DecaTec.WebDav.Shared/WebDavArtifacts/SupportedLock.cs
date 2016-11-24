@@ -9,8 +9,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// </summary>
     [DataContract]
     [DebuggerStepThrough]
-    [XmlType(TypeName = "supportedlock", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.SupportedLock, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class SupportedLock
     {
         private LockEntry[] lockentryField;
@@ -18,7 +18,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the LockEntry.
         /// </summary>
-        [XmlElement(ElementName = "lockentry")]
+        [XmlElement(ElementName = WebDavConstants.LockEntry)]
         public LockEntry[] LockEntry
         {
             get

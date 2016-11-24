@@ -9,8 +9,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// </summary>
     [DataContract]
     [DebuggerStepThrough]
-    [XmlType(TypeName = "lockentry", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.LockEntry, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class LockEntry
     {
         private LockScope lockscopeField;
@@ -19,7 +19,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the LockScope.
         /// </summary>
-        [XmlElement(ElementName = "lockscope")]
+        [XmlElement(ElementName = WebDavConstants.LockScope)]
         public LockScope LockScope
         {
             get
@@ -35,7 +35,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the LockType.
         /// </summary>
-        [XmlElement(ElementName = "locktype")]
+        [XmlElement(ElementName = WebDavConstants.LockType)]
         public LockType LockType
         {
             get

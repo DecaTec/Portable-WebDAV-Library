@@ -9,8 +9,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// </summary>
     [DataContract]
     [DebuggerStepThrough]
-    [XmlType(TypeName = "link", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.Link, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class Link
     {
         private string[] srcField;
@@ -19,7 +19,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Src.
         /// </summary>
-        [XmlElement(ElementName = "src")]
+        [XmlElement(ElementName = WebDavConstants.Src)]
         public string[] Src
         {
             get
@@ -35,7 +35,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Dst.
         /// </summary>
-        [XmlElement(ElementName = "dst")]
+        [XmlElement(ElementName = WebDavConstants.Dst)]
         public string[] Dst
         {
             get

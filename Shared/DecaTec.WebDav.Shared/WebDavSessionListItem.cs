@@ -8,16 +8,106 @@ namespace DecaTec.WebDav
     public class WebDavSessionListItem
     {
         /// <summary>
-        /// Gets or sets the name of the item.
+        /// Gets or sets the CreationDate.
         /// </summary>
-        public string Name
+        public DateTime CreationDate
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Gets or sets the URI of the item.
+        /// Gets or sets the ContentLanguage.
+        /// </summary>
+        public string ContentLanguage
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the DisplayName.
+        /// </summary>
+        public string DisplayName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the ContentLength.
+        /// </summary>
+        public long ContentLength
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the ContentType.
+        /// </summary>
+        public string ContentType
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the LastModified.
+        /// </summary>
+        public DateTime LastModified
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the ETag.
+        /// </summary>
+        public string ETag
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Source.
+        /// </summary>
+        public string Source
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the ResourceType.
+        /// </summary>
+        public string ResourceType
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the ContentClass.
+        /// </summary>
+        public string ContentClass
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the DefaultDocument.
+        /// </summary>
+        public string DefaultDocument
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the URI (Href).
         /// </summary>
         public Uri Uri
         {
@@ -26,48 +116,93 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Gets or sets the size of the item in bytes.
+        /// Gets or sets the IsCollection.
         /// </summary>
-        public long Size
+        public bool IsCollection
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Gets or sets the item's creation date.
+        /// Gets or sets the IsHidden.
         /// </summary>
-        public DateTime Created
+        public bool IsHidden
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Gets or sets the item's last modified date.
+        /// Gets or sets the IsReadonly.
         /// </summary>
-        public DateTime Modified
+        public bool IsReadonly
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Gets or sets a value indicating if the item represents a directory.
+        /// Gets or sets the IsRoot.
         /// </summary>
-        public bool IsDirectory
+        public bool IsRoot
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Gets or sets the item's content type.
+        /// Gets or sets the IsStructuredDocument.
         /// </summary>
-        public string ContentType
+        public bool IsStructuredDocument
         {
             get;
             set;
         }
+
+        /// <summary>
+        /// Gets or sets the LastAccessed.
+        /// </summary>
+        public DateTime LastAccessed
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the Name.
+        /// </summary>
+        public string Name
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the ParentName.
+        /// </summary>
+        public string ParentName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the QuotaAvailableBytes.
+        /// </summary>
+        public long QuotaAvailableBytes
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the QuotaUsedBytes.
+        /// </summary>
+        public long QuotaUsedBytes
+        {
+            get;
+            set;
+        }        
     }
 }

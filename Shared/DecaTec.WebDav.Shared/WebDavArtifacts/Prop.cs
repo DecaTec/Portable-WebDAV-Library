@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace DecaTec.WebDav.WebDavArtifacts
@@ -11,8 +8,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// This class contains all properties defined in RFC4918, but property names are not limited to these properties.
     /// </summary>
     [DataContract]
-    [XmlType(TypeName = "prop", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.Prop, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class Prop
     {
         /// <summary>
@@ -41,71 +38,109 @@ namespace DecaTec.WebDav.WebDavArtifacts
             {
                 switch (emptyPropertyName.ToLower())
                 {
-                    case "creationdate":
+                    case PropNameConstants.CreationDate:
                         prop.CreationDate = string.Empty;
                         break;        
-                    case "getcontentlanguage":
+                    case PropNameConstants.GetContentLanguage:
                         prop.GetContentLanguage = string.Empty;
                         break;
-                    case "displayname":
+                    case PropNameConstants.DisplayName:
                         prop.DisplayName = string.Empty;
                         break;
-                    case "getcontentlength":
+                    case PropNameConstants.GetContentLength:
                         prop.GetContentLength = string.Empty;
                         break;
-                    case "getcontenttype":
+                    case PropNameConstants.GetContentType:
                         prop.GetContentType = string.Empty;
                         break;
-                    case "getlastmodified":
+                    case PropNameConstants.GetLastModified:
                         prop.GetLastModified = string.Empty;
                         break;
-                    case "getetag":
+                    case PropNameConstants.GetEtag:
                         prop.GetEtag = string.Empty;
                         break;
-                    case "source":
+                    case PropNameConstants.Source:
                         prop.Source = new Source();
                         break;
-                    case "resourcetype":
+                    case PropNameConstants.ResourceType:
                         prop.ResourceType = new ResourceType();
                         break;
-                    case "contentclass":
+                    case PropNameConstants.ContentClass:
                         prop.ContentClass = string.Empty;
                         break;
-                    case "defaultdocument":
+                    case PropNameConstants.DefaultDocument:
                         prop.DefaultDocument = string.Empty;
                         break;
-                    case "href":
+                    case PropNameConstants.Href:
                         prop.Href = string.Empty;
                         break;
-                    case "iscollection":
+                    case PropNameConstants.IsCollection:
                         prop.IsCollection = string.Empty;
                         break;
-                    case "ishidden":
+                    case PropNameConstants.IsHidden:
                         prop.IsHidden = string.Empty;
                         break;
-                    case "isreadonly":
+                    case PropNameConstants.IsReadonly:
                         prop.IsReadonly = string.Empty;
                         break;
-                    case "isroot":
+                    case PropNameConstants.IsRoot:
                         prop.IsRoot = string.Empty;
                         break;
-                    case "isstructureddocument":
+                    case PropNameConstants.IsStructuredDocument:
                         prop.IsStructuredDocument = string.Empty;
                         break;
-                    case "lastaccessed":
+                    case PropNameConstants.LastAccessed:
                         prop.LastAccessed = string.Empty;
                         break;
-                    case "name":
+                    case PropNameConstants.Name:
                         prop.Name = string.Empty;
                         break;
-                    case "parentname":
+                    case PropNameConstants.ParentName:
                         prop.ParentName = string.Empty;
+                        break;
+                    case PropNameConstants.QuotaAvailableBytes:
+                        prop.QuotaAvailableBytes = string.Empty;
+                        break;
+                    case PropNameConstants.QuotaUsedBytes:
+                        prop.QuotaUsedBytes = string.Empty;
                         break;
                     default:
                         break;
                 }
             }
 
+            return prop;
+        }
+
+        /// <summary>
+        /// Creates a Prop with all empty properties which are defined in RFC4918. This is especially useful for PROPFIND commands when the so called AllProp cannot be used because the WebDAV server does not return all properties.
+        /// </summary>
+        /// <returns>A Prop with all empty properties defined in RFC4918.</returns>
+        public static Prop CreatePropWithEmptyPropertiesAll()
+        {
+            Prop prop = new Prop();           
+            prop.CreationDate = string.Empty;
+            prop.GetContentLanguage = string.Empty;
+            prop.DisplayName = string.Empty;
+            prop.GetContentLength = string.Empty;
+            prop.GetContentType = string.Empty;
+            prop.GetLastModified = string.Empty;
+            prop.GetEtag = string.Empty;
+            prop.Source = new Source();
+            prop.ResourceType = new ResourceType();
+            prop.ContentClass = string.Empty;
+            prop.DefaultDocument = string.Empty;
+            prop.Href = string.Empty;
+            prop.IsCollection = string.Empty;
+            prop.IsHidden = string.Empty;
+            prop.IsReadonly = string.Empty;
+            prop.IsRoot = string.Empty;
+            prop.IsStructuredDocument = string.Empty;
+            prop.LastAccessed = string.Empty;
+            prop.Name = string.Empty;
+            prop.ParentName = string.Empty;
+            prop.QuotaAvailableBytes = string.Empty;
+            prop.QuotaUsedBytes = string.Empty;
             return prop;
         }
 
@@ -131,11 +166,13 @@ namespace DecaTec.WebDav.WebDavArtifacts
         private string nameField;
         private string parentnameField;
         private LockDiscovery lockDiscoveryField;
+        private string quotaAvailableBytesField;
+        private string quotaUsedBytesField;
 
         /// <summary>
         /// Gets or sets the CreationDate.
         /// </summary>
-        [XmlElement(ElementName = "creationdate")]
+        [XmlElement(ElementName = PropNameConstants.CreationDate)]
         public string CreationDate
         {
             get
@@ -167,7 +204,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the GetContentLanguage.
         /// </summary>
-        [XmlElement(ElementName = "getcontentlanguage")]
+        [XmlElement(ElementName = PropNameConstants.GetContentLanguage)]
         public string GetContentLanguage
         {
             get
@@ -183,7 +220,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the DisplayName.
         /// </summary>
-        [XmlElement(ElementName = "displayname")]
+        [XmlElement(ElementName = PropNameConstants.DisplayName)]
         public string DisplayName
         {
             get
@@ -199,7 +236,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the GetContentLength.
         /// </summary>
-        [XmlElement(ElementName = "getcontentlength")]
+        [XmlElement(ElementName = PropNameConstants.GetContentLength)]
         public string GetContentLength
         {
             get
@@ -215,7 +252,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the GetContentType.
         /// </summary>
-        [XmlElement(ElementName = "getcontenttype")]
+        [XmlElement(ElementName = PropNameConstants.GetContentType)]
         public string GetContentType
         {
             get
@@ -231,7 +268,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the GetLastModified.
         /// </summary>
-        [XmlElement(ElementName = "getlastmodified")]
+        [XmlElement(ElementName = PropNameConstants.GetLastModified)]
         public string GetLastModified
         {
             get
@@ -247,7 +284,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the GetEtag.
         /// </summary>
-        [XmlElement(ElementName = "getetag")]
+        [XmlElement(ElementName = PropNameConstants.GetEtag)]
         public string GetEtag
         {
             get
@@ -263,7 +300,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Source.
         /// </summary>
-        [XmlElement(ElementName = "source")]
+        [XmlElement(ElementName = PropNameConstants.Source)]
         public Source Source
         {
             get
@@ -279,7 +316,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the ResourceType.
         /// </summary>
-        [XmlElement(ElementName = "resourcetype")]
+        [XmlElement(ElementName = PropNameConstants.ResourceType)]
         public ResourceType ResourceType
         {
             get
@@ -295,7 +332,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the GetContentClass.
         /// </summary>
-        [XmlElement(ElementName = "contentclass")]
+        [XmlElement(ElementName = PropNameConstants.ContentClass)]
         public string ContentClass
         {
             get
@@ -311,7 +348,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the DefaultDocument.
         /// </summary>
-        [XmlElement(ElementName = "defaultdocument")]
+        [XmlElement(ElementName = PropNameConstants.DefaultDocument)]
         public string DefaultDocument
         {
             get
@@ -327,7 +364,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Href.
         /// </summary>
-        [XmlElement(ElementName = "href")]
+        [XmlElement(ElementName = PropNameConstants.Href)]
         public string Href
         {
             get
@@ -343,7 +380,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the IsCollection.
         /// </summary>
-        [XmlElement(ElementName = "iscollection")]
+        [XmlElement(ElementName = PropNameConstants.IsCollection)]
         public string IsCollection
         {
             get
@@ -359,7 +396,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the IsHidden.
         /// </summary>
-        [XmlElement(ElementName = "ishidden")]
+        [XmlElement(ElementName = PropNameConstants.IsHidden)]
         public string IsHidden
         {
             get
@@ -375,7 +412,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the IsReadOnly.
         /// </summary>
-        [XmlElement(ElementName = "isreadonly")]
+        [XmlElement(ElementName = PropNameConstants.IsReadonly)]
         public string IsReadonly
         {
             get
@@ -391,7 +428,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the IsRoot.
         /// </summary>
-        [XmlElement(ElementName = "isroot")]
+        [XmlElement(ElementName = PropNameConstants.IsRoot)]
         public string IsRoot
         {
             get
@@ -407,7 +444,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the IsStructuredDocument.
         /// </summary>
-        [XmlElement(ElementName = "isstructureddocument")]
+        [XmlElement(ElementName = PropNameConstants.IsStructuredDocument)]
         public string IsStructuredDocument
         {
             get
@@ -423,7 +460,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the LastAccessed.
         /// </summary>
-        [XmlElement(ElementName = "lastaccessed")]
+        [XmlElement(ElementName = PropNameConstants.LastAccessed)]
         public string LastAccessed
         {
             get
@@ -439,7 +476,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Name.
         /// </summary>
-        [XmlElement(ElementName = "name")]
+        [XmlElement(ElementName = PropNameConstants.Name)]
         public string Name
         {
             get
@@ -455,7 +492,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the ParentName.
         /// </summary>
-        [XmlElement(ElementName = "parentname")]
+        [XmlElement(ElementName = PropNameConstants.ParentName)]
         public string ParentName
         {
             get
@@ -471,7 +508,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the LockDiscovery.
         /// </summary>
-        [XmlElement(ElementName = "lockdiscovery")]
+        [XmlElement(ElementName = PropNameConstants.LockDiscovery)]
         public LockDiscovery LockDiscovery
         {
             get
@@ -483,5 +520,41 @@ namespace DecaTec.WebDav.WebDavArtifacts
                 this.lockDiscoveryField = value;
             }
         }
+
+        #region Extension RFC4331
+
+        /// <summary>
+        /// Gets or sets the QuotaAvailableBytes.
+        /// </summary>
+        [XmlElement(ElementName = PropNameConstants.QuotaAvailableBytes)]
+        public string QuotaAvailableBytes
+        {
+            get
+            {
+                return this.quotaAvailableBytesField;
+            }
+            set
+            {
+                this.quotaAvailableBytesField = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the QuotaUsedBytes.
+        /// </summary>
+        [XmlElement(ElementName = PropNameConstants.QuotaUsedBytes)]
+        public string QuotaUsedBytes
+        {
+            get
+            {
+                return this.quotaUsedBytesField;
+            }
+            set
+            {
+                this.quotaUsedBytesField = value;
+            }
+        }
+
+        #endregion Extension RFC4331
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace DecaTec.WebDav.WebDavArtifacts
@@ -8,8 +7,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// Class representing an 'propfind' XML element for WebDAV communication.
     /// </summary>
     [DataContract]
-    [XmlType(TypeName = "propfind", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.PropFind, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class PropFind
     {
         /// <summary>
@@ -37,6 +36,18 @@ namespace DecaTec.WebDav.WebDavArtifacts
         }
 
         /// <summary>
+        /// Creates a PropFind instance containing empty property items for all the Props defined in RFC4918.
+        /// </summary>
+        /// <returns>A PropFind instance containing the empty properties of all Props defined in RFC4918.</returns>
+        public static PropFind CreatePropFindWithEmptyPropertiesAll()
+        {
+            var propFind = new PropFind();
+            var prop = Prop.CreatePropWithEmptyPropertiesAll();
+            propFind.Item = prop;
+            return propFind;
+        }
+
+        /// <summary>
         /// Creates a PropFind instance containing a PropertyName item.
         /// </summary>
         /// <returns>A PropFind instance containing a PropertyName item.</returns>
@@ -52,9 +63,9 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Item.
         /// </summary>
-        [XmlElement(ElementName = "allprop", Type = typeof(AllProp))]
-        [XmlElement(ElementName = "prop", Type = typeof(Prop))]
-        [XmlElement(ElementName = "propname", Type =  typeof(PropName))]
+        [XmlElement(ElementName = WebDavConstants.AllProp, Type = typeof(AllProp))]
+        [XmlElement(ElementName = WebDavConstants.Prop, Type = typeof(Prop))]
+        [XmlElement(ElementName = WebDavConstants.PropName, Type =  typeof(PropName))]
         public object Item
         {
             get

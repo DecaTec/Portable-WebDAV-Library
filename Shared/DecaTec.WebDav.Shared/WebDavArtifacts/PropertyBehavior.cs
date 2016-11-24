@@ -9,8 +9,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// </summary>
     [DataContract]
     [DebuggerStepThrough]
-    [XmlType(TypeName = "propertybehavior", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.PropertyBehavior, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class PropertyBehavior
     {
         private object itemField;
@@ -18,8 +18,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Item.
         /// </summary>
-        [XmlElement(ElementName = "keepalive", Type = typeof(KeepAlive))]
-        [XmlElement(ElementName = "omit", Type = typeof(Omit))]
+        [XmlElement(ElementName = WebDavConstants.KeepAlive, Type = typeof(KeepAlive))]
+        [XmlElement(ElementName = WebDavConstants.Omit, Type = typeof(Omit))]
         public object Item
         {
             get

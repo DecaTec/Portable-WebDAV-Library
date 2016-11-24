@@ -7,7 +7,7 @@
   </Topic>
   <Topic id="6eaaa932-6e58-4f05-82be-6bb1a0403612" visible="True" title="HowTo">
     <HelpKeywords>
-      <HelpKeyword index="K" term="howto, capatility, capabilities, ssl, certificate, certificates" />
+      <HelpKeyword index="K" term="howto, capability, capabilities, ssl, certificate, certificates" />
     </HelpKeywords>
   </Topic>
   <Topic id="a108005d-dd4f-4258-af05-4d0d8106efd0" visible="True" isExpanded="true" title="Version History">

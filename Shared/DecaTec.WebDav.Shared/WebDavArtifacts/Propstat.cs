@@ -9,8 +9,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// </summary>
     [DataContract]
     [DebuggerStepThrough]
-    [XmlType(TypeName = "propstat", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.PropStat, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class Propstat
     {
         private Prop propField;
@@ -20,7 +20,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Prop.
         /// </summary>
-        [XmlElement(ElementName = "prop")]
+        [XmlElement(ElementName = WebDavConstants.Prop)]
         public Prop Prop
         {
             get
@@ -36,7 +36,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Status.
         /// </summary>
-        [XmlElement(ElementName = "status")]
+        [XmlElement(ElementName = WebDavConstants.Status)]
         public string Status
         {
             get
@@ -52,7 +52,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the ResponseDescription.
         /// </summary>
-        [XmlElement(ElementName = "responsedescription")]
+        [XmlElement(ElementName = WebDavConstants.ResponseDescription)]
         public string ResponseDescription
         {
             get

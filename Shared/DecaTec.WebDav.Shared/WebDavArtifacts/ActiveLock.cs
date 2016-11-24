@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Runtime.Serialization;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace DecaTec.WebDav.WebDavArtifacts
@@ -10,8 +9,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// </summary>
     [DataContract]
     [DebuggerStepThrough]
-    [XmlType(TypeName = "activelock", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.ActiveLock, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class ActiveLock
     {
         private LockScope lockscopeField;
@@ -25,7 +24,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the LockScope.
         /// </summary>
-        [XmlElement(ElementName = "lockscope")]
+        [XmlElement(ElementName = WebDavConstants.LockScope)]
         public LockScope LockScope
         {
             get
@@ -41,7 +40,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the LockType.
         /// </summary>
-        [XmlElement(ElementName = "locktype")]
+        [XmlElement(ElementName = WebDavConstants.LockType)]
         public LockType LockType
         {
             get
@@ -57,7 +56,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Depth.
         /// </summary>
-        [XmlElement(ElementName = "depth")]
+        [XmlElement(ElementName = WebDavConstants.Depth)]
         public string Depth
         {
             get
@@ -73,7 +72,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Owner.
         /// </summary>
-        [XmlElement(ElementName = "owner")]
+        [XmlElement(ElementName = WebDavConstants.Owner)]
         public OwnerHref Owner
         {
             get
@@ -89,7 +88,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Timeout.
         /// </summary>
-        [XmlElement(ElementName = "timeout")]
+        [XmlElement(ElementName = WebDavConstants.Timeout)]
         public string Timeout
         {
             get
@@ -105,7 +104,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the LockToken.
         /// </summary>
-        [XmlElement(ElementName = "locktoken", IsNullable = false)]
+        [XmlElement(ElementName = WebDavConstants.LockToken, IsNullable = false)]
         public WebDavLockToken LockToken
         {
             get
@@ -121,7 +120,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the LockRoot.
         /// </summary>
-        [XmlElement(ElementName = "lockroot", IsNullable = false)]
+        [XmlElement(ElementName = WebDavConstants.LockRoot, IsNullable = false)]
         public LockRoot LockRoot
         {
             get

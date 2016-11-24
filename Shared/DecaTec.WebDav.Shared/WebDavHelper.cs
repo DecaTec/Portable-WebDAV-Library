@@ -21,7 +21,7 @@ namespace DecaTec.WebDav
         public static string GetUtf8EncodedXmlWebDavRequestString(XmlSerializer xmlSerializer, object objectToSerialize)
         {
             var xmlNamespace = new KeyValuePair<string, string>[1];
-            xmlNamespace[0] = new KeyValuePair<string, string>("D", "DAV:");
+            xmlNamespace[0] = new KeyValuePair<string, string>("D", WebDavConstants.DAV);
             return GetUtf8EncodedXmlWebDavRequestString(xmlSerializer, objectToSerialize, xmlNamespace);
         }
 
@@ -46,7 +46,7 @@ namespace DecaTec.WebDav
                     }
 
                     // Always add WebDAV namespace.
-                    xnameSpace.Add("D", "DAV:");
+                    xnameSpace.Add("D", WebDavConstants.DAV);
 
                     var utf8Encoding = new UTF8Encoding();
                     var xmlWriter = XmlWriter.Create(mStream, new XmlWriterSettings() { Encoding = utf8Encoding });

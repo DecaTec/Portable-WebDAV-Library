@@ -8,8 +8,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// Class representing an 'locktoken' XML element for WebDAV communication.
     /// </summary>
     [DataContract]
-    [XmlType(TypeName = "locktoken", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.LockToken, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class WebDavLockToken
     {
         private string hrefField;
@@ -17,7 +17,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Href.
         /// </summary>
-        [XmlElement(ElementName = "href")]
+        [XmlElement(ElementName = WebDavConstants.Href)]
         public string Href
         {
             get

@@ -291,7 +291,7 @@ namespace DecaTec.WebDav
 
         /// <summary>
         /// Equivalent to WebDav status 507. InsufficientStorage indicates that the method could not be performed on a resource because the server is 
-        /// unable to store the representation needed to sucessfully complete the request. This condition is considered to be temporary.
+        /// unable to store the representation needed to successfully complete the request. This condition is considered to be temporary.
         /// </summary>
         InsufficientStorage = 507
     }

@@ -9,8 +9,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// </summary>
     [DataContract]
     [DebuggerStepThrough]
-    [XmlType(TypeName = "lockdiscovery", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.LockDiscovery, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class LockDiscovery
     {
         private ActiveLock[] activelockField;
@@ -18,7 +18,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the ActiveLock.
         /// </summary>
-        [XmlElement(ElementName = "activelock")]
+        [XmlElement(ElementName = WebDavConstants.ActiveLock)]
         public ActiveLock[] ActiveLock
         {
             get

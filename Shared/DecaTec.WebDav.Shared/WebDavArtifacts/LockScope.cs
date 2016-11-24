@@ -8,8 +8,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// Class representing an 'lockscope' XML element for WebDAV communication.
     /// </summary>
     [DataContract]
-    [XmlType(TypeName = "lockscope", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.LockScope, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class LockScope
     {
         /// <summary>
@@ -37,10 +37,10 @@ namespace DecaTec.WebDav.WebDavArtifacts
         private object itemField;
 
         /// <summary>
-        /// Gets opr sets the Item.
+        /// Gets or sets the Item.
         /// </summary>
-        [XmlElement(ElementName = "exclusive", Type = typeof(Exclusive))]
-        [XmlElement(ElementName = "shared", Type = typeof(Shared))]
+        [XmlElement(ElementName = WebDavConstants.Exclusive, Type = typeof(Exclusive))]
+        [XmlElement(ElementName = WebDavConstants.Shared, Type = typeof(Shared))]
         public object Item
         {
             get

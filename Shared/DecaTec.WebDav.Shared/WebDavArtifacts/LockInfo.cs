@@ -9,8 +9,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// Class representing an 'lockinfo' XML element for WebDAV communication.
     /// </summary>
     [DataContract]
-    [XmlType(TypeName = "lockinfo", Namespace = "DAV:")]
-    [XmlRoot(Namespace = "DAV:", IsNullable = false)]
+    [XmlType(TypeName = WebDavConstants.LockInfo, Namespace = WebDavConstants.DAV)]
+    [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class LockInfo
     {
         private LockScope lockscopeField;
@@ -20,7 +20,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the LockScope.
         /// </summary>
-        [XmlElement(ElementName = "lockscope")]
+        [XmlElement(ElementName = WebDavConstants.LockScope)]
         public LockScope LockScope
         {
             get
@@ -36,7 +36,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the LockType.
         /// </summary>
-        [XmlElement(ElementName = "locktype")]
+        [XmlElement(ElementName = WebDavConstants.LockType)]
         public LockType LockType
         {
             get
@@ -52,7 +52,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the Owner.
         /// </summary>
-        [XmlElement(ElementName = "owner")]
+        [XmlElement(ElementName = WebDavConstants.Owner)]
         public OwnerHref Owner
         {
             get
