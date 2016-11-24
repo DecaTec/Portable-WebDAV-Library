@@ -118,7 +118,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <returns>A Prop with all empty properties defined in RFC4918.</returns>
         public static Prop CreatePropWithEmptyPropertiesAll()
         {
-            Prop prop = new Prop();           
+            Prop prop = new Prop();
             prop.CreationDate = string.Empty;
             prop.GetContentLanguage = string.Empty;
             prop.DisplayName = string.Empty;

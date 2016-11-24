@@ -225,6 +225,10 @@ namespace DecaTec.WebDav
                     if (propStat == null)
                         continue;
 
+                    // Do not items where no properties could be found.
+                    if (propStat == null || propStat.Status.ToLower().Contains("404 not found"))
+                        continue;
+
                     // Do not add hidden items.
                     if (propStat.Prop.IsHidden == "1")
                         continue;
