@@ -101,7 +101,7 @@
     </Compile>
     <Compile Include="UnitTestLockToken.cs" />
     <Compile Include="UnitTestProp.cs" />
-    <Compile Include="UnitTestUrlHelper.cs" />
+    <Compile Include="UnitTestUriHelper.cs" />
     <Compile Include="UnitTestWebDavClient.cs" />
     <Compile Include="UnitTestWebDavHelper.cs" />
     <Compile Include="UnitTestWebDavResponseContentParser.cs" />

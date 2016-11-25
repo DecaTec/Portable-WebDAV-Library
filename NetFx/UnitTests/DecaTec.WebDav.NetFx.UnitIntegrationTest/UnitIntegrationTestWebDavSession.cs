@@ -52,7 +52,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavSessionListNetFx()
+        public void UIT_NetFx_WebDavSession_List()
         {
             var session = CreateWebDavSession();
             var items = session.ListAsync(this.webDavRootFolder).Result;
@@ -61,7 +61,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavSessionListWithBaseUriNetFx()
+        public void UIT_NetFx_WebDavSession_ListWithBaseUri()
         {
             var session = CreateWebDavSession();
             session.BaseUri = new Uri(webDavRootFolder);
@@ -76,7 +76,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void UnitIntegrationTestWebDavSessionListWithBaseUriMissingNetFx()
+        public void UIT_NetFx_WebDavSession_ListWithBaseUriMissing()
         {
             try
             {
@@ -90,7 +90,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavSessionLockingNetFx()
+        public void UIT_NetFx_WebDavSession_Locking()
         {
             var session = CreateWebDavSession();
             var locked = session.LockAsync(this.webDavRootFolder).Result;

@@ -57,7 +57,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         #region PropFind
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientPropFindAllProp()
+        public void UIT_UWP_WebDavClient_PropFindAllProp()
         {
             var client = CreateWebDavClient();
             PropFind pf = PropFind.CreatePropFindAllProp();
@@ -70,7 +70,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientPropFindNamedProperties()
+        public void UIT_UWP_WebDavClient_PropFindNamedProperties()
         {
             var client = CreateWebDavClient();
             PropFind pf = PropFind.CreatePropFindWithEmptyProperties("name");
@@ -83,7 +83,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientPropFindPropName()
+        public void UIT_UWP_WebDavClient_PropFindPropName()
         {
             var client = CreateWebDavClient();
             PropFind pf = PropFind.CreatePropFindWithPropName();
@@ -100,7 +100,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         #region PropPatch / put / delete file
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientPropPatch()
+        public void UIT_UWP_WebDavClient_PropPatch()
         {
             var client = CreateWebDavClient();
             var testFile = this.webDavRootFolder + TestFile;
@@ -166,7 +166,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         #region Upload / PropPatch / delete file
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientUpload()
+        public void UIT_UWP_WebDavClient_Upload()
         {
             var client = CreateWebDavClient();
             var testFile = this.webDavRootFolder + TestFile;
@@ -234,7 +234,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         #region Mkcol / delete collection
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientMkcol()
+        public void UIT_UWP_WebDavClient_Mkcol()
         {
             var client = CreateWebDavClient();
             var testCollection = this.webDavRootFolder + TestCollection;
@@ -276,7 +276,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         #region Get
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientGet()
+        public void UIT_UWP_WebDavClient_Get()
         {
             var client = CreateWebDavClient();
             var testFile = this.webDavRootFolder + TestFile;
@@ -316,7 +316,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         #region Copy
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientCopy()
+        public void UIT_UWP_WebDavClient_Copy()
         {
             var client = CreateWebDavClient();
             var testCollectionSource = this.webDavRootFolder + TestCollection;
@@ -382,7 +382,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         #region Move
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientMove()
+        public void UIT_UWP_WebDavClient_Move()
         {
             var client = CreateWebDavClient();
             var testCollectionSource = this.webDavRootFolder + TestCollection;
@@ -447,7 +447,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         #region Lock / unlock
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientLockRefreshLockUnlock()
+        public void UIT_UWP_WebDavClient_LockRefreshLockUnlock()
         {
             var client = CreateWebDavClient();
 
@@ -475,7 +475,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientLockAndPutWithoutToken()
+        public void UIT_UWP_WebDavClient_LockAndPutWithoutToken()
         {
             var client = CreateWebDavClient();
 
@@ -505,7 +505,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientLockAndPutWithToken()
+        public void UIT_UWP_WebDavClient_LockAndPutWithToken()
         {
             var client = CreateWebDavClient();
 

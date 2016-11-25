@@ -48,7 +48,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavSessionList()
+        public void UIT_UWP_WebDavSession_List()
         {
             var session = CreateWebDavSession();
             var items = session.ListAsync(this.webDavRootFolder).Result;
@@ -57,7 +57,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavSessionListWithBaseUri()
+        public void UIT_UWP_WebDavSession_ListWithBaseUri()
         {
             var session = CreateWebDavSession();
             session.BaseUri = new Uri(webDavRootFolder);
@@ -71,7 +71,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavSessionListWithBaseUriMissing()
+        public void UIT_UWP_WebDavSession_ListWithBaseUriMissing()
         {
             Assert.ThrowsException<ArgumentException>(() =>
             {
@@ -88,7 +88,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavSessionLocking()
+        public void UIT_UWP_WebDavSession_Locking()
         {
             var session = CreateWebDavSession();
             var locked = session.LockAsync(this.webDavRootFolder).Result;

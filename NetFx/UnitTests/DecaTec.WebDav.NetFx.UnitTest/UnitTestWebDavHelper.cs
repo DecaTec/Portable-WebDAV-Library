@@ -10,7 +10,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
     public class UnitTestWebDavHelper
     {
         [TestMethod]
-        public void UnitTestWebDavHelperGetUtf8EncodedXmlWebDavRequestStringNetFx()
+        public void UT_NetFx_WebDavHelper_GetUtf8EncodedXmlWebDavRequestString()
         {
             var serializer = new XmlSerializer(typeof(PropFind));
             var propFind = PropFind.CreatePropFindAllProp();
@@ -21,7 +21,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         }
 
         [TestMethod]
-        public void UnitTestWebDavHelperGetUtf8EncodedXmlWebDavRequestStringWithUnsupportedTypeNetFx()
+        public void UT_NetFx_WebDavHelper_GetUtf8EncodedXmlWebDavRequestStringWithUnsupportedType()
         {
             var serializer = new XmlSerializer(typeof(MyProp));
             var myProp = new MyProp();

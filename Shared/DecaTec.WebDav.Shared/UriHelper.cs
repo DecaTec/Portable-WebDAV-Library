@@ -5,9 +5,9 @@ using System.Text;
 namespace DecaTec.WebDav
 {
     /// <summary>
-    /// Helper class for handling URLs/URIs.
+    /// Helper class for handling URIs/URLs.
     /// </summary>
-    public static class UrlHelper
+    public static class UriHelper
     {
         /// <summary>
         /// Adds a trailing slash to a URI (only if needed).
@@ -63,20 +63,11 @@ namespace DecaTec.WebDav
                 return relativeUri;
             else
             {
-                return new Uri(baseUri, relativeUri) ;
-                //var t = Uri.TryCreate($"{baseUri.ToString()}{relativeUri.ToString()}", UriKind.Absolute, out er);
-                ////return new Uri(string.Concat(baseUri.Scheme, baseUri.)
+                if (baseUri.IsAbsoluteUri && relativeUri.IsAbsoluteUri
+                    && (baseUri.Scheme != relativeUri.Scheme || baseUri.Host != relativeUri.Host))
+                    throw new ArgumentException("The absolute URIs provided do not have the same host/scheme");
 
-                //var url1 = baseUri.ToString();
-                //url1 = url1.TrimEnd('/');
-                //var url2 = relativeUri.ToString();
-                //url2 = url2.TrimStart('/');
-
-                //if(url2.StartsWith(url1))
-                //    url2 = url2.Substring(url1.Length).TrimStart('/');              
-
-                //return new Uri(string.Concat(url1, @"/", url2));
-
+                return new Uri(baseUri, relativeUri);
             }
         }
 

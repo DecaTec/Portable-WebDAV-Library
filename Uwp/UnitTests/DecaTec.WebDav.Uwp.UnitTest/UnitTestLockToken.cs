@@ -9,7 +9,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
     public class UnitTestLockToken
     {
         [TestMethod]
-        public void UnitTestLockTokenToStringIfHeaderWithoutBrackets()
+        public void UT_UWP_LockToken_ToStringIfHeaderWithoutBrackets()
         {
             var lockToken = new LockToken("my-lock-token");
             var str = lockToken.ToString(LockTokenFormat.IfHeader);
@@ -18,7 +18,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
         }
 
         [TestMethod]
-        public void UnitTestLockTokenToStringIfHeaderWithBrackets()
+        public void UT_UWP_LockToken_ToStringIfHeaderWithBrackets()
         {
             var lockToken = new LockToken("(my-lock-token)");
             var str = lockToken.ToString(LockTokenFormat.IfHeader);
@@ -27,7 +27,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
         }
 
         [TestMethod]
-        public void UnitTestLockTokenToStringLockTokenHeaderWithoutBrackets()
+        public void UT_UWP_LockToken_ToStringLockTokenHeaderWithoutBrackets()
         {
             var lockToken = new LockToken("my-lock-token");
             var str = lockToken.ToString(LockTokenFormat.LockTokenHeader);
@@ -36,7 +36,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
         }
 
         [TestMethod]
-        public void UnitTestLockTokenToStringLockTokenHeaderWithBrackets()
+        public void UT_UWP_LockToken_ToStringLockTokenHeaderWithBrackets()
         {
             var lockToken = new LockToken("(my-lock-token)");
             var str = lockToken.ToString(LockTokenFormat.LockTokenHeader);
@@ -45,7 +45,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
         }
 
         [TestMethod]
-        public void UnitTestLockTokenToStringLockTokenHeaderWithSquaredBrackets()
+        public void UT_UWP_LockToken_ToStringLockTokenHeaderWithSquaredBrackets()
         {
             var lockToken = new LockToken("<my-lock-token>");
             var str = lockToken.ToString(LockTokenFormat.LockTokenHeader);

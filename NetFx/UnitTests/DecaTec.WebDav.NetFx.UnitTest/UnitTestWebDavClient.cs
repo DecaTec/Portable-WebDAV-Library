@@ -10,7 +10,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         private const string FakeUrl = "http://localhost/";       
 
         [TestMethod]
-        public void UnitTestWebDavClientLockAsyncWithDepthOneNetFx()
+        public void UT_NetFx_WebDavClient_LockAsyncWithDepthOne()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             var lockInfo = new LockInfo();
@@ -26,7 +26,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         }
 
         [TestMethod]
-        public void UnitTestWebDavClientRefreshLockAsyncWithoutLockTokenNetFx()
+        public void UT_NetFx_WebDavClient_RefreshLockAsyncWithoutLockToken()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             var lockInfo = new LockInfo();
@@ -42,7 +42,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         }
 
         [TestMethod]
-        public void UnitTestWebDavClientPropFindAsyncWithoutDepthNetFx()
+        public void UT_NetFx_WebDavClient_PropFindAsyncWithoutDepth()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
 
@@ -57,7 +57,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         }
 
         [TestMethod]
-        public void UnitTestWebDavClientUnLockAsyncWithoutLockTokenNetFx()
+        public void UT_NetFx_WebDavClient_UnLockAsyncWithoutLockToken()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
 

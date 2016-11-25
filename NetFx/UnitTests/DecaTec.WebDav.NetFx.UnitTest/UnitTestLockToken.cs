@@ -12,7 +12,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
     public class UnitTestLockToken
     {
         [TestMethod]
-        public void UnitTestLockTokenToStringIfHeaderWithoutBracketsNetFx()
+        public void UT_NetFx_LockToken_ToStringIfHeaderWithoutBrackets()
         {
             var lockToken = new LockToken("my-lock-token");
             var str = lockToken.ToString(LockTokenFormat.IfHeader);
@@ -21,7 +21,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         }
 
         [TestMethod]
-        public void UnitTestLockTokenToStringIfHeaderWithBracketsNetFx()
+        public void UT_NetFx_LockToken_ToStringIfHeaderWithBrackets()
         {
             var lockToken = new LockToken("(my-lock-token)");
             var str = lockToken.ToString(LockTokenFormat.IfHeader);
@@ -30,7 +30,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         }
 
         [TestMethod]
-        public void UnitTestLockTokenToStringLockTokenHeaderWithoutBracketsNetFx()
+        public void UT_NetFx_LockToken_ToStringLockTokenHeaderWithoutBrackets()
         {
             var lockToken = new LockToken("my-lock-token");
             var str = lockToken.ToString(LockTokenFormat.LockTokenHeader);
@@ -39,7 +39,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         }
 
         [TestMethod]
-        public void UnitTestLockTokenToStringLockTokenHeaderWithBracketsNetFx()
+        public void UT_NetFx_LockToken_ToStringLockTokenHeaderWithBrackets()
         {
             var lockToken = new LockToken("(my-lock-token)");
             var str = lockToken.ToString(LockTokenFormat.LockTokenHeader);
@@ -48,7 +48,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         }
 
         [TestMethod]
-        public void UnitTestLockTokenToStringLockTokenHeaderWithSquaredBracketsNetFx()
+        public void UT_NetFx_LockToken_ToStringLockTokenHeaderWithSquaredBrackets()
         {
             var lockToken = new LockToken("<my-lock-token>");
             var str = lockToken.ToString(LockTokenFormat.LockTokenHeader);

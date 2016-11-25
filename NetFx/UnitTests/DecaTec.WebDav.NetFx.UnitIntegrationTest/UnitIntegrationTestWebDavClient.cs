@@ -58,7 +58,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         #region PropFind
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientPropFindAllPropNetFx()
+        public void UIT_NetFx_tWebDavClient_PropFindAllProp()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             PropFind pf = PropFind.CreatePropFindAllProp();
@@ -71,7 +71,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientPropFindNamedPropertiesNetFx()
+        public void UIT_NetFx_WebDavClient_PropFindNamedProperties()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             PropFind pf = PropFind.CreatePropFindWithEmptyProperties("name");
@@ -84,7 +84,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientPropFindPropNameNetFx()
+        public void UIT_NetFx_WebDavClient_PropFindPropName()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             PropFind pf = PropFind.CreatePropFindWithPropName();
@@ -101,7 +101,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         #region PropPatch / put / delete file
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientPropPatchNetFx()
+        public void UIT_NetFx_WebDavClient_PropPatch()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             var testFile = this.webDavRootFolder + TestFile;
@@ -159,7 +159,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         #region Mkcol / delete collection
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientMkcolNetFx()
+        public void UIT_NetFx_WebDavClient_Mkcol()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             var testCollection = this.webDavRootFolder + TestCollection;
@@ -201,7 +201,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         #region Get
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientGetNetFx()
+        public void UIT_NetFx_WebDavClient_Get()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             var testFile = this.webDavRootFolder + TestFile;
@@ -233,7 +233,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         #region Copy
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientCopyNetFx()
+        public void UIT_NetFx_WebDavClient_Copy()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             var testCollectionSource = this.webDavRootFolder + TestCollection;
@@ -292,7 +292,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         #region Move
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientMoveNetFx()
+        public void UIT_NetFx_WebDavClient_Move()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             var testCollectionSource = this.webDavRootFolder + TestCollection;
@@ -350,7 +350,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         #region Lock / unlock
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientLockRefreshLockUnlockNetFx()
+        public void UIT_NetFx_WebDavClient_LockRefreshLockUnlock()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
 
@@ -378,7 +378,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientLockAndPutWithoutTokenNetFx()
+        public void UIT_NetFx_WebDavClient_LockAndPutWithoutToken()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
 
@@ -408,7 +408,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UnitIntegrationTestWebDavClientLockAndPutWithTokenNetFx()
+        public void UIT_NetFx_WebDavClient_LockAndPutWithToken()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
 

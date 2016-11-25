@@ -9,7 +9,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
     public class UnitTestProp
     {
         [TestMethod]
-        public void UnitTestPropCreatePropWithMultipleEmptyPropertiesNetFx()
+        public void UT_NetFx_Prop_CreatePropWithMultipleEmptyProperties()
         {
             var serializer = new XmlSerializer(typeof(Prop));
 

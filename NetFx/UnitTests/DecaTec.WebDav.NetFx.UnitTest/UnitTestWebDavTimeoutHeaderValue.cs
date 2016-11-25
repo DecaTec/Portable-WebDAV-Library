@@ -7,7 +7,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
     public class UnitTestWebDavTimeoutHeaderValue
     {
         [TestMethod]
-        public void UnitTestWebDavTimeoutHeaderValueToStringInfiniteNetFx()
+        public void UT_NetFx_WebDavTimeoutHeaderValue_ToStringInfinite()
         {
             var wdthv = WebDavTimeoutHeaderValue.CreateInfiniteWebDavTimeout();
 
@@ -15,7 +15,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         }
 
         [TestMethod]
-        public void UnitTestWebDavTimeoutHeaderValueToStringTimeoutNetFx()
+        public void UT_NetFx_WebDavTimeoutHeaderValue_ToStringTimeout()
         {
             var wdthv = WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromSeconds(500));
 
@@ -23,7 +23,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         }
 
         [TestMethod]
-        public void UnitTestWebDavTimeoutHeaderValueToStringInfiniteWithAlternativeTimeoutNetFx()
+        public void UT_NetFx_WebDavTimeoutHeaderValue_ToStringInfiniteWithAlternativeTimeout()
         {
             var wdthv = WebDavTimeoutHeaderValue.CreateInfiniteWebDavTimeoutWithAlternative(TimeSpan.FromSeconds(500));
 

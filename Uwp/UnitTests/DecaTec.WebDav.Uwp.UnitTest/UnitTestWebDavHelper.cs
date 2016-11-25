@@ -10,7 +10,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
     public class UnitTestWebDavHelper
     {
         [TestMethod]
-        public void UnitTestWebDavHelperGetUtf8EncodedXmlWebDavRequestString()
+        public void UT_UWP_WebDavHelper_GetUtf8EncodedXmlWebDavRequestString()
         {
             var serializer = new XmlSerializer(typeof(PropFind));
             var propFind = PropFind.CreatePropFindAllProp();
@@ -21,7 +21,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
         }
 
         [TestMethod]
-        public void UnitTestWebDavHelperGetUtf8EncodedXmlWebDavRequestStringWithUnsupportedType()
+        public void UT_UWP_WebDavHelper_GetUtf8EncodedXmlWebDavRequestStringWithUnsupportedType()
         {
             var serializer = new XmlSerializer(typeof(MyProp));
             var myProp = new MyProp();

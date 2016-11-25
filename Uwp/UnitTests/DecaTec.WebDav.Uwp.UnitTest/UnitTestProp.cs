@@ -8,7 +8,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
     public class UnitTestProp
     {
         [TestMethod]
-        public void UnitTestPropCreatePropWithMultipleEmptyProperties()
+        public void UT_UWP_Prop_CreatePropWithMultipleEmptyProperties()
         {
             var serializer = new XmlSerializer(typeof(Prop));
 
