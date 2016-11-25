@@ -1476,8 +1476,10 @@ namespace DecaTec.WebDav
         {
             var inputStream = stream.GetInputStreamAt(0);
             var streamContent = new HttpStreamContent(inputStream);
-            //await streamContent.BufferAllAsync();
-            streamContent.Headers.Add("Content-Type", contentType);
+            
+            if(!string.IsNullOrEmpty(contentType))
+                streamContent.Headers.Add("Content-Type", contentType);
+
             streamContent.Headers.Add("Content-Length", stream.Size.ToString());
 
             if (lockToken != null)
