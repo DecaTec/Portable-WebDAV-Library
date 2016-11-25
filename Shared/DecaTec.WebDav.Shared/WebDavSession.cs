@@ -256,7 +256,7 @@ namespace DecaTec.WebDav
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<bool> MoveAsync(string sourceUrl, string destinationUrl)
         {
-            return await MoveAsync(new Uri(destinationUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), false);
+            return await MoveAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), false);
         }
 
         /// <summary>
@@ -267,7 +267,7 @@ namespace DecaTec.WebDav
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<bool> MoveAsync(Uri sourceUri, Uri destinationUri)
         {
-            return await MoveAsync(destinationUri, destinationUri, false);
+            return await MoveAsync(sourceUri, destinationUri, false);
         }
 
         /// <summary>
@@ -279,7 +279,7 @@ namespace DecaTec.WebDav
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<bool> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite)
         {
-            return await MoveAsync(new Uri(destinationUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), overwrite);
+            return await MoveAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), overwrite);
         }
 
         /// <summary>
