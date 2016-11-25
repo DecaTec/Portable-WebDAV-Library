@@ -1,3 +1,10 @@
+v0.5.0.0:
+- BREAKING CHANGE: WebDavSession.ListAsync now returns WebDavSessionListItems which contain all WebDAV properties available.
+- WebDavSession.ListAsync now returns WebDavSessionListItems with full qualified URIs (not relative URIs anymore).
+- Extension of WebDAV object model: Implementation of RFC 4331 (Quota and Size Properties for Distributed Authoring and Versioning (DAV) Collections).
+- New methods for uploading/downloading files with progress (UWP only).
+- Fixed a few things in the documentation.
+
 v0.4.0.0:
 - New method overloads in WebDavClient without requiring a LockToken
 - NuGet package available: https://www.nuget.org/packages/PortableWebDavLibrary/
