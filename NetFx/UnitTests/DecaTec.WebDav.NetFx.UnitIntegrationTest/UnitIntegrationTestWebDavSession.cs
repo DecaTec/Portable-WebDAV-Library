@@ -90,6 +90,41 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         }
 
         [TestMethod]
+        public void UIT_NetFx_WebDavSession_ListWithSpaceInFolder()
+        {
+            var session = CreateWebDavSession();
+            session.BaseUri = new Uri(webDavRootFolder);
+            var created = session.CreateDirectoryAsync("a test").Result;
+            var items = session.ListAsync("a test/").Result;
+            Assert.AreEqual(items.Count, 0);
+            var deleted = session.DeleteAsync("a test").Result;
+
+            Assert.IsTrue(created);
+            Assert.IsNotNull(items);
+            Assert.IsTrue(deleted);
+        }
+
+        [TestMethod]
+        public void UIT_NetFx_WebDavSession_ListWithSpaceInFolderAndSubfolder()
+        {
+            var session = CreateWebDavSession();
+            session.BaseUri = new Uri(webDavRootFolder);
+            var created = session.CreateDirectoryAsync("a test").Result;
+            var items = session.ListAsync("a test/").Result;
+            Assert.AreEqual(items.Count, 0);           
+            var created2 = session.CreateDirectoryAsync("a test/another test").Result;
+            var items2 = session.ListAsync("a test").Result;
+            Assert.AreEqual(items2.Count, 1);
+            var deleted = session.DeleteAsync("a test").Result;
+
+            Assert.IsTrue(created);
+            Assert.IsTrue(created2);
+            Assert.IsNotNull(items);
+            Assert.IsNotNull(items2);
+            Assert.IsTrue(deleted);
+        }
+
+        [TestMethod]
         public void UIT_NetFx_WebDavSession_Locking()
         {
             var session = CreateWebDavSession();
