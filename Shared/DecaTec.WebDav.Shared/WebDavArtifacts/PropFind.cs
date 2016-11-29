@@ -23,7 +23,16 @@ namespace DecaTec.WebDav.WebDavArtifacts
         }
 
         /// <summary>
-        /// Creates a PropFind instance containing empty property items with the specified names.
+        /// Creates an empty PropFind instance. The server should return all known properties (for the server) by that empty PropFind.
+        /// </summary>
+        /// <returns>An empty PropFind instance.</returns>
+        public static PropFind CreatePropFind()
+        {
+            return new PropFind();
+        }
+
+        /// <summary>
+        /// Creates a PropFind instance containing empty property items with the specified names. Useful for obtaining only a few properties from the server.
         /// </summary>
         /// <param name="propertyNames">The property names which should be contained in the PropFind instance.</param>
         /// <returns>A PropFind instance containing the empty properties specified.</returns>
@@ -36,9 +45,9 @@ namespace DecaTec.WebDav.WebDavArtifacts
         }
 
         /// <summary>
-        /// Creates a PropFind instance containing empty property items for all the Props defined in RFC4918.
+        /// Creates a PropFind instance containing empty property items for all the Props defined in RFC4918/RFC4331.
         /// </summary>
-        /// <returns>A PropFind instance containing the empty properties of all Props defined in RFC4918.</returns>
+        /// <returns>A PropFind instance containing the empty properties of all Props defined in RFC4918/RFC4331.</returns>
         public static PropFind CreatePropFindWithEmptyPropertiesAll()
         {
             var propFind = new PropFind();

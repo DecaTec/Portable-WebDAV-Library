@@ -189,7 +189,8 @@ namespace DecaTec.WebDav
             uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
 
             // Do not use an allprop here because some WebDav servers will not return the expected results when using allprop.
-            var propFind = PropFind.CreatePropFindWithEmptyPropertiesAll();
+            // With an empty propfind, the server should return all known properties (for the server).
+            var propFind = PropFind.CreatePropFind();
             var response = await this.webDavClient.PropFindAsync(uri, WebDavDepthHeaderValue.One, propFind);
 
             if (response.StatusCode != WebDavStatusCode.MultiStatus)
