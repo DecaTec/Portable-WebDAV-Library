@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
@@ -223,7 +224,7 @@ namespace DecaTec.WebDav
                 }
 
                 // Skip the folder which contents were requested, only add children.
-                if (href != null && Uri.UnescapeDataString(uri.ToString()).EndsWith(Uri.UnescapeDataString(href.ToString()), StringComparison.OrdinalIgnoreCase))
+                if (href != null && WebUtility.UrlDecode(uri.ToString()).EndsWith(WebUtility.UrlDecode(href.ToString()), StringComparison.OrdinalIgnoreCase))
                     continue;
 
                 foreach (var item in responseItem.Items)
