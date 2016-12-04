@@ -1,6 +1,8 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/3sjjbui36gpc3pvr?svg=true)](https://ci.appveyor.com/project/DecaTec/portable-webdav-library)
+
 # Project description
 
-Portable WebDAV Library is a fully [RFC 4918](http://tools.ietf.org/html/rfc4918) compliant WebDAV client library which is implemented das portable class library (PCL) for use on desktop environments as well as mobile devices.
+Portable WebDAV Library is a fully [RFC 4918](http://tools.ietf.org/html/rfc4918) compliant WebDAV client library which is implemented as portable class library (PCL) for use on desktop environments as well as mobile devices.
 
 # Main project aims
 * Full compliance to RFC 4918 (*HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)*)
