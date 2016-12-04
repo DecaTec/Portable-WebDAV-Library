@@ -180,17 +180,17 @@ namespace DecaTec.WebDav
         #region List
 
         /// <summary>
-        /// Retrieves a list of files and directories of the directory at the URI specified.
+        /// Retrieves a list of files and directories of the directory at the URI specified using the PropFind specified.
         /// </summary>
         /// <param name="uri">The URI of the directory which content should be listed.</param>
+        /// <param name="propFind">The PropFind to use. Different PropFind  types can be created using the static methods of the class <see cref="PropFind"/>.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
-        public async Task<IList<WebDavSessionListItem>> ListAsync(Uri uri)
+        public async Task<IList<WebDavSessionListItem>> ListAsync(Uri uri, PropFind propFind)
         {
-            uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
+            if (propFind == null)
+                throw new ArgumentException("Argument propFind must not be null.");
 
-            // Do not use an allprop here because some WebDav servers will not return the expected results when using allprop.
-            // With an empty propfind, the server should return all known properties (for the server).
-            var propFind = PropFind.CreatePropFind();
+            uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
             var response = await this.webDavClient.PropFindAsync(uri, WebDavDepthHeaderValue.One, propFind);
 
             if (response.StatusCode != WebDavStatusCode.MultiStatus)

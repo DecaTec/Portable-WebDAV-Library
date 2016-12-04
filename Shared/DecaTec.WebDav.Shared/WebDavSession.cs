@@ -180,13 +180,38 @@ namespace DecaTec.WebDav
         #region List
 
         /// <summary>
+        /// Retrieves a list of files and directories of the directory at the URI specified (using allprop).
+        /// </summary>
+        /// <param name="uri">The URI of the directory which content should be listed.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <remarks>This method uses a so called allprop. A server should return all known properties to the server.
+        /// If not all of the expected properties are return by the server, use an overload of this method specifying a <see cref="PropFind"/> explicitly.</remarks>
+        public async Task<IList<WebDavSessionListItem>> ListAsync(Uri uri)
+        {
+            return await ListAsync(uri, PropFind.CreatePropFindAllProp());
+        }
+
+        /// <summary>
         /// Retrieves a list of files and directories of the directory at the URL specified.
         /// </summary>
         /// <param name="url">The URL of the directory which content should be listed.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <remarks>This method uses a so called allprop. A server should return all known properties to the server.
+        /// If not all of the expected properties are return by the server, use an overload of this method specifying a <see cref="PropFind"/> explicitly.</remarks>
         public async Task<IList<WebDavSessionListItem>> ListAsync(string url)
         {
             return await ListAsync(new Uri(url, UriKind.RelativeOrAbsolute));
+        }
+
+        /// <summary>
+        /// Retrieves a list of files and directories of the directory at the URL specified.
+        /// </summary>
+        /// <param name="url">The URL of the directory which content should be listed.</param>
+        /// <param name="propFind">The PropFind to use. Different PropFind  types can be created using the static methods of the class <see cref="PropFind"/>.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<IList<WebDavSessionListItem>> ListAsync(string url, PropFind propFind)
+        {
+            return await ListAsync(new Uri(url, UriKind.RelativeOrAbsolute), propFind);
         }
 
         #endregion List
