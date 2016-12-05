@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("DecaTec")]
-[assembly: AssemblyProduct("DecaTec.WebDav")]
+[assembly: AssemblyProduct("Portable WebDAV Library")]
 [assembly: AssemblyCopyright("Copyright © DecaTec 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
