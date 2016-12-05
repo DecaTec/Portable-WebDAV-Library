@@ -16,7 +16,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         private LockEntry[] lockentryField;
 
         /// <summary>
-        /// Gets or sets the LockEntry.
+        /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.LockEntry"/> array.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.LockEntry)]
         public LockEntry[] LockEntry

@@ -16,7 +16,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         private Collection collectionField;
 
         /// <summary>
-        /// Gets or sets the Collection.
+        /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.Collection"/>.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.Collection)]
         public Collection Collection

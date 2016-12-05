@@ -30,7 +30,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Initializes a new instance of WebDavResponseMessage.
         /// </summary>
-        /// <param name="statusCode">The request's WebDavStatusCode.</param>
+        /// <param name="statusCode">The request's <see cref="WebDavStatusCode"/>.</param>
         public WebDavResponseMessage(WebDavStatusCode statusCode)
             : base((HttpStatusCode)statusCode)
         {
@@ -39,7 +39,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Initializes a new instance of WebDavResponseMessage.
         /// </summary>
-        /// <param name="httpResponseMessage">The HttpResponseMessage the WebDavResponseMessage should be based on.</param>
+        /// <param name="httpResponseMessage">The <see cref="HttpResponseMessage"/> the WebDavResponseMessage should be based on.</param>
         public WebDavResponseMessage(HttpResponseMessage httpResponseMessage)
             : base()
         {
@@ -57,7 +57,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Gets or sets the WebDavStatusCode of this WebDavRespnseMessage.
+        /// Gets or sets the <see cref="WebDavStatusCode"/> of this WebDavRespnseMessage.
         /// </summary>
         public new WebDavStatusCode StatusCode
         {

@@ -14,7 +14,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Creates a PropFind instance representing an AllProp-Propfind.
         /// </summary>
-        /// <returns>A PropFind instance containing an AllProp element.</returns>
+        /// <returns>A PropFind instance containing an <see cref="DecaTec.WebDav.WebDavArtifacts.AllProp"/> element.</returns>
         public static PropFind CreatePropFindAllProp()
         {
             var propFind = new PropFind();
@@ -35,7 +35,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// Creates a PropFind instance containing empty property items with the specified names. Useful for obtaining only a few properties from the server.
         /// </summary>
         /// <param name="propertyNames">The property names which should be contained in the PropFind instance.</param>
-        /// <returns>A PropFind instance containing the empty properties specified.</returns>
+        /// <returns>A PropFind instance containing the empty <see cref="DecaTec.WebDav.WebDavArtifacts.Prop"/> items specified.</returns>
         public static PropFind CreatePropFindWithEmptyProperties(params string[] propertyNames)
         {
             var propFind = new PropFind();
@@ -47,7 +47,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Creates a PropFind instance containing empty property items for all the Props defined in RFC4918/RFC4331.
         /// </summary>
-        /// <returns>A PropFind instance containing the empty properties of all Props defined in RFC4918/RFC4331.</returns>
+        /// <returns>A PropFind instance containing the empty <see cref="DecaTec.WebDav.WebDavArtifacts.Prop"/> items of all Props defined in RFC4918/RFC4331.</returns>
         public static PropFind CreatePropFindWithEmptyPropertiesAll()
         {
             var propFind = new PropFind();
@@ -59,7 +59,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Creates a PropFind instance containing a PropertyName item.
         /// </summary>
-        /// <returns>A PropFind instance containing a PropertyName item.</returns>
+        /// <returns>A PropFind instance containing a <see cref="DecaTec.WebDav.WebDavArtifacts.PropName"/> item.</returns>
         public static PropFind CreatePropFindWithPropName()
         {
             var propFind = new PropFind();

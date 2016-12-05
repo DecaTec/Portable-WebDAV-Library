@@ -74,61 +74,61 @@ namespace DecaTec.WebDav
         #region Constructor
 
         /// <summary>
-        /// Initializes a new instance of WebDavSession with a default <see cref="System.Net.Http.HttpClientHandler"/>.
+        /// Initializes a new instance of WebDavSession with a default <see cref="HttpBaseProtocolFilter"/>.
         /// </summary>
-        /// <param name="passwordCredential">The <see cref="Windows.Security.Credentials.PasswordCredential"/> to use.</param>
+        /// <param name="passwordCredential">The <see cref="PasswordCredential"/> to use.</param>
         public WebDavSession(PasswordCredential passwordCredential)
             : this(string.Empty, new HttpBaseProtocolFilter() { ServerCredential = passwordCredential })
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of WebDavSession with the given base URL and a default <see cref="System.Net.Http.HttpClientHandler"/>.
+        /// Initializes a new instance of WebDavSession with the given base URL and a default <see cref="HttpBaseProtocolFilter"/>.
         /// </summary>
         /// <param name="baseUrl">The base URL to use for this WebDavSession.</param>
-        /// <param name="passwordCredential">The <see cref="Windows.Security.Credentials.PasswordCredential"/> to use.</param>
+        /// <param name="passwordCredential">The <see cref="PasswordCredential"/> to use.</param>
         public WebDavSession(string baseUrl, PasswordCredential passwordCredential)
             : this(new Uri(baseUrl), new HttpBaseProtocolFilter() { ServerCredential = passwordCredential })
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of WebDavSession with the given base URI and a default <see cref="System.Net.Http.HttpClientHandler"/>.
+        /// Initializes a new instance of WebDavSession with the given base <see cref="Uri"/> and a default <see cref="HttpBaseProtocolFilter"/>.
         /// </summary>
-        /// <param name="baseUri">The base URI to use for this WebDavSession.</param>
-        /// <param name="passwordCredential">The <see cref="Windows.Security.Credentials.PasswordCredential"/> to use.</param>
+        /// <param name="baseUri">The base <see cref="Uri"/> to use for this WebDavSession.</param>
+        /// <param name="passwordCredential">The <see cref="PasswordCredential"/> to use.</param>
         public WebDavSession(Uri baseUri, PasswordCredential passwordCredential)
             : this(baseUri, new HttpBaseProtocolFilter() { ServerCredential = passwordCredential })
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of WebDavSession with the <see cref="System.Net.Http.HttpMessageHandler"/> specified.
+        /// Initializes a new instance of WebDavSession with the <see cref="IHttpFilter"/> specified.
         /// </summary>
-        /// <param name="httpFilter">The <see cref="Windows.Web.Http.Filters.IHttpFilter"/> to use with this WebDavSession.</param>
-        /// <remarks>If credentials are needed, these are part of the <see cref="System.Net.Http.HttpMessageHandler"/> and are specified with it.</remarks>
+        /// <param name="httpFilter">The <see cref="IHttpFilter"/> to use with this WebDavSession.</param>
+        /// <remarks>If credentials are needed, these are part of the <see cref="IHttpFilter"/> and are specified with it.</remarks>
         public WebDavSession(IHttpFilter httpFilter)
             : this(string.Empty, httpFilter)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of WebDavSession with the <see cref="System.Net.Http.HttpMessageHandler"/> specified.
+        /// Initializes a new instance of WebDavSession with the <see cref="IHttpFilter"/> specified.
         /// </summary>
         /// <param name="baseUrl">The base URL to use for this WebDavSession.</param>
-        /// <param name="httpFilter">The <see cref="Windows.Web.Http.Filters.IHttpFilter"/> to use with this WebDavSession.</param>
-        /// <remarks>If credentials are needed, these are part of the <see cref="System.Net.Http.HttpMessageHandler"/> and are specified with it.</remarks>
+        /// <param name="httpFilter">The <see cref="IHttpFilter"/> to use with this WebDavSession.</param>
+        /// <remarks>If credentials are needed, these are part of the <see cref="IHttpFilter"/> and are specified with it.</remarks>
         public WebDavSession(string baseUrl, IHttpFilter httpFilter)
             : this(string.IsNullOrEmpty(baseUrl) ? null : new Uri(baseUrl), httpFilter)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of WebDavSession with the given base URI and the <see cref="System.Net.Http.HttpMessageHandler"/> specified.
+        /// Initializes a new instance of WebDavSession with the given base <see cref="Uri"/> and the <see cref="IHttpFilter"/> specified.
         /// </summary>
-        /// <param name="baseUri">The base URI to use for this WebDavSession.</param>
-        /// <param name="httpFilter">The <see cref="Windows.Web.Http.Filters.IHttpFilter"/> to use with this WebDavSession.</param>
-        /// <remarks>If credentials are needed, these are part of the <see cref="System.Net.Http.HttpMessageHandler"/> and are specified with it.</remarks>
+        /// <param name="baseUri">The base <see cref="Uri"/> to use for this WebDavSession.</param>
+        /// <param name="httpFilter">The <see cref="IHttpFilter"/> to use with this WebDavSession.</param>
+        /// <remarks>If credentials are needed, these are part of the <see cref="IHttpFilter"/> and are specified with it.</remarks>
         public WebDavSession(Uri baseUri, IHttpFilter httpFilter)
         {
             this.permanentLocks = new ConcurrentDictionary<Uri, PermanentLock>();
@@ -143,11 +143,11 @@ namespace DecaTec.WebDav
         #region Download file
 
         /// <summary>
-        ///  Downloads a file from the URI specified.
+        ///  Downloads a file from the <see cref="Uri"/> specified.
         /// </summary>
-        /// <param name="uri">The URI of the file to download.</param>
-        /// <param name="localStream">The stream to save the file to.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <param name="uri">The <see cref="Uri"/> of the file to download.</param>
+        /// <param name="localStream">The <see cref="Stream"/> to save the file to.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> DownloadFileAsync(Uri uri, Stream localStream)
         {
             uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
@@ -172,12 +172,12 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Downloads a file from the given URI.
+        /// Downloads a file from the given <see cref="Uri"/>.
         /// </summary>
-        /// <param name="uri">Te URI of the file to download.</param>
-        /// <param name="cts">The CancellationTokenSource to use.</param>
+        /// <param name="uri">Te <see cref="Uri"/> of the file to download.</param>
+        /// <param name="cts">The <see cref="CancellationTokenSource"/> to use.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<IBuffer> DownloadFileAsync(Uri uri, CancellationTokenSource cts, IProgress<HttpProgress> progress)
         {
             uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
@@ -189,11 +189,11 @@ namespace DecaTec.WebDav
         #region List
 
         /// <summary>
-        /// Retrieves a list of files and directories of the directory at the URI specified using the PropFind specified.
+        /// Retrieves a list of files and directories of the directory at the <see cref="Uri"/> specified using the <see cref="PropFind"/> specified.
         /// </summary>
-        /// <param name="uri">The URI of the directory which content should be listed.</param>
-        /// <param name="propFind">The PropFind to use. Different PropFind  types can be created using the static methods of the class <see cref="PropFind"/>.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <param name="uri">The <see cref="Uri"/> of the directory which content should be listed.</param>
+        /// <param name="propFind">The <see cref="PropFind"/> to use. Different PropFind  types can be created using the static methods of the class <see cref="PropFind"/>.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<IList<WebDavSessionListItem>> ListAsync(Uri uri, PropFind propFind)
         {
             if (propFind == null)
@@ -312,11 +312,11 @@ namespace DecaTec.WebDav
         #region Upload file
 
         /// <summary>
-        /// Uploads a file to the URI specified.
+        /// Uploads a file to the <see cref="Uri"/> specified.
         /// </summary>
-        /// <param name="uri">The URI of the file to upload.</param>
-        /// <param name="localStream">The stream containing the file to upload.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <param name="uri">The <see cref="Uri"/> of the file to upload.</param>
+        /// <param name="localStream">The <see cref="Stream"/> containing the file to upload.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> UploadFileAsync(Uri uri, Stream localStream)
         {
             uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
@@ -327,14 +327,14 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Uploads a file to the URI specified.
+        /// Uploads a file to the <see cref="Uri"/> specified.
         /// </summary>
-        /// <param name="uri">The URI of the file to upload.</param>
-        /// <param name="stream">The stream containing the file to upload.</param>
+        /// <param name="uri">The <see cref="Uri"/> of the file to upload.</param>
+        /// <param name="stream">The <see cref="Stream"/> containing the file to upload.</param>
         /// <param name="contentType">The content type of the file to upload.</param>
-        /// <param name="cts">The CancellationTokenSource to use.</param>
+        /// <param name="cts">The <see cref="CancellationTokenSource"/> to use.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> UploadFileAsync(Uri uri, IRandomAccessStream stream, string contentType, CancellationTokenSource cts, IProgress<HttpProgress> progress)
         {
             uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);

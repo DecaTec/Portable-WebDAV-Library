@@ -18,7 +18,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         private string responsedescriptionField;
 
         /// <summary>
-        /// Gets or sets the Prop.
+        /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.Prop"/>.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.Prop)]
         public Prop Prop

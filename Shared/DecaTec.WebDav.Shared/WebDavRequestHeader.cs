@@ -7,7 +7,7 @@ namespace DecaTec.WebDav
     public static class WebDavRequestHeader
     {
         /// <summary>
-        /// Constant for Depth header. It may have values defined in WebDavDepthHeaderValues.
+        /// Constant for Depth header. It may have values defined in <see cref="WebDavDepthHeaderValue"/>.
         /// </summary>
         public const string Depth = "Depth";
 

@@ -22,7 +22,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         private LockRoot lockRootField;
 
         /// <summary>
-        /// Gets or sets the LockScope.
+        /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.LockScope"/>.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.LockScope)]
         public LockScope LockScope
@@ -38,7 +38,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         }
 
         /// <summary>
-        /// Gets or sets the LockType.
+        /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.LockType"/>.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.LockType)]
         public LockType LockType
@@ -70,7 +70,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         }
 
         /// <summary>
-        /// Gets or sets the Owner.
+        /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.OwnerHref"/>.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.Owner)]
         public OwnerHref Owner
@@ -102,7 +102,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         }
 
         /// <summary>
-        /// Gets or sets the LockToken.
+        /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.WebDavLockToken"/>.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.LockToken, IsNullable = false)]
         public WebDavLockToken LockToken
@@ -118,7 +118,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         }
 
         /// <summary>
-        /// Gets or sets the LockRoot.
+        /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.LockRoot"/>.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.LockRoot, IsNullable = false)]
         public LockRoot LockRoot

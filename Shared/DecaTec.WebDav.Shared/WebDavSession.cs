@@ -16,7 +16,7 @@ namespace DecaTec.WebDav
         #region Properties
 
         /// <summary>
-        /// Gets or sets the base <see cref="System.Uri"/> of this WebDavSession.
+        /// Gets or sets the base <see cref="Uri"/> of this WebDavSession.
         /// </summary>
         public Uri BaseUri
         {
@@ -35,18 +35,18 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="sourceUrl">The source URL.</param>
         /// <param name="destinationUrl">The destination URL.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> CopyAsync(string sourceUrl, string destinationUrl)
         {
             return await CopyAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), false);
         }
 
         /// <summary>
-        /// Copies a resource from the source URI to the destination URI (without overwriting).
+        /// Copies a resource from the source <see cref="Uri"/> to the destination <see cref="Uri"/> (without overwriting).
         /// </summary>
-        /// <param name="sourceUri">The source URI.</param>
-        /// <param name="destinationUri">The destination URI.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <param name="sourceUri">The source <see cref="Uri"/>.</param>
+        /// <param name="destinationUri">The destination <see cref="Uri"/>.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> CopyAsync(Uri sourceUri, Uri destinationUri)
         {
             return await CopyAsync(sourceUri, destinationUri, false);
@@ -58,19 +58,19 @@ namespace DecaTec.WebDav
         /// <param name="sourceUrl">The source URL.</param>
         /// <param name="destinationUrl">The destination URL.</param>
         /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> CopyAsync(string sourceUrl, string destinationUrl, bool overwrite)
         {
             return await CopyAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), overwrite);
         }
 
         /// <summary>
-        /// Copies a resource from the source URI to the destination URI.
+        /// Copies a resource from the source <see cref="Uri"/> to the destination <see cref="Uri"/>.
         /// </summary>
-        /// <param name="sourceUri">The source URI.</param>
-        /// <param name="destinationUri">The destination URI.</param>
+        /// <param name="sourceUri">The source <see cref="Uri"/>.</param>
+        /// <param name="destinationUri">The destination <see cref="Uri"/>.</param>
         /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> CopyAsync(Uri sourceUri, Uri destinationUri, bool overwrite)
         {
             sourceUri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, sourceUri);
@@ -88,17 +88,17 @@ namespace DecaTec.WebDav
         /// Creates a directory at the URL specified.
         /// </summary>
         /// <param name="url">The URL of the directory to create.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> CreateDirectoryAsync(string url)
         {
             return await CreateDirectoryAsync(new Uri(url, UriKind.RelativeOrAbsolute));
         }
 
         /// <summary>
-        /// Creates a directory at the URI specified.
+        /// Creates a directory at the <see cref="Uri"/> specified.
         /// </summary>
-        /// <param name="uri">The URI of the directory to create.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <param name="uri">The <see cref="Uri"/> of the directory to create.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> CreateDirectoryAsync(Uri uri)
         {
             uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
@@ -115,17 +115,17 @@ namespace DecaTec.WebDav
         /// Deletes a directory or file at the URL specified.
         /// </summary>
         /// <param name="url">The URL of the directory or file to delete.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> DeleteAsync(string url)
         {
             return await DeleteAsync(new Uri(url, UriKind.RelativeOrAbsolute));
         }
 
         /// <summary>
-        /// Deletes a directory or file at the URI specified.
+        /// Deletes a directory or file at the <see cref="Uri"/> specified.
         /// </summary>
-        /// <param name="uri">The URI of the directory or file to delete.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <param name="uri">The <see cref="Uri"/> of the directory or file to delete.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> DeleteAsync(Uri uri)
         {
             uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
@@ -142,8 +142,8 @@ namespace DecaTec.WebDav
         /// Downloads a file from the URL specified.
         /// </summary>
         /// <param name="url">The URL of the file to download.</param>
-        /// <param name="localStream">The stream to save the file to.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <param name="localStream">The <see cref="Stream"/> to save the file to.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> DownloadFileAsync(string url, Stream localStream)
         {
             return await DownloadFileAsync(new Uri(url, UriKind.RelativeOrAbsolute), localStream);
@@ -157,17 +157,17 @@ namespace DecaTec.WebDav
         /// Checks if a file or directory exists at the URL specified.
         /// </summary>
         /// <param name="url">The URL to check.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> ExistsAsync(string url)
         {
             return await ExistsAsync(new Uri(url, UriKind.RelativeOrAbsolute));
         }
 
         /// <summary>
-        /// Checks if a file or directory exists at the URI specified.
+        /// Checks if a file or directory exists at the <see cref="Uri"/> specified.
         /// </summary>
-        /// <param name="uri">The URI to check.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <param name="uri">The <see cref="Uri"/> to check.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> ExistsAsync(Uri uri)
         {
             uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
@@ -180,10 +180,10 @@ namespace DecaTec.WebDav
         #region List
 
         /// <summary>
-        /// Retrieves a list of files and directories of the directory at the URI specified (using allprop).
+        /// Retrieves a list of files and directories of the directory at the <see cref="Uri"/> specified (using allprop).
         /// </summary>
-        /// <param name="uri">The URI of the directory which content should be listed.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <param name="uri">The <see cref="Uri"/> of the directory which content should be listed.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <remarks>This method uses a so called allprop. A server should return all known properties to the server.
         /// If not all of the expected properties are return by the server, use an overload of this method specifying a <see cref="PropFind"/> explicitly.</remarks>
         public async Task<IList<WebDavSessionListItem>> ListAsync(Uri uri)
@@ -195,7 +195,7 @@ namespace DecaTec.WebDav
         /// Retrieves a list of files and directories of the directory at the URL specified.
         /// </summary>
         /// <param name="url">The URL of the directory which content should be listed.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <remarks>This method uses a so called allprop. A server should return all known properties to the server.
         /// If not all of the expected properties are return by the server, use an overload of this method specifying a <see cref="PropFind"/> explicitly.</remarks>
         public async Task<IList<WebDavSessionListItem>> ListAsync(string url)
@@ -207,8 +207,8 @@ namespace DecaTec.WebDav
         /// Retrieves a list of files and directories of the directory at the URL specified.
         /// </summary>
         /// <param name="url">The URL of the directory which content should be listed.</param>
-        /// <param name="propFind">The PropFind to use. Different PropFind  types can be created using the static methods of the class <see cref="PropFind"/>.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <param name="propFind">The <see cref="PropFind"/> to use. Different PropFind  types can be created using the static methods of the class <see cref="PropFind"/>.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<IList<WebDavSessionListItem>> ListAsync(string url, PropFind propFind)
         {
             return await ListAsync(new Uri(url, UriKind.RelativeOrAbsolute), propFind);
@@ -222,7 +222,7 @@ namespace DecaTec.WebDav
         /// Locks a file or directory at the URL specified.
         /// </summary>
         /// <param name="url">The URL of the file or directory to lock.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> LockAsync(string url)
         {
             return await LockAsync(new Uri(url, UriKind.RelativeOrAbsolute));
@@ -232,7 +232,7 @@ namespace DecaTec.WebDav
         ///  Locks a file or directory at the URL specified.
         /// </summary>
         /// <param name="uri">The URI of the file or directory to lock.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> LockAsync(Uri uri)
         {
             uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
@@ -278,7 +278,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="sourceUrl">The URL of the source.</param>
         /// <param name="destinationUrl">The URL of the destination.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> MoveAsync(string sourceUrl, string destinationUrl)
         {
             return await MoveAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), false);
@@ -289,7 +289,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="sourceUri">The URI of the source.</param>
         /// <param name="destinationUri">The URL of the destination.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> MoveAsync(Uri sourceUri, Uri destinationUri)
         {
             return await MoveAsync(sourceUri, destinationUri, false);
@@ -301,19 +301,19 @@ namespace DecaTec.WebDav
         /// <param name="sourceUrl">The URL of the source.</param>
         /// <param name="destinationUrl">The URL of the destination.</param>
         /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite)
         {
             return await MoveAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), overwrite);
         }
 
         /// <summary>
-        /// Moves a file or directory with the specified URI to another URI.
+        /// Moves a file or directory with the specified <see cref="Uri"/> to another <see cref="Uri"/>.
         /// </summary>
-        /// <param name="sourceUri">The URI of the source.</param>
-        /// <param name="destinationUri">The URI of the destination.</param>
+        /// <param name="sourceUri">The <see cref="Uri"/> of the source.</param>
+        /// <param name="destinationUri">The <see cref="Uri"/> of the destination.</param>
         /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> MoveAsync(Uri sourceUri, Uri destinationUri, bool overwrite)
         {
             sourceUri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, sourceUri);
@@ -332,8 +332,8 @@ namespace DecaTec.WebDav
         /// Uploads a file to the URL specified.
         /// </summary>
         /// <param name="url">The URL of the file to upload.</param>
-        /// <param name="localStream">The stream containing the file to upload.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <param name="localStream">The <see cref="Stream"/> containing the file to upload.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> UploadFileAsync(string url, Stream localStream)
         {
             return await UploadFileAsync(new Uri(url, UriKind.RelativeOrAbsolute), localStream);
@@ -347,17 +347,17 @@ namespace DecaTec.WebDav
         /// Unlocks a file or directory at the URL specified. 
         /// </summary>
         /// <param name="url">The URL of the file or directory to unlock.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> UnlockAsync(string url)
         {
             return await UnlockAsync(new Uri(url, UriKind.RelativeOrAbsolute));
         }
 
         /// <summary>
-        /// Unlocks a file or directory at the URI specified. 
+        /// Unlocks a file or directory at the <see cref="Uri"/> specified. 
         /// </summary>
-        /// <param name="uri">The URI of the file or directory to unlock.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <param name="uri">The <see cref="Uri"/> of the file or directory to unlock.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> UnlockAsync(Uri uri)
         {
             uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);

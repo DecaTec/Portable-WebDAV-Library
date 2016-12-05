@@ -66,61 +66,61 @@ namespace DecaTec.WebDav
         #region Constructor
 
         /// <summary>
-        /// Initializes a new instance of WebDavSession with a default <see cref="System.Net.Http.HttpClientHandler"/>.
+        /// Initializes a new instance of WebDavSession with a default <see cref="HttpClientHandler"/>.
         /// </summary>
-        /// <param name="networkCredential">The <see cref="System.Net.NetworkCredential"/> to use.</param>
+        /// <param name="networkCredential">The <see cref="NetworkCredential"/> to use.</param>
         public WebDavSession(NetworkCredential networkCredential)
             : this(new HttpClientHandler() { PreAuthenticate = true, Credentials = networkCredential })
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of WebDavSession with the given base URL and a default <see cref="System.Net.Http.HttpClientHandler"/>.
+        /// Initializes a new instance of WebDavSession with the given base URL and a default <see cref="HttpClientHandler"/>.
         /// </summary>
         /// <param name="baseUrl">The base URL to use for this WebDavSession.</param>
-        /// <param name="networkCredential">The <see cref="System.Net.NetworkCredential"/> to use.</param>
+        /// <param name="networkCredential">The <see cref="NetworkCredential"/> to use.</param>
         public WebDavSession(string baseUrl, NetworkCredential networkCredential)
             : this(new Uri(baseUrl), new HttpClientHandler() { PreAuthenticate = true, Credentials = networkCredential })
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of WebDavSession with the given base URI and a default <see cref="System.Net.Http.HttpClientHandler"/>.
+        /// Initializes a new instance of WebDavSession with the given base <see cref="Uri"/> and a default <see cref="HttpClientHandler"/>.
         /// </summary>
-        /// <param name="baseUri">The base URI to use for this WebDavSession.</param>
-        /// <param name="networkCredential">The <see cref="System.Net.NetworkCredential"/> to use.</param>
+        /// <param name="baseUri">The base <see cref="Uri"/> to use for this WebDavSession.</param>
+        /// <param name="networkCredential">The <see cref="NetworkCredential"/> to use.</param>
         public WebDavSession(Uri baseUri, NetworkCredential networkCredential)
             : this(baseUri, new HttpClientHandler() { PreAuthenticate = true, Credentials = networkCredential })
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of WebDavSession with the <see cref="System.Net.Http.HttpMessageHandler"/> specified.
+        /// Initializes a new instance of WebDavSession with the <see cref="HttpMessageHandler"/> specified.
         /// </summary>
-        /// <param name="httpMessageHandler">The <see cref="System.Net.Http.HttpMessageHandler"/> to use with this WebDavSession.</param>
-        /// <remarks>If credentials are needed, these are part of the <see cref="System.Net.Http.HttpMessageHandler"/> and are specified with it.</remarks>
+        /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> to use with this WebDavSession.</param>
+        /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
         public WebDavSession(HttpMessageHandler httpMessageHandler)
             : this(string.Empty, httpMessageHandler)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of WebDavSession with the given base URL and the <see cref="System.Net.Http.HttpMessageHandler"/> specified.
+        /// Initializes a new instance of WebDavSession with the given base URL and the <see cref="HttpMessageHandler"/> specified.
         /// </summary>
         /// <param name="baseUrl">The base URL to use for this WebDavSession.</param>
-        /// <param name="httpMessageHandler">The <see cref="System.Net.Http.HttpMessageHandler"/> to use with this WebDavSession.</param>
-        /// <remarks>If credentials are needed, these are part of the <see cref="System.Net.Http.HttpMessageHandler"/> and are specified with it.</remarks>
+        /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> to use with this WebDavSession.</param>
+        /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
         public WebDavSession(string baseUrl, HttpMessageHandler httpMessageHandler)
             : this(string.IsNullOrEmpty(baseUrl) ? null : new Uri(baseUrl), httpMessageHandler)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of WebDavSession with the given base URI and the <see cref="System.Net.Http.HttpMessageHandler"/> specified.
+        /// Initializes a new instance of WebDavSession with the given base <see cref="Uri"/> and the <see cref="HttpMessageHandler"/> specified.
         /// </summary>
-        /// <param name="baseUri">The base URI to use for this WebDavSession.</param>
-        /// <param name="httpMessageHandler">The <see cref="System.Net.Http.HttpMessageHandler"/> to use with this WebDavSession.</param>
-        /// <remarks>If credentials are needed, these are part of the <see cref="System.Net.Http.HttpMessageHandler"/> and are specified with it.</remarks>
+        /// <param name="baseUri">The base <see cref="Uri"/> to use for this WebDavSession.</param>
+        /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> to use with this WebDavSession.</param>
+        /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
         public WebDavSession(Uri baseUri, HttpMessageHandler httpMessageHandler)
         {
             this.permanentLocks = new ConcurrentDictionary<Uri, PermanentLock>();
@@ -133,7 +133,7 @@ namespace DecaTec.WebDav
         #region Properties
 
         /// <summary>
-        /// Gets or sets the <see cref="System.Net.IWebProxy"/> to use with this WebDavSession.
+        /// Gets or sets the <see cref="IWebProxy"/> to use with this WebDavSession.
         /// </summary>
         public IWebProxy WebProxy
         {
@@ -148,11 +148,11 @@ namespace DecaTec.WebDav
         #region Download file
 
         /// <summary>
-        ///  Downloads a file from the URI specified.
+        ///  Downloads a file from the <see cref="Uri"/> specified.
         /// </summary>
-        /// <param name="uri">The URI of the file to download.</param>
-        /// <param name="localStream">The stream to save the file to.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <param name="uri">The <see cref="Uri"/> of the file to download.</param>
+        /// <param name="localStream">The <see cref="Stream"/> to save the file to.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> DownloadFileAsync(Uri uri, Stream localStream)
         {
             uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
@@ -180,11 +180,11 @@ namespace DecaTec.WebDav
         #region List
 
         /// <summary>
-        /// Retrieves a list of files and directories of the directory at the URI specified using the PropFind specified.
+        /// Retrieves a list of files and directories of the directory at the <see cref="Uri"/> specified using the <see cref="PropFind"/> specified.
         /// </summary>
-        /// <param name="uri">The URI of the directory which content should be listed.</param>
-        /// <param name="propFind">The PropFind to use. Different PropFind  types can be created using the static methods of the class <see cref="PropFind"/>.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <param name="uri">The <see cref="Uri"/> of the directory which content should be listed.</param>
+        /// <param name="propFind">The <see cref="PropFind"/> to use. Different PropFind  types can be created using the static methods of the class <see cref="PropFind"/>.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<IList<WebDavSessionListItem>> ListAsync(Uri uri, PropFind propFind)
         {
             if (propFind == null)
@@ -306,11 +306,11 @@ namespace DecaTec.WebDav
         #region Upload file
 
         /// <summary>
-        /// Uploads a file to the URI specified.
+        /// Uploads a file to the <see cref="Uri"/> specified.
         /// </summary>
-        /// <param name="uri">The URI of the file to upload.</param>
-        /// <param name="localStream">The stream containing the file to upload.</param>
-        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <param name="uri">The <see cref="Uri"/> of the file to upload.</param>
+        /// <param name="localStream">The <see cref="Stream"/> containing the file to upload.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> UploadFileAsync(Uri uri, Stream localStream)
         {
             uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);

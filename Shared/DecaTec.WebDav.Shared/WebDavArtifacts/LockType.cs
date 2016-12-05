@@ -27,7 +27,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         private Write writeField;
 
         /// <summary>
-        /// Gets or sets the Write.
+        /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.Write"/>.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.Write)]
         public Write Write

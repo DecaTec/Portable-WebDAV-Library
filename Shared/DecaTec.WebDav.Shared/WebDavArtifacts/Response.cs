@@ -54,7 +54,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         }
 
         /// <summary>
-        /// Gets or sets the ItemsElementName.
+        /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.ItemsChoiceType"/> array.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.ItemsElementName, Order = 2)]
         [XmlIgnore()]

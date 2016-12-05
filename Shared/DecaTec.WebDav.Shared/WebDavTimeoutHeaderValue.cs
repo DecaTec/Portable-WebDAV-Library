@@ -29,7 +29,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Creates a new WebDavTimeoutHeaderValue with the timeout specified.
         /// </summary>
-        /// <param name="timeout">The timeout as TimeSpan.</param>
+        /// <param name="timeout">The timeout as <see cref="TimeSpan"/>.</param>
         /// <returns>A new WebDavTimeoutHeaderValue with the timeout specified.</returns>
         public static WebDavTimeoutHeaderValue CreateWebDavTimeout(TimeSpan timeout)
         {
@@ -41,7 +41,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Creates a new WebDavTimeoutHeaderValue with infinite timeout and an alternative timeout.
         /// </summary>
-        /// <param name="alternativeTimeout">The alternative timeout.</param>
+        /// <param name="alternativeTimeout">The alternative timeout as <see cref="TimeSpan"/>.</param>
         /// <returns>A new WebDavTimeoutHeaderValue with infinite timeout and an alternative timeout.</returns>
         public static WebDavTimeoutHeaderValue CreateInfiniteWebDavTimeoutWithAlternative(TimeSpan alternativeTimeout)
         {

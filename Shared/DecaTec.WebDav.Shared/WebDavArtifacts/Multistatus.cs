@@ -17,7 +17,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         private string responsedescriptionField;
 
         /// <summary>
-        /// Gets or sets the Response.
+        /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.Response"/> array.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.Response)]
         public Response[] Response

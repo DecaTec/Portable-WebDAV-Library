@@ -16,7 +16,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         private Link[] linkField;
 
         /// <summary>
-        /// Gets or sets the Link.
+        /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.Link"/> array.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.Link)]
         public Link[] Link

@@ -16,7 +16,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         private ActiveLock[] activelockField;
 
         /// <summary>
-        /// Gets or sets the ActiveLock.
+        /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.ActiveLock"/> array.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.ActiveLock)]
         public ActiveLock[] ActiveLock

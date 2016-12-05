@@ -12,8 +12,8 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Adds a trailing slash to a URI (only if needed).
         /// </summary>
-        /// <param name="uri">The URI to add the trailing slash when needed.</param>
-        /// <returns>The URI with a trailing slash (only if needed).</returns>
+        /// <param name="uri">The <see cref="Uri"/> to add the trailing slash when needed.</param>
+        /// <returns>The <see cref="Uri"/> with a trailing slash (only if needed).</returns>
         public static Uri AddTrailingSlash(Uri uri)
         {
             return new Uri(AddTrailingSlash(uri.ToString()), UriKind.RelativeOrAbsolute);
@@ -52,11 +52,11 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Gets an absolute URI from a base URI and a relative URI.
+        /// Gets an absolute <see cref="Uri"/> from a base URI and a relative URI.
         /// </summary>
-        /// <param name="baseUri">The base URI.</param>
-        /// <param name="relativeUri">The relative URI.</param>
-        /// <returns>The combined URI from the base and relative URI.</returns>
+        /// <param name="baseUri">The base <see cref="Uri"/>.</param>
+        /// <param name="relativeUri">The relative <see cref="Uri"/>.</param>
+        /// <returns>The combined <see cref="Uri"/> from the base and relative URI.</returns>
         public static Uri GetAbsoluteUri(Uri baseUri, Uri relativeUri)
         {
             if (baseUri == null)
@@ -72,11 +72,11 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Gets an absolute URI from a base URI and a relative URI with a trailing slash when needed.
+        /// Gets an absolute <see cref="Uri"/> from a base URI and a relative URI with a trailing slash when needed.
         /// </summary>
-        /// <param name="baseUri">The base URI.</param>
-        /// <param name="relativeUri">The relative URI.</param>
-        /// <returns>An absolute URI from a base URI and a relative URI with a trailing slash when needed.</returns>
+        /// <param name="baseUri">The base <see cref="Uri"/>.</param>
+        /// <param name="relativeUri">The relative <see cref="Uri"/>.</param>
+        /// <returns>An absolute <see cref="Uri"/> from a base URI and a relative URI with a trailing slash when needed.</returns>
         /// <remarks>This is a combination of the methods GetAbsoluteUri and AddTrailingSlash in this class.</remarks>
         public static Uri GetAbsoluteUriWithTrailingSlash(Uri baseUri, Uri relativeUri)
         {

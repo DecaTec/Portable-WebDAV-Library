@@ -10,10 +10,10 @@ namespace DecaTec.WebDav
     public static partial class WebDavHelper
     {
         /// <summary>
-        /// Gets a LockToken from a WebDavResponseMessage.
+        /// Gets a <see cref="LockToken"/> from a <see cref="HttpResponseMessage"/>.
         /// </summary>
-        /// <param name="responseMessage">The WebDavResponseMessage whose LockToken should be retrieved.</param>
-        /// <returns>The LockToken of the WebDavResponseMessage or null if the WebDavResponseMessage does not contain a lock token.</returns>
+        /// <param name="responseMessage">The WebDavResponseMessage as <see cref="HttpResponseMessage"/> whose <see cref="LockToken"/> should be retrieved.</param>
+        /// <returns>The <see cref="LockToken"/> of the WebDavResponseMessage or null if the WebDavResponseMessage does not contain a lock token.</returns>
         public static LockToken GetLockTokenFromWebDavResponseMessage(HttpResponseMessage responseMessage)
         {
             // Try to get lock token from response header.
@@ -36,10 +36,10 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Gets a stream from a string.
+        /// Gets a <see cref="Stream"/> from a <see cref="string"/>.
         /// </summary>
-        /// <param name="s">The string to get the corresponding stream from.</param>
-        /// <returns>The stream of the string.</returns>
+        /// <param name="s">The string to get the corresponding <see cref="Stream"/> from.</param>
+        /// <returns>The <see cref="Stream"/> of the string.</returns>
         public static Stream GenerateStreamFromString(string s)
         {
             MemoryStream stream = new MemoryStream();

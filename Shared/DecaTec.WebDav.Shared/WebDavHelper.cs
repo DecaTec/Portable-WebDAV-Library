@@ -15,7 +15,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets a UTF-8 encoded string by serializing the object specified.
         /// </summary>
-        /// <param name="xmlSerializer">The XmlSerializer to use.</param>
+        /// <param name="xmlSerializer">The <see cref="XmlSerializer"/> to use.</param>
         /// <param name="objectToSerialize">The object which should be serialized.</param>
         /// <returns>A UTF-8 encoded string containing the serializes object.</returns>
         public static string GetUtf8EncodedXmlWebDavRequestString(XmlSerializer xmlSerializer, object objectToSerialize)
@@ -28,7 +28,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets a UTF-8 encoded string by serializing the object specified.
         /// </summary>
-        /// <param name="xmlSerializer">The XmlSerializer to use.</param>
+        /// <param name="xmlSerializer">The <see cref="XmlSerializer"/> to use.</param>
         /// <param name="objectToSerialize">The object which should be serialized.</param>
         /// <param name="xmlNamespaces">The namespaces to include.</param>
         /// <returns>A UTF-8 encoded string containing the serializes object.</returns>

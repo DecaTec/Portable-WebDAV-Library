@@ -24,8 +24,8 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets the string representation of a lock token as used in an IF header.
         /// </summary>
-        /// <param name="format">The desired lock token format.</param>
-        /// <returns>A lock token with the desired format.</returns>
+        /// <param name="format">The desired <see cref="LockTokenFormat"/>.</param>
+        /// <returns>A lock token string with the desired format.</returns>
         public string ToString(LockTokenFormat format)
         {
             var sb = new StringBuilder();

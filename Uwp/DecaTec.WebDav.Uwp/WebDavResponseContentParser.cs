@@ -16,10 +16,10 @@ namespace DecaTec.WebDav
         private static readonly XmlSerializer PropSerializer = new XmlSerializer(typeof(Prop));
 
         /// <summary>
-        /// Extracts a <see cref="DecaTec.WebDav.WebDavArtifacts.Multistatus"/> from a <see cref="System.Net.Http.HttpContent"/>.
+        /// Extracts a <see cref="Multistatus"/> from a <see cref="IHttpContent"/>.
         /// </summary>
-        /// <param name="content">The HttpContent containing the <see cref="DecaTec.WebDav.WebDavArtifacts.Multistatus"/> as XML.</param>
-        /// <returns>The <see cref="DecaTec.WebDav.WebDavArtifacts.Multistatus"/> object.</returns>
+        /// <param name="content">The <see cref="IHttpContent"/> containing the <see cref="Multistatus"/> as XML.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public static async Task<Multistatus> ParseMultistatusResponseContentAsync(IHttpContent content)
         {
             if (content == null)
@@ -44,10 +44,10 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Extracts a <see cref="DecaTec.WebDav.WebDavArtifacts.Prop"/> from a <see cref="System.Net.Http.HttpContent"/>.
+        /// Extracts a <see cref="Prop"/> from a <see cref="IHttpContent"/>.
         /// </summary>
-        /// <param name="content">The HttpContent containing the <see cref="DecaTec.WebDav.WebDavArtifacts.Prop"/> as XML.</param>
-        /// <returns>The <see cref="DecaTec.WebDav.WebDavArtifacts.Prop"/> object.</returns>
+        /// <param name="content">The <see cref="IHttpContent"/> containing the <see cref="Prop"/> as XML.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public static async Task<Prop> ParsePropResponseContentAsync(IHttpContent content)
         {
             if (content == null)

@@ -298,7 +298,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         }
 
         /// <summary>
-        /// Gets or sets the Source.
+        /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.Source"/>.
         /// </summary>
         [XmlElement(ElementName = PropNameConstants.Source)]
         public Source Source
@@ -314,7 +314,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         }
 
         /// <summary>
-        /// Gets or sets the ResourceType.
+        /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.ResourceType"/>.
         /// </summary>
         [XmlElement(ElementName = PropNameConstants.ResourceType)]
         public ResourceType ResourceType
@@ -506,7 +506,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         }
 
         /// <summary>
-        /// Gets or sets the LockDiscovery.
+        /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.LockDiscovery"/>.
         /// </summary>
         [XmlElement(ElementName = PropNameConstants.LockDiscovery)]
         public LockDiscovery LockDiscovery

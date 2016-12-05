@@ -9,10 +9,10 @@ namespace DecaTec.WebDav
     public static partial class WebDavHelper
     {
         /// <summary>
-        /// Gets a LockToken from a WebDavResponseMessage.
+        /// Gets a <see cref="LockToken"/> from a <see cref="WebDavResponseMessage"/>.
         /// </summary>
-        /// <param name="responseMessage">The WebDavResponseMessage whose LockToken should be retrieved.</param>
-        /// <returns>The LockToken of the WebDavResponseMessage or null if the WebDavResponseMessage does not contain a lock token.</returns>
+        /// <param name="responseMessage">The <see cref="WebDavResponseMessage"/> whose <see cref="LockToken"/> should be retrieved.</param>
+        /// <returns>The <see cref="LockToken"/> of the <see cref="WebDavResponseMessage"/> or null if the WebDavResponseMessage does not contain a lock token.</returns>
         public static LockToken GetLockTokenFromWebDavResponseMessage(WebDavResponseMessage responseMessage)
         {
             // Try to get lock token from response header.

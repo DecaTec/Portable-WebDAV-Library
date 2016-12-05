@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace DecaTec.WebDav
 {
     /// <summary>
-    /// Class representing a permanent lock for use in WebDavSession.
+    /// Class representing a permanent lock for use in <see cref="WebDavSession"/>.
     /// </summary>
     internal partial class PermanentLock : IDisposable
     {
@@ -14,9 +14,9 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Initializes a new instance of PermanentLock.
         /// </summary>
-        /// <param name="webDavClient">The WebDavClient to use.</param>
-        /// <param name="lockToken">The LockToken to use.</param>
-        /// <param name="lockRoot">The root folder of the lock.</param>
+        /// <param name="webDavClient">The <see cref="WebDavClient"/> to use.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> to use.</param>
+        /// <param name="lockRoot">The <see cref="Uri"/> of the root folder of the lock.</param>
         /// <param name="timeoutString">The timeout string of the lock.</param>
         internal PermanentLock(WebDavClient webDavClient, LockToken lockToken, Uri lockRoot, string timeoutString)
         {
@@ -52,7 +52,7 @@ namespace DecaTec.WebDav
         #region Properties
 
         /// <summary>
-        /// Gets or sets the WebDavClient.
+        /// Gets or sets the <see cref="WebDavClient"/>.
         /// </summary>
         private WebDavClient WebDavClient
         {
@@ -61,7 +61,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Gets the LockToken.
+        /// Gets the <see cref="DecaTec.WebDav.LockToken"/>.
         /// </summary>
         internal LockToken LockToken
         {
@@ -70,7 +70,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Gets or sets the root folder of the lock.
+        /// Gets or sets the <see cref="Uri"/> of the root folder of the lock.
         /// </summary>
         internal Uri LockRoot
         {
@@ -88,10 +88,6 @@ namespace DecaTec.WebDav
         }
 
         #endregion Properties
-
-        #region Internal methods
-
-        #endregion Internal methods
 
         #region Private methods
 

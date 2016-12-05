@@ -30,7 +30,7 @@ namespace DecaTec.WebDav
         /// Initializes a new instance of WebDavException.
         /// </summary>
         /// <param name="message">The exception message.</param>
-        /// <param name="innerException">The inner exception.</param>
+        /// <param name="innerException">The inner <see cref="Exception"/>.</param>
         public WebDavException(string message, Exception innerException)
             : base(message, innerException)
         {
