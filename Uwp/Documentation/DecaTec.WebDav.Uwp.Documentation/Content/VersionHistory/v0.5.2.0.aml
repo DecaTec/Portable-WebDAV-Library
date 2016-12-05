@@ -18,7 +18,13 @@
 
           <listItem>
             <para>
-              New overloads for WebDavSession.ListAsync where a PropFind can be specified.
+              New overloads for WebDavSession.ListAsync where a PropFind can be specified (e.g. PropFind.CreatePropFindWithEmptyPropertiesAll()).
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              Updated and improved documentation.
             </para>
           </listItem>
 

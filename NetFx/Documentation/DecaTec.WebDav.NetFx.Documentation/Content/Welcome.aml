@@ -94,6 +94,21 @@ foreach (var item in items)
 }
           ]]>
         </code>
+        <para>
+          By default, WebDavSession uses a so called allprop when listing the contents of a folder. The WebDAV server should return all known properties. Which properties are returned
+          depends on the WebDAV server. If not all of the expected properties are returned or you only need a subset of all known properties, you can specify another PropFind type when calling ListAsync:
+        </para>
+        <code language="c#">
+          <![CDATA[
+var propFind = PropFind.CreatePropFindWithEmptyProperties(PropNameConstants.IsHidden, PropNameConstants.DisplayName, PropNameConstants.Name, PropNameConstants.GetContentType, PropNameConstants.CreationDate, PropNameConstants.ResourceType, PropNameConstants.GetLastModified, PropNameConstants.GetContentLength);
+var items = await webDavSession.ListAsync(@"MyFolder/", propFind);
+
+foreach (var item in items)
+{
+    // Handle the response (list of WebDavSessionListItems); only the properties specified with propFind should be returned by the server.
+}
+          ]]>
+        </code>
         
         <para>
           <legacyBold>WebDavClient</legacyBold>
