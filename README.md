@@ -2,10 +2,10 @@
 
 # Project description
 
-Portable WebDAV Library is a fully [RFC 4918](http://tools.ietf.org/html/rfc4918) compliant WebDAV client library which is implemented as portable class library (PCL) for use on desktop environments as well as mobile devices.
+The Portable WebDAV Library is a strongly typed, async WebDAV client library which is fully [RFC 4918](http://tools.ietf.org/html/rfc4918)/[RFC 4331](https://tools.ietf.org/html/rfc4331) compliant. It is implemented as portable class library (PCL) for use on desktop environments as well as mobile devices.
 
 # Main project aims
-* Full compliance to RFC 4918 (*HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)*)
+* Full compliance to [RFC 4918 (*HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)*)](http://tools.ietf.org/html/rfc4918) and [RFC 4331 (*Quota and Size Properties for Distributed Authoring and Versioning (DAV) Collections*)](https://tools.ietf.org/html/rfc4331)
 * Portability: Mobile and desktop environment (project targets .NET Framework 4.5.1, Windows 8.1 and Windows Phone 8.1 or later)
 * Level of abstraction: There is a low level of abstraction (class **WebDavClient**) which supports all WebDAV operations directly. This is recommended for users who are familiar with the RFC 4918 specification. A higher level of abstraction is also provided (class **WebDavSession**) that hides most of the WebDAV specific operations and provides an easy access to WebDAV Servers
 * Fast and fluid: All operations which might last longer are implemented as asynchronous methods
