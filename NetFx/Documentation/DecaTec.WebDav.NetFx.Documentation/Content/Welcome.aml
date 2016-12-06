@@ -3,7 +3,7 @@
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>
-        Portable WebDAV Library is a fully <externalLink><linkText>RFC 4918</linkText><linkUri>http://tools.ietf.org/html/rfc4918</linkUri></externalLink> compliant WebDAV client library which is implemented as portable class library (PCL) for use on desktop environments as well as mobile devices.
+        The Portable WebDAV Library is a strongly typed, async WebDAV client library which is fully <externalLink><linkText>RFC 4918</linkText><linkUri>http://tools.ietf.org/html/rfc4918</linkUri></externalLink> and <externalLink><linkText>RFC 4331</linkText><linkUri>https://tools.ietf.org/html/rfc4331</linkUri></externalLink> compliant. It is implemented as portable class library (PCL) for use on desktop environments as well as mobile devices.
       </para>
       <para>
         <legacyBold>This is the documentation for the DecaTec.WebDav.NetFx part of the Portable WebDAV Library.</legacyBold>
