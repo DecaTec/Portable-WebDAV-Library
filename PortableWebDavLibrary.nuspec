@@ -2,16 +2,16 @@
 <package >
   <metadata>
     <id>PortableWebDavLibrary</id>
-    <version>0.5.2.0</version>
+    <version>0.5.3.0</version>
     <authors>DecaTec</authors>
     <owners>DecaTec</owners>
     <licenseUrl>https://github.com/DecaTec/Portable-WebDAV-Library/raw/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/DecaTec/Portable-WebDAV-Library</projectUrl>
     <iconUrl>https://github.com/DecaTec/Portable-WebDAV-Library/raw/master/Assets/NuGetLogo.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>Portable WebDAV Library is a fully RFC 4918 compliant WebDAV client library which is implemented das portable class library (PCL) for use on desktop environments as well as mobile devices.</description>
+    <description>The Portable WebDAV Library is a strongly typed, async WebDAV client library which is fully RFC 4918/RFC 4331 compliant. It is implemented as portable class library (PCL) for use on desktop environments as well as mobile devices.</description>
     <releaseNotes>For full release notes see https://github.com/DecaTec/Portable-WebDAV-Library/raw/master/changelog.md</releaseNotes>
-    <tags>WebDAV, portable, PortableClassLibrary, PortableWebDavLibrary, UWP</tags>
+    <tags>WebDAV, portable, PortableClassLibrary, PortableWebDavLibrary, UWP, .NET, C#</tags>
     <dependencies>      
     </dependencies>
   </metadata>
