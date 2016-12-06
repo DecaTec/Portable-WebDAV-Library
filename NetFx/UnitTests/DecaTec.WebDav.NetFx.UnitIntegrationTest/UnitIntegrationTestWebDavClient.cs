@@ -58,7 +58,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         #region PropFind
 
         [TestMethod]
-        public void UIT_NetFx_tWebDavClient_PropFindAllProp()
+        public void UIT_NetFx_WebDavClient_PropFindAllProp()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             PropFind pf = PropFind.CreatePropFindAllProp();
