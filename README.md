@@ -24,6 +24,8 @@ Since v0.3.0.0, the Portable WebDAV Library is split into two parts:
 The split was necessary because these were too many limitations when using the library in UWP projects. Now, the two versions of the library use different APIs for web resource access to offer best support for all target platforms.
  
 # Documentation
+There is a full documentation of the library with some example code available.
+
 * **DecaTec.WebDav.NetFx**:
 
 **[Portable WebDAV Library online documentation (NetFx)](https://decatec.de/ext/PortableWebDAVLibrary/Doc/NetFx/index.html)**
