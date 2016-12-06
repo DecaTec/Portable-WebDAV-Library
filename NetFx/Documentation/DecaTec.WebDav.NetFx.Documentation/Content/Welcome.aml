@@ -95,7 +95,7 @@ foreach (var item in items)
           ]]>
         </code>
         <para>
-          By default, WebDavSession uses a so called allprop when listing the contents of a folder. The WebDAV server should return all known properties. Which properties are returned
+          By default, WebDavSession uses a so called 'allprop' when listing the contents of a folder. The WebDAV server should return all known properties. Which properties are returned
           depends on the WebDAV server. If not all of the expected properties are returned or you only need a subset of all known properties, you can specify another PropFind type when calling ListAsync:
         </para>
         <code language="c#">
@@ -130,7 +130,7 @@ httpClientHandler.PreAuthenticate = true;
 // Use the HttpClientHandler to create the WebDavClient.
 var webDavClient = new WebDavClient(httpClientHandler);
 
-// Create a PropFind object with represents a so called allprop request.
+// Create a PropFind object with represents a so called 'allprop' request.
 PropFind pf = PropFind.CreatePropFindAllProp();
 var response = await webDavClient.PropFindAsync(@"http://www.myserver.com/webdav/myfolder/", WebDavDepthHeaderValue.Infinity, pf);
 
@@ -168,7 +168,7 @@ foreach (var responseItem in multistatus.Response)
           Most communication regarding WebDAV is realized with XML strings sent or received in the content of requests or responses. The library contains the WebDAV object 
           model implemented in classes/enums, so there is no need to build up or parse any XML strings directly. Of course you can also use XML strings directly.
         </para>
-        <para>As an example: For sending a so called allprop request, you'll need an XML content in the request which looks like this:</para>
+        <para>As an example: For sending a so called 'allprop' request, you'll need an XML content in the request which looks like this:</para>
         <code language="xml">
           <![CDATA[
 <?xml version="1.0" encoding="utf-8"?>
@@ -195,9 +195,9 @@ PropFind pf = PropFind.CreatePropFindAllProp();
           ]]>
         </code>
         <para>
-          This will create an allprop PropFind object which can be directly passed to the corresponding method in the WebDavClient. 
-          Many classes of the WebDAV object model contain static methods for creating standard WebDAV request contents. 
-          Keep in mind that the WebDAV object model implemented in this library can only be used with the WebDavClient class. When using the WebDavSession class, there is no need to 
+          This will create an 'allprop' PropFind object which can be directly passed to the corresponding method in the WebDavClient.
+          Many classes of the WebDAV object model contain static methods for creating standard WebDAV request contents.
+          Keep in mind that the WebDAV object model implemented in this library can only be used with the WebDavClient class. When using the WebDavSession class, there is no need to
           bother about the content of WebDAV requests/responses, thus the WebDAV object model is not needed in this case.
         </para>
         <para></para>

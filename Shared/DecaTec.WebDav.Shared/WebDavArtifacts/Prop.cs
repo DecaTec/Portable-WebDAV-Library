@@ -113,7 +113,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         }
 
         /// <summary>
-        /// Creates a Prop with all empty properties which are defined in RFC4918. This is especially useful for PROPFIND commands when the so called AllProp cannot be used because the WebDAV server does not return all properties.
+        /// Creates a Prop with all empty properties which are defined in RFC4918. This is especially useful for PROPFIND commands when the so called 'allprop' cannot be used because the WebDAV server does not return all properties.
         /// </summary>
         /// <returns>A Prop with all empty properties defined in RFC4918.</returns>
         public static Prop CreatePropWithEmptyPropertiesAll()

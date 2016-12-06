@@ -52,35 +52,49 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Gets an absolute <see cref="Uri"/> from a base URI and a relative URI.
+        /// Gets a combined <see cref="Uri"/> from two URIs.
         /// </summary>
-        /// <param name="baseUri">The base <see cref="Uri"/>.</param>
-        /// <param name="relativeUri">The relative <see cref="Uri"/>.</param>
-        /// <returns>The combined <see cref="Uri"/> from the base and relative URI.</returns>
-        public static Uri GetAbsoluteUri(Uri baseUri, Uri relativeUri)
+        /// <param name="uri1">The first <see cref="Uri"/>.</param>
+        /// <param name="uri2">The second <see cref="Uri"/>.</param>
+        /// <returns>The combined <see cref="Uri"/> from the two URIs specified.</returns>
+        public static Uri CombineUri(Uri uri1, Uri uri2)
         {
-            if (baseUri == null)
-                return relativeUri;
+            if (uri1 == null)
+                return uri2;
             else
             {
-                if (baseUri.IsAbsoluteUri && relativeUri.IsAbsoluteUri
-                    && (baseUri.Scheme != relativeUri.Scheme || baseUri.Host != relativeUri.Host))
+                if (uri1.IsAbsoluteUri && uri2.IsAbsoluteUri
+                    && (uri1.Scheme != uri2.Scheme || uri1.Host != uri2.Host))
                     throw new ArgumentException("The absolute URIs provided do not have the same host/scheme");
 
-                return new Uri(baseUri, relativeUri);
+                if (!uri1.IsAbsoluteUri && uri2.IsAbsoluteUri)
+                    throw new ArgumentException("Cannot combine URIs because uri1 is relative URI and uri2 is absolute URI");
+
+                if (uri1.IsAbsoluteUri && uri2.IsAbsoluteUri)
+                    return new Uri(uri1, uri2);
+                else if (!uri1.IsAbsoluteUri && !uri2.IsAbsoluteUri)
+                {
+                    return new Uri(uri1.ToString().TrimEnd('/') + "/" + uri2.ToString().TrimStart('/'), UriKind.Relative);
+                }
+                else
+                {
+                    UriBuilder uriBuilder = new UriBuilder(uri1);
+                    uriBuilder.Path = uriBuilder.Path.TrimEnd('/') + "/" + uri2.ToString().TrimStart('/');
+                    return uriBuilder.Uri;
+                }
             }
         }
 
         /// <summary>
-        /// Gets an absolute <see cref="Uri"/> from a base URI and a relative URI with a trailing slash when needed.
+        /// Gets a combined <see cref="Uri"/> from two URIs (absolute or relative) with a trailing slash added at the end when needed.
         /// </summary>
-        /// <param name="baseUri">The base <see cref="Uri"/>.</param>
-        /// <param name="relativeUri">The relative <see cref="Uri"/>.</param>
-        /// <returns>An absolute <see cref="Uri"/> from a base URI and a relative URI with a trailing slash when needed.</returns>
-        /// <remarks>This is a combination of the methods GetAbsoluteUri and AddTrailingSlash in this class.</remarks>
-        public static Uri GetAbsoluteUriWithTrailingSlash(Uri baseUri, Uri relativeUri)
+        /// <param name="uri1">The first <see cref="Uri"/>.</param>
+        /// <param name="uri2">The second <see cref="Uri"/>.</param>
+        /// <returns>A combined <see cref="Uri"/> from the two URIs specified with a trailing slash added at the end when needed.</returns>
+        /// <remarks>This is a combination of the methods CombineUri and AddTrailingSlash in this class.</remarks>
+        public static Uri GetCombinedUriWithTrailingSlash(Uri uri1, Uri uri2)
         {
-            return AddTrailingSlash(GetAbsoluteUri(baseUri, relativeUri));
+            return AddTrailingSlash(CombineUri(uri1, uri2));
         }
     }
 }

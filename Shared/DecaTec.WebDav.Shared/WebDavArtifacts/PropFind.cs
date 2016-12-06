@@ -12,7 +12,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
     public class PropFind
     {
         /// <summary>
-        /// Creates a PropFind instance representing an AllProp-Propfind.
+        /// Creates a PropFind instance representing an 'allprop'-Propfind.
         /// </summary>
         /// <returns>A PropFind instance containing an <see cref="DecaTec.WebDav.WebDavArtifacts.AllProp"/> element.</returns>
         public static PropFind CreatePropFindAllProp()

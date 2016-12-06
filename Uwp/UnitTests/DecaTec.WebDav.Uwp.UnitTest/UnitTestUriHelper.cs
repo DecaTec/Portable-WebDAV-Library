@@ -7,7 +7,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
     public class UnitTestUriHelper
     {
         [TestMethod]
-        public void UT_UWP_UriHelper_TrailingSlashNeededUrl()
+        public void UT_UWP_UriHelper_AddTrailingSlashTrailingSlashNeededUrl()
         {
             string url = "http://www.google.de/test";
             string urlWithTrailingSlash = UriHelper.AddTrailingSlash(url);
@@ -16,7 +16,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
         }
 
         [TestMethod]
-        public void UT_UWP_UriHelper_TrailingSlashNeededUri()
+        public void UT_UWP_UriHelper_AddTrailingSlashTrailingSlashNeededUri()
         {
             Uri uri = new Uri("http://www.google.de/test");
             Uri uriWithTrailingSlash = UriHelper.AddTrailingSlash(uri);
@@ -25,7 +25,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
         }
 
         [TestMethod]
-        public void UT_UWP_UriHelper_TrailingSlashNotNeededUrl()
+        public void UT_UWP_UriHelper_AddTrailingSlashTrailingSlashNotNeededUrl()
         {
             string url = "http://www.google.de/test/";
             string urlWithTrailingSlash = UriHelper.AddTrailingSlash(url);
@@ -33,7 +33,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
         }
 
         [TestMethod]
-        public void UT_UWP_UriHelper_TrailingSlashNotNeededUri()
+        public void UT_UWP_UriHelper_AddTrailingSlashTrailingSlashNotNeededUri()
         {
             Uri uri = new Uri("http://www.google.de/test/");
             Uri uriWithTrailingSlash = UriHelper.AddTrailingSlash(uri);
@@ -41,7 +41,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
         }
 
         [TestMethod]
-        public void UT_UWP_UriHelper_TrailingSlashTooManySlashes()
+        public void UT_UWP_UriHelper_AddTrailingSlashTrailingSlashTooManySlashes()
         {
             string url = "http://www.google.de//test//";
             string urlWithTrailingSlash = UriHelper.AddTrailingSlash(url);
@@ -50,7 +50,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
         }
 
         [TestMethod]
-        public void UT_UWP_UriHelper_TrailingSlashFileUrl()
+        public void UT_UWP_UriHelper_AddTrailingSlashTrailingSlashFileUrl()
         {
             string url = "http://www.google.de/test/test.txt";
             string urlWithTrailingSlash = UriHelper.AddTrailingSlash(url);
@@ -58,7 +58,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
         }
 
         [TestMethod]
-        public void UT_UWP_UriHelper_TrailingSlashFileUri()
+        public void UT_UWP_UriHelper_AddTrailingSlashTrailingSlashFileUri()
         {
             Uri uri = new Uri("http://www.google.de/test/test.txt");
             Uri uriWithTrailingSlash = UriHelper.AddTrailingSlash(uri);
@@ -66,7 +66,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
         }
 
         [TestMethod]
-        public void UT_UWP_UriHelper_TrailingSlashRelativeUri()
+        public void UT_UWP_UriHelper_AddTrailingSlashTrailingSlashRelativeUri()
         {
             Uri uri = new Uri("/webdav/test", UriKind.Relative);
             Uri uriWithTrailingSlash = UriHelper.AddTrailingSlash(uri);
@@ -75,104 +75,144 @@ namespace DecaTec.WebDav.Uwp.UnitTest
         }
 
         [TestMethod]
-        public void UT_UWP_UriHelper_GetAbsoluteUriWithBaseUri()
+        public void UT_UWP_UriHelper_GetCombinedUriWithTrailingSlashWithTrailingSlashWithBaseUri()
+        {
+            Uri baseUri = new Uri("http://www.google.de");
+            Uri relativeUri = new Uri("test2", UriKind.RelativeOrAbsolute);
+            Uri combinedUri = UriHelper.GetCombinedUriWithTrailingSlash(baseUri, relativeUri);
+            Uri expected = new Uri("http://www.google.de/test2/");
+            Assert.AreEqual(expected, combinedUri);
+        }
+
+        [TestMethod]
+        public void UT_UWP_UriHelper_CombineUriWithBaseUri()
         {
             Uri baseUri = new Uri("http://www.google.de/test/");
             Uri relativeUri = new Uri("test2/", UriKind.Relative);
-            Uri combinedUri = UriHelper.GetAbsoluteUri(baseUri, relativeUri);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
             Uri expected = new Uri("http://www.google.de/test/test2/");
             Assert.AreEqual(expected, combinedUri);
         }
 
         [TestMethod]
-        public void UT_UWP_UriHelper_GetAbsoluteUriWithDoubleBaseUri()
+        public void UT_UWP_UriHelper_CombineUriWithDoubleBaseUri()
         {
             Uri baseUri = new Uri("http://www.google.de/test/");
             Uri relativeUri = new Uri("http://www.google.de/test/test2/");
-            Uri combinedUri = UriHelper.GetAbsoluteUri(baseUri, relativeUri);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
             Uri expected = new Uri("http://www.google.de/test/test2/");
             Assert.AreEqual(expected, combinedUri);
         }
 
         [TestMethod]
-        public void UT_UWP_UriHelper_GetAbsoluteUriWithBaseUriAndAbsoluteUri()
+        public void UT_UWP_UriHelper_CombineUriWithBaseUriAndAbsoluteUri()
         {
             Uri baseUri = new Uri("http://www.google.de/test/test2");
             Uri relativeUri = new Uri("test2/test.txt", UriKind.Relative);
-            Uri combinedUri = UriHelper.GetAbsoluteUri(baseUri, relativeUri);
-            Uri expected = new Uri("http://www.google.de/test/test2/test.txt");
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
+            Uri expected = new Uri("http://www.google.de/test/test2/test2/test.txt");
             Assert.AreEqual(expected, combinedUri);
         }
 
         [TestMethod]
-        public void UT_UWP_UriHelper_GetAbsoluteUriWithBaseUriAndAbsoluteUriAndPathRepetition()
-        {
-            Uri baseUri = new Uri("http://www.google.de/test/test");
-            Uri relativeUri = new Uri("test/test.txt", UriKind.Relative);
-            Uri combinedUri = UriHelper.GetAbsoluteUri(baseUri, relativeUri);
-            Uri expected = new Uri("http://www.google.de/test/test/test.txt");
-            Assert.AreEqual(expected, combinedUri);
-        }
-
-        [TestMethod]
-        public void UT_UWP_UriHelper_GetAbsoluteUriFromSameBaseUri()
+        public void UT_UWP_UriHelper_CombineUriFromSameBaseUri()
         {
             Uri baseUri = new Uri("http://www.google.de/test");
             Uri baseUri2 = new Uri("http://www.google.de/test");
-            Uri combinedUri = UriHelper.GetAbsoluteUri(baseUri, baseUri2);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, baseUri2);
             Uri expected = new Uri("http://www.google.de/test");
             Assert.AreEqual(expected, combinedUri);
         }
 
         [TestMethod]
-        public void UT_UWP_UriHelper_GetAbsoluteUriFromSameBaseUriAndPath()
+        public void UT_UWP_UriHelper_CombineUriFromSameBaseUriAndPath()
         {
             Uri baseUri = new Uri("http://www.google.de/test");
             Uri baseUri2 = new Uri("http://www.google.de/test/test2");
-            Uri combinedUri = UriHelper.GetAbsoluteUri(baseUri, baseUri2);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, baseUri2);
             Uri expected = new Uri("http://www.google.de/test/test2");
             Assert.AreEqual(expected, combinedUri);
         }
 
         [TestMethod]
-        public void UT_UWP_UriHelper_GetAbsoluteUriWithoutBaseUri()
+        public void UT_UWP_UriHelper_CombineUriWithoutBaseUri()
         {
             Uri baseUri = null;
             Uri relativeUri = new Uri("http://www.google.de/test/test2/");
-            Uri combinedUri = UriHelper.GetAbsoluteUri(baseUri, relativeUri);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
             Uri expected = new Uri("http://www.google.de/test/test2/");
             Assert.AreEqual(expected, combinedUri);
         }
 
         [TestMethod]
-        public void UT_UWP_UriHelper_GetAbsoluteUriWithTrailingSlashWithBaseUri()
-        {
-            Uri baseUri = new Uri("http://www.google.de");
-            Uri relativeUri = new Uri("test2", UriKind.RelativeOrAbsolute);
-            Uri combinedUri = UriHelper.GetAbsoluteUriWithTrailingSlash(baseUri, relativeUri);
-            Uri expected = new Uri("http://www.google.de/test2/");
-            Assert.AreEqual(expected, combinedUri);
-        }
-
-        [TestMethod]
-        public void UT_UWP_UriHelper_GetAbsoluteUriWithTrailingSlashWithTooManySlashes()
+        public void UT_UWP_UriHelper_CombineUriWithTrailingSlashWithTooManySlashes()
         {
             Uri baseUri = new Uri("http://www.google.de//");
             Uri relativeUri = new Uri("/test2//", UriKind.RelativeOrAbsolute);
-            Uri combinedUri = UriHelper.GetAbsoluteUriWithTrailingSlash(baseUri, relativeUri);
+            Uri combinedUri = UriHelper.GetCombinedUriWithTrailingSlash(baseUri, relativeUri);
             Uri expected = new Uri("http://www.google.de/test2/");
             Assert.AreEqual(expected, combinedUri);
         }
 
         [TestMethod]
-        public void UT_UWP_UriHelper_GetAbsoluteUriFromDifferentBaseUris()
+        public void UT_UWP_UriHelper_CombineUriFromDifferentBaseUris()
         {
             Assert.ThrowsException<ArgumentException>(() =>
             {
                 Uri baseUri = new Uri("http://www.google.de/test");
                 Uri baseUri2 = new Uri("http://www.github.com/test2");
-                Uri combinedUri = UriHelper.GetAbsoluteUriWithTrailingSlash(baseUri, baseUri2);
+                Uri combinedUri = UriHelper.GetCombinedUriWithTrailingSlash(baseUri, baseUri2);
             });
+        }
+
+        [TestMethod]
+        public void UT_UWP_UriHelper_CombineUriFromBaseUriAndSlash()
+        {
+            Uri baseUri = new Uri("http://www.google.de/test");
+            Uri relativeUri = new Uri("/", UriKind.RelativeOrAbsolute);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
+            Uri expected = new Uri("http://www.google.de/test/");
+            Assert.AreEqual(expected, combinedUri);
+        }
+
+        [TestMethod]
+        public void UT_UWP_UriHelper_CombineUriFromBaseUriAndSlashTooManySlashes()
+        {
+            Uri baseUri = new Uri("http://www.google.de/test//");
+            Uri relativeUri = new Uri("//", UriKind.RelativeOrAbsolute);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
+            Uri expected = new Uri("http://www.google.de/test/");
+            Assert.AreEqual(expected, combinedUri);
+        }
+
+        [TestMethod]
+        public void UT_UWP_UriHelper_CombineUriRelativeUriFirst()
+        {
+            Assert.ThrowsException<ArgumentException>(() =>
+            {
+                try
+                {
+                    Uri baseUri = new Uri("/test2", UriKind.RelativeOrAbsolute);
+                    Uri relativeUri = new Uri("http://www.google.de/test/");
+                    Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
+                    Uri expected = new Uri("http://www.google.de/test/");
+                    Assert.AreEqual(expected, combinedUri);
+                }
+                catch (AggregateException ex)
+                {
+                    throw ex.InnerException;
+                }
+            });
+        }
+
+        [TestMethod]
+        public void UT_UWP_UriHelper_CombineUriTwoRelativeUris()
+        {
+            Uri baseUri = new Uri("/test", UriKind.RelativeOrAbsolute);
+            Uri relativeUri = new Uri("test2", UriKind.RelativeOrAbsolute);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
+            Uri expected = new Uri("/test/test2", UriKind.Relative);
+            Assert.AreEqual(expected, combinedUri);
         }
     }
 }

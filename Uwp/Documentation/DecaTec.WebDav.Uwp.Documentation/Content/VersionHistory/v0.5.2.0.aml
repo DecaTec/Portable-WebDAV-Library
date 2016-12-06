@@ -12,7 +12,7 @@
         <list class="bullet">
           <listItem>
             <para>
-              WebDavSession.ListAsync now uses allprop as default.
+              WebDavSession.ListAsync now uses 'allprop' as default.
             </para>
           </listItem>
 

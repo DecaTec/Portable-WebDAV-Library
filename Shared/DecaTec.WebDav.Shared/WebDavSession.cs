@@ -73,8 +73,8 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> CopyAsync(Uri sourceUri, Uri destinationUri, bool overwrite)
         {
-            sourceUri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, sourceUri);
-            destinationUri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, destinationUri);
+            sourceUri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, sourceUri);
+            destinationUri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, destinationUri);
             var lockToken = GetAffectedLockToken(destinationUri);
             var response = await this.webDavClient.CopyAsync(sourceUri, destinationUri, overwrite, WebDavDepthHeaderValue.Infinity, lockToken);
             return response.IsSuccessStatusCode;
@@ -101,7 +101,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> CreateDirectoryAsync(Uri uri)
         {
-            uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri);
             var lockToken = GetAffectedLockToken(uri);
             var response = await this.webDavClient.MkcolAsync(uri, lockToken);
             return response.IsSuccessStatusCode;
@@ -128,7 +128,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> DeleteAsync(Uri uri)
         {
-            uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri);
             var lockToken = GetAffectedLockToken(uri);
             var response = await this.webDavClient.DeleteAsync(uri, lockToken);
             return response.IsSuccessStatusCode;
@@ -170,7 +170,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> ExistsAsync(Uri uri)
         {
-            uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri);
             var response = await this.webDavClient.HeadAsync(uri);
             return response.IsSuccessStatusCode;
         }
@@ -180,11 +180,11 @@ namespace DecaTec.WebDav
         #region List
 
         /// <summary>
-        /// Retrieves a list of files and directories of the directory at the <see cref="Uri"/> specified (using allprop).
+        /// Retrieves a list of files and directories of the directory at the <see cref="Uri"/> specified (using 'allprop').
         /// </summary>
-        /// <param name="uri">The <see cref="Uri"/> of the directory which content should be listed.</param>
+        /// <param name="uri">The <see cref="Uri"/> of the directory which content should be listed. Has to be an absolute URI (including the base URI) or a relative URI (relative to base URI).</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        /// <remarks>This method uses a so called allprop. A server should return all known properties to the server.
+        /// <remarks>This method uses a so called 'allprop'. A server should return all known properties to the server.
         /// If not all of the expected properties are return by the server, use an overload of this method specifying a <see cref="PropFind"/> explicitly.</remarks>
         public async Task<IList<WebDavSessionListItem>> ListAsync(Uri uri)
         {
@@ -194,9 +194,9 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Retrieves a list of files and directories of the directory at the URL specified.
         /// </summary>
-        /// <param name="url">The URL of the directory which content should be listed.</param>
+        /// <param name="url">The URL of the directory which content should be listed. Has to be an absolute URL (including the base URL) or a relative URL (relative to base URL).</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        /// <remarks>This method uses a so called allprop. A server should return all known properties to the server.
+        /// <remarks>This method uses a so called 'allprop'. A server should return all known properties to the server.
         /// If not all of the expected properties are return by the server, use an overload of this method specifying a <see cref="PropFind"/> explicitly.</remarks>
         public async Task<IList<WebDavSessionListItem>> ListAsync(string url)
         {
@@ -206,7 +206,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Retrieves a list of files and directories of the directory at the URL specified.
         /// </summary>
-        /// <param name="url">The URL of the directory which content should be listed.</param>
+        /// <param name="url">The URL of the directory which content should be listed. Has to be an absolute URL (including the base URL) or a relative URL (relative to base URL).</param>
         /// <param name="propFind">The <see cref="PropFind"/> to use. Different PropFind  types can be created using the static methods of the class <see cref="PropFind"/>.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<IList<WebDavSessionListItem>> ListAsync(string url, PropFind propFind)
@@ -235,7 +235,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> LockAsync(Uri uri)
         {
-            uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri);
 
             if (this.permanentLocks.ContainsKey(uri))
                 return true; // Lock already set.
@@ -316,8 +316,8 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> MoveAsync(Uri sourceUri, Uri destinationUri, bool overwrite)
         {
-            sourceUri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, sourceUri);
-            destinationUri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, destinationUri);
+            sourceUri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, sourceUri);
+            destinationUri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, destinationUri);
             var lockTokenSource = GetAffectedLockToken(sourceUri);
             var lockTokenDestination = GetAffectedLockToken(destinationUri);
             var response = await this.webDavClient.MoveAsync(sourceUri, destinationUri, overwrite, lockTokenSource, lockTokenDestination);
@@ -360,7 +360,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> UnlockAsync(Uri uri)
         {
-            uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri);
             PermanentLock permanentLock;
 
             if (!this.permanentLocks.TryRemove(uri, out permanentLock))
@@ -387,7 +387,7 @@ namespace DecaTec.WebDav
 
         private LockToken GetAffectedLockToken(Uri uri)
         {
-            uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri);
 
             foreach (var lockItem in this.permanentLocks)
             {

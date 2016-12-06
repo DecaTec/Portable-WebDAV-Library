@@ -49,9 +49,14 @@
         <HelpKeyword index="K" term="version, 0.5.1.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="751d4b09-9b05-4d30-8aa1-7a0595524d46" visible="True" isSelected="true" title="Version 0.5.2.0">
+    <Topic id="751d4b09-9b05-4d30-8aa1-7a0595524d46" visible="True" title="Version 0.5.2.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.5.2.0" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="ecc8aa8b-ad07-4724-a472-2df10a6767c5" visible="True" isSelected="true" title="Version 0.5.3.0">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 0.5.3.0" />
       </HelpKeywords>
     </Topic>
   </Topic>

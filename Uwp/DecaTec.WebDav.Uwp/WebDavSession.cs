@@ -150,7 +150,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> DownloadFileAsync(Uri uri, Stream localStream)
         {
-            uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri);
             var response = await this.webDavClient.GetAsync(uri);
 
             if (response.Content != null)
@@ -180,7 +180,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<IBuffer> DownloadFileAsync(Uri uri, CancellationTokenSource cts, IProgress<HttpProgress> progress)
         {
-            uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri);
             return await this.webDavClient.DownloadFileAsync(uri, cts, progress);
         }
 
@@ -191,7 +191,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Retrieves a list of files and directories of the directory at the <see cref="Uri"/> specified using the <see cref="PropFind"/> specified.
         /// </summary>
-        /// <param name="uri">The <see cref="Uri"/> of the directory which content should be listed.</param>
+        /// <param name="uri">The <see cref="Uri"/> of the directory which content should be listed. Has to be an absolute URI (including the base URI) or a relative URI (relative to base URI).</param>
         /// <param name="propFind">The <see cref="PropFind"/> to use. Different PropFind  types can be created using the static methods of the class <see cref="PropFind"/>.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<IList<WebDavSessionListItem>> ListAsync(Uri uri, PropFind propFind)
@@ -199,7 +199,7 @@ namespace DecaTec.WebDav
             if (propFind == null)
                 throw new ArgumentException("Argument propFind must not be null.");
 
-            uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri);
             var response = await this.webDavClient.PropFindAsync(uri, WebDavDepthHeaderValue.One, propFind);
 
             if (response.StatusCode.ToString() != WebDavStatusCode.MultiStatus.ToString())
@@ -219,7 +219,7 @@ namespace DecaTec.WebDav
                 {
                     if (Uri.TryCreate(responseItem.Href, UriKind.RelativeOrAbsolute, out href))
                     {
-                        var fullQualifiedUri = UriHelper.GetAbsoluteUri(uri, href);
+                        var fullQualifiedUri = UriHelper.CombineUri(uri, href);
                         webDavSessionItem.Uri = fullQualifiedUri;
                     }
                 }
@@ -319,7 +319,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> UploadFileAsync(Uri uri, Stream localStream)
         {
-            uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri);
             var lockToken = GetAffectedLockToken(uri);
             var content = new HttpStreamContent(localStream.AsInputStream());
             var response = await this.webDavClient.PutAsync(uri, content, lockToken);
@@ -337,7 +337,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> UploadFileAsync(Uri uri, IRandomAccessStream stream, string contentType, CancellationTokenSource cts, IProgress<HttpProgress> progress)
         {
-            uri = UriHelper.GetAbsoluteUriWithTrailingSlash(this.BaseUri, uri);
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri);
             var lockToken = GetAffectedLockToken(uri);
             var response = await this.webDavClient.UploadFileAsync(uri, stream, contentType, cts, progress, lockToken);
             return response.IsSuccessStatusCode;

@@ -34,7 +34,7 @@ namespace DecaTec.WebDav
     /// // Use the HttpBaseProtocolFilter (with credentials) to create a new WebDavClient.
     ///var webDavClient = new WebDavClient(httpBaseProtocolFilter);
     ///
-    /// // Create a PropFind object with represents a so called allprop request.
+    /// // Create a PropFind object with represents a so called 'allprop' request.
     /// var pf = PropFind.CreatePropFindAllProp();
     /// var response = await webDavClient.PropFindAsync("http://www.myserver.com/webdav/MyFolder/", WebDavDepthHeaderValue.Infinity, pf);
     ///
@@ -932,7 +932,7 @@ namespace DecaTec.WebDav
         #region Propfind
 
         /// <summary>
-        /// Send a PROPFIND request to the specified URL (Depth header = '1' and Allprop).
+        /// Send a PROPFIND request to the specified URL (Depth header = '1' and 'allprop').
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>       
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
@@ -942,7 +942,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Send a PROPFIND request to the specified <see cref="Uri"/> (Depth header = '1' and Allprop).
+        /// Send a PROPFIND request to the specified <see cref="Uri"/> (Depth header = '1' and 'allprop').
         /// </summary>
         /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>       
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
@@ -952,7 +952,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Send a PROPFIND request to the specified URL (Allprop).
+        /// Send a PROPFIND request to the specified URL ('allprop').
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>       
         /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> value to use for the operation.</param>
@@ -963,7 +963,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Send a PROPFIND request to the specified <see cref="Uri"/> (Allprop)
+        /// Send a PROPFIND request to the specified <see cref="Uri"/> ('allprop')
         /// </summary>
         /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>       
         /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> value to use for the operation.</param>
