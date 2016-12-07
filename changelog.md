@@ -1,3 +1,15 @@
+v0.5.3.0:
+- Bugfix: Fixed error with combining base URI and relative URI for WebDavSession. 
+
+v0.5.2.0:
+- WebDavSession.ListAsync now uses 'allprop' as default.
+- New overloads for WebDavSession.ListAsync where a PropFind can be specified (e.g. PropFind.CreatePropFindWithEmptyPropertiesAll()). 
+- Updated and improved documentation. 
+
+v0.5.1.0:
+- Bugfix: WebDavSession.ListAsync delivered the containing folder if the requested folder path contained spaces. 
+- The class PropFind now contains a method to create an empty PropFind (CreatePropFind). With such a PropFind, the server should return all properties known to the server.
+
 v0.5.0.0:
 - BREAKING CHANGE: WebDavSession.ListAsync now returns WebDavSessionListItems which contain all WebDAV properties available.
 - WebDavSession.ListAsync now returns WebDavSessionListItems with full qualified URIs (not relative URIs anymore).
