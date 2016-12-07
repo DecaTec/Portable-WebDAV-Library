@@ -38,3 +38,7 @@ For offline use, you can download the help file (CHM) here:
 
 For offline use, you can download the help file (CHM) here:
 **[Portable WebDAV Library offline documentation (UWP)](https://decatec.de/ext/PortableWebDAVLibrary/Doc/Uwp/DecaTec.WebDav.Uwp.Documentation.chm)**
+
+# Projects using the Portable WebDAV Library
+* Official [Nextcloud](https://nextcloud.com/) Windows app: [Windows App Store](https://www.microsoft.com/store/apps/9nblggh532xq)/[GitHub](https://github.com/nextcloud/windows-universal)
+* CCPlayer Pro ([Windows App Store](https://www.microsoft.com/store/apps/9wzdncrfjljw))/CCPlayer UWP Ad ([Windows App Store](https://www.microsoft.com/store/apps/9nblggh4z7q0))
