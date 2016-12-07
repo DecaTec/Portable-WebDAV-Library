@@ -12,13 +12,13 @@
         <list class="bullet">
           <listItem>
             <para>
-              BUGFIX: WebDavSession.ListAsync delivered the containing folder if the requested folder path contained spaces.
+              Bugfix: WebDavSession.ListAsync delivered the containing folder if the requested folder path contained spaces.
             </para>
           </listItem>
           
         <listItem>
             <para>
-              The class PropFing now contains a method to create an empty PropFind (CreatePropFind). With such a PropFind, the server should return all properties known to the server.
+              The class PropFind now contains a method to create an empty PropFind (CreatePropFind). With such a PropFind, the server should return all properties known to the server.
             </para>
           </listItem>
          
