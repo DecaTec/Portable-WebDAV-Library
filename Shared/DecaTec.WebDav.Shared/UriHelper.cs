@@ -86,6 +86,19 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Gets a combined URL from two URLs.
+        /// </summary>
+        /// <param name="url1">The first URL.</param>
+        /// <param name="url2">The second URL.</param>
+        /// <returns>The combined URL as string.</returns>
+        public static string CombineUrl(string url1, string url2)
+        {
+            var uri1 = new Uri(url1, UriKind.RelativeOrAbsolute);
+            var uri2 = new Uri(url2, UriKind.RelativeOrAbsolute);
+            return CombineUri(uri1, uri2).ToString();
+        }
+
+        /// <summary>
         /// Gets a combined <see cref="Uri"/> from two URIs (absolute or relative) with a trailing slash added at the end when needed.
         /// </summary>
         /// <param name="uri1">The first <see cref="Uri"/>.</param>

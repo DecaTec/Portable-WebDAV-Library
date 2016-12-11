@@ -237,7 +237,7 @@ namespace DecaTec.WebDav
                         continue;
 
                     // Do not add hidden items.
-                    if (propStat.Prop.IsHidden == "1")
+                    if (!string.IsNullOrEmpty(propStat.Prop.IsHidden) && propStat.Prop.IsHidden.Equals("1"))
                         continue;
 
                     webDavSessionItem.ContentClass = propStat.Prop.ContentClass;
@@ -259,13 +259,13 @@ namespace DecaTec.WebDav
                         webDavSessionItem.LastModified = DateTime.Parse(propStat.Prop.GetLastModified, CultureInfo.InvariantCulture);
 
                     if (!string.IsNullOrEmpty(propStat.Prop.IsReadonly))
-                        webDavSessionItem.IsReadonly = bool.Parse(propStat.Prop.IsReadonly);
+                        webDavSessionItem.IsReadonly = propStat.Prop.IsReadonly.Equals("1");
 
                     if (!string.IsNullOrEmpty(propStat.Prop.IsRoot))
-                        webDavSessionItem.IsRoot = bool.Parse(propStat.Prop.IsRoot);
+                        webDavSessionItem.IsRoot = propStat.Prop.IsRoot.Equals("1");
 
                     if (!string.IsNullOrEmpty(propStat.Prop.IsStructuredDocument))
-                        webDavSessionItem.IsStructuredDocument = bool.Parse(propStat.Prop.IsStructuredDocument);
+                        webDavSessionItem.IsStructuredDocument = propStat.Prop.IsStructuredDocument.Equals("1");
 
                     if (!string.IsNullOrEmpty(propStat.Prop.LastAccessed))
                         webDavSessionItem.LastAccessed = DateTime.Parse(propStat.Prop.LastAccessed, CultureInfo.InvariantCulture);
@@ -281,11 +281,9 @@ namespace DecaTec.WebDav
 
                     // Make sure that the IsDirectory property is set if it's a directory.
                     if (!string.IsNullOrEmpty(propStat.Prop.IsCollection))
-                        webDavSessionItem.IsCollection = bool.Parse(propStat.Prop.IsCollection);
+                        webDavSessionItem.IsCollection = propStat.Prop.IsCollection.Equals("1"); 
                     else if (propStat.Prop.ResourceType != null && propStat.Prop.ResourceType.Collection != null)
-                    {
                         webDavSessionItem.IsCollection = true;
-                    }
 
                     // Make sure that the name property is set.
                     // Naming priority:
