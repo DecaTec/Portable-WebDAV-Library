@@ -12,9 +12,27 @@
         <list class="bullet">
           <listItem>
             <para>
+              UriHelper.AddTrailingSlash now supports a second parameter indicating if a file is expected in the URI/URL (default: false). Before this change, this method did not work with folder names containing a dot ('.').
+            </para>
+          </listItem>
+          
+          <listItem>
+            <para>
               Bugfix: Fixed error parsing boolean properties for WebDavSessionListItem.
             </para>
-          </listItem>          
+          </listItem>
+
+          <listItem>
+            <para>
+              Bugfix: UriHelper.CombineUri returned a wrong combined URIs when the second URI was the same as the end of the first URI.
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              Bugfix: Sometimes WebDavSession.ListAsync also returned the parent (containing) folder (due to wrong combination of URIs, see above).
+            </para>
+          </listItem>
 
         </list>
 

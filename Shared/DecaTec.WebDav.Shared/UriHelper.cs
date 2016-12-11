@@ -13,18 +13,20 @@ namespace DecaTec.WebDav
         /// Adds a trailing slash to a URI (only if needed).
         /// </summary>
         /// <param name="uri">The <see cref="Uri"/> to add the trailing slash when needed.</param>
+        /// <param name="expectFile">True, if the function should expect a file at the end of the URI. False if these should be no distinction between files and folders containing a dot in their name.</param>
         /// <returns>The <see cref="Uri"/> with a trailing slash (only if needed).</returns>
-        public static Uri AddTrailingSlash(Uri uri)
+        public static Uri AddTrailingSlash(Uri uri, bool expectFile = false)
         {
-            return new Uri(AddTrailingSlash(uri.ToString()), UriKind.RelativeOrAbsolute);
+            return new Uri(AddTrailingSlash(uri.ToString(), expectFile), UriKind.RelativeOrAbsolute);
         }
 
         /// <summary>
         ///  Adds a trailing slash to a URL (only if needed).
         /// </summary>
         /// <param name="url">The URL to add the trailing slash when needed.</param>
+        /// <param name="expectFile">True, if the function should expect a file at the end of the URL. False if these should be no distinction between files and folders containing a dot in their name.</param>
         /// <returns>The URL with a trailing slash (only if needed).</returns>
-        public static string AddTrailingSlash(string url)
+        public static string AddTrailingSlash(string url, bool expectFile = false)
         {
             var startsWithSlash = url.StartsWith("/");
             var slashSplit = url.Split(new string[] {"/"}, StringSplitOptions.RemoveEmptyEntries);
@@ -45,7 +47,7 @@ namespace DecaTec.WebDav
             if (startsWithSlash)
                 url = "/" + url;
 
-            if (slashSplit.Last().Contains("."))
+            if (expectFile && slashSplit.Last().Contains("."))
                 return url; // It's a file.
             else
                 return url + "/"; // Trailing slash not present, add it.
@@ -79,7 +81,15 @@ namespace DecaTec.WebDav
                 else
                 {
                     UriBuilder uriBuilder = new UriBuilder(uri1);
-                    uriBuilder.Path = uriBuilder.Path.TrimEnd('/') + "/" + uri2.ToString().TrimStart('/');
+                    var pathUri1 = uriBuilder.Path.Trim('/');
+                    var pathUri2 = uri2.ToString().Trim('/');
+
+                    if(!string.IsNullOrEmpty(pathUri2))
+                        pathUri1 = pathUri1.Replace(pathUri2, string.Empty);
+
+                    var trailingSlash = uri2.ToString().EndsWith("/") ? "/" : string.Empty;
+                    pathUri2 = !string.IsNullOrEmpty(pathUri2) ? "/" + pathUri2.Trim('/') : string.Empty;
+                    uriBuilder.Path = pathUri1.Trim('/') + pathUri2 + trailingSlash;
                     return uriBuilder.Uri;
                 }
             }

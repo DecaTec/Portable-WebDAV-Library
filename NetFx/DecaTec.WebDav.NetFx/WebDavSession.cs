@@ -216,7 +216,7 @@ namespace DecaTec.WebDav
                 }
 
                 // Skip the folder which contents were requested, only add children.
-                if (href != null && WebUtility.UrlDecode(uri.ToString()).EndsWith(WebUtility.UrlDecode(href.ToString()), StringComparison.OrdinalIgnoreCase))
+                if (href != null && WebUtility.UrlDecode(uri.ToString().Trim('/')).EndsWith(WebUtility.UrlDecode(href.ToString().Trim('/')), StringComparison.OrdinalIgnoreCase))
                     continue;
 
                 foreach (var item in responseItem.Items)

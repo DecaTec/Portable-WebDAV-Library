@@ -53,7 +53,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         public void UT_NetFx_UriHelper_AddTrailingSlashTrailingSlashFileUrl()
         {
             string url = "http://www.google.de/test/test.txt";
-            string urlWithTrailingSlash = UriHelper.AddTrailingSlash(url);
+            string urlWithTrailingSlash = UriHelper.AddTrailingSlash(url, true);
             Assert.AreEqual(url, urlWithTrailingSlash);
         }
 
@@ -61,7 +61,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         public void UT_NetFx_UriHelper_AddTrailingSlashTrailingSlashFileUri()
         {
             Uri uri = new Uri("http://www.google.de/test/test.txt");
-            Uri uriWithTrailingSlash = UriHelper.AddTrailingSlash(uri);
+            Uri uriWithTrailingSlash = UriHelper.AddTrailingSlash(uri, true);
             Assert.AreEqual(uri, uriWithTrailingSlash);
         }
 
@@ -202,6 +202,35 @@ namespace DecaTec.WebDav.NetFx.UnitTest
             Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
             Uri expected = new Uri("/test/test2", UriKind.Relative);
             Assert.AreEqual(expected, combinedUri);
+        }
+
+        [TestMethod]
+        public void UT_NetFx_UriHelper_CombineUriFirstUriEndWithSecondUri()
+        {
+            Uri baseUri = new Uri("http://www.google.de/test/test2/test.txt");
+            Uri relativeUri = new Uri("/test2/test.txt", UriKind.RelativeOrAbsolute);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
+            Uri expected = new Uri("http://www.google.de/test/test2/test.txt");
+            Assert.AreEqual(expected, combinedUri);
+        }
+
+        [TestMethod]
+        public void UT_NetFx_UriHelper_CombineUriFirstUriEndWithSecondUriWithoutSlashSecondUri()
+        {
+            Uri baseUri = new Uri("http://www.google.de/test/test2/test.txt");
+            Uri relativeUri = new Uri("test2/test.txt", UriKind.RelativeOrAbsolute);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
+            Uri expected = new Uri("http://www.google.de/test/test2/test.txt");
+            Assert.AreEqual(expected, combinedUri);
+        }
+
+        [TestMethod]
+        public void UT_NetFx_UriHelper_AddTrailingSlashUrlWithDot()
+        {
+            string url = "http://www.google.de/a.test";
+            string urlWithTrailingSlash = UriHelper.AddTrailingSlash(url);
+            string expected = "http://www.google.de/a.test/";
+            Assert.AreEqual(expected, urlWithTrailingSlash);
         }
     }
 }
