@@ -256,7 +256,14 @@ namespace DecaTec.WebDav
             if (lockDiscovery == null)
                 return false;
 
-            var lockGranted = lockDiscovery.ActiveLock.FirstOrDefault(x => uri.ToString().EndsWith(UriHelper.AddTrailingSlash(x.LockRoot.Href), StringComparison.OrdinalIgnoreCase));
+            var url = uri.ToString();
+            var lockGranted = lockDiscovery.ActiveLock.FirstOrDefault(x => url.EndsWith(UriHelper.AddTrailingSlash(x.LockRoot.Href), StringComparison.OrdinalIgnoreCase));
+
+            if (lockGranted == null)
+            {
+                // Try with file expected.
+                lockGranted = lockDiscovery.ActiveLock.FirstOrDefault(x => url.EndsWith(UriHelper.AddTrailingSlash(x.LockRoot.Href, true), StringComparison.OrdinalIgnoreCase));
+            }
 
             if (lockGranted == null)
                 return false;
