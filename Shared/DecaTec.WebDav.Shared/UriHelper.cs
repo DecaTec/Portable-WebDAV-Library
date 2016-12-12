@@ -59,7 +59,7 @@ namespace DecaTec.WebDav
         /// <param name="uri1">The first <see cref="Uri"/>.</param>
         /// <param name="uri2">The second <see cref="Uri"/>.</param>
         /// <returns>The combined <see cref="Uri"/> from the two URIs specified.</returns>
-        /// <remarks>This method does not simply combine the URIs when they are partially the same. E.g. combining the URIs https://myserver.com/webdav and /webdav/myfile.txt will result in https://myserver.com/webdav/myfile.txt.</remarks>
+        /// <remarks>This method does not simply combine the URIs when they are partially the same. E.g. combining the URIs https://myserver.com/webdav and /webdav/myfile.txt will result in https://myserver.com/webdav/myfile.txt (not https://myserver.com/webdav/webdav/myfile.txt).</remarks>
         public static Uri CombineUri(Uri uri1, Uri uri2)
         {
             if (uri1 == null)
@@ -106,9 +106,7 @@ namespace DecaTec.WebDav
                                 absolutePath2WithoutLastPath = absolutePath2.Remove(index);
 
                                 if (!string.IsNullOrEmpty(absolutePath2WithoutLastPath) && absolutePath1.TrimEnd('/').EndsWith(absolutePath2WithoutLastPath.TrimEnd('/')))
-                                {
                                     uri2Str = tmp;
-                                }
                             }
                         }
 
@@ -134,7 +132,7 @@ namespace DecaTec.WebDav
         /// <param name="url1">The first URL.</param>
         /// <param name="url2">The second URL.</param>
         /// <returns>The combined URL as string.</returns>
-        /// /// <remarks>This method does not simply combine the URLs when they are partially the same. E.g. combining the URLs https://myserver.com/webdav and /webdav/myfile.txt will result in https://myserver.com/webdav/myfile.txt.</remarks>
+        /// /// <remarks>This method does not simply combine the URLs when they are partially the same. E.g. combining the URLs https://myserver.com/webdav and /webdav/myfile.txt will result in https://myserver.com/webdav/myfile.txt (not https://myserver.com/webdav/webdav/myfile.txt).</remarks>
         public static string CombineUrl(string url1, string url2)
         {
             var uri1 = new Uri(url1, UriKind.RelativeOrAbsolute);
