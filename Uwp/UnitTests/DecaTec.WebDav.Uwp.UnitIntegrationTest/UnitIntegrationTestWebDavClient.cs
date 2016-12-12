@@ -4,7 +4,6 @@ using System;
 using System.IO;
 using System.Threading;
 using Windows.Storage;
-using Windows.Storage.Streams;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 
@@ -176,8 +175,12 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
             HttpResponseMessage response;
             var cts = new CancellationTokenSource();
             var progress = new Progress<HttpProgress>();
-            var stream = file.OpenAsync(FileAccessMode.ReadWrite).AsTask().Result;
-            response = client.UploadFileAsync(testFile, stream, file.ContentType, cts, progress, null).Result;
+
+            using (var stream = file.OpenAsync(FileAccessMode.Read).AsTask().Result)
+            {
+                response = client.UploadFileAsync(testFile, stream, file.ContentType, cts, progress, null).Result;
+            }
+
             var uploadResponseSuccess = response.IsSuccessStatusCode;
 
             // PropPatch (set).

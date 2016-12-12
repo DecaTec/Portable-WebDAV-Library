@@ -157,8 +157,12 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
             var file = ApplicationData.Current.LocalFolder.CreateFileAsync(TestFile, CreationCollisionOption.OpenIfExists).AsTask().Result;
             var cts = new CancellationTokenSource();
             var progress = new Progress<HttpProgress>();
-            var stream = file.OpenAsync(FileAccessMode.ReadWrite).AsTask().Result;
-            var uploadResponse = session.UploadFileAsync(testFile, stream, file.ContentType, cts, progress).Result;
+            var uploadResponse = false;
+
+            using (var stream = file.OpenAsync(FileAccessMode.Read).AsTask().Result)
+            {
+                uploadResponse = session.UploadFileAsync(testFile, stream, file.ContentType, cts, progress).Result;
+            }
 
             items = session.ListAsync("test").Result;
             Assert.AreEqual(items.Count, 1);

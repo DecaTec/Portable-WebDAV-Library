@@ -64,66 +64,58 @@ namespace DecaTec.WebDav
         {
             if (uri1 == null)
                 return uri2;
-            else
+
+            if (uri1.IsAbsoluteUri && uri2.IsAbsoluteUri && (uri1.Scheme != uri2.Scheme || uri1.Host != uri2.Host))
+                throw new ArgumentException("The absolute URIs provided do not have the same host/scheme");
+
+            if (!uri1.IsAbsoluteUri && uri2.IsAbsoluteUri)
+                throw new ArgumentException("Cannot combine URIs because uri1 is relative URI and uri2 is absolute URI");
+
+            if (uri1.IsAbsoluteUri && uri2.IsAbsoluteUri)
+                return new Uri(uri1, uri2);
+
+            if (!uri1.IsAbsoluteUri && !uri2.IsAbsoluteUri)
+                return new Uri(uri1.ToString().TrimEnd('/') + "/" + uri2.ToString().TrimStart('/'), UriKind.Relative);
+
+            var absolutePath1 = uri1.AbsolutePath.TrimEnd('/');
+            var absolutePath2 = uri2.ToString().TrimEnd('/');
+
+            if (uri2.IsAbsoluteUri)
+                absolutePath2 = uri2.AbsolutePath;
+
+            if (!string.IsNullOrEmpty(absolutePath2) && absolutePath1.EndsWith(absolutePath2))
+                return uri1;
+
+            var uri2Str = uri2.ToString().Trim('/');
+            var splitUri2 = absolutePath2.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (splitUri2.Length > 0)
             {
-                if (uri1.IsAbsoluteUri && uri2.IsAbsoluteUri
-                    && (uri1.Scheme != uri2.Scheme || uri1.Host != uri2.Host))
-                    throw new ArgumentException("The absolute URIs provided do not have the same host/scheme");
+                var tmp = string.Empty;
+                var absolutePath2WithoutLastPath = string.Empty;
 
-                if (!uri1.IsAbsoluteUri && uri2.IsAbsoluteUri)
-                    throw new ArgumentException("Cannot combine URIs because uri1 is relative URI and uri2 is absolute URI");
-
-                if (uri1.IsAbsoluteUri && uri2.IsAbsoluteUri)
-                    return new Uri(uri1, uri2);
-                else if (!uri1.IsAbsoluteUri && !uri2.IsAbsoluteUri)
+                for (int i = splitUri2.Length - 1; i > 0; i--)
                 {
-                    return new Uri(uri1.ToString().TrimEnd('/') + "/" + uri2.ToString().TrimStart('/'), UriKind.Relative);
-                }
-                else
-                {
-                    var absolutePath1 = uri1.AbsolutePath.TrimEnd('/');
-                    var absolutePath2 = uri2.ToString().TrimEnd('/');
+                    tmp = splitUri2[i] + (string.IsNullOrEmpty(tmp) ? tmp : "/" + tmp);
+                    var index = absolutePath2.LastIndexOf(tmp);
+                    absolutePath2WithoutLastPath = absolutePath2.Remove(index);
 
-                    if (uri2.IsAbsoluteUri)
-                        absolutePath2 = uri2.AbsolutePath;
-
-                    if (!string.IsNullOrEmpty(absolutePath2) && absolutePath1.EndsWith(absolutePath2))
-                        return uri1;
-                    else
-                    {
-                        var uri2Str = uri2.ToString().Trim('/');
-                        var splitUri2 = absolutePath2.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-
-                        if (splitUri2.Length > 0)
-                        {
-                            var tmp = string.Empty;
-                            var absolutePath2WithoutLastPath = string.Empty;
-
-                            for (int i = splitUri2.Length - 1; i > 0; i--)
-                            {
-                                tmp = splitUri2[i] + (string.IsNullOrEmpty(tmp) ? tmp : "/" + tmp);
-                                var index = absolutePath2.LastIndexOf(tmp);
-                                absolutePath2WithoutLastPath = absolutePath2.Remove(index);
-
-                                if (!string.IsNullOrEmpty(absolutePath2WithoutLastPath) && absolutePath1.TrimEnd('/').EndsWith(absolutePath2WithoutLastPath.TrimEnd('/')))
-                                    uri2Str = tmp;
-                            }
-                        }
-
-                        UriBuilder uriBuilder = new UriBuilder(uri1);
-                        var pathUri1 = uriBuilder.Path.Trim('/');
-                        var pathUri2 = uri2Str;
-
-                        if (!string.IsNullOrEmpty(pathUri2))
-                            pathUri1 = pathUri1.Replace(pathUri2, string.Empty);
-
-                        var trailingSlash = uri2.ToString().EndsWith("/") ? "/" : string.Empty;
-                        pathUri2 = !string.IsNullOrEmpty(pathUri2) ? "/" + pathUri2.Trim('/') : string.Empty;
-                        uriBuilder.Path = pathUri1.Trim('/') + pathUri2 + trailingSlash;
-                        return uriBuilder.Uri;
-                    }
+                    if (!string.IsNullOrEmpty(absolutePath2WithoutLastPath) && absolutePath1.TrimEnd('/').EndsWith(absolutePath2WithoutLastPath.TrimEnd('/')))
+                        uri2Str = tmp;
                 }
             }
+
+            UriBuilder uriBuilder = new UriBuilder(uri1);
+            var pathUri1 = uriBuilder.Path.Trim('/');
+            var pathUri2 = uri2Str;
+
+            if (!string.IsNullOrEmpty(pathUri2))
+                pathUri1 = pathUri1.Replace(pathUri2, string.Empty);
+
+            var trailingSlash = uri2.ToString().EndsWith("/") ? "/" : string.Empty;
+            pathUri2 = !string.IsNullOrEmpty(pathUri2) ? "/" + pathUri2.Trim('/') : string.Empty;
+            uriBuilder.Path = pathUri1.Trim('/') + pathUri2 + trailingSlash;
+            return uriBuilder.Uri;
         }
 
         /// <summary>
