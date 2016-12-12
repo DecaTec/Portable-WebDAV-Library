@@ -36,7 +36,7 @@
 
           <listItem>
             <para>
-              UriHelper.CombineUri now simply combine URIs when they are partially the same, e.g. combining the URIs https://myserver.com/webdav and /webdav/myfile.txt will result in https://myserver.com/webdav/myfile.txt (not https://myserver.com/webdav/webdav/myfile.txt).
+              UriHelper.CombineUri now does not simply combine URIs when they are partially the same, e.g. combining the URIs https://myserver.com/webdav and /webdav/myfile.txt will result in https://myserver.com/webdav/myfile.txt (not https://myserver.com/webdav/webdav/myfile.txt).
             </para>
           </listItem>
 
