@@ -29,7 +29,7 @@ namespace DecaTec.WebDav
         public static string AddTrailingSlash(string url, bool expectFile = false)
         {
             var startsWithSlash = url.StartsWith("/");
-            var slashSplit = url.Split(new string[] {"/"}, StringSplitOptions.RemoveEmptyEntries);
+            var slashSplit = url.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
             var sb = new StringBuilder();
 
             for (int i = 0; i < slashSplit.Length; i++)
@@ -59,6 +59,7 @@ namespace DecaTec.WebDav
         /// <param name="uri1">The first <see cref="Uri"/>.</param>
         /// <param name="uri2">The second <see cref="Uri"/>.</param>
         /// <returns>The combined <see cref="Uri"/> from the two URIs specified.</returns>
+        /// <remarks>This method does not simply combine the URIs when they are partially the same. E.g. combining the URIs https://myserver.com/webdav and /webdav/myfile.txt will result in https://myserver.com/webdav/myfile.txt.</remarks>
         public static Uri CombineUri(Uri uri1, Uri uri2)
         {
             if (uri1 == null)
@@ -80,17 +81,49 @@ namespace DecaTec.WebDav
                 }
                 else
                 {
-                    UriBuilder uriBuilder = new UriBuilder(uri1);
-                    var pathUri1 = uriBuilder.Path.Trim('/');
-                    var pathUri2 = uri2.ToString().Trim('/');
+                    var absolutePath1 = uri1.AbsolutePath.TrimEnd('/');
+                    var absolutePath2 = uri2.ToString().TrimEnd('/');
 
-                    if(!string.IsNullOrEmpty(pathUri2))
-                        pathUri1 = pathUri1.Replace(pathUri2, string.Empty);
+                    if (uri2.IsAbsoluteUri)
+                        absolutePath2 = uri2.AbsolutePath;
 
-                    var trailingSlash = uri2.ToString().EndsWith("/") ? "/" : string.Empty;
-                    pathUri2 = !string.IsNullOrEmpty(pathUri2) ? "/" + pathUri2.Trim('/') : string.Empty;
-                    uriBuilder.Path = pathUri1.Trim('/') + pathUri2 + trailingSlash;
-                    return uriBuilder.Uri;
+                    if (!string.IsNullOrEmpty(absolutePath2) && absolutePath1.EndsWith(absolutePath2))
+                        return uri1;
+                    else
+                    {
+                        var uri2Str = uri2.ToString().Trim('/');
+                        var splitUri2 = absolutePath2.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+
+                        if (splitUri2.Length > 0)
+                        {
+                            var tmp = string.Empty;
+                            var absolutePath2WithoutLastPath = string.Empty;
+
+                            for (int i = splitUri2.Length - 1; i > 0; i--)
+                            {
+                                tmp = splitUri2[i] + (string.IsNullOrEmpty(tmp) ? tmp : "/" + tmp);
+                                var index = absolutePath2.LastIndexOf(tmp);
+                                absolutePath2WithoutLastPath = absolutePath2.Remove(index);
+
+                                if (!string.IsNullOrEmpty(absolutePath2WithoutLastPath) && absolutePath1.TrimEnd('/').EndsWith(absolutePath2WithoutLastPath.TrimEnd('/')))
+                                {
+                                    uri2Str = tmp;
+                                }
+                            }
+                        }
+
+                        UriBuilder uriBuilder = new UriBuilder(uri1);
+                        var pathUri1 = uriBuilder.Path.Trim('/');
+                        var pathUri2 = uri2Str;
+
+                        if (!string.IsNullOrEmpty(pathUri2))
+                            pathUri1 = pathUri1.Replace(pathUri2, string.Empty);
+
+                        var trailingSlash = uri2.ToString().EndsWith("/") ? "/" : string.Empty;
+                        pathUri2 = !string.IsNullOrEmpty(pathUri2) ? "/" + pathUri2.Trim('/') : string.Empty;
+                        uriBuilder.Path = pathUri1.Trim('/') + pathUri2 + trailingSlash;
+                        return uriBuilder.Uri;
+                    }
                 }
             }
         }
@@ -101,6 +134,7 @@ namespace DecaTec.WebDav
         /// <param name="url1">The first URL.</param>
         /// <param name="url2">The second URL.</param>
         /// <returns>The combined URL as string.</returns>
+        /// /// <remarks>This method does not simply combine the URLs when they are partially the same. E.g. combining the URLs https://myserver.com/webdav and /webdav/myfile.txt will result in https://myserver.com/webdav/myfile.txt.</remarks>
         public static string CombineUrl(string url1, string url2)
         {
             var uri1 = new Uri(url1, UriKind.RelativeOrAbsolute);

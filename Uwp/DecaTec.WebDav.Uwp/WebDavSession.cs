@@ -325,6 +325,20 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Uploads a file to the URL specified.
+        /// </summary>
+        /// <param name="url">The URL of the file to upload.</param>
+        /// <param name="stream">The <see cref="Stream"/> containing the file to upload.</param>
+        /// <param name="contentType">The content type of the file to upload.</param>
+        /// <param name="cts">The <see cref="CancellationTokenSource"/> to use.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> UploadFileAsync(string url, IRandomAccessStream stream, string contentType, CancellationTokenSource cts, IProgress<HttpProgress> progress)
+        {
+            return await UploadFileAsync(new Uri(url, UriKind.RelativeOrAbsolute), stream, contentType, cts, progress);
+        }
+
+        /// <summary>
         /// Uploads a file to the <see cref="Uri"/> specified.
         /// </summary>
         /// <param name="uri">The <see cref="Uri"/> of the file to upload.</param>

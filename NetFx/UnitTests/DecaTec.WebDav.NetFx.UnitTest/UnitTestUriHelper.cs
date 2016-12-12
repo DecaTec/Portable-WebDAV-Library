@@ -110,7 +110,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
             Uri baseUri = new Uri("http://www.google.de/test/test2");
             Uri relativeUri = new Uri("test2/test.txt", UriKind.Relative);
             Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
-            Uri expected = new Uri("http://www.google.de/test/test2/test2/test.txt");
+            Uri expected = new Uri("http://www.google.de/test/test2/test.txt");
             Assert.AreEqual(expected, combinedUri);
         }
 

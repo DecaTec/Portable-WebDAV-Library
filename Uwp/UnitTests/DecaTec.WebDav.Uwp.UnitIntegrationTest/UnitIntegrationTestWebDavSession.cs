@@ -1,7 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using System;
 using System.IO;
+using System.Threading;
+using Windows.Storage;
+using Windows.Web.Http;
 using Windows.Web.Http.Filters;
+using System.Linq;
 
 namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
 {
@@ -20,6 +24,8 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         private string userName;
         private string password;
         private string webDavRootFolder;
+
+        private const string TestFile = @"TextFile1.txt";
 
         private const string ConfigurationFile = @"TestConfiguration.txt";
 
@@ -136,6 +142,37 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
             Assert.IsTrue(created);
             Assert.IsTrue(deleted);
             Assert.IsTrue(unlocked);
+        }
+
+        [TestMethod]
+        public void UIT_UWP_WebDavSession_ListWithFolderAndFile()
+        {
+            var session = CreateWebDavSession();
+            session.BaseUri = new Uri(webDavRootFolder);
+            var created = session.CreateDirectoryAsync("test").Result;
+            var items = session.ListAsync("test").Result;
+            Assert.AreEqual(items.Count, 0);
+
+            var testFile = UriHelper.CombineUrl(this.webDavRootFolder, "test/" + TestFile);
+            var file = ApplicationData.Current.LocalFolder.CreateFileAsync(TestFile, CreationCollisionOption.OpenIfExists).AsTask().Result;
+            var cts = new CancellationTokenSource();
+            var progress = new Progress<HttpProgress>();
+            var stream = file.OpenAsync(FileAccessMode.ReadWrite).AsTask().Result;
+            var uploadResponse = session.UploadFileAsync(testFile, stream, file.ContentType, cts, progress).Result;
+
+            items = session.ListAsync("test").Result;
+            Assert.AreEqual(items.Count, 1);
+
+            var fileUrl = UriHelper.CombineUrl(webDavRootFolder, "test/" + TestFile);
+            var uploadedFile = items.FirstOrDefault(x => x.Uri.ToString() == fileUrl);
+            Assert.IsNotNull(uploadedFile);
+
+            var deleted = session.DeleteAsync("test").Result;
+
+            Assert.IsTrue(created);
+            Assert.IsTrue(uploadResponse);
+            Assert.IsNotNull(items);
+            Assert.IsTrue(deleted);
         }
     }
 }
