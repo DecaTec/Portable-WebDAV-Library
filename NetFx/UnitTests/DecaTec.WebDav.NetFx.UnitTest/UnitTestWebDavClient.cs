@@ -12,7 +12,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         [TestMethod]
         public void UT_NetFx_WebDavClient_LockAsyncWithDepthOne()
         {
-            var client = CreateWebDavClientWithDebugHttpMessageHandler();
+            var client = CreateWebDavClient();
             var lockInfo = new LockInfo();
 
             try
@@ -28,12 +28,12 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         [TestMethod]
         public void UT_NetFx_WebDavClient_RefreshLockAsyncWithoutLockToken()
         {
-            var client = CreateWebDavClientWithDebugHttpMessageHandler();
+            var client = CreateWebDavClient();
             var lockInfo = new LockInfo();
 
             try
             {
-                client.RefreshLockAsync(FakeUrl,WebDavTimeoutHeaderValue.CreateInfiniteWebDavTimeout(), null).Wait();
+                client.RefreshLockAsync(FakeUrl, WebDavTimeoutHeaderValue.CreateInfiniteWebDavTimeout(), null).Wait();
             }
             catch (AggregateException ae)
             {
@@ -44,7 +44,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         [TestMethod]
         public void UT_NetFx_WebDavClient_PropFindAsyncWithoutDepth()
         {
-            var client = CreateWebDavClientWithDebugHttpMessageHandler();
+            var client = CreateWebDavClient();
 
             try
             {
@@ -59,7 +59,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         [TestMethod]
         public void UT_NetFx_WebDavClient_UnLockAsyncWithoutLockToken()
         {
-            var client = CreateWebDavClientWithDebugHttpMessageHandler();
+            var client = CreateWebDavClient();
 
             try
             {
@@ -71,8 +71,9 @@ namespace DecaTec.WebDav.NetFx.UnitTest
             }
         }
 
-        private WebDavClient CreateWebDavClientWithDebugHttpMessageHandler()
+        private WebDavClient CreateWebDavClient()
         {
+            // When on NetFx, create with DebugHttpMessageHandler.
             return new WebDavClient(new DebugHttpMessageHandler());
         }
     }

@@ -163,7 +163,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         }
 
         [TestMethod]
-        public void UT_NetFxUriHelper_CombineUriFromSameBaseUriAndPath()
+        public void UT_NetFx_UriHelper_CombineUriFromSameBaseUriAndPath()
         {
             Uri baseUri = new Uri("http://www.google.de/test");
             Uri baseUri2 = new Uri("http://www.google.de/test/test2");
