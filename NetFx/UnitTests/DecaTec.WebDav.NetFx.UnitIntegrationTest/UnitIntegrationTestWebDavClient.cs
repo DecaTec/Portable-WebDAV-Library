@@ -104,7 +104,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         public void UIT_NetFx_WebDavClient_PropPatch()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
-            var testFile = UriHelper.CombineUrl(this.webDavRootFolder, TestFile);
+            var testFile = UriHelper.CombineUrl(this.webDavRootFolder, TestFile, true);
 
             // Put file.
             var content = new StreamContent(File.OpenRead(TestFile));
@@ -162,7 +162,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         public void UIT_NetFx_WebDavClient_Mkcol()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
-            var testCollection = UriHelper.CombineUrl(this.webDavRootFolder, TestCollection);
+            var testCollection = UriHelper.CombineUrl(this.webDavRootFolder, TestCollection, true);
 
             // Create collection.
             var response = client.MkcolAsync(testCollection).Result;
@@ -204,7 +204,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         public void UIT_NetFx_WebDavClient_Get()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
-            var testFile = UriHelper.CombineUrl(this.webDavRootFolder, TestFile);
+            var testFile = UriHelper.CombineUrl(this.webDavRootFolder, TestFile, true);
 
             // Put file.
             var content = new StreamContent(File.OpenRead(TestFile));
@@ -236,9 +236,9 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         public void UIT_NetFx_WebDavClient_Copy()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
-            var testCollectionSource = UriHelper.CombineUrl(this.webDavRootFolder, TestCollection);
-            var testCollectionDestination = UriHelper.CombineUrl(this.webDavRootFolder, TestCollection + "2");
-            var testFile = UriHelper.CombineUrl(testCollectionSource, TestFile);
+            var testCollectionSource = UriHelper.CombineUrl(this.webDavRootFolder, TestCollection, true);
+            var testCollectionDestination = UriHelper.CombineUrl(this.webDavRootFolder, TestCollection + "2", true);
+            var testFile = UriHelper.CombineUrl(testCollectionSource, TestFile, true);
 
             // Create source collection.
             var response = client.MkcolAsync(testCollectionSource).Result;
@@ -295,9 +295,9 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         public void UIT_NetFx_WebDavClient_Move()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
-            var testCollectionSource = UriHelper.CombineUrl(this.webDavRootFolder, TestCollection);
-            var testCollectionDestination = UriHelper.CombineUrl(this.webDavRootFolder, TestCollection + "2");
-            var testFile = UriHelper.CombineUrl(testCollectionSource, TestFile);
+            var testCollectionSource = UriHelper.CombineUrl(this.webDavRootFolder, TestCollection, true);
+            var testCollectionDestination = UriHelper.CombineUrl(this.webDavRootFolder, TestCollection + "2", true);
+            var testFile = UriHelper.CombineUrl(testCollectionSource, TestFile, true);
 
             // Create source collection.
             var response = client.MkcolAsync(testCollectionSource).Result;
@@ -394,7 +394,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
 
             // Put file (without lock token) -> this should fail.
             var content = new StreamContent(File.OpenRead(TestFile));
-            var requestUrl = UriHelper.CombineUrl(this.webDavRootFolder, TestFile);
+            var requestUrl = UriHelper.CombineUrl(this.webDavRootFolder, TestFile, true);
             response = client.PutAsync(requestUrl, content).Result;
             var putResponseSuccess = response.IsSuccessStatusCode;
 
@@ -424,7 +424,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
 
             // Put file.
             var content = new StreamContent(File.OpenRead(TestFile));
-            var requestUrl = UriHelper.CombineUrl(this.webDavRootFolder, TestFile);
+            var requestUrl = UriHelper.CombineUrl(this.webDavRootFolder, TestFile, true);
             response = client.PutAsync(requestUrl, content, lockToken).Result;
             var putResponseSuccess = response.IsSuccessStatusCode;            
 

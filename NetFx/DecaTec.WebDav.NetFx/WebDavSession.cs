@@ -155,7 +155,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> DownloadFileAsync(Uri uri, Stream localStream)
         {
-            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri);
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri, true, false);
             var response = await this.webDavClient.GetAsync(uri);
 
             if (response.Content != null)
@@ -190,7 +190,7 @@ namespace DecaTec.WebDav
             if (propFind == null)
                 throw new ArgumentException("Argument propFind must not be null.");
 
-            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri);
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri, true, false);
             var response = await this.webDavClient.PropFindAsync(uri, WebDavDepthHeaderValue.One, propFind);
 
             if (response.StatusCode != WebDavStatusCode.MultiStatus)
@@ -210,7 +210,7 @@ namespace DecaTec.WebDav
                 {
                     if (Uri.TryCreate(responseItem.Href, UriKind.RelativeOrAbsolute, out href))
                     {
-                        var fullQualifiedUri = UriHelper.CombineUri(uri, href);
+                        var fullQualifiedUri = UriHelper.CombineUri(uri, href, true);
                         webDavSessionItem.Uri = fullQualifiedUri;
                     }
                 }
@@ -308,7 +308,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> UploadFileAsync(Uri uri, Stream localStream)
         {
-            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri);
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri, true, false);
             var lockToken = GetAffectedLockToken(uri);
             var content = new StreamContent(localStream);
             var response = await this.webDavClient.PutAsync(uri, content, lockToken);

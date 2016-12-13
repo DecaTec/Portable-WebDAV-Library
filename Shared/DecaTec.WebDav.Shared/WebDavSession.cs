@@ -73,8 +73,8 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> CopyAsync(Uri sourceUri, Uri destinationUri, bool overwrite)
         {
-            sourceUri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, sourceUri);
-            destinationUri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, destinationUri);
+            sourceUri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, sourceUri, true, false);
+            destinationUri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, destinationUri, true, false);
             var lockToken = GetAffectedLockToken(destinationUri);
             var response = await this.webDavClient.CopyAsync(sourceUri, destinationUri, overwrite, WebDavDepthHeaderValue.Infinity, lockToken);
             return response.IsSuccessStatusCode;
@@ -101,7 +101,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> CreateDirectoryAsync(Uri uri)
         {
-            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri);
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri, true, false);
             var lockToken = GetAffectedLockToken(uri);
             var response = await this.webDavClient.MkcolAsync(uri, lockToken);
             return response.IsSuccessStatusCode;
@@ -128,7 +128,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> DeleteAsync(Uri uri)
         {
-            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri);
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri, true, false);
             var lockToken = GetAffectedLockToken(uri);
             var response = await this.webDavClient.DeleteAsync(uri, lockToken);
             return response.IsSuccessStatusCode;
@@ -170,7 +170,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> ExistsAsync(Uri uri)
         {
-            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri);
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri, true, false);
             var response = await this.webDavClient.HeadAsync(uri);
             return response.IsSuccessStatusCode;
         }
@@ -235,7 +235,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> LockAsync(Uri uri)
         {
-            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri);
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri, true, false);
 
             if (this.permanentLocks.ContainsKey(uri))
                 return true; // Lock already set.
@@ -257,7 +257,7 @@ namespace DecaTec.WebDav
                 return false;
 
             var url = uri.ToString();
-            var lockGranted = lockDiscovery.ActiveLock.FirstOrDefault(x => url.EndsWith(UriHelper.AddTrailingSlash(x.LockRoot.Href), StringComparison.OrdinalIgnoreCase));
+            var lockGranted = lockDiscovery.ActiveLock.FirstOrDefault(x => url.EndsWith(UriHelper.AddTrailingSlash(x.LockRoot.Href, false), StringComparison.OrdinalIgnoreCase));
 
             if (lockGranted == null)
             {
@@ -323,8 +323,8 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> MoveAsync(Uri sourceUri, Uri destinationUri, bool overwrite)
         {
-            sourceUri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, sourceUri);
-            destinationUri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, destinationUri);
+            sourceUri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, sourceUri, true, false);
+            destinationUri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, destinationUri, true, false);
             var lockTokenSource = GetAffectedLockToken(sourceUri);
             var lockTokenDestination = GetAffectedLockToken(destinationUri);
             var response = await this.webDavClient.MoveAsync(sourceUri, destinationUri, overwrite, lockTokenSource, lockTokenDestination);
@@ -367,7 +367,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> UnlockAsync(Uri uri)
         {
-            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri);
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri, true, false);
             PermanentLock permanentLock;
 
             if (!this.permanentLocks.TryRemove(uri, out permanentLock))
@@ -394,7 +394,7 @@ namespace DecaTec.WebDav
 
         private LockToken GetAffectedLockToken(Uri uri)
         {
-            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri);
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri, true, false);
 
             foreach (var lockItem in this.permanentLocks)
             {

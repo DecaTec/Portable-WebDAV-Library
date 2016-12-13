@@ -133,7 +133,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         {
             var session = CreateWebDavSession();
             var locked = session.LockAsync(this.webDavRootFolder).Result;
-            var requestUrl = UriHelper.CombineUrl(this.webDavRootFolder, "Test");
+            var requestUrl = UriHelper.CombineUrl(this.webDavRootFolder, "Test", true);
             var created = session.CreateDirectoryAsync(requestUrl).Result;
             var deleted = session.DeleteAsync(requestUrl).Result;
             var unlocked = session.UnlockAsync(this.webDavRootFolder).Result;
@@ -153,7 +153,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
             var items = session.ListAsync("test").Result;
             Assert.AreEqual(items.Count, 0);
 
-            var testFile = UriHelper.CombineUrl(this.webDavRootFolder, "test/" + TestFile);
+            var testFile = UriHelper.CombineUrl(this.webDavRootFolder, "test/" + TestFile, true);
             var file = ApplicationData.Current.LocalFolder.CreateFileAsync(TestFile, CreationCollisionOption.OpenIfExists).AsTask().Result;
             var cts = new CancellationTokenSource();
             var progress = new Progress<HttpProgress>();
@@ -167,7 +167,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
             items = session.ListAsync("test").Result;
             Assert.AreEqual(items.Count, 1);
 
-            var fileUrl = UriHelper.CombineUrl(webDavRootFolder, "test/" + TestFile);
+            var fileUrl = UriHelper.CombineUrl(webDavRootFolder, "test/" + TestFile, true);
             var uploadedFile = items.FirstOrDefault(x => x.Uri.ToString() == fileUrl);
             Assert.IsNotNull(uploadedFile);
 

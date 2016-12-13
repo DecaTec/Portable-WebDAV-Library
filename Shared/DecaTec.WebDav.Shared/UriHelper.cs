@@ -12,12 +12,34 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Adds a trailing slash to a URI (only if needed).
         /// </summary>
+        /// <param name="uri">The <see cref="Uri"/> to add the trailing slash when needed.</param>        
+        /// <returns>The <see cref="Uri"/> with a trailing slash (only if needed).</returns>
+        /// <remarks>This method does not expect the URI to be file. Use an overload of this method when the URI is expected to be a file. </remarks>
+        public static Uri AddTrailingSlash(Uri uri)
+        {
+            return AddTrailingSlash(uri, false);
+        }
+
+        /// <summary>
+        /// Adds a trailing slash to a URI (only if needed).
+        /// </summary>
         /// <param name="uri">The <see cref="Uri"/> to add the trailing slash when needed.</param>
         /// <param name="expectFile">True, if the function should expect a file at the end of the URI. False if these should be no distinction between files and folders containing a dot in their name.</param>
         /// <returns>The <see cref="Uri"/> with a trailing slash (only if needed).</returns>
-        public static Uri AddTrailingSlash(Uri uri, bool expectFile = false)
+        public static Uri AddTrailingSlash(Uri uri, bool expectFile)
         {
             return new Uri(AddTrailingSlash(uri.ToString(), expectFile), UriKind.RelativeOrAbsolute);
+        }
+
+        /// <summary>
+        ///  Adds a trailing slash to a URL (only if needed).
+        /// </summary>
+        /// <param name="url">The URL to add the trailing slash when needed.</param>        
+        /// <returns>The URL with a trailing slash (only if needed).</returns>
+        /// <remarks>This method does not expect the URL to be file. Use an overload of this method when the URL is expected to be a file.</remarks>
+        public static string AddTrailingSlash(string url)
+        {
+            return AddTrailingSlash(url, false);
         }
 
         /// <summary>
@@ -26,7 +48,7 @@ namespace DecaTec.WebDav
         /// <param name="url">The URL to add the trailing slash when needed.</param>
         /// <param name="expectFile">True, if the function should expect a file at the end of the URL. False if these should be no distinction between files and folders containing a dot in their name.</param>
         /// <returns>The URL with a trailing slash (only if needed).</returns>
-        public static string AddTrailingSlash(string url, bool expectFile = false)
+        public static string AddTrailingSlash(string url, bool expectFile)
         {
             var startsWithSlash = url.StartsWith("/");
             var slashSplit = url.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
@@ -59,8 +81,20 @@ namespace DecaTec.WebDav
         /// <param name="uri1">The first <see cref="Uri"/>.</param>
         /// <param name="uri2">The second <see cref="Uri"/>.</param>
         /// <returns>The combined <see cref="Uri"/> from the two URIs specified.</returns>
-        /// <remarks>This method does not simply combine the URIs when they are partially the same. E.g. combining the URIs https://myserver.com/webdav and /webdav/myfile.txt will result in https://myserver.com/webdav/myfile.txt (not https://myserver.com/webdav/webdav/myfile.txt).</remarks>
         public static Uri CombineUri(Uri uri1, Uri uri2)
+        {
+            return CombineUri(uri1, uri2, false);
+        }
+
+        /// <summary>
+        /// Gets a combined <see cref="Uri"/> from two URIs.
+        /// </summary>
+        /// <param name="uri1">The first <see cref="Uri"/>.</param>
+        /// <param name="uri2">The second <see cref="Uri"/>.</param>
+        /// <param name="removeDuplicatePath">When set to true, the given URIs are not simply combined, but duplicate path segments are removed from the resulting URI. 
+        /// As an example, combining the URIs https://myserver.com/webdav and /webdav/myfile.txt will result in https://myserver.com/webdav/myfile.txt (not https://myserver.com/webdav/webdav/myfile.txt).</param>
+        /// <returns>The combined <see cref="Uri"/> from the two URIs specified.</returns>
+        public static Uri CombineUri(Uri uri1, Uri uri2, bool removeDuplicatePath)
         {
             if (uri1 == null)
                 return uri2;
@@ -87,21 +121,25 @@ namespace DecaTec.WebDav
                 return uri1;
 
             var uri2Str = uri2.ToString().Trim('/');
-            var splitUri2 = absolutePath2.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
 
-            if (splitUri2.Length > 0)
+            if (removeDuplicatePath)
             {
-                var tmp = string.Empty;
-                var absolutePath2WithoutLastPath = string.Empty;
+                var splitUri2 = absolutePath2.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
 
-                for (int i = splitUri2.Length - 1; i > 0; i--)
+                if (splitUri2.Length > 0)
                 {
-                    tmp = splitUri2[i] + (string.IsNullOrEmpty(tmp) ? tmp : "/" + tmp);
-                    var index = absolutePath2.LastIndexOf(tmp);
-                    absolutePath2WithoutLastPath = absolutePath2.Remove(index);
+                    var tmp = string.Empty;
+                    var absolutePath2WithoutLastPath = string.Empty;
 
-                    if (!string.IsNullOrEmpty(absolutePath2WithoutLastPath) && absolutePath1.TrimEnd('/').EndsWith(absolutePath2WithoutLastPath.TrimEnd('/')))
-                        uri2Str = tmp;
+                    for (int i = splitUri2.Length - 1; i > 0; i--)
+                    {
+                        tmp = splitUri2[i] + (string.IsNullOrEmpty(tmp) ? tmp : "/" + tmp);
+                        var index = absolutePath2.LastIndexOf(tmp);
+                        absolutePath2WithoutLastPath = absolutePath2.Remove(index);
+
+                        if (!string.IsNullOrEmpty(absolutePath2WithoutLastPath) && absolutePath1.TrimEnd('/').EndsWith(absolutePath2WithoutLastPath.TrimEnd('/')))
+                            uri2Str = tmp;
+                    }
                 }
             }
 
@@ -124,12 +162,24 @@ namespace DecaTec.WebDav
         /// <param name="url1">The first URL.</param>
         /// <param name="url2">The second URL.</param>
         /// <returns>The combined URL as string.</returns>
-        /// /// <remarks>This method does not simply combine the URLs when they are partially the same. E.g. combining the URLs https://myserver.com/webdav and /webdav/myfile.txt will result in https://myserver.com/webdav/myfile.txt (not https://myserver.com/webdav/webdav/myfile.txt).</remarks>
         public static string CombineUrl(string url1, string url2)
+        {
+            return CombineUrl(url1, url2, false);
+        }
+
+        /// <summary>
+        /// Gets a combined URL from two URLs.
+        /// </summary>
+        /// <param name="url1">The first URL.</param>
+        /// <param name="url2">The second URL.</param>
+        /// <param name="removeDuplicatePath">When set to true, the given URLs are not simply combined, but duplicate path segments are removed from the resulting URL. 
+        /// As an example, combining the URLs https://myserver.com/webdav and /webdav/myfile.txt will result in https://myserver.com/webdav/myfile.txt (not https://myserver.com/webdav/webdav/myfile.txt).</param>
+        /// <returns>The combined URL as string.</returns>
+        public static string CombineUrl(string url1, string url2, bool removeDuplicatePath)
         {
             var uri1 = new Uri(url1, UriKind.RelativeOrAbsolute);
             var uri2 = new Uri(url2, UriKind.RelativeOrAbsolute);
-            return CombineUri(uri1, uri2).ToString();
+            return CombineUri(uri1, uri2, removeDuplicatePath).ToString();
         }
 
         /// <summary>
@@ -141,7 +191,79 @@ namespace DecaTec.WebDav
         /// <remarks>This is a combination of the methods CombineUri and AddTrailingSlash in this class.</remarks>
         public static Uri GetCombinedUriWithTrailingSlash(Uri uri1, Uri uri2)
         {
-            return AddTrailingSlash(CombineUri(uri1, uri2));
+            return GetCombinedUriWithTrailingSlash(uri1, uri2, false, false);
+        }
+
+        /// <summary>
+        /// Gets a combined <see cref="Uri"/> from two URIs (absolute or relative) with a trailing slash added at the end when needed.
+        /// </summary>
+        /// <param name="uri1">The first <see cref="Uri"/>.</param>
+        /// <param name="uri2">The second <see cref="Uri"/>.</param>
+        /// <param name="removeDuplicatePath">When set to true, the given URIs are not simply combined, but duplicate path segments are removed from the resulting URI. 
+        /// As an example, combining the URIs https://myserver.com/webdav and /webdav/myfile.txt will result in https://myserver.com/webdav/myfile.txt (not https://myserver.com/webdav/webdav/myfile.txt).</param>
+        /// <returns>A combined <see cref="Uri"/> from the two URIs specified with a trailing slash added at the end when needed.</returns>
+        /// <remarks>This is a combination of the methods CombineUri and AddTrailingSlash in this class.</remarks>
+        public static Uri GetCombinedUriWithTrailingSlash(Uri uri1, Uri uri2, bool removeDuplicatePath)
+        {
+            return GetCombinedUriWithTrailingSlash(uri1, uri2, removeDuplicatePath, false);
+        }
+
+        /// <summary>
+        /// Gets a combined <see cref="Uri"/> from two URIs (absolute or relative) with a trailing slash added at the end when needed.
+        /// </summary>
+        /// <param name="uri1">The first <see cref="Uri"/>.</param>
+        /// <param name="uri2">The second <see cref="Uri"/>.</param>
+        /// <param name="removeDuplicatePath">When set to true, the given URIs are not simply combined, but duplicate path segments are removed from the resulting URI. 
+        /// As an example, combining the URIs https://myserver.com/webdav and /webdav/myfile.txt will result in https://myserver.com/webdav/myfile.txt (not https://myserver.com/webdav/webdav/myfile.txt).</param>
+        /// <param name="expectFile">True, if the function should expect a file at the end of the URI. False if these should be no distinction between files and folders containing a dot in their name.</param>
+        /// <returns>A combined <see cref="Uri"/> from the two URIs specified with a trailing slash added at the end when needed.</returns>
+        /// <remarks>This is a combination of the methods CombineUri and AddTrailingSlash in this class.</remarks>
+        public static Uri GetCombinedUriWithTrailingSlash(Uri uri1, Uri uri2, bool removeDuplicatePath, bool expectFile)
+        {
+            return AddTrailingSlash(CombineUri(uri1, uri2, removeDuplicatePath), expectFile);
+        }
+
+        /// <summary>
+        /// Gets a combined URL from two URLs (absolute or relative) with a trailing slash added at the end when needed.
+        /// </summary>
+        /// <param name="url1">The first URL.</param>
+        /// <param name="url2">The second URL.</param>
+        /// <returns>A combined URL as string from the two URLs specified with a trailing slash added at the end when needed.</returns>
+        /// <remarks>This is a combination of the methods CombineUri and AddTrailingSlash in this class.</remarks>
+        public static string GetCombinedUrlWithTrailingSlash(string url1, string url2)
+        {
+            return GetCombinedUrlWithTrailingSlash(url1, url2, false, false);
+        }
+
+        /// <summary>
+        /// Gets a combined URL from two URLs (absolute or relative) with a trailing slash added at the end when needed.
+        /// </summary>
+        /// <param name="url1">The first URL.</param>
+        /// <param name="url2">The second URL.</param>
+        /// <param name="removeDuplicatePath">When set to true, the given URLs are not simply combined, but duplicate path segments are removed from the resulting URL. 
+        /// As an example, combining the URLs https://myserver.com/webdav and /webdav/myfile.txt will result in https://myserver.com/webdav/myfile.txt (not https://myserver.com/webdav/webdav/myfile.txt).</param>
+        /// <returns>A combined URL as string from the two URLs specified with a trailing slash added at the end when needed.</returns>
+        /// <remarks>This is a combination of the methods CombineUri and AddTrailingSlash in this class.</remarks>
+        public static string GetCombinedUrlWithTrailingSlash(string url1, string url2, bool removeDuplicatePath)
+        {
+            return GetCombinedUrlWithTrailingSlash(url1, url2, removeDuplicatePath, false);
+        }
+
+        /// <summary>
+        /// Gets a combined URL from two URLs (absolute or relative) with a trailing slash added at the end when needed.
+        /// </summary>
+        /// <param name="url1">The first URL.</param>
+        /// <param name="url2">The second URL.</param>
+        /// <param name="removeDuplicatePath">When set to true, the given URLs are not simply combined, but duplicate path segments are removed from the resulting URL. 
+        /// As an example, combining the URLs https://myserver.com/webdav and /webdav/myfile.txt will result in https://myserver.com/webdav/myfile.txt (not https://myserver.com/webdav/webdav/myfile.txt).</param>
+        /// <param name="expectFile">True, if the function should expect a file at the end of the URL. False if these should be no distinction between files and folders containing a dot in their name.</param>
+        /// <returns>A combined URL as string from the two URLs specified with a trailing slash added at the end when needed.</returns>
+        /// <remarks>This is a combination of the methods CombineUri and AddTrailingSlash in this class.</remarks>
+        public static string GetCombinedUrlWithTrailingSlash(string url1, string url2, bool removeDuplicatePath, bool expectFile)
+        {
+            var uri1 = new Uri(url1, UriKind.RelativeOrAbsolute);
+            var uri2 = new Uri(url2, UriKind.RelativeOrAbsolute);
+            return GetCombinedUriWithTrailingSlash(uri1, uri2, removeDuplicatePath, expectFile).ToString();
         }
     }
 }

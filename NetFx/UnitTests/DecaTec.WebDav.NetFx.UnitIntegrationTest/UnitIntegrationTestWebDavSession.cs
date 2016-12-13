@@ -129,7 +129,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         {
             var session = CreateWebDavSession();
             var locked = session.LockAsync(this.webDavRootFolder).Result;
-            var requestUrl = UriHelper.CombineUrl(this.webDavRootFolder, "Test");
+            var requestUrl = UriHelper.CombineUrl(this.webDavRootFolder, "Test", true);
             var created = session.CreateDirectoryAsync(requestUrl).Result;
             var deleted = session.DeleteAsync(requestUrl).Result;
             var unlocked = session.UnlockAsync(this.webDavRootFolder).Result;

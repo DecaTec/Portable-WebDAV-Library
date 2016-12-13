@@ -75,11 +75,29 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         }
 
         [TestMethod]
+        public void UT_NetFx_UriHelper_AddTrailingSlashUrlWithDot()
+        {
+            string url = "http://www.google.de/a.test/file.txt";
+            string urlWithTrailingSlash = UriHelper.AddTrailingSlash(url);
+            string expected = "http://www.google.de/a.test/file.txt/";
+            Assert.AreEqual(expected, urlWithTrailingSlash);
+        }
+
+        [TestMethod]
+        public void UT_NetFx_UriHelper_AddTrailingSlashUrlWithDotFileExcpected()
+        {
+            string url = "http://www.google.de/a.test/file.txt";
+            string urlWithTrailingSlash = UriHelper.AddTrailingSlash(url, true);
+            string expected = "http://www.google.de/a.test/file.txt";
+            Assert.AreEqual(expected, urlWithTrailingSlash);
+        }
+
+        [TestMethod]
         public void UT_NetFx_UriHelper_GetCombinedUriWithTrailingSlashWithTrailingSlashWithBaseUri()
         {
             Uri baseUri = new Uri("http://www.google.de");
             Uri relativeUri = new Uri("test2", UriKind.RelativeOrAbsolute);
-            Uri combinedUri = UriHelper.GetCombinedUriWithTrailingSlash(baseUri, relativeUri);
+            Uri combinedUri = UriHelper.GetCombinedUriWithTrailingSlash(baseUri, relativeUri, true);
             Uri expected = new Uri("http://www.google.de/test2/");
             Assert.AreEqual(expected, combinedUri);
         }
@@ -89,7 +107,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         {
             Uri baseUri = new Uri("http://www.google.de/test/");
             Uri relativeUri = new Uri("test2/", UriKind.Relative);
-            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri, true);
             Uri expected = new Uri("http://www.google.de/test/test2/");
             Assert.AreEqual(expected, combinedUri);
         }
@@ -99,7 +117,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         {
             Uri baseUri = new Uri("http://www.google.de/test/");
             Uri relativeUri = new Uri("http://www.google.de/test/test2/");
-            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri, true);
             Uri expected = new Uri("http://www.google.de/test/test2/");
             Assert.AreEqual(expected, combinedUri);
         }
@@ -110,7 +128,27 @@ namespace DecaTec.WebDav.NetFx.UnitTest
             Uri baseUri = new Uri("http://www.google.de/test/test2");
             Uri relativeUri = new Uri("test2/test.txt", UriKind.Relative);
             Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
+            Uri expected = new Uri("http://www.google.de/test/test2/test2/test.txt");
+            Assert.AreEqual(expected, combinedUri);
+        }
+
+        [TestMethod]
+        public void UT_NetFx_UriHelper_CombineUriWithBaseUriAndAbsoluteUriRemoveDuplicatePath()
+        {
+            Uri baseUri = new Uri("http://www.google.de/test/test2");
+            Uri relativeUri = new Uri("test2/test.txt", UriKind.Relative);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri, true);
             Uri expected = new Uri("http://www.google.de/test/test2/test.txt");
+            Assert.AreEqual(expected, combinedUri);
+        }
+
+        [TestMethod]
+        public void UT_NetFx_UriHelper_CombineUriWithBaseUriAndAbsoluteUriNoRemoveDuplicatePath()
+        {
+            Uri baseUri = new Uri("http://www.google.de/test/test2");
+            Uri relativeUri = new Uri("test2/test.txt", UriKind.Relative);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri, false);
+            Uri expected = new Uri("http://www.google.de/test/test2/test2/test.txt");
             Assert.AreEqual(expected, combinedUri);
         }
 
@@ -119,7 +157,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         {
             Uri baseUri = new Uri("http://www.google.de/test");
             Uri baseUri2 = new Uri("http://www.google.de/test");
-            Uri combinedUri = UriHelper.CombineUri(baseUri, baseUri2);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, baseUri2, true);
             Uri expected = new Uri("http://www.google.de/test");
             Assert.AreEqual(expected, combinedUri);
         }
@@ -129,7 +167,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         {
             Uri baseUri = new Uri("http://www.google.de/test");
             Uri baseUri2 = new Uri("http://www.google.de/test/test2");
-            Uri combinedUri = UriHelper.CombineUri(baseUri, baseUri2);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, baseUri2, true);
             Uri expected = new Uri("http://www.google.de/test/test2");
             Assert.AreEqual(expected, combinedUri);
         }
@@ -139,7 +177,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         {
             Uri baseUri = null;
             Uri relativeUri = new Uri("http://www.google.de/test/test2/");
-            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri, true);
             Uri expected = new Uri("http://www.google.de/test/test2/");
             Assert.AreEqual(expected, combinedUri);
         }
@@ -149,7 +187,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         {
             Uri baseUri = new Uri("http://www.google.de//");
             Uri relativeUri = new Uri("/test2//", UriKind.RelativeOrAbsolute);
-            Uri combinedUri = UriHelper.GetCombinedUriWithTrailingSlash(baseUri, relativeUri);
+            Uri combinedUri = UriHelper.GetCombinedUriWithTrailingSlash(baseUri, relativeUri, true);
             Uri expected = new Uri("http://www.google.de/test2/");
             Assert.AreEqual(expected, combinedUri);
         }
@@ -160,7 +198,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         {
             Uri baseUri = new Uri("http://www.google.de/test");
             Uri baseUri2 = new Uri("http://www.github.com/test2");
-            Uri combinedUri = UriHelper.GetCombinedUriWithTrailingSlash(baseUri, baseUri2);
+            Uri combinedUri = UriHelper.GetCombinedUriWithTrailingSlash(baseUri, baseUri2, true);
         }
 
         [TestMethod]
@@ -168,7 +206,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         {
             Uri baseUri = new Uri("http://www.google.de/test");
             Uri relativeUri = new Uri("/", UriKind.RelativeOrAbsolute);
-            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri, true);
             Uri expected = new Uri("http://www.google.de/test/");
             Assert.AreEqual(expected, combinedUri);
         }
@@ -178,7 +216,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         {
             Uri baseUri = new Uri("http://www.google.de/test//");
             Uri relativeUri = new Uri("//", UriKind.RelativeOrAbsolute);
-            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri, true);
             Uri expected = new Uri("http://www.google.de/test/");
             Assert.AreEqual(expected, combinedUri);
         }
@@ -189,7 +227,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         {
             Uri baseUri = new Uri("/test2", UriKind.RelativeOrAbsolute);
             Uri relativeUri = new Uri("http://www.google.de/test/");
-            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri, true);
             Uri expected = new Uri("http://www.google.de/test/");
             Assert.AreEqual(expected, combinedUri);
         }
@@ -199,7 +237,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         {
             Uri baseUri = new Uri("/test", UriKind.RelativeOrAbsolute);
             Uri relativeUri = new Uri("test2", UriKind.RelativeOrAbsolute);
-            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri, true);
             Uri expected = new Uri("/test/test2", UriKind.Relative);
             Assert.AreEqual(expected, combinedUri);
         }
@@ -209,7 +247,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         {
             Uri baseUri = new Uri("http://www.google.de/test/test2/test.txt");
             Uri relativeUri = new Uri("/test2/test.txt", UriKind.RelativeOrAbsolute);
-            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri, true);
             Uri expected = new Uri("http://www.google.de/test/test2/test.txt");
             Assert.AreEqual(expected, combinedUri);
         }
@@ -219,18 +257,9 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         {
             Uri baseUri = new Uri("http://www.google.de/test/test2/test.txt");
             Uri relativeUri = new Uri("test2/test.txt", UriKind.RelativeOrAbsolute);
-            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri, true);
             Uri expected = new Uri("http://www.google.de/test/test2/test.txt");
             Assert.AreEqual(expected, combinedUri);
-        }
-
-        [TestMethod]
-        public void UT_NetFx_UriHelper_AddTrailingSlashUrlWithDot()
-        {
-            string url = "http://www.google.de/a.test";
-            string urlWithTrailingSlash = UriHelper.AddTrailingSlash(url);
-            string expected = "http://www.google.de/a.test/";
-            Assert.AreEqual(expected, urlWithTrailingSlash);
-        }
+        }       
     }
 }
