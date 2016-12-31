@@ -265,5 +265,79 @@ namespace DecaTec.WebDav
             var uri2 = new Uri(url2, UriKind.RelativeOrAbsolute);
             return GetCombinedUriWithTrailingSlash(uri1, uri2, removeDuplicatePath, expectFile).ToString();
         }
+
+        /// <summary>
+        /// Removes a port from an <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="uri">The <see cref="Uri"/> with port to remove the port from.</param>
+        /// <returns>The <see cref="Uri"/> specified without port.</returns>
+        public static Uri RemovePort(Uri uri)
+        {
+            if (!uri.IsAbsoluteUri)
+                return uri;
+
+            UriBuilder builder = new UriBuilder(uri);
+            builder.Port = -1;
+            return builder.Uri;
+        }
+
+        /// <summary>
+        /// Removes a port from an URL.
+        /// </summary>
+        /// <param name="url">The URL with port to remove the port from.</param>
+        /// <returns>The URL specified without port.</returns>
+        public static string RemovePort(string url)
+        {
+            return RemovePort(new Uri(url)).ToString();
+        }
+
+        /// <summary>
+        /// Sets the port of an <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="uri">The <see cref="Uri"/> to set the port.</param>
+        /// <param name="port">The port to set the <see cref="Uri"/> to.</param>
+        /// <returns>The <see cref="Uri"/> with the port specified.</returns>
+        public static Uri SetPort(Uri uri, int port)
+        {
+            if (!uri.IsAbsoluteUri)
+                return uri;
+
+            UriBuilder builder = new UriBuilder(uri);
+            builder.Port = port;
+            return builder.Uri;
+        }
+
+        /// <summary>
+        /// Sets the port of an URL.
+        /// </summary>
+        /// <param name="url">The URL to set the port.</param>
+        /// <param name="port">The port to set the URL to.</param>
+        /// <returns>The URL with the port specified.</returns>
+        public static string SetPort(string url, int port)
+        {
+            return SetPort(new Uri(url), port).ToString();
+        }
+
+        /// <summary>
+        /// Retrieves the port from a given <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="uri">The <see cref="Uri"/> to get the port from.</param>
+        /// <returns>The port of the <see cref="Uri"/>.</returns>
+        public static int GetPort(Uri uri)
+        {
+            UriBuilder builder = new UriBuilder(uri);
+            return builder.Port;
+        }
+
+        /// <summary>
+        /// Retrieves the port from a given URL.
+        /// </summary>
+        /// <param name="url">The URL to get the port from.</param>
+        /// <returns>The port of the URL.</returns>
+        public static int GetPort(string url)
+        {
+            UriBuilder builder = new UriBuilder(url);
+            return builder.Port;
+        }
     }
 }

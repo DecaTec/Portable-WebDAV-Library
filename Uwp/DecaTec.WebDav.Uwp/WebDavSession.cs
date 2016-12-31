@@ -202,6 +202,9 @@ namespace DecaTec.WebDav
             uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri, true, false);
             var response = await this.webDavClient.PropFindAsync(uri, WebDavDepthHeaderValue.One, propFind);
 
+            // Remember the original port to include it in the hrefs later.
+            var port = UriHelper.GetPort(uri);
+
             if (response.StatusCode.ToString() != WebDavStatusCode.MultiStatus.ToString())
                 throw new WebDavException(string.Format("Error while executing ListAsync (wrong response status code). Expected status code: 207 (MultiStatus); actual status code: {0} ({1})", (int)response.StatusCode, response.StatusCode));
 
@@ -220,12 +223,13 @@ namespace DecaTec.WebDav
                     if (Uri.TryCreate(responseItem.Href, UriKind.RelativeOrAbsolute, out href))
                     {
                         var fullQualifiedUri = UriHelper.CombineUri(uri, href, true);
+                        fullQualifiedUri = UriHelper.SetPort(fullQualifiedUri, port);
                         webDavSessionItem.Uri = fullQualifiedUri;
                     }
                 }
 
                 // Skip the folder which contents were requested, only add children.
-                if (href != null && WebUtility.UrlDecode(uri.ToString().Trim('/')).EndsWith(WebUtility.UrlDecode(href.ToString().Trim('/')), StringComparison.OrdinalIgnoreCase))
+                if (href != null && WebUtility.UrlDecode(UriHelper.RemovePort(uri).ToString().Trim('/')).EndsWith(WebUtility.UrlDecode(UriHelper.RemovePort(href).ToString().Trim('/')), StringComparison.OrdinalIgnoreCase))
                     continue;
 
                 foreach (var item in responseItem.Items)

@@ -6,7 +6,7 @@
     <introduction></introduction>
 
     <section>
-      <title>Changes in release v0.5.4.0</title>
+      <title>Changes in release v0.6.0.0</title>
       <content>
 
         <list class="bullet">
@@ -38,6 +38,18 @@
           <listItem>
             <para>
               Bugfix: Fixed error parsing boolean properties for WebDavSessionListItem.
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              WebDavSession.ListAsync: The WebDAV library now uses the original port specified in the request to build the response (if the response comes from a different port internally). 
+            </para>
+          </listItem>
+          
+         <listItem>
+            <para>
+              New method in UriHelper to remove the port from an URI/URL.
             </para>
           </listItem>
 

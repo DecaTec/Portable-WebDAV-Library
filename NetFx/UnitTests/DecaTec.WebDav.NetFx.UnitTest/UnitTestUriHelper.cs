@@ -260,6 +260,61 @@ namespace DecaTec.WebDav.NetFx.UnitTest
             Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri, true);
             Uri expected = new Uri("http://www.google.de/test/test2/test.txt");
             Assert.AreEqual(expected, combinedUri);
-        }       
+        }
+
+        [TestMethod]
+        public void UT_NetFx_UriHelper_RemovePortFromUri()
+        {
+            Uri uri = new Uri("http://www.google.de:8080/test/test2/test.txt");
+            var actual = UriHelper.RemovePort(uri);
+            Uri expected = new Uri("http://www.google.de/test/test2/test.txt");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UT_NetFx_UriHelper_RemovePortFromUrl()
+        {
+            string url = @"http://www.google.de:8080/test/test2/test.txt";
+            var actual = UriHelper.RemovePort(url);
+            string expected = @"http://www.google.de/test/test2/test.txt";
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UT_NetFx_UriHelperSetPortToUri()
+        {
+            Uri uri = new Uri("http://www.google.de:8080/test/test2/test.txt");
+            var actual = UriHelper.SetPort(uri, 9999);
+            Uri expected = new Uri("http://www.google.de:9999/test/test2/test.txt");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UT_NetFx_UriHelperSetPortToUrl()
+        {
+            string url = @"http://www.google.de:8080/test/test2/test.txt";
+            var actual = UriHelper.SetPort(url, 9999);
+            string expected = @"http://www.google.de:9999/test/test2/test.txt";
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void UT_NetFx_UriHelper_GetPortFromUri()
+        {
+            Uri uri = new Uri("http://www.google.de:8080/test/test2/test.txt");
+            var actual = UriHelper.GetPort(uri);
+            int expected = 8080;
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UT_NetFx_UriHelper_GetPortFromUrl()
+        {
+            string url = @"http://www.google.de:8080/test/test2/test.txt";
+            var actual = UriHelper.GetPort(url);
+            var expected = 8080;
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
