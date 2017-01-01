@@ -52,6 +52,12 @@
               New method in UriHelper to remove the port from an URI/URL.
             </para>
           </listItem>
+          
+         <listItem>
+            <para>
+              WebDavSession.ListAsync: When a Prop's DisplayName contains unreadable characters, the last part of the URI is used as WebDavSession ListItem's name instead.
+            </para>
+          </listItem>
 
         </list>
 

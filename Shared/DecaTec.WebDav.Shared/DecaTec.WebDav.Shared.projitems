@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)LockTokenFormat.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PermanentLock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PropNameConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TextHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UriHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\ActiveLock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\AllProp.cs" />

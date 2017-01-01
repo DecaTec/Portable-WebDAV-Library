@@ -282,10 +282,11 @@ namespace DecaTec.WebDav
 
                     // Make sure that the name property is set.
                     // Naming priority:
-                    // 1. displayname
+                    // 1. displayname (only if it doesn't contain raw unicode, otherwise there are problems with non western characters)
                     // 2. name
                     // 3. (part of) URI.
-                    webDavSessionItem.Name = propStat.Prop.DisplayName;
+                    if (!TextHelper.StringContainsRawUnicode(propStat.Prop.DisplayName))
+                        webDavSessionItem.Name = propStat.Prop.DisplayName;
 
                     if (string.IsNullOrEmpty(webDavSessionItem.Name))
                         webDavSessionItem.Name = propStat.Prop.Name;
