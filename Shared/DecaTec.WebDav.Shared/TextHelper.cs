@@ -18,6 +18,9 @@ namespace DecaTec.WebDav
         /// <remarks>If a string contains raw Unicode, this often indicates that there is a problem displaying the string in a readable notation (e.g. for non western characters).</remarks>
         public static bool StringContainsRawUnicode(string str)
         {
+            if (string.IsNullOrEmpty(str))
+                return false;
+
             var str1 = unicodeRegex.Replace(str, String.Empty);
             return !str.Equals(str1);
         }
