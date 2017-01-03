@@ -1,3 +1,13 @@
+v0.6.0.0:
+- New overloads for UriHelper.CombineUri supporting a second parameter indicating if duplicated path segments of the second URI should be removed from the resulting URI. E.g. when this parameter is set to true, combining the URIs https://myserver.com/webdav and /webdav/myfile.txt will result in https://myserver.com/webdav/myfile.txt (not https://myserver.com/webdav/webdav/myfile.txt). When this parameter is set to false (or by using the overload omitting this parameter), the URIs simply get combined as they are.
+- New overloads for UriHelper.AddTrailingSlash supporting a second parameter indicating if a file is expected in the URI/URL. Before this change, this method did not work with folder names containing a dot ('.').
+- New overloads for several methods in UriHelper accepting URLs as string.
+- Bugfix: Sometimes WebDavSession.ListAsync also returned the parent (containing) folder (due to wrong combination of URIs).
+- Bugfix: Fixed error parsing boolean properties for WebDavSessionListItem.
+- WebDavSession.ListAsync: The WebDAV library now uses the original port specified in the request to build the response (if the response comes from a different port internally). 
+- New method in UriHelper to remove the port from an URI/URL.
+- WebDavSession.ListAsync: When a Prop's DisplayName contains unreadable characters, the last part of the URI is used as WebDavSession ListItem's name instead.
+
 v0.5.3.0:
 - Bugfix: Fixed error with combining base URI and relative URI for WebDavSession. 
 
