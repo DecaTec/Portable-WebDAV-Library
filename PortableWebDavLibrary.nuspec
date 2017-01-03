@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>PortableWebDavLibrary</id>
-    <version>0.5.3.0</version>
+    <version>0.6.0.0</version>
     <authors>DecaTec</authors>
     <owners>DecaTec</owners>
     <licenseUrl>https://github.com/DecaTec/Portable-WebDAV-Library/raw/master/LICENSE</licenseUrl>

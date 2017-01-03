@@ -14,7 +14,7 @@ namespace DecaTec.WebDav
         /// Determines if a string contains raw Unicode.
         /// </summary>
         /// <param name="str">The string to check for raw Unicode characters.</param>
-        /// <returns>True if the string contains raw Unicode.</returns>
+        /// <returns>True if the string contains raw Unicode, otherwise false (also if the string specified is an empty string).</returns>
         /// <remarks>If a string contains raw Unicode, this often indicates that there is a problem displaying the string in a readable notation (e.g. for non western characters).</remarks>
         public static bool StringContainsRawUnicode(string str)
         {
