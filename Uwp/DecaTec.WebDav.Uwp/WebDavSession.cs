@@ -184,6 +184,19 @@ namespace DecaTec.WebDav
             return await this.webDavClient.DownloadFileAsync(uri, cts, progress);
         }
 
+        /// <summary>
+        /// Downloads a file from the given URL.
+        /// </summary>
+        /// <param name="url">Te URL of the file to download.</param>
+        /// <param name="cts">The <see cref="CancellationTokenSource"/> to use.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<IBuffer> DownloadFileAsync(string url, CancellationTokenSource cts, IProgress<HttpProgress> progress)
+        {
+            var uri = new Uri(url, UriKind.RelativeOrAbsolute);
+            return await DownloadFileAsync(uri, cts, progress);
+        }
+
         #endregion Download file
 
         #region List
