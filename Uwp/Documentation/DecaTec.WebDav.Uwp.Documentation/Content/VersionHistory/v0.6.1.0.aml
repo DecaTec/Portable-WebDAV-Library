@@ -16,6 +16,12 @@
             </para>
           </listItem>
 
+          <listItem>
+            <para>
+              Bugfix: Fixed problems when URLs were HTML encoded.
+            </para>
+          </listItem>
+
         </list>
 
       </content>

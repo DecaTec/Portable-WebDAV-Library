@@ -316,5 +316,19 @@ namespace DecaTec.WebDav.NetFx.UnitTest
             var expected = 8080;
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void UT_NetFx_UriHelper_CombineUriWithSpacesAndBrackets()
+        {
+            Uri baseUri = new Uri("http://google.de/remote.php/webdav/folder/folder with space and ()/");
+            Uri relativeUri;
+
+            if (!Uri.TryCreate("/remote.php/webdav/folder/folder%20with%20space%20and%20%28%29/x.mp3", UriKind.RelativeOrAbsolute, out relativeUri))
+                Assert.Fail();
+
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri, true);
+            Uri expected = new Uri("http://google.de/remote.php/webdav/folder/folder with space and ()/x.mp3");
+            Assert.AreEqual(expected, combinedUri);
+        }
     }
 }

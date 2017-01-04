@@ -292,7 +292,7 @@ namespace DecaTec.WebDav
                         webDavSessionItem.Name = propStat.Prop.Name;
 
                     if (string.IsNullOrEmpty(webDavSessionItem.Name) && href != null)
-                        webDavSessionItem.Name = href.ToString().Split('/').Last(x => !string.IsNullOrEmpty(x));
+                        webDavSessionItem.Name = WebUtility.UrlDecode(href.ToString().Split('/').Last(x => !string.IsNullOrEmpty(x)));
                 }
 
                 itemList.Add(webDavSessionItem);

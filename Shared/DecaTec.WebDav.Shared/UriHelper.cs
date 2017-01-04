@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Text;
 
 namespace DecaTec.WebDav
@@ -111,8 +112,8 @@ namespace DecaTec.WebDav
             if (!uri1.IsAbsoluteUri && !uri2.IsAbsoluteUri)
                 return new Uri(uri1.ToString().TrimEnd('/') + "/" + uri2.ToString().TrimStart('/'), UriKind.Relative);
 
-            var absolutePath1 = uri1.AbsolutePath.TrimEnd('/');
-            var absolutePath2 = uri2.ToString().TrimEnd('/');
+            var absolutePath1 = WebUtility.UrlDecode(uri1.AbsolutePath.TrimEnd('/'));
+            var absolutePath2 = WebUtility.UrlDecode(uri2.ToString().TrimEnd('/'));
 
             if (uri2.IsAbsoluteUri)
                 absolutePath2 = uri2.AbsolutePath;
@@ -120,7 +121,7 @@ namespace DecaTec.WebDav
             if (!string.IsNullOrEmpty(absolutePath2) && absolutePath1.EndsWith(absolutePath2))
                 return uri1;
 
-            var uri2Str = uri2.ToString().Trim('/');
+            var uri2Str = WebUtility.UrlDecode(uri2.ToString().Trim('/'));
 
             if (removeDuplicatePath)
             {
@@ -144,7 +145,7 @@ namespace DecaTec.WebDav
             }
 
             UriBuilder uriBuilder = new UriBuilder(uri1);
-            var pathUri1 = uriBuilder.Path.Trim('/');
+            var pathUri1 = WebUtility.UrlDecode(uriBuilder.Path.Trim('/'));
             var pathUri2 = uri2Str;
 
             if (!string.IsNullOrEmpty(pathUri2))
