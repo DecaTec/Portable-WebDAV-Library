@@ -22,6 +22,12 @@
             </para>
           </listItem>
 
+          <listItem>
+            <para>
+              Workaround when a server returns an invalid ETag header (NetFx only).
+            </para>
+          </listItem>
+
         </list>
 
       </content>

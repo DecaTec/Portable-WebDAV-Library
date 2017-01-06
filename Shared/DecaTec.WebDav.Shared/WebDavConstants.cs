@@ -210,5 +210,10 @@ namespace DecaTec.WebDav
         /// Constant for 'ItemsElementName'.
         /// </summary>
         public const string ItemsElementName = "ItemsElementName";
+
+        /// <summary>
+        /// Constant for 'ETag'.
+        /// </summary>
+        public const string ETag = "ETag";
     }
 }

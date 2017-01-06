@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
+using System.Linq;
 
 namespace DecaTec.WebDav
 {
@@ -52,7 +53,16 @@ namespace DecaTec.WebDav
             // Transfer headers.
             foreach (var header in httpResponseMessage.Headers)
             {
-                this.Headers.Add(header.Key, header.Value);
+                if (header.Key == WebDavConstants.ETag && header.Value != null && header.Value.Any())
+                {
+                    // Workaround when server returns invalid header (e.g."686897696a7c876b7e" instead of "\"686897696a7c876b7e\"").
+                    var eTagStr = header.Value.First();
+
+                    if (!eTagStr.StartsWith("\"") && !eTagStr.EndsWith("\""))
+                        Headers.Add(header.Key, "\"" + eTagStr + "\"");                    
+                }
+                else
+                    this.Headers.Add(header.Key, header.Value);
             }
         }
 
