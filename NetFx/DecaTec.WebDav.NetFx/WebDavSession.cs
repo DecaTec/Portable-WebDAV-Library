@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DecaTec.WebDav
@@ -155,8 +156,32 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> DownloadFileAsync(Uri uri, Stream localStream)
         {
+            return await DownloadFileAsync(uri, localStream, CancellationToken.None);
+        }
+
+        /// <summary>
+        ///  Downloads a file from the URL specified.
+        /// </summary>
+        /// <param name="url">The URL of the file to download.</param>
+        /// <param name="localStream">The <see cref="Stream"/> to save the file to.</param>
+        /// <param name="ct">The <see cref="CancellationToken"/> to use.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> DownloadFileAsync(string url, Stream localStream, CancellationToken ct)
+        {
+            return await DownloadFileAsync(new Uri(url, UriKind.RelativeOrAbsolute), localStream, ct);
+        }
+
+        /// <summary>
+        ///  Downloads a file from the <see cref="Uri"/> specified.
+        /// </summary>
+        /// <param name="uri">The <see cref="Uri"/> of the file to download.</param>
+        /// <param name="localStream">The <see cref="Stream"/> to save the file to.</param>
+        /// <param name="ct">The <see cref="CancellationToken"/> to use.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> DownloadFileAsync(Uri uri, Stream localStream, CancellationToken ct)
+        {
             uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri, true, false);
-            var response = await this.webDavClient.GetAsync(uri);
+            var response = await this.webDavClient.GetAsync(uri, ct);
 
             if (response.Content != null)
             {

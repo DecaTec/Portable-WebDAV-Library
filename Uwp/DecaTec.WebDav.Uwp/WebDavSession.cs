@@ -140,7 +140,7 @@ namespace DecaTec.WebDav
 
         #region Public methods
 
-        #region Download file
+        #region Download file       
 
         /// <summary>
         ///  Downloads a file from the <see cref="Uri"/> specified.
@@ -150,8 +150,32 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> DownloadFileAsync(Uri uri, Stream localStream)
         {
+            return await DownloadFileAsync(uri, localStream, HttpCompletionOption.ResponseContentRead);
+        }
+
+        /// <summary>
+        ///  Downloads a file from the URL specified.
+        /// </summary>
+        /// <param name="url">The URL of the file to download.</param>
+        /// <param name="localStream">The <see cref="Stream"/> to save the file to.</param>
+        /// <param name="completionOption">An<see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> DownloadFileAsync(string url, Stream localStream, HttpCompletionOption completionOption)
+        {
+            return await DownloadFileAsync(new Uri(url, UriKind.RelativeOrAbsolute), localStream, completionOption);
+        }
+
+        /// <summary>
+        ///  Downloads a file from the <see cref="Uri"/> specified.
+        /// </summary>
+        /// <param name="uri">The <see cref="Uri"/> of the file to download.</param>
+        /// <param name="localStream">The <see cref="Stream"/> to save the file to.</param>
+        /// <param name="completionOption">An<see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> DownloadFileAsync(Uri uri, Stream localStream, HttpCompletionOption completionOption)
+        {
             uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri, true, false);
-            var response = await this.webDavClient.GetAsync(uri);
+            var response = await this.webDavClient.GetAsync(uri, completionOption);
 
             if (response.Content != null)
             {
