@@ -330,5 +330,34 @@ namespace DecaTec.WebDav.NetFx.UnitTest
             Uri expected = new Uri("http://google.de/remote.php/webdav/folder/folder with space and ()/x.mp3");
             Assert.AreEqual(expected, combinedUri);
         }
+
+
+        [TestMethod]
+        public void UT_NetFx_UriHelper_CombineUriWithDuplicatePathEntriesRemoveDuplicate()
+        {
+            Uri baseUri = new Uri("http://google.de/remote.php/webdav/folder-sync/x/");
+            Uri relativeUri;
+
+            if (!Uri.TryCreate("/remote.php/webdav/folder-sync/x/folder/", UriKind.RelativeOrAbsolute, out relativeUri))
+                Assert.Fail();
+
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri, true);
+            Uri expected = new Uri("http://google.de/remote.php/webdav/folder-sync/x/folder/");
+            Assert.AreEqual(expected, combinedUri);
+        }
+
+        [TestMethod]
+        public void UT_NetFx_UriHelper_CombineUriWithDuplicatePathEntries()
+        {
+            Uri baseUri = new Uri("http://google.de/remote.php/webdav/folder-sync/x/");
+            Uri relativeUri;
+
+            if (!Uri.TryCreate("/remote.php/webdav/folder-sync/x/folder/", UriKind.RelativeOrAbsolute, out relativeUri))
+                Assert.Fail();
+
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
+            Uri expected = new Uri("http://google.de/remote.php/webdav/folder-sync/x/remote.php/webdav/folder-sync/x/folder/");
+            Assert.AreEqual(expected, combinedUri);
+        }
     }
 }

@@ -56,9 +56,9 @@ namespace DecaTec.WebDav
                 if (header.Key == WebDavConstants.ETag && header.Value != null && header.Value.Any())
                 {
                     // Workaround when server returns invalid header (e.g."686897696a7c876b7e" instead of "\"686897696a7c876b7e\"").
-                    var eTagStr = header.Value.First();
+                    var eTagStr = header.Value.FirstOrDefault();
 
-                    if (!eTagStr.StartsWith("\"") && !eTagStr.EndsWith("\""))
+                    if (!string.IsNullOrEmpty(eTagStr) && !eTagStr.StartsWith("\"") && !eTagStr.EndsWith("\""))
                         Headers.Add(header.Key, "\"" + eTagStr + "\"");                    
                 }
                 else
