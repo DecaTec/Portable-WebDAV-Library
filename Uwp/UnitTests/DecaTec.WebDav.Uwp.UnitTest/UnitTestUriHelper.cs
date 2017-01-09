@@ -368,5 +368,19 @@ namespace DecaTec.WebDav.Uwp.UnitTest
             Uri expected = new Uri("http://google.de/remote.php/webdav/folder-sync/x/remote.php/webdav/folder-sync/x/folder/");
             Assert.AreEqual(expected, combinedUri);
         }
+
+        [TestMethod]
+        public void UT_UWP_UriHelper_CombineUriWithDuplicatePathEntriesDuplicateRepetition()
+        {
+            Uri baseUri = new Uri("https://google.de/remote.php/webdav/x/x/");
+            Uri relativeUri;
+
+            if (!Uri.TryCreate("/remote.php/webdav/x/x/folder/", UriKind.RelativeOrAbsolute, out relativeUri))
+                Assert.Fail();
+
+            Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri, true);
+            Uri expected = new Uri("https://google.de/remote.php/webdav/x/x/folder/");
+            Assert.AreEqual(expected, combinedUri);
+        }
     }
 }

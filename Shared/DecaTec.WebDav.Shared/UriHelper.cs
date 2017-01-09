@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -115,27 +116,45 @@ namespace DecaTec.WebDav
             if (!uri1.IsAbsoluteUri && !uri2.IsAbsoluteUri)
                 return new Uri(uri1.ToString().TrimEnd(slash) + slash + uri2.ToString().TrimStart(slash), UriKind.Relative);
 
-            var uri2Decoded = WebUtility.UrlDecode(uri2.ToString());
-            var absolutePath1Decoded = WebUtility.UrlDecode(uri1.AbsolutePath.TrimEnd(slash));
-            var absolutePath2Decoded = WebUtility.UrlDecode(uri2.ToString().TrimEnd(slash));
-
-            if (uri2.IsAbsoluteUri)
-                absolutePath2Decoded = WebUtility.UrlDecode(uri2.AbsolutePath.TrimEnd(slash));
-
-            if (!string.IsNullOrEmpty(absolutePath2Decoded) && absolutePath1Decoded.EndsWith(absolutePath2Decoded))
-                return uri1;
-
-            string fullUrl = string.Empty;
+            // Manually combine URIs.
+            var fullUrl = string.Empty;
 
             if (removeDuplicatePath)
-                fullUrl = string.Join(slashStr, uri1.ToString().TrimEnd(slash).Split(slash).Concat(absolutePath2Decoded.TrimStart(slash).Split(slash)).Distinct().ToArray());
-            else
-                fullUrl = string.Join(slashStr, uri1.ToString().TrimEnd(slash).Split(slash).Concat(absolutePath2Decoded.TrimStart(slash).Split(slash)).ToArray());
+            {
+                char[] slashCharArr = new char[] { slash };
+                var uri1AbsoluteSplitted = WebUtility.UrlDecode(uri1.AbsolutePath).Split(slashCharArr, StringSplitOptions.RemoveEmptyEntries);
+                var uri2AbsoluteSplitted = WebUtility.UrlDecode(uri2.ToString()).Split(slashCharArr, StringSplitOptions.RemoveEmptyEntries);
 
-            if (uri2Decoded.EndsWith(slashStr))
+                if (uri2AbsoluteSplitted.Length > 0 && uri1AbsoluteSplitted.Contains(uri2AbsoluteSplitted[0]))
+                {
+                    var uri1Index = Array.IndexOf(uri1AbsoluteSplitted.ToArray(), uri2AbsoluteSplitted[0]);
+                    var uri2Index = 0;
+                    var indexToCutUri2 = -1;
+
+                    for (var i = uri1Index; i < uri1AbsoluteSplitted.Length; i++, uri2Index++)
+                    {
+                        if (uri2Index < uri2AbsoluteSplitted.Length && uri1AbsoluteSplitted[i] == uri2AbsoluteSplitted[uri2Index])
+                            indexToCutUri2 = uri2Index;
+                        else
+                            indexToCutUri2 = -1;
+                    }
+
+                    if (indexToCutUri2 != -1)
+                    {
+                        var uri2AbsoluteSplittedList = uri2AbsoluteSplitted.ToList();
+                        uri2AbsoluteSplittedList.RemoveRange(0, indexToCutUri2 + 1);
+                        fullUrl = string.Join(slashStr, uri1.ToString().TrimEnd(slash).Split(slash).Concat(uri2AbsoluteSplittedList).ToArray());
+                    }
+                } 
+            }
+
+            if(string.IsNullOrEmpty(fullUrl))
+                fullUrl = string.Join(slashStr, uri1.ToString().TrimEnd(slash).Split(slash).Concat(uri2.ToString().TrimStart(slash).Split(slash)).ToArray());
+
+            if (uri2.ToString().EndsWith(slashStr) && !fullUrl.EndsWith(slashStr))
                 fullUrl += slashStr;
 
-            return new Uri(fullUrl);            
+            return new Uri(fullUrl);          
         }
 
         /// <summary>
