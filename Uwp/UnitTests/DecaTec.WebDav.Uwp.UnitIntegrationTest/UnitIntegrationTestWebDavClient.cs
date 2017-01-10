@@ -56,7 +56,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         #region PropFind
 
         [TestMethod]
-        public void UIT_UWP_WebDavClient_PropFindAllProp()
+        public void UIT_UWP_WebDavClient_PropFind_AllProp()
         {
             var client = CreateWebDavClient();
             PropFind pf = PropFind.CreatePropFindAllProp();
@@ -69,7 +69,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_UWP_WebDavClient_PropFindNamedProperties()
+        public void UIT_UWP_WebDavClient_PropFind_NamedProperties()
         {
             var client = CreateWebDavClient();
             PropFind pf = PropFind.CreatePropFindWithEmptyProperties("name");
@@ -82,7 +82,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_UWP_WebDavClient_PropFindPropName()
+        public void UIT_UWP_WebDavClient_PropFind_PropName()
         {
             var client = CreateWebDavClient();
             PropFind pf = PropFind.CreatePropFindWithPropName();

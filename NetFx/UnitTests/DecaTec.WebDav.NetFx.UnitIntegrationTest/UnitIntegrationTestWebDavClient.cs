@@ -58,7 +58,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         #region PropFind
 
         [TestMethod]
-        public void UIT_NetFx_WebDavClient_PropFindAllProp()
+        public void UIT_NetFx_WebDavClient_PropFind_AllProp()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             PropFind pf = PropFind.CreatePropFindAllProp();
@@ -71,7 +71,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_NetFx_WebDavClient_PropFindNamedProperties()
+        public void UIT_NetFx_WebDavClient_PropFind_NamedProperties()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             PropFind pf = PropFind.CreatePropFindWithEmptyProperties("name");
@@ -84,7 +84,7 @@ namespace DecaTec.WebDav.NetFx.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_NetFx_WebDavClient_PropFindPropName()
+        public void UIT_NetFx_WebDavClient_PropFind_PropName()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             PropFind pf = PropFind.CreatePropFindWithPropName();

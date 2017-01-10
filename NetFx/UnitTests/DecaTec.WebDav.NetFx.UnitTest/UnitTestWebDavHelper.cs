@@ -21,7 +21,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         }
 
         [TestMethod]
-        public void UT_NetFx_WebDavHelper_GetUtf8EncodedXmlWebDavRequestStringWithUnsupportedType()
+        public void UT_NetFx_WebDavHelper_GetUtf8EncodedXmlWebDavRequestString_WithUnsupportedType()
         {
             var serializer = new XmlSerializer(typeof(MyProp));
             var myProp = new MyProp();

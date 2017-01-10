@@ -63,7 +63,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_UWP_WebDavSession_ListWithBaseUri()
+        public void UIT_UWP_WebDavSession_List_WithBaseUri()
         {
             var session = CreateWebDavSession();
             session.BaseUri = new Uri(webDavRootFolder);
@@ -77,7 +77,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_UWP_WebDavSession_ListWithBaseUriMissing()
+        public void UIT_UWP_WebDavSession_List_WithBaseUriMissing()
         {
             Assert.ThrowsException<ArgumentException>(() =>
             {
@@ -94,7 +94,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_UWP_WebDavSession_ListWithSpaceInFolder()
+        public void UIT_UWP_WebDavSession_List_WithSpaceInFolder()
         {
             var session = CreateWebDavSession();
             session.BaseUri = new Uri(webDavRootFolder);
@@ -109,7 +109,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_UWP_WebDavSession_ListWithSpaceInFolderAndSubfolder()
+        public void UIT_UWP_WebDavSession_List_WithSpaceInFolderAndSubfolder()
         {
             var session = CreateWebDavSession();
             session.BaseUri = new Uri(webDavRootFolder);
@@ -129,7 +129,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_UWP_WebDavSession_Locking()
+        public void UIT_UWP_WebDavSession_Lock()
         {
             var session = CreateWebDavSession();
             var locked = session.LockAsync(this.webDavRootFolder).Result;
@@ -145,7 +145,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_UWP_WebDavSession_ListWithFolderAndFile()
+        public void UIT_UWP_WebDavSession_List_WithFolderAndFile()
         {
             var session = CreateWebDavSession();
             session.BaseUri = new Uri(webDavRootFolder);

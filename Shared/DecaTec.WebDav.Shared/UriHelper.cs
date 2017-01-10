@@ -11,6 +11,9 @@ namespace DecaTec.WebDav
     /// </summary>
     public static class UriHelper
     {
+        private const char Slash = '/';
+        private const string SlashStr = @"/";
+
         /// <summary>
         /// Adds a trailing slash to a URI (only if needed).
         /// </summary>
@@ -30,7 +33,12 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Uri"/> with a trailing slash (only if needed).</returns>
         public static Uri AddTrailingSlash(Uri uri, bool expectFile)
         {
-            return new Uri(AddTrailingSlash(uri.ToString(), expectFile), UriKind.RelativeOrAbsolute);
+            var uriStr = string.Empty;
+
+            if (uri != null)
+                uriStr = uri.ToString();
+
+            return new Uri(AddTrailingSlash(uriStr, expectFile), UriKind.RelativeOrAbsolute);
         }
 
         /// <summary>
@@ -52,8 +60,11 @@ namespace DecaTec.WebDav
         /// <returns>The URL with a trailing slash (only if needed).</returns>
         public static string AddTrailingSlash(string url, bool expectFile)
         {
-            var startsWithSlash = url.StartsWith("/");
-            var slashSplit = url.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
+            if (string.IsNullOrEmpty(url))
+                url = string.Empty;
+
+            var startsWithSlash = url.StartsWith(SlashStr) && !url.Equals("/");
+            var slashSplit = url.Split(new[] { SlashStr }, StringSplitOptions.RemoveEmptyEntries);
             var sb = new StringBuilder();
 
             for (int i = 0; i < slashSplit.Length; i++)
@@ -63,18 +74,18 @@ namespace DecaTec.WebDav
                 if (i == 0 && slashSplit[i].Contains(":"))
                     sb.Append("//"); // First has to be a double slash (http://...).
                 else if (i != slashSplit.Length - 1)
-                    sb.Append("/"); // Do not add a slash at the very end, this is handled further below.
+                    sb.Append(SlashStr); // Do not add a slash at the very end, this is handled further below.
             }
 
             url = sb.ToString();
 
             if (startsWithSlash)
-                url = "/" + url;
+                url = SlashStr + url;
 
-            if (expectFile && slashSplit.Last().Contains("."))
+            if (expectFile && slashSplit.Length > 0 && slashSplit.Last().Contains("."))
                 return url; // It's a file.
             else
-                return url + "/"; // Trailing slash not present, add it.
+                return url + SlashStr; // Trailing slash not present, add it.
         }
 
         /// <summary>
@@ -98,11 +109,11 @@ namespace DecaTec.WebDav
         /// <returns>The combined <see cref="Uri"/> from the two URIs specified.</returns>
         public static Uri CombineUri(Uri uri1, Uri uri2, bool removeDuplicatePath)
         {
-            char slash = '/';
-            string slashStr = @"/";
-
             if (uri1 == null)
                 return uri2;
+
+            if (uri2 == null)
+                return uri1;
 
             if (uri1.IsAbsoluteUri && uri2.IsAbsoluteUri && (uri1.Scheme != uri2.Scheme || uri1.Host != uri2.Host))
                 throw new ArgumentException("The absolute URIs provided do not have the same host/scheme");
@@ -113,27 +124,26 @@ namespace DecaTec.WebDav
             if (uri1.IsAbsoluteUri && uri2.IsAbsoluteUri)
                 return new Uri(uri1, uri2);
 
-            if (!uri1.IsAbsoluteUri && !uri2.IsAbsoluteUri)
-                return new Uri(uri1.ToString().TrimEnd(slash) + slash + uri2.ToString().TrimStart(slash), UriKind.Relative);
-
             // Manually combine URIs.
             var fullUrl = string.Empty;
 
             if (removeDuplicatePath)
             {
-                char[] slashCharArr = new char[] { slash };
-                var uri1AbsoluteSplitted = WebUtility.UrlDecode(uri1.AbsolutePath).Split(slashCharArr, StringSplitOptions.RemoveEmptyEntries);
-                var uri2AbsoluteSplitted = WebUtility.UrlDecode(uri2.ToString()).Split(slashCharArr, StringSplitOptions.RemoveEmptyEntries);
+                var slashCharArr = new[] { Slash };
+                var ur1Absolute = uri1.IsAbsoluteUri ? uri1.AbsolutePath : uri1.ToString();
 
-                if (uri2AbsoluteSplitted.Length > 0 && uri1AbsoluteSplitted.Contains(uri2AbsoluteSplitted[0]))
+                var uri1PathSplitted = WebUtility.UrlDecode(ur1Absolute).Split(slashCharArr, StringSplitOptions.RemoveEmptyEntries);
+                var uri2PathSplitted = WebUtility.UrlDecode(uri2.ToString()).Split(slashCharArr, StringSplitOptions.RemoveEmptyEntries);
+
+                if (uri2PathSplitted.Length > 0 && uri1PathSplitted.Contains(uri2PathSplitted[0]))
                 {
-                    var uri1Index = Array.IndexOf(uri1AbsoluteSplitted.ToArray(), uri2AbsoluteSplitted[0]);
+                    var uri1Index = Array.IndexOf(uri1PathSplitted.ToArray(), uri2PathSplitted[0]);
                     var uri2Index = 0;
                     var indexToCutUri2 = -1;
 
-                    for (var i = uri1Index; i < uri1AbsoluteSplitted.Length; i++, uri2Index++)
+                    for (var i = uri1Index; i < uri1PathSplitted.Length; i++, uri2Index++)
                     {
-                        if (uri2Index < uri2AbsoluteSplitted.Length && uri1AbsoluteSplitted[i] == uri2AbsoluteSplitted[uri2Index])
+                        if (uri2Index < uri2PathSplitted.Length && uri1PathSplitted[i] == uri2PathSplitted[uri2Index])
                             indexToCutUri2 = uri2Index;
                         else
                             indexToCutUri2 = -1;
@@ -141,20 +151,24 @@ namespace DecaTec.WebDav
 
                     if (indexToCutUri2 != -1)
                     {
-                        var uri2AbsoluteSplittedList = uri2AbsoluteSplitted.ToList();
+                        var uri2AbsoluteSplittedList = uri2PathSplitted.ToList();
                         uri2AbsoluteSplittedList.RemoveRange(0, indexToCutUri2 + 1);
-                        fullUrl = string.Join(slashStr, uri1.ToString().TrimEnd(slash).Split(slash).Concat(uri2AbsoluteSplittedList).ToArray());
+                        fullUrl = string.Join(SlashStr, uri1.ToString().TrimEnd(Slash).Split(Slash).Concat(uri2AbsoluteSplittedList).ToArray());
                     }
-                } 
+                }
             }
 
-            if(string.IsNullOrEmpty(fullUrl))
-                fullUrl = string.Join(slashStr, uri1.ToString().TrimEnd(slash).Split(slash).Concat(uri2.ToString().TrimStart(slash).Split(slash)).ToArray());
+            if (string.IsNullOrEmpty(fullUrl))
+                fullUrl = string.Join(SlashStr, uri1.ToString().TrimEnd(Slash).Split(Slash).Concat(uri2.ToString().TrimStart(Slash).Split(Slash)).ToArray());
 
-            if (uri2.ToString().EndsWith(slashStr) && !fullUrl.EndsWith(slashStr))
-                fullUrl += slashStr;
+            var uri2Str = uri2.ToString();
 
-            return new Uri(fullUrl);          
+            if (uri2Str.EndsWith(SlashStr) && !fullUrl.EndsWith(SlashStr))
+                fullUrl += SlashStr;
+            else if (!string.IsNullOrEmpty(uri2Str) && !uri2Str.EndsWith(SlashStr) && fullUrl.EndsWith(SlashStr))
+                fullUrl = fullUrl.Remove(fullUrl.Length - 1);
+
+            return new Uri(fullUrl, UriKind.RelativeOrAbsolute);
         }
 
         /// <summary>
@@ -178,8 +192,8 @@ namespace DecaTec.WebDav
         /// <returns>The combined URL as string.</returns>
         public static string CombineUrl(string url1, string url2, bool removeDuplicatePath)
         {
-            var uri1 = new Uri(url1, UriKind.RelativeOrAbsolute);
-            var uri2 = new Uri(url2, UriKind.RelativeOrAbsolute);
+            var uri1 = !string.IsNullOrEmpty(url1) ? new Uri(url1, UriKind.RelativeOrAbsolute) : new Uri(string.Empty, UriKind.RelativeOrAbsolute);
+            var uri2 = !string.IsNullOrEmpty(url2) ? new Uri(url2, UriKind.RelativeOrAbsolute) : new Uri(string.Empty, UriKind.RelativeOrAbsolute);
             return CombineUri(uri1, uri2, removeDuplicatePath).ToString();
         }
 
@@ -262,6 +276,12 @@ namespace DecaTec.WebDav
         /// <remarks>This is a combination of the methods CombineUri and AddTrailingSlash in this class.</remarks>
         public static string GetCombinedUrlWithTrailingSlash(string url1, string url2, bool removeDuplicatePath, bool expectFile)
         {
+            if (string.IsNullOrEmpty(url1))
+                url1 = string.Empty;
+
+            if (string.IsNullOrEmpty(url2))
+                url2 = string.Empty;
+
             var uri1 = new Uri(url1, UriKind.RelativeOrAbsolute);
             var uri2 = new Uri(url2, UriKind.RelativeOrAbsolute);
             return GetCombinedUriWithTrailingSlash(uri1, uri2, removeDuplicatePath, expectFile).ToString();
@@ -277,8 +297,7 @@ namespace DecaTec.WebDav
             if (!uri.IsAbsoluteUri)
                 return uri;
 
-            UriBuilder builder = new UriBuilder(uri);
-            builder.Port = -1;
+            var builder = new UriBuilder(uri) { Port = -1 };
             return builder.Uri;
         }
 
@@ -289,7 +308,10 @@ namespace DecaTec.WebDav
         /// <returns>The URL specified without port.</returns>
         public static string RemovePort(string url)
         {
-            return RemovePort(new Uri(url)).ToString();
+            if (string.IsNullOrEmpty(url))
+                url = string.Empty;
+
+            return RemovePort(new Uri(url, UriKind.RelativeOrAbsolute)).ToString();
         }
 
         /// <summary>
@@ -303,8 +325,7 @@ namespace DecaTec.WebDav
             if (!uri.IsAbsoluteUri)
                 return uri;
 
-            UriBuilder builder = new UriBuilder(uri);
-            builder.Port = port;
+            var builder = new UriBuilder(uri) { Port = port };
             return builder.Uri;
         }
 
@@ -316,6 +337,9 @@ namespace DecaTec.WebDav
         /// <returns>The URL with the port specified.</returns>
         public static string SetPort(string url, int port)
         {
+            //if (string.IsNullOrEmpty(url))
+            //    throw new ArgumentException("The URL specified is null or an empty string.");
+
             return SetPort(new Uri(url), port).ToString();
         }
 
@@ -337,7 +361,7 @@ namespace DecaTec.WebDav
         /// <returns>The port of the URL.</returns>
         public static int GetPort(string url)
         {
-            UriBuilder builder = new UriBuilder(url);
+            var builder = new UriBuilder(url);
             return builder.Port;
         }
     }

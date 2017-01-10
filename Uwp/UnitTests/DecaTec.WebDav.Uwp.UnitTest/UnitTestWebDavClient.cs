@@ -10,7 +10,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
         private const string FakeUrl = "http://localhost/";
 
         [TestMethod]
-        public void UT_UWP_WebDavClient_LockAsyncWithDepthOne()
+        public void UT_UWP_WebDavClient_LockAsync_WithDepthOne()
         {
             var client = CreateWebDavClient();
             var lockInfo = new LockInfo();
@@ -26,7 +26,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
         }
 
         [TestMethod]
-        public void UT_UWP_WebDavClient_RefreshLockAsyncWithoutLockToken()
+        public void UT_UWP_WebDavClient_RefreshLockAsync_WithoutLockToken()
         {
             var client = CreateWebDavClient();
             var lockInfo = new LockInfo();
@@ -42,7 +42,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
         }
 
         [TestMethod]
-        public void UT_UWP_WebDavClient_PropFindAsyncWithoutDepth()
+        public void UT_UWP_WebDavClient_PropFindAsync_WithoutDepth()
         {
             var client = CreateWebDavClient();
 
@@ -57,7 +57,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
         }
 
         [TestMethod]
-        public void UT_UWP_WebDavClient_UnLockAsyncWithoutLockToken()
+        public void UT_UWP_WebDavClient_UnLockAsync_WithoutLockToken()
         {
             var client = CreateWebDavClient();
 

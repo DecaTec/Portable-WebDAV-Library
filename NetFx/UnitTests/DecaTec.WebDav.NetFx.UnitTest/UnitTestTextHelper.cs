@@ -11,7 +11,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
     public class UnitTestTextHelper
     {
         [TestMethod]
-        public void UT_NetFx_TextHelper_StringContainsRawUnicodeWithRawUnicode()
+        public void UT_NetFx_TextHelper_StringContainsRawUnicode_WithRawUnicode()
         {
             string strUni = "\u03a0";
             var res = TextHelper.StringContainsRawUnicode(strUni);
@@ -19,7 +19,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         }
 
         [TestMethod]
-        public void UT_NetFx_TextHelper_StringContainsRawUnicodeWithOutRawUnicode()
+        public void UT_NetFx_TextHelper_StringContainsRawUnicode_WithOutRawUnicode()
         {
             string strUni = "Test";
             var res = TextHelper.StringContainsRawUnicode(strUni);
@@ -27,7 +27,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
         }
 
         [TestMethod]
-        public void UT_NetFx_TextHelper_StringContainsRawUnicodeWithEmptyString()
+        public void UT_NetFx_TextHelper_StringContainsRawUnicode_WithEmptyString()
         {
             string strUni = string.Empty; ;
             var res = TextHelper.StringContainsRawUnicode(strUni);

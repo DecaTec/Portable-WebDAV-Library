@@ -21,7 +21,7 @@ namespace DecaTec.WebDav.Uwp.UnitTest
         }
 
         [TestMethod]
-        public void UT_UWP_WebDavHelper_GetUtf8EncodedXmlWebDavRequestStringWithUnsupportedType()
+        public void UT_UWP_WebDavHelper_GetUtf8EncodedXmlWebDavRequestString_WithUnsupportedType()
         {
             var serializer = new XmlSerializer(typeof(MyProp));
             var myProp = new MyProp();
