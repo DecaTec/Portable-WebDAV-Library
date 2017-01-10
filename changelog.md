@@ -1,3 +1,9 @@
+v0.6.1.0:
+- WebDavSession: WebDavSession: new overloads for DownloadFileAsync.
+- Bugfix: Fixed problems when URLs were HTML encoded.
+- Bugfix: Fixed problems when combining URIs/URLs.
+- Workaround when a server returns an invalid ETag header (NetFx only).
+
 v0.6.0.0:
 - New overloads for UriHelper.CombineUri supporting a second parameter indicating if duplicated path segments of the second URI should be removed from the resulting URI. E.g. when this parameter is set to true, combining the URIs https://myserver.com/webdav and /webdav/myfile.txt will result in https://myserver.com/webdav/myfile.txt (not https://myserver.com/webdav/webdav/myfile.txt). When this parameter is set to false (or by using the overload omitting this parameter), the URIs simply get combined as they are.
 - New overloads for UriHelper.AddTrailingSlash supporting a second parameter indicating if a file is expected in the URI/URL. Before this change, this method did not work with folder names containing a dot ('.').
