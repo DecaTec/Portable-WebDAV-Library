@@ -62,8 +62,13 @@ namespace DecaTec.WebDav
                         Headers.Add(header.Key, "\"" + eTagStr + "\"");                    
                 }
                 else
-                    this.Headers.Add(header.Key, header.Value);
-            }
+                {
+                    // This wrapper is suppossed to be transparent.
+                    // Assume the headers in the httpResponseMessage are always valid
+                    // otherwise they should not have been there in the first place.
+                    this.Headers.TryAddWithoutValidation(header.Key, header.Value);
+                }
+			}
         }
 
         /// <summary>
