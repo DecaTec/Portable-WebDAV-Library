@@ -7,8 +7,6 @@ namespace DecaTec.WebDav
     /// </summary>
     public class LockToken
     {
-        private string lockToken;
-
         /// <summary>
         /// Initializes a new instance of LockToken.
         /// </summary>
@@ -18,8 +16,15 @@ namespace DecaTec.WebDav
             if (string.IsNullOrEmpty(lockToken))
                 throw new WebDavException("A lock token cannot be null or empty.");
 
-            this.lockToken = lockToken;
+            this.RawLockToken = lockToken;
         }
+
+        /// <summary>
+        /// Gets the raw representation of the lock token for serialization purposes.
+        /// 
+        /// Use <see cref="ToString"/> to get the formatted representation for use in headers.
+        /// </summary>
+        public string RawLockToken { get; }
 
         /// <summary>
         /// Gets the string representation of a lock token as used in an IF header.
@@ -30,16 +35,16 @@ namespace DecaTec.WebDav
         {
             var sb = new StringBuilder();
 
-            if (format == LockTokenFormat.IfHeader && !this.lockToken.StartsWith("("))
+            if (format == LockTokenFormat.IfHeader && !this.RawLockToken.StartsWith("("))
                 sb.Append("(");
-            else if(!this.lockToken.StartsWith("<") && !this.lockToken.StartsWith("("))
+            else if(!this.RawLockToken.StartsWith("<") && !this.RawLockToken.StartsWith("("))
                 sb.Append("<");
 
-            sb.Append(this.lockToken);
+            sb.Append(this.RawLockToken);
 
-            if (format == LockTokenFormat.IfHeader && !this.lockToken.EndsWith(")"))
+            if (format == LockTokenFormat.IfHeader && !this.RawLockToken.EndsWith(")"))
                 sb.Append(")");
-            else if(!this.lockToken.EndsWith(">") && !this.lockToken.EndsWith(")"))
+            else if(!this.RawLockToken.EndsWith(">") && !this.RawLockToken.EndsWith(")"))
                 sb.Append(">");
 
             return sb.ToString();
