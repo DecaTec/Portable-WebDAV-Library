@@ -19,8 +19,7 @@ namespace DecaTec.WebDav
             // Try to get lock token from response header.
             string lockTokenHeaderValue;
             var success = responseMessage.Headers.TryGetValue(WebDavRequestHeader.LockTocken, out lockTokenHeaderValue);
-
-            if (!success)
+            if (success)
                 return new LockToken(lockTokenHeaderValue);
 
             // If lock token was not submitted by response header, it should be found in the response content.
