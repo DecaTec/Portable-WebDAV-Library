@@ -63,7 +63,7 @@ namespace DecaTec.WebDav
                 }
                 else
                 {
-                    // This wrapper is suppossed to be transparent.
+                    // This wrapper is supposed to be transparent.
                     // Assume the headers in the httpResponseMessage are always valid
                     // otherwise they should not have been there in the first place.
                     this.Headers.TryAddWithoutValidation(header.Key, header.Value);
