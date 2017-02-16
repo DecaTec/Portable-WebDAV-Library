@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DecaTec.WebDav
@@ -16,10 +17,13 @@ namespace DecaTec.WebDav
         public static LockToken GetLockTokenFromWebDavResponseMessage(WebDavResponseMessage responseMessage)
         {
             // Try to get lock token from response header.
-            var lockTokenHeaderValue = responseMessage.Headers.GetValues(WebDavRequestHeader.LockTocken).FirstOrDefault();
-
-            if (lockTokenHeaderValue != null)
-                return new LockToken(lockTokenHeaderValue);
+            IEnumerable<string> lockTokenHeaderValues;
+            if (responseMessage.Headers.TryGetValues(WebDavRequestHeader.LockTocken, out lockTokenHeaderValues))
+            {
+                var lockTokenHeaderValue = lockTokenHeaderValues.FirstOrDefault();
+                if (lockTokenHeaderValue != null)
+                    return new LockToken(lockTokenHeaderValue);
+            }
 
             // If lock token was not submitted by response header, it should be found in the response content.
             try
