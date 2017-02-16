@@ -66,6 +66,7 @@
     <Compile Include="UnitTestWebDavClient.cs" />
     <Compile Include="UnitTestWebDavHelper.cs" />
     <Compile Include="UnitTestWebDavResponseContentParser.cs" />
+    <Compile Include="UnitTestWebDavResponseMessage.cs" />
     <Compile Include="UnitTestWebDavTimeoutHeaderValue.cs" />
   </ItemGroup>
   <ItemGroup>
