@@ -166,6 +166,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         private string nameField;
         private string parentnameField;
         private LockDiscovery lockDiscoveryField;
+        private SupportedLock supportedLockField;
         private string quotaAvailableBytesField;
         private string quotaUsedBytesField;
 
@@ -518,6 +519,22 @@ namespace DecaTec.WebDav.WebDavArtifacts
             set
             {
                 this.lockDiscoveryField = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.SupportedLock"/>.
+        /// </summary>
+        [XmlElement(ElementName = PropNameConstants.SupportedLock)]
+        public SupportedLock SupportedLock
+        {
+            get
+            {
+                return this.supportedLockField;
+            }
+            set
+            {
+                this.supportedLockField = value;
             }
         }
 

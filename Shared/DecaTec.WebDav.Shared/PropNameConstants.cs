@@ -110,12 +110,17 @@
         /// </summary>
         public const string LockDiscovery = "lockdiscovery";
 
-        #region Extension RFC4331
-
         /// <summary>
-        /// Constant for 'quota-used-bytes'.
+        /// Prop name for 'supportedlock'.
         /// </summary>
-        public const string QuotaUsedBytes = "quota-used-bytes";
+        public const string SupportedLock = "supportedlock";
+
+		#region Extension RFC4331
+
+		/// <summary>
+		/// Constant for 'quota-used-bytes'.
+		/// </summary>
+		public const string QuotaUsedBytes = "quota-used-bytes";
 
         /// <summary>
         /// Constant for 'quota-available-bytes'.
