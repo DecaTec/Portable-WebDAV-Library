@@ -1,3 +1,9 @@
+v0.6.2.0
+- Added missing property 'SupportedLock' as defined in [RFC 4918](https://tools.ietf.org/html/rfc4918#section-6.7).
+- The class LockToken now exposes the internal LockToken value for serialization purposes.
+- NetFx: The response headers are now transparently added to the WebDavResponseMessage (i.e. without validation).
+- Bugfix: Fix incorrect checks on the existence of the LockToken header in responses.
+
 v0.6.1.0:
 - WebDavSession: WebDavSession: new overloads for DownloadFileAsync.
 - Bugfix: Fixed problems when URLs were HTML encoded.
