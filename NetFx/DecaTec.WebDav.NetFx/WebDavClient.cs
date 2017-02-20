@@ -661,7 +661,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<WebDavResponseMessage> LockAsync(string requestUrl, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, string lockInfoXmlString, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
-            return await LockAsync(requestUrl, timeout, depth, lockInfoXmlString, completionOption, cancellationToken);
+            return await LockAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), timeout, depth, lockInfoXmlString, completionOption, cancellationToken);
         }
 
         /// <summary>
@@ -1159,7 +1159,7 @@ namespace DecaTec.WebDav
             // So set the depth header always to 'infinity'.
             requestMethod.Headers.Add(WebDavRequestHeader.Depth, WebDavDepthHeaderValue.Infinity.ToString());
 
-            if (lockTokenSource != null || lockTokenSource != null)
+            if (lockTokenSource != null || lockTokenDestination != null)
             {
                 var sb = new StringBuilder();
 
