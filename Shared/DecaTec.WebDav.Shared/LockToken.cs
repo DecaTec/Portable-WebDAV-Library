@@ -20,8 +20,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Gets the raw representation of the lock token for serialization purposes.
-        /// 
+        /// Gets the raw representation of the lock token for serialization purposes.        /// 
         /// Use <see cref="ToString"/> to get the formatted representation for use in headers.
         /// </summary>
         public string RawLockToken { get; }

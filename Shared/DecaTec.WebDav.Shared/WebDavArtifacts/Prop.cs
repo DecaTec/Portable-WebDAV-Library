@@ -98,6 +98,9 @@ namespace DecaTec.WebDav.WebDavArtifacts
                     case PropNameConstants.ParentName:
                         prop.ParentName = string.Empty;
                         break;
+                    case PropNameConstants.SupportedLock:
+                        prop.SupportedLock = new SupportedLock();
+                        break;
                     case PropNameConstants.QuotaAvailableBytes:
                         prop.QuotaAvailableBytes = string.Empty;
                         break;
@@ -139,6 +142,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
             prop.LastAccessed = string.Empty;
             prop.Name = string.Empty;
             prop.ParentName = string.Empty;
+            prop.SupportedLock = new SupportedLock();
             prop.QuotaAvailableBytes = string.Empty;
             prop.QuotaUsedBytes = string.Empty;
             return prop;

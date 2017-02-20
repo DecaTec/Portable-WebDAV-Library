@@ -18,9 +18,11 @@ namespace DecaTec.WebDav
         {
             // Try to get lock token from response header.
             IEnumerable<string> lockTokenHeaderValues;
+
             if (responseMessage.Headers.TryGetValues(WebDavRequestHeader.LockTocken, out lockTokenHeaderValues))
             {
                 var lockTokenHeaderValue = lockTokenHeaderValues.FirstOrDefault();
+
                 if (lockTokenHeaderValue != null)
                     return new LockToken(lockTokenHeaderValue);
             }
