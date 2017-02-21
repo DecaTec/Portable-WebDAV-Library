@@ -337,9 +337,6 @@ namespace DecaTec.WebDav
         /// <returns>The URL with the port specified.</returns>
         public static string SetPort(string url, int port)
         {
-            //if (string.IsNullOrEmpty(url))
-            //    throw new ArgumentException("The URL specified is null or an empty string.");
-
             return SetPort(new Uri(url), port).ToString();
         }
 

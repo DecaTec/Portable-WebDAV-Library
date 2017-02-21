@@ -145,7 +145,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> CopyAsync(string sourceUrl, string destinationUrl)
         {
-            return await CopyAsync(new Uri(sourceUrl), new Uri(destinationUrl), false, WebDavDepthHeaderValue.Infinity, null);
+            return await CopyAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), false, WebDavDepthHeaderValue.Infinity, null);
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> CopyAsync(string sourceUrl, string destinationUrl, bool overwrite)
         {
-            return await CopyAsync(new Uri(sourceUrl), new Uri(destinationUrl), overwrite, WebDavDepthHeaderValue.Infinity, null);
+            return await CopyAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), overwrite, WebDavDepthHeaderValue.Infinity, null);
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> CopyAsync(string sourceUrl, string destinationUrl, bool overwrite, WebDavDepthHeaderValue depth)
         {
-            return await CopyAsync(new Uri(sourceUrl), new Uri(destinationUrl), overwrite, depth, null);
+            return await CopyAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), overwrite, depth, null);
         }
 
         /// <summary>
@@ -220,7 +220,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> CopyAsync(string sourceUrl, string destinationUrl, bool overwrite, WebDavDepthHeaderValue depth, LockToken lockTokenDestination)
         {
-            return await CopyAsync(new Uri(sourceUrl), new Uri(destinationUrl), overwrite, depth, lockTokenDestination);
+            return await CopyAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), overwrite, depth, lockTokenDestination);
         }
 
         /// <summary>
@@ -267,7 +267,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> DeleteAsync(string requestUrl)
         {
-            return await DeleteAsync(new Uri(requestUrl), null);
+            return await DeleteAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), null);
         }
 
         /// <summary>
@@ -288,7 +288,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> DeleteAsync(string requestUrl, LockToken lockToken)
         {
-            return await DeleteAsync(new Uri(requestUrl), lockToken);
+            return await DeleteAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), lockToken);
         }
 
         /// <summary>
@@ -322,7 +322,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> GetAsync(string requestUrl)
         {
-            return await GetAsync(new Uri(requestUrl), HttpCompletionOption.ResponseContentRead);
+            return await GetAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), HttpCompletionOption.ResponseContentRead);
         }
 
         /// <summary>
@@ -343,7 +343,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> GetAsync(string requestUrl, HttpCompletionOption completionOption)
         {
-            return await GetAsync(new Uri(requestUrl), completionOption);
+            return await GetAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), completionOption);
         }
 
         /// <summary>
@@ -369,7 +369,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> HeadAsync(string requestUrl)
         {
-            return await HeadAsync(new Uri(requestUrl), HttpCompletionOption.ResponseContentRead);
+            return await HeadAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), HttpCompletionOption.ResponseContentRead);
         }
 
         /// <summary>
@@ -390,7 +390,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> HeadAsync(string requestUrl, HttpCompletionOption completionOption)
         {
-            return await HeadAsync(new Uri(requestUrl), completionOption);
+            return await HeadAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), completionOption);
         }
 
         /// <summary>
@@ -489,7 +489,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> LockAsync(string requestUrl, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, LockInfo lockInfo, HttpCompletionOption completionOption)
         {
-            return await LockAsync(new Uri(requestUrl), timeout, depth, lockInfo, completionOption);
+            return await LockAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), timeout, depth, lockInfo, completionOption);
         }
 
         /// <summary>
@@ -556,7 +556,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> RefreshLockAsync(string requestUrl, WebDavTimeoutHeaderValue timeout, LockToken lockToken)
         {
-            return await RefreshLockAsync(new Uri(requestUrl), timeout, lockToken, HttpCompletionOption.ResponseContentRead);
+            return await RefreshLockAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), timeout, lockToken, HttpCompletionOption.ResponseContentRead);
         }
 
         /// <summary>
@@ -581,7 +581,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> RefreshLockAsync(string requestUrl, WebDavTimeoutHeaderValue timeout, LockToken lockToken, HttpCompletionOption completionOption)
         {
-            return await RefreshLockAsync(new Uri(requestUrl), timeout, lockToken, completionOption);
+            return await RefreshLockAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), timeout, lockToken, completionOption);
         }
 
         /// <summary>
@@ -621,7 +621,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> MkcolAsync(string requestUrl)
         {
-            return await MkcolAsync(new Uri(requestUrl), null, HttpCompletionOption.ResponseContentRead);
+            return await MkcolAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), null, HttpCompletionOption.ResponseContentRead);
         }
 
         /// <summary>
@@ -642,7 +642,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> MkcolAsync(string requestUrl, LockToken lockToken)
         {
-            return await MkcolAsync(new Uri(requestUrl), lockToken, HttpCompletionOption.ResponseContentRead);
+            return await MkcolAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), lockToken, HttpCompletionOption.ResponseContentRead);
         }
 
         /// <summary>
@@ -664,7 +664,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> MkcolAsync(string requestUrl, HttpCompletionOption completionOption)
         {
-            return await MkcolAsync(new Uri(requestUrl), null, completionOption);
+            return await MkcolAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), null, completionOption);
         }
 
         /// <summary>
@@ -676,7 +676,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> MkcolAsync(string requestUrl, LockToken lockToken, HttpCompletionOption completionOption)
         {
-            return await MkcolAsync(new Uri(requestUrl), lockToken, completionOption);
+            return await MkcolAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), lockToken, completionOption);
         }
 
         /// <summary>
@@ -720,7 +720,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> MoveAsync(string sourceUrl, string destinationUrl)
         {
-            return await MoveAsync(new Uri(sourceUrl), new Uri(destinationUrl), false, null, null, HttpCompletionOption.ResponseContentRead);
+            return await MoveAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), false, null, null, HttpCompletionOption.ResponseContentRead);
         }
 
         /// <summary>
@@ -743,7 +743,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite)
         {
-            return await MoveAsync(new Uri(sourceUrl), new Uri(destinationUrl), overwrite, null, null, HttpCompletionOption.ResponseContentRead);
+            return await MoveAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), overwrite, null, null, HttpCompletionOption.ResponseContentRead);
         }
 
         /// <summary>
@@ -769,7 +769,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite, LockToken lockTokenSource, LockToken lockTokenDestination)
         {
-            return await MoveAsync(new Uri(sourceUrl), new Uri(destinationUrl), overwrite, lockTokenSource, lockTokenDestination, HttpCompletionOption.ResponseContentRead);
+            return await MoveAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), overwrite, lockTokenSource, lockTokenDestination, HttpCompletionOption.ResponseContentRead);
         }
 
         /// <summary>
@@ -796,7 +796,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite, HttpCompletionOption completionOption)
         {
-            return await MoveAsync(new Uri(sourceUrl), new Uri(destinationUrl), overwrite, null, null, completionOption);
+            return await MoveAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), overwrite, null, null, completionOption);
         }
 
         /// <summary>
@@ -811,7 +811,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite, LockToken lockTokenSource, LockToken lockTokenDestination, HttpCompletionOption completionOption)
         {
-            return await MoveAsync(new Uri(sourceUrl), new Uri(destinationUrl), overwrite, lockTokenSource, lockTokenDestination, completionOption);
+            return await MoveAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), overwrite, lockTokenSource, lockTokenDestination, completionOption);
         }
 
         /// <summary>
@@ -882,7 +882,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PostAsync(string requestUrl, IHttpContent content)
         {
-            return await PostAsync(new Uri(requestUrl), content, null);
+            return await PostAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), content, null);
         }
 
         /// <summary>
@@ -905,7 +905,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PostAsync(string requestUrl, IHttpContent content, LockToken lockToken)
         {
-            return await PostAsync(new Uri(requestUrl), content, lockToken);
+            return await PostAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), content, lockToken);
         }
 
         /// <summary>
@@ -938,7 +938,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropFindAsync(string requestUrl)
         {
-            return await PropFindAsync(new Uri(requestUrl), WebDavDepthHeaderValue.One, string.Empty, HttpCompletionOption.ResponseContentRead);
+            return await PropFindAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), WebDavDepthHeaderValue.One, string.Empty, HttpCompletionOption.ResponseContentRead);
         }
 
         /// <summary>
@@ -959,7 +959,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropFindAsync(string requestUrl, WebDavDepthHeaderValue depth)
         {
-            return await PropFindAsync(new Uri(requestUrl), depth, string.Empty, HttpCompletionOption.ResponseContentRead);
+            return await PropFindAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), depth, string.Empty, HttpCompletionOption.ResponseContentRead);
         }
 
         /// <summary>
@@ -983,7 +983,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropFindAsync(string requestUrl, WebDavDepthHeaderValue depth, PropFind propfind, HttpCompletionOption completionOption)
         {
-            return await PropFindAsync(new Uri(requestUrl), depth, propfind, completionOption);
+            return await PropFindAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), depth, propfind, completionOption);
         }
 
         /// <summary>
@@ -995,7 +995,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropFindAsync(string requestUrl, WebDavDepthHeaderValue depth, string propfindXmlString)
         {
-            return await PropFindAsync(new Uri(requestUrl), depth, propfindXmlString, HttpCompletionOption.ResponseContentRead);
+            return await PropFindAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), depth, propfindXmlString, HttpCompletionOption.ResponseContentRead);
         }
 
         /// <summary>
@@ -1019,7 +1019,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropFindAsync(string requestUrl, WebDavDepthHeaderValue depth, PropFind propfind)
         {
-            return await PropFindAsync(new Uri(requestUrl), depth, propfind, HttpCompletionOption.ResponseContentRead);
+            return await PropFindAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), depth, propfind, HttpCompletionOption.ResponseContentRead);
         }
 
         /// <summary>
@@ -1093,7 +1093,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropPatchAsync(string requestUrl, string propPatchXmlString)
         {
-            return await PropPatchAsync(new Uri(requestUrl), propPatchXmlString, null, HttpCompletionOption.ResponseContentRead);
+            return await PropPatchAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), propPatchXmlString, null, HttpCompletionOption.ResponseContentRead);
         }
 
         /// <summary>
@@ -1104,7 +1104,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropPatchAsync(string requestUrl, PropertyUpdate propertyUpdate)
         {
-            return await PropPatchAsync(new Uri(requestUrl), propertyUpdate, null, HttpCompletionOption.ResponseContentRead);
+            return await PropPatchAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), propertyUpdate, null, HttpCompletionOption.ResponseContentRead);
         }
 
         /// <summary>
@@ -1138,7 +1138,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropPatchAsync(string requestUrl, string propPatchXmlString, LockToken lockToken)
         {
-            return await PropPatchAsync(new Uri(requestUrl), propPatchXmlString, lockToken, HttpCompletionOption.ResponseContentRead);
+            return await PropPatchAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), propPatchXmlString, lockToken, HttpCompletionOption.ResponseContentRead);
         }
 
         /// <summary>
@@ -1150,7 +1150,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropPatchAsync(string requestUrl, PropertyUpdate propertyUpdate, LockToken lockToken)
         {
-            return await PropPatchAsync(new Uri(requestUrl), propertyUpdate, lockToken, HttpCompletionOption.ResponseContentRead);
+            return await PropPatchAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), propertyUpdate, lockToken, HttpCompletionOption.ResponseContentRead);
         }
 
         /// <summary>
@@ -1186,7 +1186,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropPatchAsync(string requestUrl, string propPatchXmlString, HttpCompletionOption completionOption)
         {
-            return await PropPatchAsync(new Uri(requestUrl), propPatchXmlString, null, completionOption);
+            return await PropPatchAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), propPatchXmlString, null, completionOption);
         }
 
         /// <summary>
@@ -1199,7 +1199,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropPatchAsync(string requestUrl, string propPatchXmlString, LockToken lockToken, HttpCompletionOption completionOption)
         {
-            return await PropPatchAsync(new Uri(requestUrl), propPatchXmlString, lockToken, completionOption);
+            return await PropPatchAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), propPatchXmlString, lockToken, completionOption);
         }
 
         /// <summary>
@@ -1211,7 +1211,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropPatchAsync(string requestUrl, PropertyUpdate propertyUpdate, HttpCompletionOption completionOption)
         {
-            return await PropPatchAsync(new Uri(requestUrl), propertyUpdate, null, completionOption);
+            return await PropPatchAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), propertyUpdate, null, completionOption);
         }
 
         /// <summary>
@@ -1224,7 +1224,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PropPatchAsync(string requestUrl, PropertyUpdate propertyUpdate, LockToken lockToken, HttpCompletionOption completionOption)
         {
-            return await PropPatchAsync(new Uri(requestUrl), propertyUpdate, lockToken, completionOption);
+            return await PropPatchAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), propertyUpdate, lockToken, completionOption);
         }
 
         /// <summary>
@@ -1311,7 +1311,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PutAsync(string requestUrl, IHttpContent content)
         {
-            return await PutAsync(new Uri(requestUrl), content, null);
+            return await PutAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), content, null);
         }
 
         /// <summary>
@@ -1334,7 +1334,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PutAsync(string requestUrl, IHttpContent content, LockToken lockToken)
         {
-            return await PutAsync(new Uri(requestUrl), content, lockToken);
+            return await PutAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), content, lockToken);
         }
 
         /// <summary>
@@ -1393,7 +1393,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> PutAsync(string url, IHttpContent content, CancellationTokenSource cts, IProgress<HttpProgress> progress, LockToken lockToken)
         {
-            return await this.PutAsync(new Uri(url), content, cts, progress, lockToken);
+            return await this.PutAsync(new Uri(url, UriKind.RelativeOrAbsolute), content, cts, progress, lockToken);
         }
 
         /// <summary>
@@ -1428,7 +1428,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> UploadFileAsync(string url, IRandomAccessStream stream, string contentType, CancellationTokenSource cts, IProgress<HttpProgress> progress)
         {
-            return await this.UploadFileAsync(new Uri(url), stream, contentType, cts, progress, null);
+            return await this.UploadFileAsync(new Uri(url, UriKind.RelativeOrAbsolute), stream, contentType, cts, progress, null);
         }
 
         /// <summary>
@@ -1457,7 +1457,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> UploadFileAsync(string url, IRandomAccessStream stream, string contentType, CancellationTokenSource cts, IProgress<HttpProgress> progress, LockToken lockToken)
         {
-            return await this.UploadFileAsync(new Uri(url), stream, contentType, cts, progress, lockToken);
+            return await this.UploadFileAsync(new Uri(url, UriKind.RelativeOrAbsolute), stream, contentType, cts, progress, lockToken);
         }
 
         /// <summary>
@@ -1499,7 +1499,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<IBuffer> DownloadFileAsync(string url, CancellationTokenSource cts, IProgress<HttpProgress> progress)
         {
-            return await this.httpClient.GetBufferAsync(new Uri(url)).AsTask(cts.Token, progress);
+            return await this.httpClient.GetBufferAsync(new Uri(url, UriKind.RelativeOrAbsolute)).AsTask(cts.Token, progress);
         }
 
         /// <summary>
@@ -1552,7 +1552,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> UnlockAsync(string requestUrl, LockToken lockToken)
         {
-            return await UnlockAsync(new Uri(requestUrl), lockToken, HttpCompletionOption.ResponseContentRead);
+            return await UnlockAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), lockToken, HttpCompletionOption.ResponseContentRead);
         }
 
         /// <summary>
@@ -1575,7 +1575,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<HttpResponseMessage> UnlockAsync(string requestUrl, LockToken lockToken, HttpCompletionOption completionOption)
         {
-            return await UnlockAsync(new Uri(requestUrl), lockToken, completionOption);
+            return await UnlockAsync(new Uri(requestUrl, UriKind.RelativeOrAbsolute), lockToken, completionOption);
         }
 
         /// <summary>
