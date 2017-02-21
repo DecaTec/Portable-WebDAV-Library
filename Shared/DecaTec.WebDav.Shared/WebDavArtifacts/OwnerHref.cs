@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace DecaTec.WebDav.WebDavArtifacts
@@ -42,6 +43,21 @@ namespace DecaTec.WebDav.WebDavArtifacts
             set
             {
                 this.hrefField = value;
+            }
+        }
+
+        private XElement anyElementField;
+
+        [XmlAnyElement()]
+        public XElement AnyElement
+        {
+            get
+            {
+                return this.anyElementField;
+            }
+            set
+            {
+                this.anyElementField = value;
             }
         }
     }

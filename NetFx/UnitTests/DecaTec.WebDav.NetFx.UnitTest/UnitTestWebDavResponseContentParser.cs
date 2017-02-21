@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net.Http;
+using DecaTec.WebDav.WebDavArtifacts;
 
 namespace DecaTec.WebDav.NetFx.UnitTest
 {
@@ -26,5 +27,16 @@ namespace DecaTec.WebDav.NetFx.UnitTest
 
             Assert.IsNotNull(multistatus);
         }
+
+        [TestMethod]
+        public void UT_NetFx_WebDavContentParser_ParsePropResponseContentAsyncWithAdditionalOwnerContent()
+        {
+            var str = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><D:multistatus xmlns:D='DAV:'><D:response><D:href>http://www.example.com/container/</D:href><D:propstat><D:prop><D:lockdiscovery><D:activelock><D:locktype><D:write/></D:locktype><D:lockscope><D:exclusive/></D:lockscope><D:depth>0</D:depth><D:owner><D:href>http://example.org/~ejw/contact.html</D:href><x:author xmlns:x='http://example.com/ns'><x:name>Jane Doe</x:name></x:author></D:owner><D:timeout>Infinite</D:timeout><D:locktoken><D:href>urn:uuid:f81de2ad-7f3d-a1b2-4f3c-00a0c91a9d76</D:href></D:locktoken><D:lockroot><D:href>http://www.example.com/container/</D:href></D:lockroot></D:activelock></D:lockdiscovery></D:prop><D:status>HTTP/1.1 200 OK</D:status></D:propstat></D:response></D:multistatus>";
+            var content = new StringContent(str);
+            var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(content).Result;
+            var owner = ((Propstat)multistatus.Response[0].Items[0]).Prop.LockDiscovery.ActiveLock[0].Owner;             
+
+            Assert.IsNotNull(multistatus);
+        }        
     }
 }
