@@ -66,7 +66,9 @@ namespace DecaTec.WebDav
     /// var lockInfo = new LockInfo();
     /// lockInfo.LockScope = LockScope.CreateExclusiveLockScope();
     /// lockInfo.LockType = LockType.CreateWriteLockType();
-    /// lockInfo.Owner = new OwnerHref("test@test.com");
+    /// // If only an href should be specified for the owner, use the OwnerHref property.
+    /// lockInfo.OwnerHref = "test@test.com";
+    /// // Other information about the owner (e.g. mixed content) can also be specified. Use the property OwnerRaw in this case.
     ///
     /// // Lock the desired folder by specifying a WebDavTimeOutHeaderValue (in this example, the timeout should be infinite), a value for depth and the LockInfo.
     /// var lockResult = await webDavClient.LockAsync(@"http://www.myserver.com/webdav/MyFolder/", WebDavTimeoutHeaderValue.CreateInfiniteWebDavTimeout(), WebDavDepthHeaderValue.Infinity, lockInfo);

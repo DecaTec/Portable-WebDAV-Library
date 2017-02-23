@@ -51,7 +51,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.OwnerHref"/>.
+        /// Gets or sets the href of the owner.
         /// </summary>
         [XmlIgnore]
         public string OwnerHref
