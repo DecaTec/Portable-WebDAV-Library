@@ -458,7 +458,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
             var lockInfo = new LockInfo();
             lockInfo.LockScope = LockScope.CreateExclusiveLockScope();
             lockInfo.LockType = LockType.CreateWriteLockType();
-            lockInfo.Owner = new OwnerHref("test@test.com");
+            lockInfo.OwnerHref = "test@test.com";
             var response = client.LockAsync(this.webDavRootFolder, WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromSeconds(15)), WebDavDepthHeaderValue.Infinity, lockInfo).Result;
             var lockResponseSuccess = response.IsSuccessStatusCode;
             LockToken lockToken = WebDavHelper.GetLockTokenFromWebDavResponseMessage(response);
@@ -486,7 +486,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
             var lockInfo = new LockInfo();
             lockInfo.LockScope = LockScope.CreateExclusiveLockScope();
             lockInfo.LockType = LockType.CreateWriteLockType();
-            lockInfo.Owner = new OwnerHref("test@test.com");
+            lockInfo.OwnerHref = "test@test.com";
             var response = client.LockAsync(this.webDavRootFolder, WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromSeconds(15)), WebDavDepthHeaderValue.Infinity, lockInfo).Result;
             var lockResponseSuccess = response.IsSuccessStatusCode;
 
@@ -517,7 +517,7 @@ namespace DecaTec.WebDav.Uwp.UnitIntegrationTest
             var lockInfo = new LockInfo();
             lockInfo.LockScope = LockScope.CreateExclusiveLockScope();
             lockInfo.LockType = LockType.CreateWriteLockType();
-            lockInfo.Owner = new OwnerHref("test@test.com");
+            lockInfo.OwnerHref = "test@test.com";
             var response = client.LockAsync(this.webDavRootFolder, WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromSeconds(15)), WebDavDepthHeaderValue.Infinity, lockInfo).Result;
             var lockResponseSuccess = response.IsSuccessStatusCode;
             LockToken lockToken = WebDavHelper.GetLockTokenFromWebDavResponseMessage(response);

@@ -31,7 +31,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\LockType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\Multistatus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\Omit.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\OwnerHref.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\Prop.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\PropertyBehavior.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WebDavArtifacts\PropertyUpdate.cs" />

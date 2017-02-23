@@ -1,6 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Runtime.Serialization;
+using System.Xml.Linq;
 using System.Xml.Serialization;
+using System.Linq;
 
 namespace DecaTec.WebDav.WebDavArtifacts
 {
@@ -8,7 +11,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// Class representing an 'activelock' XML element for WebDAV communication.
     /// </summary>
     [DataContract]
-    [DebuggerStepThrough]
+   // [DebuggerStepThrough]
     [XmlType(TypeName = WebDavConstants.ActiveLock, Namespace = WebDavConstants.DAV)]
     [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class ActiveLock
@@ -16,10 +19,10 @@ namespace DecaTec.WebDav.WebDavArtifacts
         private LockScope lockscopeField;
         private LockType locktypeField;
         private string depthField;
-        private OwnerHref ownerField;
         private string timeoutField;
         private WebDavLockToken locktokenField;
         private LockRoot lockRootField;
+        private XElement ownerRawField;
 
         /// <summary>
         /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.LockScope"/>.
@@ -72,16 +75,44 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.OwnerHref"/>.
         /// </summary>
-        [XmlElement(ElementName = WebDavConstants.Owner)]
-        public OwnerHref Owner
+        [XmlIgnore]
+        public string OwnerHref
         {
             get
             {
-                return this.ownerField;
+                var elem = this.OwnerRaw.Elements().FirstOrDefault(x => x.Name.LocalName == WebDavConstants.Href);
+
+                if (elem == null)
+                    return string.Empty;
+                else
+                {
+                    var href = elem.Value;
+                    return href;
+                }
             }
             set
             {
-                this.ownerField = value;
+                if (this.OwnerRaw != null)
+                    throw new InvalidOperationException("The OwnerHref field can only be set when the OwnerRaw field is empty");
+
+                this.ownerRawField = new XElement(WebDavConstants.Owner,
+                    new XElement(WebDavConstants.Href, value));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the raw owner info.
+        /// </summary>
+        [XmlAnyElement(Name = WebDavConstants.Owner, Namespace = WebDavConstants.DAV)]
+        public XElement OwnerRaw
+        {
+            get
+            {
+                return this.ownerRawField;
+            }
+            set
+            {
+                this.ownerRawField = value;
             }
         }
 
