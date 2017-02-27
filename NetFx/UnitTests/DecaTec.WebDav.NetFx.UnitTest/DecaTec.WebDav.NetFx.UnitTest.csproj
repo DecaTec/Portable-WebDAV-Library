@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="DebugHttpMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTestLockInfo.cs" />
     <Compile Include="UnitTestLockToken.cs" />
     <Compile Include="UnitTestProp.cs" />
     <Compile Include="UnitTestTextHelper.cs" />
