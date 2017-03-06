@@ -17,5 +17,12 @@ namespace DecaTec.WebDav.NetFx.UnitTest
             lockInfo.OwnerRaw = XElement.Parse(ownerRawString);
             lockInfo.OwnerHref = "test@test.com";
         }
+
+        [TestMethod]
+        public void UT_NetFx_LockInfo_CanSetOwnerHref()
+        {
+            var lockInfo = new LockInfo {OwnerHref = "http://localhost/test"};
+            Assert.IsNotNull(lockInfo);
+        }
     }
 }

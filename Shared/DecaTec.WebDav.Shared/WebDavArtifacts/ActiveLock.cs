@@ -95,8 +95,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
                 if (this.OwnerRaw != null)
                     throw new InvalidOperationException("The OwnerHref field can only be set when the OwnerRaw field is empty");
 
-                this.ownerRawField = new XElement(WebDavConstants.Owner,
-                    new XElement(WebDavConstants.Href, value));
+                this.ownerRawField = new XElement(WebDavConstants.DavNs + WebDavConstants.Owner,
+                    new XElement(WebDavConstants.DavNs + WebDavConstants.Href, value));
             }
         }
 

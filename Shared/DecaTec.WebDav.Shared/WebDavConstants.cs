@@ -1,4 +1,6 @@
 ﻿
+using System.Xml.Linq;
+
 namespace DecaTec.WebDav
 {
     /// <summary>
@@ -6,6 +8,8 @@ namespace DecaTec.WebDav
     /// </summary>
     public static class WebDavConstants
     {
+        internal static XNamespace DavNs { get; } = XNamespace.Get(DAV);
+
         /// <summary>
         /// Constant for 'DAV:'.
         /// </summary>
