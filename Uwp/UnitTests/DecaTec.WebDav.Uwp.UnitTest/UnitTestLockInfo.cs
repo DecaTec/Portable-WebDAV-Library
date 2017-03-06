@@ -20,5 +20,11 @@ namespace DecaTec.WebDav.Uwp.UnitTest
             });
         }
 
+        [TestMethod]
+        public void UT_UWP_LockInfo_CanSetOwnerHref()
+        {
+            var lockInfo = new LockInfo { OwnerHref = "http://localhost/test" };
+            Assert.IsNotNull(lockInfo);
+        }
     }
 }
