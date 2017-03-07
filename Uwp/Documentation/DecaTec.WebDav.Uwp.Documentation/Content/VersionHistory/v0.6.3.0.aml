@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <topic id="5c3aaa98-d191-491f-b502-80cbc1b299c7" revisionNumber="1">
- <developerConceptualDocument   
-   xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
-   xmlns:xlink="http://www.w3.org/1999/xlink">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction></introduction>
 
     <section>
@@ -12,10 +12,18 @@
         <list class="bullet">
           <listItem>
             <para>
+              The owner element now allows any content. If a URL or e mail address should be provided (as simple string), use the property OwnerHref. This is the same behavior as in previous versions of the library. When child elements, mixed content, text content or attributes should be provided for the owner, use the new property OwnerRaw.
+            </para>
+            <para>
+              Due to these changes, the owner is not a separate object (WebDavArtifacts) anymore, but represented by the properties OwnerHref and OwnerRaw in the clases ActiveLock and LockInfo.
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
               WebDavClient: All method overloads accepting a URL as string now construct the Uri with UriKind.RelativeOrAbsolute, so relative URLs can be specified.
             </para>
           </listItem>
-          
         </list>
 
       </content>
