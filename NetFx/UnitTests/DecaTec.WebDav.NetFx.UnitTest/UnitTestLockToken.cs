@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DecaTec.WebDav.NetFx.UnitTest
 {
@@ -17,7 +14,7 @@ namespace DecaTec.WebDav.NetFx.UnitTest
             var lockToken = new LockToken("my-lock-token");
             var str = lockToken.ToString(LockTokenFormat.IfHeader);
 
-            Assert.AreEqual("(my-lock-token)", str);
+            Assert.AreEqual("(<my-lock-token>)", str);
         }
 
         [TestMethod]
@@ -26,7 +23,34 @@ namespace DecaTec.WebDav.NetFx.UnitTest
             var lockToken = new LockToken("(my-lock-token)");
             var str = lockToken.ToString(LockTokenFormat.IfHeader);
 
-            Assert.AreEqual("(my-lock-token)", str);
+            Assert.AreEqual("(<my-lock-token>)", str);
+        }
+
+        [TestMethod]
+        public void UT_NetFx_LockToken_ToString_IfHeaderWithSquaredBrackets()
+        {
+            var lockToken = new LockToken("<my-lock-token>");
+            var str = lockToken.ToString(LockTokenFormat.IfHeader);
+
+            Assert.AreEqual("(<my-lock-token>)", str);
+        }
+
+        [TestMethod]
+        public void UT_NetFx_LockToken_ToString_IfHeaderWithBothBrackets()
+        {
+            var lockToken = new LockToken("(<my-lock-token>)");
+            var str = lockToken.ToString(LockTokenFormat.IfHeader);
+
+            Assert.AreEqual("(<my-lock-token>)", str);
+        }
+
+        [TestMethod]
+        public void UT_NetFx_LockToken_ToString_IfHeaderWithBothBracketsReversed()
+        {
+            var lockToken = new LockToken("<(my-lock-token)>");
+            var str = lockToken.ToString(LockTokenFormat.IfHeader);
+
+            Assert.AreEqual("(<my-lock-token>)", str);
         }
 
         [TestMethod]
@@ -44,13 +68,31 @@ namespace DecaTec.WebDav.NetFx.UnitTest
             var lockToken = new LockToken("(my-lock-token)");
             var str = lockToken.ToString(LockTokenFormat.LockTokenHeader);
 
-            Assert.AreEqual("(my-lock-token)", str);
+            Assert.AreEqual("<my-lock-token>", str);
         }
 
         [TestMethod]
         public void UT_NetFx_LockToken_ToString_LockTokenHeaderWithSquaredBrackets()
         {
             var lockToken = new LockToken("<my-lock-token>");
+            var str = lockToken.ToString(LockTokenFormat.LockTokenHeader);
+
+            Assert.AreEqual("<my-lock-token>", str);
+        }
+
+        [TestMethod]
+        public void UT_NetFx_LockToken_ToString_LockTokenHeaderWithBothBrackets()
+        {
+            var lockToken = new LockToken("(<my-lock-token>)");
+            var str = lockToken.ToString(LockTokenFormat.LockTokenHeader);
+
+            Assert.AreEqual("<my-lock-token>", str);
+        }
+
+        [TestMethod]
+        public void UT_NetFx_LockToken_ToString_LockTokenHeaderWithBothBracketsReversed()
+        {
+            var lockToken = new LockToken("<(my-lock-token)>");
             var str = lockToken.ToString(LockTokenFormat.LockTokenHeader);
 
             Assert.AreEqual("<my-lock-token>", str);
