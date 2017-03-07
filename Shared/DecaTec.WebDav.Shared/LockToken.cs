@@ -1,12 +1,34 @@
-﻿using System.Text;
-
-namespace DecaTec.WebDav
+﻿namespace DecaTec.WebDav
 {
     /// <summary>
     /// Class representing a WebDAV lock token.
     /// </summary>
     public class LockToken
     {
+        /// <summary>
+        /// The prefix for a "List" syntax. <para/>
+        /// http://www.webdav.org/specs/rfc4918.html#if.header.syntax
+        /// </summary>
+        private const char ListPrefix = '(';
+
+        /// <summary>
+        /// The postfix for a "List" syntax. <para/>
+        /// http://www.webdav.org/specs/rfc4918.html#if.header.syntax
+        /// </summary>
+        private const char ListPostfix = ')';
+
+        /// <summary>
+        /// The prefix for a "Coded-URL" syntax. <para/>
+        /// http://www.webdav.org/specs/rfc4918.html#HEADER_DAV
+        /// </summary>
+        private const char CodedUrlPrefix = '<';
+
+        /// <summary>
+        /// The postfix for a "Coded-URL" syntax. <para/>
+        /// http://www.webdav.org/specs/rfc4918.html#HEADER_DAV
+        /// </summary>
+        private const char CodedUrlPostfix = '>';
+
         /// <summary>
         /// Initializes a new instance of LockToken.
         /// </summary>
@@ -26,27 +48,29 @@ namespace DecaTec.WebDav
         public string RawLockToken { get; }
 
         /// <summary>
-        /// Gets the string representation of a lock token as used in an IF header.
+        /// Gets the string representation of a lock token as used in an If or Lock-Token header.
         /// </summary>
         /// <param name="format">The desired <see cref="LockTokenFormat"/>.</param>
         /// <returns>A lock token string with the desired format.</returns>
+        /// <remarks>
+        /// If header according to http://www.webdav.org/specs/rfc4918.html#HEADER_If <para/>
+        /// Lock-Token header according to http://www.webdav.org/specs/rfc4918.html#HEADER_Lock-Token
+        /// </remarks>
         public string ToString(LockTokenFormat format)
         {
-            var sb = new StringBuilder();
+            var cleanLockToken = RawLockToken.Trim(ListPrefix, ListPostfix, CodedUrlPrefix, CodedUrlPostfix);
+            var codedUrl = $"{CodedUrlPrefix}{cleanLockToken}{CodedUrlPostfix}";
 
-            if (format == LockTokenFormat.IfHeader && !this.RawLockToken.StartsWith("("))
-                sb.Append("(");
-            else if(!this.RawLockToken.StartsWith("<") && !this.RawLockToken.StartsWith("("))
-                sb.Append("<");
-
-            sb.Append(this.RawLockToken);
-
-            if (format == LockTokenFormat.IfHeader && !this.RawLockToken.EndsWith(")"))
-                sb.Append(")");
-            else if(!this.RawLockToken.EndsWith(">") && !this.RawLockToken.EndsWith(")"))
-                sb.Append(">");
-
-            return sb.ToString();
+            switch (format)
+            {
+                case LockTokenFormat.IfHeader:
+                    var list = $"{ListPrefix}{codedUrl}{ListPostfix}";
+                    return list;
+                case LockTokenFormat.LockTokenHeader:
+                    return codedUrl;
+                default:
+                    return RawLockToken;
+            }
         }
     }
 }
