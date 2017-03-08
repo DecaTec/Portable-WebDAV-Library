@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="816923f7-55cf-4b3b-98c1-6530dcb3bb59" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction></introduction>
+
+    <section>
+      <title>Changes in release v0.6.4.0</title>
+      <content>
+
+        <list class="bullet">
+          <listItem>
+            <para>
+              The property LockDiscovery is now considered when using the CreatePropWithEmptyProperties or CreatePropWithEmptyPropertiesAll methods to create an empty Prop instance.
+            </para>            
+          </listItem>
+          
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="a108005d-dd4f-4258-af05-4d0d8106efd0" />
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

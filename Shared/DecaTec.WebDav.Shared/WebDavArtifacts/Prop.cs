@@ -107,6 +107,9 @@ namespace DecaTec.WebDav.WebDavArtifacts
                     case PropNameConstants.QuotaUsedBytes:
                         prop.QuotaUsedBytes = string.Empty;
                         break;
+                    case PropNameConstants.LockDiscovery:
+                        prop.LockDiscovery = new LockDiscovery();
+                        break;
                     default:
                         break;
                 }
@@ -145,6 +148,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
             prop.SupportedLock = new SupportedLock();
             prop.QuotaAvailableBytes = string.Empty;
             prop.QuotaUsedBytes = string.Empty;
+            prop.LockDiscovery = new LockDiscovery();
             return prop;
         }
 
