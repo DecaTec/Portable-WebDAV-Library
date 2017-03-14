@@ -1,3 +1,9 @@
+v0.6.3.0
+- **Breaking change**: The owner element now allows any content. If a URL or e mail address should be provided (as simple string), use the property OwnerHref. This is the same behavior as in previous versions of the library. When child elements, mixed content, text content or attributes should be provided for the owner, use the new property OwnerRaw.
+- Due to these changes, the owner is not a separate object (WebDavArtifacts) anymore, but represented by the properties OwnerHref and OwnerRaw in the classes ActiveLock and LockInfo.
+- WebDavClient: All method overloads accepting a URL as string now construct the Uri with UriKind.RelativeOrAbsolute, so relative URLs can be specified.
+-  Changed formatting of Lock-Token header as defined in RFC 4918.
+
 v0.6.2.0
 - Added missing property 'SupportedLock' as defined in [RFC 4918](https://tools.ietf.org/html/rfc4918#section-6.7).
 - The class LockToken now exposes the internal LockToken value for serialization purposes.
