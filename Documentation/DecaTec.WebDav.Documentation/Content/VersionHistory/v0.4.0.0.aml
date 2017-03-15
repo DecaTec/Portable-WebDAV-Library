@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="7997772e-ca67-4080-9c48-44ea81dbfb5d" revisionNumber="1">
+  <developerConceptualDocument
+   xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction></introduction>
+
+    <section>
+      <title>Changes in release v0.4.0.0</title>
+      <content>
+
+        <list class="bullet">
+          <listItem>
+            <para>
+              New method overloads in WebDavClient without requiring a LockToken
+            </para>
+          </listItem>
+          <listItem>
+            <para>
+              NuGet package available: <externalLink><linkText>https://www.nuget.org/packages/PortableWebDavLibrary/</linkText><linkUri>https://www.nuget.org/packages/PortableWebDavLibrary/</linkUri></externalLink>
+            </para>
+          </listItem>
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="a108005d-dd4f-4258-af05-4d0d8106efd0" />
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

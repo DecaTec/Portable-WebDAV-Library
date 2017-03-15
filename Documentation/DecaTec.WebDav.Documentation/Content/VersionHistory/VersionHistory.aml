@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="a108005d-dd4f-4258-af05-4d0d8106efd0" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+        The topics in this section describe the various changes made to the Portable WebDAV Library over the
+        life of the project.
+      </para>
+    </introduction>
+
+    <section>
+      <title>Version History</title>
+      <content>
+        <para>Select a version below to see a description of its changes.</para>
+
+        <list class="bullet">
+          <listItem>
+            <para>
+              <link xlink:href="19f8035c-90f5-4762-bda1-1ac12e6c6601" />
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              <link xlink:href="56f4aaa9-4c8f-47f3-a154-ebfa578e5850" />
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              <link xlink:href="337d67df-2f68-4d1c-bb04-71a136847f65" />
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              <link xlink:href="a40f35cf-bc6d-4fe0-b681-4b3a0c6b11fe" />
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              <link xlink:href="7997772e-ca67-4080-9c48-44ea81dbfb5d" />
+            </para>
+          </listItem>
+          
+         <listItem>
+            <para>
+              <link xlink:href="9f35fb19-474d-4174-9a3e-f0fad5d4ff74" />
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              <link xlink:href="256595ba-c632-452e-91a0-8e642cd6debc" />
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              <link xlink:href="751d4b09-9b05-4d30-8aa1-7a0595524d46" />
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              <link xlink:href="ecc8aa8b-ad07-4724-a472-2df10a6767c5" />
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              <link xlink:href="35dc5445-5218-415d-b2ed-aa1f04e3cf2e" />
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              <link xlink:href="a0dfca82-20c5-4772-9c84-fd483fcdd163" />
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              <link xlink:href="f4d18840-0772-446b-8268-a53efb554502" />
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              <link xlink:href="5c3aaa98-d191-491f-b502-80cbc1b299c7" />
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              <link xlink:href="816923f7-55cf-4b3b-98c1-6530dcb3bb59" />
+            </para>
+          </listItem>
+
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

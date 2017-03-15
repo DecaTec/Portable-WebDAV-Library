@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="35dc5445-5218-415d-b2ed-aa1f04e3cf2e" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction></introduction>
+
+    <section>
+      <title>Changes in release v0.6.0.0</title>
+      <content>
+
+        <list class="bullet">
+          <listItem>
+            <para>
+              New overloads for UriHelper.CombineUri supporting a second parameter indicating if duplicated path segments of the second URI should be removed from the resulting URI. E.g. when this parameter is set to true, combining the URIs https://myserver.com/webdav and /webdav/myfile.txt will result in https://myserver.com/webdav/myfile.txt (not https://myserver.com/webdav/webdav/myfile.txt).
+              When this parameter is set to false (or by using the overload omitting this parameter), the URIs simply get combined as they are.
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              New overloads for UriHelper.AddTrailingSlash supporting a second parameter indicating if a file is expected in the URI/URL. Before this change, this method did not work with folder names containing a dot ('.').
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              New overloads for several methods in UriHelper accepting URLs as string.
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              Bugfix: Sometimes WebDavSession.ListAsync also returned the parent (containing) folder (due to wrong combination of URIs).
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              Bugfix: Fixed error parsing boolean properties for WebDavSessionListItem.
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              WebDavSession.ListAsync: The WebDAV library now uses the original port specified in the request to build the response (if the response comes from a different port internally). 
+            </para>
+          </listItem>
+          
+         <listItem>
+            <para>
+              New method in UriHelper to remove the port from an URI/URL.
+            </para>
+          </listItem>
+          
+         <listItem>
+            <para>
+              WebDavSession.ListAsync: When a Prop's DisplayName contains unreadable characters, the last part of the URI is used as WebDavSession ListItem's name instead.
+            </para>
+          </listItem>
+
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="a108005d-dd4f-4258-af05-4d0d8106efd0" />
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="256595ba-c632-452e-91a0-8e642cd6debc" revisionNumber="1">
+  <developerConceptualDocument
+   xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction></introduction>
+
+    <section>
+      <title>Changes in release v0.5.1.0</title>
+      <content>
+
+        <list class="bullet">
+          <listItem>
+            <para>
+              Bugfix: WebDavSession.ListAsync delivered the containing folder if the requested folder path contained spaces.
+            </para>
+          </listItem>
+          
+        <listItem>
+            <para>
+              The class PropFind now contains a method to create an empty PropFind (CreatePropFind). With such a PropFind, the server should return all properties known to the server.
+            </para>
+          </listItem>
+         
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="a108005d-dd4f-4258-af05-4d0d8106efd0" />
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>
