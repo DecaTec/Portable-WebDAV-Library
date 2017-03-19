@@ -335,7 +335,8 @@ namespace DecaTec.WebDav
         /// Downloads a file from the given URL.
         /// </summary>
         /// <param name="url">Te URL of the file to download.</param>
-        /// <param name="cts">The <see cref="CancellationTokenSource"/> to use.</param>
+        /// <param name="targetStream">The <see cref="Stream"/> to save the downloaded file to.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationTokenSource"/> to use.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<WebDavResponseMessage> DownloadFileAsync(string url, Stream targetStream, CancellationToken cancellationToken, IProgress<WebDavProgress> progress)
@@ -348,7 +349,8 @@ namespace DecaTec.WebDav
         /// Downloads a file from the given <see cref="Uri"/>.
         /// </summary>
         /// <param name="uri">Te <see cref="Uri"/> of the file to download.</param>
-        /// <param name="cts">The <see cref="CancellationTokenSource"/> to use.</param>
+        /// <param name="targetStream">The <see cref="Stream"/> to save the downloaded file to.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationTokenSource"/> to use.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<WebDavResponseMessage> DownloadFileAsync(Uri uri, Stream targetStream, CancellationToken cancellationToken, IProgress<WebDavProgress> progress)

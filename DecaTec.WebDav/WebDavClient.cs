@@ -2182,10 +2182,10 @@ namespace DecaTec.WebDav
         #region Upload file
 
         /// <summary>
-        /// Uploads a file from a given <see cref="IRandomAccessStream"/> to the given URL.
+        /// Uploads a file from a given <see cref="Stream"/> to the given URL.
         /// </summary>
         /// <param name="url">The URL the request is sent to.</param>
-        /// <param name="stream">The file's content as <see cref="IRandomAccessStream"/>.</param>
+        /// <param name="stream">The file's content as <see cref="Stream"/>.</param>
         /// <param name="contentType">The content type of the file to upload.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> to use.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
@@ -2196,10 +2196,10 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Uploads a file from a given <see cref="IRandomAccessStream"/> to the given <see cref="Uri"/>.
+        /// Uploads a file from a given <see cref="Stream"/> to the given <see cref="Uri"/>.
         /// </summary>
         /// <param name="uri">The <see cref="Uri"/> the request is sent to.</param>
-        /// <param name="stream">The file's content as <see cref="IRandomAccessStream"/>.</param>
+        /// <param name="stream">The file's content as <see cref="Stream"/>.</param>
         /// <param name="contentType">The content type of the file to upload.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> to use.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
@@ -2210,10 +2210,10 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Uploads a file from a given <see cref="IRandomAccessStream"/> to the given URL.
+        /// Uploads a file from a given <see cref="Stream"/> to the given URL.
         /// </summary>
         /// <param name="url">The URL the request is sent to.</param>
-        /// <param name="stream">The file's content as <see cref="IRandomAccessStream"/>.</param>
+        /// <param name="stream">The file's content as <see cref="Stream"/>.</param>
         /// <param name="contentType">The content type of the file to upload.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> to use.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
@@ -2225,10 +2225,10 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Uploads a file from a given <see cref="IRandomAccessStream"/> to the given <see cref="Uri"/>.
+        /// Uploads a file from a given <see cref="Stream"/> to the given <see cref="Uri"/>.
         /// </summary>
         /// <param name="uri">The <see cref="Uri"/> the request is sent to.</param>
-        /// <param name="stream">The file's content as <see cref="IRandomAccessStream"/>.</param>
+        /// <param name="stream">The file's content as <see cref="Stream"/>.</param>
         /// <param name="contentType">The content type of the file to upload.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> to use.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>

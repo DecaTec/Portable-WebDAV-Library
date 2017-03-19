@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace DecaTec.WebDav
 {
     /// <summary>
-    /// A <see cref="Stream>"/> capable of reporting progress.
+    /// A <see cref="Stream"/> capable of reporting progress.
     /// </summary>
     /// <remarks>Inspired by the <a href="https://github.com/paulcbetts/ModernHttpClient">ModernHttpClient project</a>.</remarks>
     internal class ProgressStream : Stream
