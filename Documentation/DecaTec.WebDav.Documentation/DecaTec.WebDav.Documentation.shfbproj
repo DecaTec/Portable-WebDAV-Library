@@ -21,7 +21,7 @@
       <Argument Key="logoFile" Value="PWL.png" />
       <Argument Key="logoHeight" Value="" />
       <Argument Key="logoWidth" Value="" />
-      <Argument Key="logoAltText" Value="" />
+      <Argument Key="logoAltText" Value="Portable WebDAV Library" />
       <Argument Key="logoPlacement" Value="left" />
       <Argument Key="logoAlignment" Value="left" />
       <Argument Key="maxVersionParts" Value="" />
@@ -108,6 +108,10 @@
     <Content Include="icons\Help.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="icons\PWL.png">
+      <ImageId>PWL</ImageId>
+      <AlternateText>PWL</AlternateText>
+    </Content>
     <Image Include="media\AppCapabilities.png">
       <ImageId>AppCapabilities</ImageId>
       <AlternateText>App Capabilities</AlternateText>

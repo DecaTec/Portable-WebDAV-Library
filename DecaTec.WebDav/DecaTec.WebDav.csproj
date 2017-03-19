@@ -14,6 +14,7 @@
     <PackageIconUrl>https://github.com/DecaTec/Portable-WebDAV-Library/raw/master/Assets/NuGetLogo.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/DecaTec/Portable-WebDAV-Library</RepositoryUrl>
     <PackageTags>WebDAV, portable, netstandard, UWP, dotnet, portable-webdav-library</PackageTags>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -22,7 +23,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>C:\Projects\GitHub\Portable-WebDAV-Library\Build\Release\</OutputPath>
-    <DocumentationFile>C:\Projects\GitHub\Portable-WebDAV-Library\Build\Release\\DecaTec.WebDav.XML</DocumentationFile>
+    <DocumentationFile>C:\Projects\GitHub\Portable-WebDAV-Library\Build\Release\DecaTec.WebDav.XML</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
