@@ -14,7 +14,7 @@
     <Name>DecaTec.WebDav.Documentation</Name>
     <!-- SHFB properties -->
     <FrameworkVersion>.NET Framework 4.5</FrameworkVersion>
-    <OutputPath>..\..\..\Build\Doc\</OutputPath>
+    <OutputPath>..\..\Build\Doc\</OutputPath>
     <HtmlHelpName>DecaTec.WebDav.Documentation</HtmlHelpName>
     <Language>en-US</Language>
     <TransformComponentArguments>
@@ -54,7 +54,9 @@
     <CleanIntermediates>True</CleanIntermediates>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="DecaTec.WebDav" isDocumented="True" xmlns="">The DecaTec.WebDav namespace contains types that allow communication with a WebDAV server.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="DecaTec.WebDav.WebDavArtifacts" isDocumented="True" xmlns="">The DecaTec.WebDav.WebDavArtifacts namespace contains types representing the WebDAV object model. These types are used in order to generate the XML strings for communication with a WebDAV server.</NamespaceSummaryItem></NamespaceSummaries>
+      <NamespaceSummaryItem name="DecaTec.WebDav.WebDavArtifacts" isDocumented="True" xmlns="">The DecaTec.WebDav.WebDavArtifacts namespace contains types representing the WebDAV object model. These types are used in order to generate the XML strings for communication with a WebDAV server.</NamespaceSummaryItem>
+    </NamespaceSummaries>
+    <WorkingPath>..\..\Build\Doc\Working\</WorkingPath>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->

@@ -21,8 +21,8 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>D:\Projects\GitHub\Portable-WebDAV-Library\Build\Release\</OutputPath>
-    <DocumentationFile>D:\Projects\GitHub\Portable-WebDAV-Library\Build\Release\netstandard1.1\DecaTec.WebDav.XML</DocumentationFile>
+    <OutputPath>C:\Projects\GitHub\Portable-WebDAV-Library\Build\Release\</OutputPath>
+    <DocumentationFile>C:\Projects\GitHub\Portable-WebDAV-Library\Build\Release\\DecaTec.WebDav.XML</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
