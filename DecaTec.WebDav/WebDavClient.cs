@@ -397,7 +397,9 @@ namespace DecaTec.WebDav
                 totalLength = 0L;
 
             var stream = new WebDavProgressStreamContent(new ProgressStream(await response.Content.ReadAsStreamAsync(), cancellationToken), totalLength, progress);
-            await stream.CopyToAsync(targetStream);           
+            await stream.CopyToAsync(targetStream);
+            await targetStream.FlushAsync();
+            targetStream.Dispose();
 
             return response;
         }
