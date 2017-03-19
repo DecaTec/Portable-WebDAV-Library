@@ -105,7 +105,7 @@ namespace DecaTec.WebDav
         /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
         public WebDavSession(HttpMessageHandler httpMessageHandler)
             : this(string.Empty, httpMessageHandler)
-        {
+        {            
         }
 
         /// <summary>
@@ -332,31 +332,31 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Downloads a file from the given URL.
+        /// Downloads a file (with progress) from the given URL.
         /// </summary>
         /// <param name="url">Te URL of the file to download.</param>
         /// <param name="targetStream">The <see cref="Stream"/> to save the downloaded file to.</param>
         /// <param name="cancellationToken">The <see cref="CancellationTokenSource"/> to use.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> DownloadFileAsync(string url, Stream targetStream, CancellationToken cancellationToken, IProgress<WebDavProgress> progress)
+        public async Task<WebDavResponseMessage> DownloadFileWithProgressAsync(string url, Stream targetStream, CancellationToken cancellationToken, IProgress<WebDavProgress> progress)
         {
             var uri = new Uri(url, UriKind.RelativeOrAbsolute);
-            return await DownloadFileAsync(uri, targetStream, cancellationToken, progress);
+            return await DownloadFileWithProgressAsync(uri, targetStream, cancellationToken, progress);
         }
 
         /// <summary>
-        /// Downloads a file from the given <see cref="Uri"/>.
+        /// Downloads a file (with progress) from the given <see cref="Uri"/>.
         /// </summary>
         /// <param name="uri">Te <see cref="Uri"/> of the file to download.</param>
         /// <param name="targetStream">The <see cref="Stream"/> to save the downloaded file to.</param>
         /// <param name="cancellationToken">The <see cref="CancellationTokenSource"/> to use.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> DownloadFileAsync(Uri uri, Stream targetStream, CancellationToken cancellationToken, IProgress<WebDavProgress> progress)
+        public async Task<WebDavResponseMessage> DownloadFileWithProgressAsync(Uri uri, Stream targetStream, CancellationToken cancellationToken, IProgress<WebDavProgress> progress)
         {
             uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri, true, false);
-            return await this.webDavClient.DownloadFileAsync(uri, targetStream, cancellationToken, progress);
+            return await this.webDavClient.DownloadFileWithProgressAsync(uri, targetStream, cancellationToken, progress);
         }
 
         #endregion Download file
@@ -694,7 +694,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Uploads a file to the URL specified.
+        /// Uploads a file (with progress) to the URL specified.
         /// </summary>
         /// <param name="url">The URL of the file to upload.</param>
         /// <param name="stream">The <see cref="Stream"/> containing the file to upload.</param>
@@ -702,13 +702,13 @@ namespace DecaTec.WebDav
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> to use.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<bool> UploadFileAsync(string url, Stream stream, string contentType, CancellationToken cancellationToken, IProgress<WebDavProgress> progress)
+        public async Task<bool> UploadFileWithProgressAsync(string url, Stream stream, string contentType, CancellationToken cancellationToken, IProgress<WebDavProgress> progress)
         {
-            return await UploadFileAsync(new Uri(url, UriKind.RelativeOrAbsolute), stream, contentType, cancellationToken, progress);
+            return await UploadFileWithProgressAsync(new Uri(url, UriKind.RelativeOrAbsolute), stream, contentType, cancellationToken, progress);
         }
 
         /// <summary>
-        /// Uploads a file to the <see cref="Uri"/> specified.
+        /// Uploads a file (with progress) to the <see cref="Uri"/> specified.
         /// </summary>
         /// <param name="uri">The <see cref="Uri"/> of the file to upload.</param>
         /// <param name="stream">The <see cref="Stream"/> containing the file to upload.</param>
@@ -716,11 +716,11 @@ namespace DecaTec.WebDav
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> to use.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<bool> UploadFileAsync(Uri uri, Stream stream, string contentType, CancellationToken cancellationToken, IProgress<WebDavProgress> progress)
+        public async Task<bool> UploadFileWithProgressAsync(Uri uri, Stream stream, string contentType, CancellationToken cancellationToken, IProgress<WebDavProgress> progress)
         {
             uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri, true, false);
             var lockToken = GetAffectedLockToken(uri);
-            var response = await this.webDavClient.UploadFileAsync(uri, stream, contentType, cancellationToken, progress, lockToken);
+            var response = await this.webDavClient.UploadFileWithProgressAsync(uri, stream, contentType, cancellationToken, progress, lockToken);
             return response.IsSuccessStatusCode;
         }
 
