@@ -24,7 +24,7 @@ namespace DecaTec.WebDav
     /// </remarks>
     /// <example>See the following code to list the content of a directory with the WebDavSession:
     /// <code>
-    /// // You have to add a reference to DecaTec.WebDav.NetFx.dll.
+    /// // You have to add a reference to DecaTec.WebDav.dll.
     /// //
     /// // Specify the user credentials and use it to create a WebDavSession instance.
     /// var credentials = new NetworkCredential("MyUserName", "MyPassword");

@@ -73,7 +73,6 @@ namespace DecaTec.WebDav.UnitTest
 
         private WebDavClient CreateWebDavClient()
         {
-            // When on NetFx, create with DebugHttpMessageHandler.
             return new WebDavClient(new DebugHttpMessageHandler());
         }
     }

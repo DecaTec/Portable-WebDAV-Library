@@ -22,7 +22,7 @@ namespace DecaTec.WebDav
     /// and provides an easy access to WebDAV servers.</para>
     /// <example>To send a propfind request you can use following code:
     /// <code>
-    /// // You have to add a reference to DecaTec.WebDav.NetFx.dll.
+    /// // You have to add a reference to DecaTec.WebDav.dll.
     /// //
     /// // Specify the user credentials and pass it to a HttpClientHandler.
     /// var credentials = new NetworkCredential("MyUserName", "MyPassword");
