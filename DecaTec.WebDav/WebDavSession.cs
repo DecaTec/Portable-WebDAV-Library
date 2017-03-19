@@ -331,6 +331,32 @@ namespace DecaTec.WebDav
                 return false;
         }
 
+        /// <summary>
+        /// Downloads a file from the given URL.
+        /// </summary>
+        /// <param name="url">Te URL of the file to download.</param>
+        /// <param name="cts">The <see cref="CancellationTokenSource"/> to use.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> DownloadFileAsync(string url, Stream targetStream, CancellationToken cancellationToken, IProgress<WebDavProgress> progress)
+        {
+            var uri = new Uri(url, UriKind.RelativeOrAbsolute);
+            return await DownloadFileAsync(uri, targetStream, cancellationToken, progress);
+        }
+
+        /// <summary>
+        /// Downloads a file from the given <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="uri">Te <see cref="Uri"/> of the file to download.</param>
+        /// <param name="cts">The <see cref="CancellationTokenSource"/> to use.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> DownloadFileAsync(Uri uri, Stream targetStream, CancellationToken cancellationToken, IProgress<WebDavProgress> progress)
+        {
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri, true, false);
+            return await this.webDavClient.DownloadFileAsync(uri, targetStream, cancellationToken, progress);
+        }
+
         #endregion Download file
 
         #region Exists
@@ -664,6 +690,38 @@ namespace DecaTec.WebDav
             var response = await this.webDavClient.PutAsync(uri, content, lockToken);
             return response.IsSuccessStatusCode;
         }
+
+        /// <summary>
+        /// Uploads a file to the URL specified.
+        /// </summary>
+        /// <param name="url">The URL of the file to upload.</param>
+        /// <param name="stream">The <see cref="Stream"/> containing the file to upload.</param>
+        /// <param name="contentType">The content type of the file to upload.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to use.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> UploadFileAsync(string url, Stream stream, string contentType, CancellationToken cancellationToken, IProgress<WebDavProgress> progress)
+        {
+            return await UploadFileAsync(new Uri(url, UriKind.RelativeOrAbsolute), stream, contentType, cancellationToken, progress);
+        }
+
+        /// <summary>
+        /// Uploads a file to the <see cref="Uri"/> specified.
+        /// </summary>
+        /// <param name="uri">The <see cref="Uri"/> of the file to upload.</param>
+        /// <param name="stream">The <see cref="Stream"/> containing the file to upload.</param>
+        /// <param name="contentType">The content type of the file to upload.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to use.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> UploadFileAsync(Uri uri, Stream stream, string contentType, CancellationToken cancellationToken, IProgress<WebDavProgress> progress)
+        {
+            uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri, true, false);
+            var lockToken = GetAffectedLockToken(uri);
+            var response = await this.webDavClient.UploadFileAsync(uri, stream, contentType, cancellationToken, progress, lockToken);
+            return response.IsSuccessStatusCode;
+        }
+
 
         #endregion Upload file
 
