@@ -189,7 +189,7 @@ PropFind pf = PropFind.CreatePropFindAllProp();
         <list class="bullet">
           <listItem>
             <para>
-              Visual Studio 2013 or later
+              Visual Studio 2017 or later
             </para>
           </listItem>
           <listItem>
