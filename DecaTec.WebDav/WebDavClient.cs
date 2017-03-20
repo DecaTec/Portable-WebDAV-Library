@@ -22,24 +22,27 @@ namespace DecaTec.WebDav
     /// and provides an easy access to WebDAV servers.</para>
     /// <example>To send a propfind request you can use following code:
     /// <code>
-    /// // You have to add a reference to DecaTec.WebDav.dll.
-    /// //
-    /// // Specify the user credentials and pass it to a HttpClientHandler.
-    /// var credentials = new NetworkCredential("MyUserName", "MyPassword");
-    /// var httpClientHandler = new HttpClientHandler();
-    /// httpClientHandler.Credentials = credentials;
-    /// httpClientHandler.PreAuthenticate = true;
+    /// // The base URL of the WebDAV server.
+    /// var webDavServerUrl = @"http://www.myserver.com/webdav/";
     ///
-    /// // Use the HttpClientHandler to create the WebDavClient.
+    /// // Specify the user credentials and pass it to a HttpBaseProtocolFilter.
+    /// var credentials = new NetworkCredential("MyUserName", "MyPassword");
+    ///
+    /// var httpClientHandler = new HttpClientHandler()
+    /// {
+    ///    Credentials = credentials
+    /// };
+    ///
+    /// // Use the HttpClientHandler (with credentials) to create a new WebDavClient.
     /// var webDavClient = new WebDavClient(httpClientHandler);
     ///
     /// // Create a PropFind object with represents a so called 'allprop' request.
-    /// PropFind pf = PropFind.CreatePropFindAllProp();
-    /// var response = await webDavClient.PropFindAsync(@"http://www.myserver.com/webdav/MyFolder/", WebDavDepthHeaderValue.Infinity, pf);
+    /// var pf = PropFind.CreatePropFindAllProp();
+    /// var response = await webDavClient.PropFindAsync(webDavServerUrl + @"/MyFolder/", WebDavDepthHeaderValue.Infinity, pf);
     ///
     /// // You could also use an XML string directly for use with the WebDavClient.
     /// //var xmlString = "&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;utf-8\&quot;?&gt;&lt;D:propfind xmlns:D=\&quot;DAV:\&quot;&gt;&lt;D:allprop /&gt;&lt;/D:propfind&gt;";
-    /// //var response = await webDavClient.PropFindAsync(@"http://www.myserver.com/webdav/MyFolder/", WebDavDepthHeaderValue.Infinity, xmlString);
+    /// //var response = await webDavClient.PropFindAsync(webDavServerUrl + @"/MyFolder/", WebDavDepthHeaderValue.Infinity, xmlString);
     ///
     /// // Use the WebDavResponseContentParser to parse the response message and get a MultiStatus instance (this is also an async method).
     /// var multistatus = await WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content);
@@ -47,9 +50,11 @@ namespace DecaTec.WebDav
     /// // Now you can use the MultiStatus object to get access to the items properties.
     /// foreach (var responseItem in multistatus.Response)
     /// {
-    ///     // Handle propfind multistatus response, e.g responseItem.Href is the URL of an item (folder or file).
-    ///     Console.WriteLine(responseItem.Href);
+	///    // Handle propfind multistatus response, e.g responseItem.Href is the URL of an item (folder or file).
     /// }
+    ///
+    /// // Dispose the WebDavClient when it is not longer needed.
+    /// webDavClient.Dispose();
     /// </code>
     /// <para></para>
     /// See the following code which demonstrates locking using a WebDavClient:

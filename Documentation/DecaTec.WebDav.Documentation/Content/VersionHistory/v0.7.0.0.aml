@@ -12,7 +12,25 @@
         <list class="bullet">
           <listItem>
             <para>
-              TODO
+              The library now targets .NETStandard 1.1 (.NET Core) and can be used on any platform supporting .NETStandard 1.1.
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              Due to .NETStandard support, the library is not separated into two parts (UWP/NetFx) anymore. One library for all the target platforms.
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              Breaking Change: The whole library is now based on System.Net.Http.HttpClient. Therefore, there are some changes in the API (e.g. method signatures).
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              Upload/download with progress is generally supported, even on projects targeting .NET Framework (formerly the NetFx part of the library).
             </para>
           </listItem>
         </list>         

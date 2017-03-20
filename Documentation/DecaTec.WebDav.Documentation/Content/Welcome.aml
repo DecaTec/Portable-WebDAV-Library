@@ -3,7 +3,7 @@
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>
-        The Portable WebDAV Library is a strongly typed, async WebDAV client library which is fully <externalLink><linkText>RFC 4918</linkText><linkUri>http://tools.ietf.org/html/rfc4918</linkUri></externalLink> and <externalLink><linkText>RFC 4331</linkText><linkUri>https://tools.ietf.org/html/rfc4331</linkUri></externalLink> compliant. It is implemented as .NETStnadard 1.1 library in oder to be used on any platform supporting .NETStandard 1.1.
+        The Portable WebDAV Library is a strongly typed, async WebDAV client library which is fully <externalLink><linkText>RFC 4918</linkText><linkUri>http://tools.ietf.org/html/rfc4918</linkUri></externalLink> and <externalLink><linkText>RFC 4331</linkText><linkUri>https://tools.ietf.org/html/rfc4331</linkUri></externalLink> compliant. It is implemented as .NETStandard 1.1 library in oder to be used on any platform supporting .NETStandard 1.1.
       </para>
     </introduction>
 
@@ -93,23 +93,26 @@ foreach (var item in items)
         <code language="c#">
           <![CDATA[
 // The base URL of the WebDAV server.
-var webDavServerUrl = "http://www.myserver.com/webdav/";
+var webDavServerUrl = @"http://www.myserver.com/webdav/";
 
 // Specify the user credentials and pass it to a HttpBaseProtocolFilter.
-var credentials = new PasswordCredential(webDavServerUrl, "MyUserName", "MyPassword");
-var httpBaseProtocolFilter = new HttpBaseProtocolFilter();
-httpBaseProtocolFilter.ServerCredential = credentials;
+var credentials = new NetworkCredential("MyUserName", "MyPassword");
 
-// Use the HttpBaseProtocolFilter (with credentials) to create a new WebDavClient.
-var webDavClient = new WebDavClient(httpBaseProtocolFilter);
+var httpClientHandler = new HttpClientHandler()
+{
+	Credentials = credentials
+};
+
+// Use the HttpClientHandler (with credentials) to create a new WebDavClient.
+var webDavClient = new WebDavClient(httpClientHandler);
 
 // Create a PropFind object with represents a so called 'allprop' request.
 var pf = PropFind.CreatePropFindAllProp();
-var response = await webDavClient.PropFindAsync("http://www.myserver.com/webdav/MyFolder/", WebDavDepthHeaderValue.Infinity, pf);
+var response = await webDavClient.PropFindAsync(webDavServerUrl + @"/MyFolder/", WebDavDepthHeaderValue.Infinity, pf);
 
 // You could also use an XML string directly for use with the WebDavClient.
 //var xmlString = "&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;utf-8\&quot;?&gt;&lt;D:propfind xmlns:D=\&quot;DAV:\&quot;&gt;&lt;D:allprop /&gt;&lt;/D:propfind&gt;";
-//var response = await webDavClient.PropFindAsync(@"http://www.myserver.com/webdav/MyFolder/", WebDavDepthHeaderValue.Infinity, xmlString);
+//var response = await webDavClient.PropFindAsync(webDavServerUrl + @"/MyFolder/", WebDavDepthHeaderValue.Infinity, xmlString);
 
 // Use the WebDavResponseContentParser to parse the response message and get a MultiStatus instance (this is also an async method).
 var multistatus = await WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content);
@@ -117,7 +120,7 @@ var multistatus = await WebDavResponseContentParser.ParseMultistatusResponseCont
 // Now you can use the MultiStatus object to get access to the items properties.
 foreach (var responseItem in multistatus.Response)
 {
-    // Handle propfind multistatus response, e.g responseItem.Href is the URL of an item (folder or file).
+	// Handle propfind multistatus response, e.g responseItem.Href is the URL of an item (folder or file).
 }
 
 // Dispose the WebDavClient when it is not longer needed.

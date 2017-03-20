@@ -27,35 +27,38 @@
           The Portable WebDAV Library can also be used with WebDAV servers which use expired/untrusted certificates. This is a common scenario when using self-signed certificates, as these are not trusted.
         </para>
         <para>
-          <legacyBold>Important:</legacyBold> It is up to the app using the Portable WebDAV Library to specify which certificate errors should be ignored. This can be accomplished by specifying a HttpBaseProtocolFilter when creating a WebDavSession or WebDavClient.
+          <legacyBold>Important:</legacyBold> It is up to the app using the Portable WebDAV Library to specify which certificate errors should be ignored. This can be accomplished by using the ServerCertificateValidationCallback of the ServicePointManager and specifying the SSL errors which should be ignored.
         </para>
         <para>
           See the following example using a WebDavSession:
         </para>
         <code language="c#">
         <![CDATA[
+// Use the ServicePointManager.ServerCertificateValidationCallback to ignore certificate errors.
+// This call should be done before trying to access any WebDAV resources, otherwise an exception will be thrown.
+ServicePointManager.ServerCertificateValidationCallback += (object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) =>
+{
+    // Specify which certificate errors should be ignored.
+    if (sslPolicyErrors == SslPolicyErrors.RemoteCertificateNotAvailable)
+	    return true;
+    else
+	    return false;
+};
+
 // The base URL (HTTPS) of the WebDAV server.
-var webDavServerUrl = "https://www.myserver.com/webdav/";
+var webDavServerUrl = @"https://www.myserver.com/webdav/";
 
-// Specify the user credentials and pass it to a HttpBaseProtocolFilter.
-var credentials = new PasswordCredential(webDavServerUrl, "MyUsername", "MyPassword");
-var httpBaseProtocolFilter = new HttpBaseProtocolFilter();
-httpBaseProtocolFilter.ServerCredential = credentials;
-
-// Specify the certificate errors which should be ignored.
-// It is recommended to only ignore expired or untrusted certificate errors.
-// When an invalid certificate is used by the WebDAV server and these errors are not ignored, an exception will be thrown when trying to access WebDAV resources.
-httpBaseProtocolFilter.IgnorableServerCertificateErrors.Add(ChainValidationResult.Expired);
-httpBaseProtocolFilter.IgnorableServerCertificateErrors.Add(ChainValidationResult.Untrusted);
+// Specify the user credentials.
+var credentials = new NetworkCredential("MyUsername", "MyPassword");
 
 // Create a WebDavSession with the HttpBaseProtocolFilter.
-var webDavSession = new WebDavSession(webDavServerUrl, httpBaseProtocolFilter);
+var webDavSession = new WebDavSession(webDavServerUrl, credentials);
 
 var items = await webDavSession.ListAsync(@"MyFolder/");
 
 foreach (var item in items)
 {
-        // Handle the response (list of WebDavSessionListItems).
+    // Handle the response (list of WebDavSessionListItems).
 }
 
 webDavSession.Dispose();
