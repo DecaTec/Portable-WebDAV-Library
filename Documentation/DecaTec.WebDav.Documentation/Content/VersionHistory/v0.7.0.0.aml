@@ -33,6 +33,12 @@
               Upload/download with progress is generally supported, even on projects targeting .NET Framework (formerly the NetFx part of the library).
             </para>
           </listItem>
+
+          <listItem>
+            <para>
+              The xml:lang attribute is now supported for prop elements.
+            </para>
+          </listItem>
         </list>         
 
       </content>

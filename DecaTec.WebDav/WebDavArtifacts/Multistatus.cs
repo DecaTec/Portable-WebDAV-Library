@@ -13,23 +13,14 @@ namespace DecaTec.WebDav.WebDavArtifacts
     [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class Multistatus
     {
-        private Response[] responseField;
-        private string responsedescriptionField;
-
         /// <summary>
         /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.Response"/> array.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.Response)]
         public Response[] Response
         {
-            get
-            {
-                return this.responseField;
-            }
-            set
-            {
-                this.responseField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -38,14 +29,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = WebDavConstants.ResponseDescription)]
         public string ResponseDescription
         {
-            get
-            {
-                return this.responsedescriptionField;
-            }
-            set
-            {
-                this.responsedescriptionField = value;
-            }
+            get;
+            set;
         }
     }
 }

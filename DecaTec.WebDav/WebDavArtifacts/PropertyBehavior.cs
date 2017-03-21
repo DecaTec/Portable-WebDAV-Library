@@ -13,8 +13,6 @@ namespace DecaTec.WebDav.WebDavArtifacts
     [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class PropertyBehavior
     {
-        private object itemField;
-
         /// <summary>
         /// Gets or sets the Item.
         /// </summary>
@@ -22,14 +20,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = WebDavConstants.Omit, Type = typeof(Omit))]
         public object Item
         {
-            get
-            {
-                return this.itemField;
-            }
-            set
-            {
-                this.itemField = value;
-            }
+            get;
+            set;
         }
     }
 }

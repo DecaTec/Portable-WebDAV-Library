@@ -13,22 +13,14 @@ namespace DecaTec.WebDav.WebDavArtifacts
     [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class Source
     {
-        private Link[] linkField;
-
         /// <summary>
         /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.Link"/> array.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.Link)]
         public Link[] Link
         {
-            get
-            {
-                return this.linkField;
-            }
-            set
-            {
-                this.linkField = value;
-            }
+            get;
+            set;
         }
     }
 }

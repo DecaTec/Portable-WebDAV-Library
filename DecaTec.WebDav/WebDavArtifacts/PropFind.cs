@@ -67,8 +67,6 @@ namespace DecaTec.WebDav.WebDavArtifacts
             return propFind;
         }
 
-        private object itemField;
-
         /// <summary>
         /// Gets or sets the Item.
         /// </summary>
@@ -77,14 +75,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = WebDavConstants.PropName, Type =  typeof(PropName))]
         public object Item
         {
-            get
-            {
-                return this.itemField;
-            }
-            set
-            {
-                this.itemField = value;
-            }
+            get;
+            set;
         }
     }
 }

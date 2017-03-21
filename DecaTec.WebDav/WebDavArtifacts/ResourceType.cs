@@ -13,22 +13,14 @@ namespace DecaTec.WebDav.WebDavArtifacts
     [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class ResourceType
     {
-        private Collection collectionField;
-
         /// <summary>
         /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.Collection"/>.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.Collection)]
         public Collection Collection
         {
-            get
-            {
-                return this.collectionField;
-            }
-            set
-            {
-                this.collectionField = value;
-            }
+            get;
+            set;
         }
     }
 }

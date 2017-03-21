@@ -14,24 +14,14 @@ namespace DecaTec.WebDav.WebDavArtifacts
     [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class LockInfo
     {
-        private LockScope lockscopeField;
-        private LockType locktypeField;
-        private XElement ownerRawField;
-
         /// <summary>
         /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.LockScope"/>.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.LockScope)]
         public LockScope LockScope
         {
-            get
-            {
-                return this.lockscopeField;
-            }
-            set
-            {
-                this.lockscopeField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -40,14 +30,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = WebDavConstants.LockType)]
         public LockType LockType
         {
-            get
-            {
-                return this.locktypeField;
-            }
-            set
-            {
-                this.locktypeField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -73,7 +57,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
                 if (this.OwnerRaw != null)
                     throw new InvalidOperationException("The OwnerHref field can only be set when the OwnerRaw field is empty");
 
-                this.ownerRawField = new XElement(WebDavConstants.DavNs + WebDavConstants.Owner,
+                this.OwnerRaw = new XElement(WebDavConstants.DavNs + WebDavConstants.Owner,
                     new XElement(WebDavConstants.DavNs + WebDavConstants.Href, value));
             }
         }
@@ -84,14 +68,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlAnyElement(Name = WebDavConstants.Owner, Namespace = WebDavConstants.DAV)]
         public XElement OwnerRaw
         {
-            get
-            {
-                return this.ownerRawField;
-            }
-            set
-            {
-                this.ownerRawField = value;
-            }
+            get;
+            set;
         }
     }
 }

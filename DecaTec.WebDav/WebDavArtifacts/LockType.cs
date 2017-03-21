@@ -9,6 +9,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
     /// RFC4918 only specifies a single lock type, which is the write lock type.
     /// </summary>
     [DataContract]
+    [DebuggerStepThrough]
     [XmlType(TypeName = WebDavConstants.LockType, Namespace = WebDavConstants.DAV)]
     [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class LockType
@@ -24,22 +25,14 @@ namespace DecaTec.WebDav.WebDavArtifacts
             return lockType;
         }
 
-        private Write writeField;
-
         /// <summary>
         /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.Write"/>.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.Write)]
         public Write Write
         {
-            get
-            {
-                return this.writeField;
-            }
-            set
-            {
-                this.writeField = value;
-            }
+            get;
+            set;
         }
     }
 }

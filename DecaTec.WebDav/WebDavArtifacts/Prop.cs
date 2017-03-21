@@ -150,33 +150,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
             prop.QuotaUsedBytes = string.Empty;
             prop.LockDiscovery = new LockDiscovery();
             return prop;
-        }
-
-        private string creationdateField;
-        private bool creationdateFieldSpecified;
-        private string getcontentlanguageField;
-        private string displaynameField;
-        private string getcontentlengthField;
-        private string getcontenttypeField;
-        private string getlastmodifiedField;
-        private string getetagField;
-        private Source sourceField;
-        private ResourceType resourcetypeField;
-        private string contentclassField;
-        private string defaultdocumentField;
-        private string hrefField;
-        private string iscollectionField;
-        private string ishiddenField;
-        private string isreadonlyField;
-        private string isrootField;
-        private string isstructureddocumentField;
-        private string lastaccessedField;
-        private string nameField;
-        private string parentnameField;
-        private LockDiscovery lockDiscoveryField;
-        private SupportedLock supportedLockField;
-        private string quotaAvailableBytesField;
-        private string quotaUsedBytesField;
+        }       
 
         /// <summary>
         /// Gets or sets the CreationDate.
@@ -184,14 +158,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.CreationDate)]
         public string CreationDate
         {
-            get
-            {
-                return this.creationdateField;
-            }
-            set
-            {
-                this.creationdateField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -200,14 +168,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlIgnore]
         public bool CreationDateSpecified
         {
-            get
-            {
-                return this.creationdateFieldSpecified;
-            }
-            set
-            {
-                this.creationdateFieldSpecified = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -216,14 +178,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.GetContentLanguage)]
         public string GetContentLanguage
         {
-            get
-            {
-                return this.getcontentlanguageField;
-            }
-            set
-            {
-                this.getcontentlanguageField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -232,14 +188,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.DisplayName)]
         public string DisplayName
         {
-            get
-            {
-                return this.displaynameField;
-            }
-            set
-            {
-                this.displaynameField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -248,14 +198,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.GetContentLength)]
         public string GetContentLength
         {
-            get
-            {
-                return this.getcontentlengthField;
-            }
-            set
-            {
-                this.getcontentlengthField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -264,14 +208,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.GetContentType)]
         public string GetContentType
         {
-            get
-            {
-                return this.getcontenttypeField;
-            }
-            set
-            {
-                this.getcontenttypeField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -280,14 +218,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.GetLastModified)]
         public string GetLastModified
         {
-            get
-            {
-                return this.getlastmodifiedField;
-            }
-            set
-            {
-                this.getlastmodifiedField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -296,14 +228,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.GetEtag)]
         public string GetEtag
         {
-            get
-            {
-                return this.getetagField;
-            }
-            set
-            {
-                this.getetagField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -312,14 +238,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.Source)]
         public Source Source
         {
-            get
-            {
-                return this.sourceField;
-            }
-            set
-            {
-                this.sourceField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -328,14 +248,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.ResourceType)]
         public ResourceType ResourceType
         {
-            get
-            {
-                return this.resourcetypeField;
-            }
-            set
-            {
-                this.resourcetypeField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -344,14 +258,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.ContentClass)]
         public string ContentClass
         {
-            get
-            {
-                return this.contentclassField;
-            }
-            set
-            {
-                this.contentclassField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -360,14 +268,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.DefaultDocument)]
         public string DefaultDocument
         {
-            get
-            {
-                return this.defaultdocumentField;
-            }
-            set
-            {
-                this.defaultdocumentField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -376,14 +278,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.Href)]
         public string Href
         {
-            get
-            {
-                return this.hrefField;
-            }
-            set
-            {
-                this.hrefField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -392,14 +288,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.IsCollection)]
         public string IsCollection
         {
-            get
-            {
-                return this.iscollectionField;
-            }
-            set
-            {
-                this.iscollectionField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -408,14 +298,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.IsHidden)]
         public string IsHidden
         {
-            get
-            {
-                return this.ishiddenField;
-            }
-            set
-            {
-                this.ishiddenField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -424,14 +308,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.IsReadonly)]
         public string IsReadonly
         {
-            get
-            {
-                return this.isreadonlyField;
-            }
-            set
-            {
-                this.isreadonlyField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -440,14 +318,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.IsRoot)]
         public string IsRoot
         {
-            get
-            {
-                return this.isrootField;
-            }
-            set
-            {
-                this.isrootField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -456,14 +328,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.IsStructuredDocument)]
         public string IsStructuredDocument
         {
-            get
-            {
-                return this.isstructureddocumentField;
-            }
-            set
-            {
-                this.isstructureddocumentField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -472,14 +338,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.LastAccessed)]
         public string LastAccessed
         {
-            get
-            {
-                return this.lastaccessedField;
-            }
-            set
-            {
-                this.lastaccessedField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -488,14 +348,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.Name)]
         public string Name
         {
-            get
-            {
-                return this.nameField;
-            }
-            set
-            {
-                this.nameField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -504,14 +358,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.ParentName)]
         public string ParentName
         {
-            get
-            {
-                return this.parentnameField;
-            }
-            set
-            {
-                this.parentnameField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -520,14 +368,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.LockDiscovery)]
         public LockDiscovery LockDiscovery
         {
-            get
-            {
-                return this.lockDiscoveryField;
-            }
-            set
-            {
-                this.lockDiscoveryField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -536,21 +378,19 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.SupportedLock)]
         public SupportedLock SupportedLock
         {
-            get
-            {
-                return this.supportedLockField;
-            }
-            set
-            {
-                this.supportedLockField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
         /// Gets or sets the xml:lang attribute.
         /// </summary>
         [XmlAttribute(WebDavConstants.XmlLangAttribute)]
-        public string Language { get; set; }
+        public string Language
+        {
+            get;
+            set;
+        }
 
         #region Extension RFC4331
 
@@ -560,14 +400,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.QuotaAvailableBytes)]
         public string QuotaAvailableBytes
         {
-            get
-            {
-                return this.quotaAvailableBytesField;
-            }
-            set
-            {
-                this.quotaAvailableBytesField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -576,14 +410,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = PropNameConstants.QuotaUsedBytes)]
         public string QuotaUsedBytes
         {
-            get
-            {
-                return this.quotaUsedBytesField;
-            }
-            set
-            {
-                this.quotaUsedBytesField = value;
-            }
+            get;
+            set;
         }
 
         #endregion Extension RFC4331

@@ -13,22 +13,14 @@ namespace DecaTec.WebDav.WebDavArtifacts
     [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class Set
     {
-        private Prop propField;
-
         /// <summary>
         /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.Prop"/>.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.Prop)]
         public Prop Prop
         {
-            get
-            {
-                return this.propField;
-            }
-            set
-            {
-                this.propField = value;
-            }
+            get;
+            set;
         }
     }
 }

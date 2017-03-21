@@ -13,23 +13,14 @@ namespace DecaTec.WebDav.WebDavArtifacts
     [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class KeepAlive
     {
-        private string[] hrefField;
-        private string[] textField;
-
         /// <summary>
         /// Gets or sets the Href.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.Href)]
         public string[] Href
         {
-            get
-            {
-                return this.hrefField;
-            }
-            set
-            {
-                this.hrefField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -39,14 +30,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = WebDavConstants.Text)]
         public string[] Text
         {
-            get
-            {
-                return this.textField;
-            }
-            set
-            {
-                this.textField = value;
-            }
+            get;
+            set;
         }
     }
 }

@@ -13,24 +13,14 @@ namespace DecaTec.WebDav.WebDavArtifacts
     [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class Propstat
     {
-        private Prop propField;
-        private string statusField;
-        private string responsedescriptionField;
-
         /// <summary>
         /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.Prop"/>.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.Prop)]
         public Prop Prop
         {
-            get
-            {
-                return this.propField;
-            }
-            set
-            {
-                this.propField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -39,14 +29,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = WebDavConstants.Status)]
         public string Status
         {
-            get
-            {
-                return this.statusField;
-            }
-            set
-            {
-                this.statusField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -55,14 +39,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = WebDavConstants.ResponseDescription)]
         public string ResponseDescription
         {
-            get
-            {
-                return this.responsedescriptionField;
-            }
-            set
-            {
-                this.responsedescriptionField = value;
-            }
+            get;
+            set;
         }
     }
 }

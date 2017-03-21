@@ -13,25 +13,14 @@ namespace DecaTec.WebDav.WebDavArtifacts
     [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class Response
     {
-        private string hrefField;
-        private object[] itemsField;
-        private ItemsChoiceType[] itemsElementNameField;
-        private string responsedescriptionField;
-
         /// <summary>
         /// Gets or sets the Href.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.Href, Order = 0)]
         public string Href
         {
-            get
-            {
-                return this.hrefField;
-            }
-            set
-            {
-                this.hrefField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -43,14 +32,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlChoiceIdentifier(WebDavConstants.ItemsElementName)]
         public object[] Items
         {
-            get
-            {
-                return this.itemsField;
-            }
-            set
-            {
-                this.itemsField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -60,14 +43,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlIgnore()]
         public ItemsChoiceType[] ItemsElementName
         {
-            get
-            {
-                return this.itemsElementNameField;
-            }
-            set
-            {
-                this.itemsElementNameField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -76,14 +53,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = WebDavConstants.ResponseDescription, Order = 3)]
         public string ResponseDescription
         {
-            get
-            {
-                return this.responsedescriptionField;
-            }
-            set
-            {
-                this.responsedescriptionField = value;
-            }
+            get;
+            set;
         }
     }
 }

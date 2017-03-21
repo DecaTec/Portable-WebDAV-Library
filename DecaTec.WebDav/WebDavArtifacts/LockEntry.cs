@@ -13,23 +13,14 @@ namespace DecaTec.WebDav.WebDavArtifacts
     [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class LockEntry
     {
-        private LockScope lockscopeField;
-        private LockType locktypeField;
-
         /// <summary>
         /// Gets or sets the <see cref="DecaTec.WebDav.WebDavArtifacts.LockScope"/>.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.LockScope)]
         public LockScope LockScope
         {
-            get
-            {
-                return this.lockscopeField;
-            }
-            set
-            {
-                this.lockscopeField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -38,14 +29,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = WebDavConstants.LockType)]
         public LockType LockType
         {
-            get
-            {
-                return this.locktypeField;
-            }
-            set
-            {
-                this.locktypeField = value;
-            }
+            get;
+            set;
         }
     }
 }

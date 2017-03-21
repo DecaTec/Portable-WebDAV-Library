@@ -13,23 +13,14 @@ namespace DecaTec.WebDav.WebDavArtifacts
     [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
     public class Link
     {
-        private string[] srcField;
-        private string[] dstField;
-
         /// <summary>
         /// Gets or sets the Src.
         /// </summary>
         [XmlElement(ElementName = WebDavConstants.Src)]
         public string[] Src
         {
-            get
-            {
-                return this.srcField;
-            }
-            set
-            {
-                this.srcField = value;
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -38,14 +29,8 @@ namespace DecaTec.WebDav.WebDavArtifacts
         [XmlElement(ElementName = WebDavConstants.Dst)]
         public string[] Dst
         {
-            get
-            {
-                return this.dstField;
-            }
-            set
-            {
-                this.dstField = value;
-            }
+            get;
+            set;
         }
     }
 }
