@@ -219,5 +219,10 @@ namespace DecaTec.WebDav
         /// Constant for 'ETag'.
         /// </summary>
         public const string ETag = "ETag";
+
+        /// <summary>
+        /// Constant for 'xml:lang'.
+        /// </summary>
+        public const string XmlLangAttribute = "xml:lang";
     }
 }

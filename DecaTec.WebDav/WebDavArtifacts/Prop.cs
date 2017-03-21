@@ -546,6 +546,12 @@ namespace DecaTec.WebDav.WebDavArtifacts
             }
         }
 
+        /// <summary>
+        /// Gets or sets the xml:lang attribute.
+        /// </summary>
+        [XmlAttribute(WebDavConstants.XmlLangAttribute)]
+        public string Language { get; set; }
+
         #region Extension RFC4331
 
         /// <summary>

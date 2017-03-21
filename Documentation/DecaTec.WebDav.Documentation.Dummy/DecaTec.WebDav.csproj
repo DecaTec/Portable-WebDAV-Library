@@ -43,6 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\DecaTec.WebDav\Constants\PropNameConstants.cs">
+      <Link>Constants\PropNameConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\..\DecaTec.WebDav\Constants\WebDavConstants.cs">
+      <Link>Constants\WebDavConstants.cs</Link>
+    </Compile>
     <Compile Include="..\..\DecaTec.WebDav\HttpHeaderNames.cs">
       <Link>HttpHeaderNames.cs</Link>
     </Compile>
@@ -60,9 +66,6 @@
     </Compile>
     <Compile Include="..\..\DecaTec.WebDav\ProgressStreamContent.cs">
       <Link>ProgressStreamContent.cs</Link>
-    </Compile>
-    <Compile Include="..\..\DecaTec.WebDav\PropNameConstants.cs">
-      <Link>PropNameConstants.cs</Link>
     </Compile>
     <Compile Include="..\..\DecaTec.WebDav\TextHelper.cs">
       <Link>TextHelper.cs</Link>
@@ -168,9 +171,6 @@
     </Compile>
     <Compile Include="..\..\DecaTec.WebDav\WebDavClient.cs">
       <Link>WebDavClient.cs</Link>
-    </Compile>
-    <Compile Include="..\..\DecaTec.WebDav\WebDavConstants.cs">
-      <Link>WebDavConstants.cs</Link>
     </Compile>
     <Compile Include="..\..\DecaTec.WebDav\WebDavCredential.cs">
       <Link>WebDavCredential.cs</Link>

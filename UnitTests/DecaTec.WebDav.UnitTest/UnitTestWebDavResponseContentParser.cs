@@ -77,5 +77,29 @@ namespace DecaTec.WebDav.UnitTest
             Assert.AreEqual(expected, ownerString);
             Assert.AreEqual(expectedOwnerHref, ownerHref);
         }
+
+        [TestMethod]
+        public void UT_WebDavContentParser_ParseMultistatusResponseContentAsyncWithPropWithXmlLangAttribute()
+        {
+            var str = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><D:multistatus xmlns:D=\"DAV:\"><D:response><D:href>/container/</D:href><D:propstat><D:prop xml:lang=\"de\" xmlns:R=\"http://ns.example.com/boxschema/\"><R:bigbox><R:BoxType>Box type A</R:BoxType></R:bigbox><R:author><R:Name>Hadrian</R:Name></R:author><D:creationdate>1997-12-01T17:42:21-08:00</D:creationdate><D:displayname>Example collection</D:displayname><D:resourcetype><D:collection/></D:resourcetype><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock></D:prop><D:status>HTTP/1.1 200 OK</D:status></D:propstat></D:response><D:response><D:href>/container/front.html</D:href><D:propstat><D:prop xmlns:R=\"http://ns.example.com/boxschema/\"><R:bigbox><R:BoxType>Box type B</R:BoxType></R:bigbox><D:creationdate>1997-12-01T18:27:21-08:00</D:creationdate><D:displayname>Example HTML resource</D:displayname><D:getcontentlength>4525</D:getcontentlength><D:getcontenttype>text/html</D:getcontenttype><D:getetag>\"zzyzx\"</D:getetag><D:getlastmodified>Mon, 12 Jan 1998 09:25:56 GMT</D:getlastmodified><D:resourcetype/><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock></D:prop><D:status>HTTP/1.1 200 OK</D:status></D:propstat></D:response></D:multistatus>";
+            var content = new StringContent(str);
+            var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(content).Result;
+            Assert.IsNotNull(multistatus);
+            var language = ((Propstat)multistatus.Response[0].Items[0]).Prop.Language;
+            var expected = "de";
+            Assert.AreEqual(expected, language);
+        }
+
+        [TestMethod]
+        public void UT_WebDavContentParser_ParseMultistatusResponseContentAsyncWithPropWithInvalidXmlLangAttribute()
+        {
+            var str = "<?xml version=\"1.0\" encoding=\"utf-8\" ?><D:multistatus xmlns:D=\"DAV:\"><D:response><D:href>/container/</D:href><D:propstat><D:prop xml:lang=\"invalid\" xmlns:R=\"http://ns.example.com/boxschema/\"><R:bigbox><R:BoxType>Box type A</R:BoxType></R:bigbox><R:author><R:Name>Hadrian</R:Name></R:author><D:creationdate>1997-12-01T17:42:21-08:00</D:creationdate><D:displayname>Example collection</D:displayname><D:resourcetype><D:collection/></D:resourcetype><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock></D:prop><D:status>HTTP/1.1 200 OK</D:status></D:propstat></D:response><D:response><D:href>/container/front.html</D:href><D:propstat><D:prop xmlns:R=\"http://ns.example.com/boxschema/\"><R:bigbox><R:BoxType>Box type B</R:BoxType></R:bigbox><D:creationdate>1997-12-01T18:27:21-08:00</D:creationdate><D:displayname>Example HTML resource</D:displayname><D:getcontentlength>4525</D:getcontentlength><D:getcontenttype>text/html</D:getcontenttype><D:getetag>\"zzyzx\"</D:getetag><D:getlastmodified>Mon, 12 Jan 1998 09:25:56 GMT</D:getlastmodified><D:resourcetype/><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock></D:prop><D:status>HTTP/1.1 200 OK</D:status></D:propstat></D:response></D:multistatus>";
+            var content = new StringContent(str);
+            var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(content).Result;
+            Assert.IsNotNull(multistatus);
+            var language = ((Propstat)multistatus.Response[0].Items[0]).Prop.Language;
+            var expected = "invalid";
+            Assert.AreEqual(expected, language);
+        }
     }
 }
