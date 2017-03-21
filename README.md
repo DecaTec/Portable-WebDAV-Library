@@ -21,10 +21,10 @@ So far the project is tested against IIS and ownCloud/Nextcloud (sabre/dav) (not
 There is a full documentation of the library with some example code available.
 
 #TODO
-**[Portable WebDAV Library online documentation](https://decatec.de/ext/PortableWebDAVLibrary/Doc/NetFx/index.html)**
+**[Portable WebDAV Library online documentation](https://decatec.de/ext/PortableWebDAVLibrary/Doc/index.html)**
 
 For offline use, you can download the help file (CHM) here:
-**[Portable WebDAV Library offline documentation](https://decatec.de/ext/PortableWebDAVLibrary/Doc/NetFx/DecaTec.WebDav.NetFx.Documentation.chm)**
+**[Portable WebDAV Library offline documentation](https://decatec.de/ext/PortableWebDAVLibrary/Doc/DecaTec.WebDav.Documentation.chm)**
 
 # Projects using the Portable WebDAV Library
 * [FontoXML Editor](https://fontoxml.com/)
