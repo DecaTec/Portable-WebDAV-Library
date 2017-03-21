@@ -1,4 +1,3 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/3sjjbui36gpc3pvr?svg=true)](https://ci.appveyor.com/project/DecaTec/portable-webdav-library)
 [![NuGet](https://img.shields.io/nuget/v/PortableWebDavLibrary.svg)](https://www.nuget.org/packages/PortableWebDavLibrary/)
 
 # Project description
