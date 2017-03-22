@@ -24,6 +24,9 @@ There is a full documentation of the library with some example code available.
 For offline use, you can download the help file (CHM) here:
 **[Portable WebDAV Library offline documentation](https://decatec.de/ext/PortableWebDAVLibrary/Doc/DecaTec.WebDav.Documentation.chm)**
 
+# Beta versions
+When there will be some considerable/breaking changes in a future version of the library, a preview version is released on [MyGet](https://www.myget.org/feed/decatec-preview/package/nuget/PortableWebDavLibrary) before releasing the final version on NuGet. This way, projects using the Portable WebDAV Library can test beta versions before a new version is released officially.
+
 # Projects using the Portable WebDAV Library
 * [FontoXML Editor](https://fontoxml.com/)
 * Official [Nextcloud](https://nextcloud.com/) Windows app: [Windows App Store](https://www.microsoft.com/store/apps/9nblggh532xq)/[GitHub](https://github.com/nextcloud/windows-universal)
