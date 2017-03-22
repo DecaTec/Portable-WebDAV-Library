@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.1</TargetFramework>
     <PackageId>PortableWebDavLibrary</PackageId>
-    <Version>0.7.0.0-beta2</Version>
+    <Version>0.7.0.0-beta3</Version>
     <Authors>DecaTec</Authors>
     <Company>DecaTec</Company>
     <Product>PortableWebDavLibrary</Product>
@@ -15,6 +15,8 @@
     <RepositoryUrl>https://github.com/DecaTec/Portable-WebDAV-Library</RepositoryUrl>
     <PackageTags>WebDAV, portable, netstandard, netcore, UWP, dotnet, portable-webdav-library</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageReleaseNotes>This is the first version of the Portable WebDAV Library targetting .NETStandard 1.1.
+IMPORTANT: IF you have used the UWP part of the library before, this version has some changes (e.g. method signatures), so it will be necessary to change the client code.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
