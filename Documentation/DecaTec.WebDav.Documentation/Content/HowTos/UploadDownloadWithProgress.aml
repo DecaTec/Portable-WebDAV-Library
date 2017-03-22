@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="560d32af-9fd5-40f3-a655-517ba991a293" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <introduction>
+      <para>
+        The Portable WebDAV Library supports upload and download with progress. These short samples show how this can be accomplished:
+      </para>
+    </introduction>
+
+    <section>
+      <title>Download</title>
+      <content>
+        <code language="c#">
+          <![CDATA[
+public async void Download()
+{
+	// The base URL of the WebDAV server.
+	var webDavServerUrl = @"http://www.myserver.com/webdav/";
+
+	// Specify the user credentials and use it to create a WebDavSession instance.
+	var credentials = new NetworkCredential("MyUsername", "MyPassword");
+	var webDavSession = new WebDavSession(webDavServerUrl, credentials);
+
+	// Define progress information which is passed to the WebDavSession.
+	Progress<WebDavProgress> progress = new Progress<WebDavProgress>();
+	progress.ProgressChanged += Progress_ProgressChanged;
+
+	using (var stream = File.Create(@"C:\audio.mp3"))
+	{
+		var responseStream = await webDavSession.DownloadFileWithProgressAsync(@"/audio.mp3", stream, progress, CancellationToken.None);
+	}
+}
+
+private void Progress_ProgressChanged(object sender, WebDavProgress e)
+{
+	// Do not report every single update of the progress.
+	if (e.Bytes % 1000 == 0)
+	{
+		Debug.WriteLine($"Bytes processed: {e.Bytes} (Total bytes: {e.TotalBytes})");
+	}
+}
+          ]]>
+        </code>
+      </content>
+    </section>
+
+    <section>
+      <title>Upload</title>
+      <content>
+        <code language="c#">
+          <![CDATA[
+public async void Upload()
+{
+	// The base URL of the WebDAV server.
+	var webDavServerUrl = @"http://www.myserver.com/webdav/";
+	var fileUrl = $"{webDavServerUrl}audio.mp3";
+
+	// Specify the user credentials and use it to create a WebDavSession instance.
+	var credentials = new NetworkCredential("MyUsername", "MyPassword");
+	var webDavSession = new WebDavSession(webDavServerUrl, credentials);
+
+	// Define progress information which is passed to the WebDavSession.
+	Progress<WebDavProgress> progress = new Progress<WebDavProgress>();
+	progress.ProgressChanged += Progress_ProgressChanged;
+
+	using (var stream = File.OpenRead(@"D:\audio.mp3"))
+	{
+		var responseStream = await webDavSession.UploadFileWithProgressAsync(fileUrl, stream, "audio/mpeg", progress, CancellationToken.None);
+	}
+}
+
+private void Progress_ProgressChanged(object sender, WebDavProgress e)
+{
+	// Do not report every single update of the progress.
+	if (e.Bytes % 1000 == 0)
+	{
+		Debug.WriteLine($"Bytes processed: {e.Bytes} (Total bytes: {e.TotalBytes})");
+	}
+}
+          ]]>
+        </code>
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="6eaaa932-6e58-4f05-82be-6bb1a0403612" />
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

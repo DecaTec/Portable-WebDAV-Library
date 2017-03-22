@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="6eaaa932-6e58-4f05-82be-6bb1a0403612" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <introduction>
+      <para>This section provides some general information about the usage of the Portable WebDAV Library.</para>
+    </introduction>
+
+    <section>
+      <content>
+        
+        <list class="bullet">
+          <listItem>
+            <para>
+              <link xlink:href="560d32af-9fd5-40f3-a655-517ba991a293" />
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              <link xlink:href="ccea8090-12aa-4576-b835-5895ea28629d" />
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              <link xlink:href="e4a32f8a-87c3-4542-ad17-0eae7227d3eb" />
+            </para>
+          </listItem>
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

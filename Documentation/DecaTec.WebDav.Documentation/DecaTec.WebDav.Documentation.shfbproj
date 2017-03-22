@@ -78,11 +78,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Content" />
+    <Folder Include="Content\HowTos" />
     <Folder Include="Content\VersionHistory" />
     <Folder Include="icons" />
     <Folder Include="media" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\HowTos\AppCapabilities.aml" />
+    <None Include="Content\HowTos\HowTo.aml" />
+    <None Include="Content\HowTos\UntrustedSSL.aml" />
+    <None Include="Content\HowTos\UploadDownloadWithProgress.aml" />
     <None Include="Content\VersionHistory\v0.1.0.0.aml" />
     <None Include="Content\VersionHistory\v0.1.1.0.aml" />
     <None Include="Content\VersionHistory\v0.2.0.0.aml" />
@@ -99,7 +104,6 @@
     <None Include="Content\VersionHistory\v0.7.0.0.aml" />
     <None Include="Content\VersionHistory\VersionHistory.aml" />
     <None Include="Content\Welcome.aml" />
-    <None Include="Content\HowTo.aml" />
   </ItemGroup>
   <ItemGroup>
     <ContentLayout Include="ContentLayout.content" />

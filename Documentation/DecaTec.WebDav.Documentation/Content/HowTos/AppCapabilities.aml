@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="e4a32f8a-87c3-4542-ad17-0eae7227d3eb" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <introduction></introduction>
+
+    <section>
+      <title>Required app capabilities</title>
+      <content>
+        <para>
+          To be able to use the Portable WebDAV Library in an (UWP) app, the capability <legacyItalic>Private Networks (Client &amp; Server)</legacyItalic> has to be specified in app's manifest (<legacyItalic>Package.appxmanifest</legacyItalic>).
+          When this capability is missing, an exception will be thrown when trying to access WebDAV resources.
+        </para>
+        <mediaLink>
+          <image xlink:href="AppCapabilities"/>
+        </mediaLink>
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="6eaaa932-6e58-4f05-82be-6bb1a0403612" />
+    </relatedTopics>
+   
+  </developerConceptualDocument>
+</topic>

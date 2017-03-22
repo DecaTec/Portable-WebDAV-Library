@@ -5,7 +5,26 @@
       <HelpKeyword index="K" term="Welcome" />
     </HelpKeywords>
   </Topic>
-  <Topic id="6eaaa932-6e58-4f05-82be-6bb1a0403612" visible="True" />
+  <Topic id="6eaaa932-6e58-4f05-82be-6bb1a0403612" visible="True" isExpanded="true" isSelected="true">
+    <HelpKeywords>
+      <HelpKeyword index="K" term="howto" />
+    </HelpKeywords>
+    <Topic id="560d32af-9fd5-40f3-a655-517ba991a293" visible="True" title="Upload/download with progress">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="upload, download, progress" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="e4a32f8a-87c3-4542-ad17-0eae7227d3eb" visible="True" title="Required app capabilities">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="app capabilities, UWP" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="ccea8090-12aa-4576-b835-5895ea28629d" visible="True" title="Using the library with expired/untrusted SSL certificates">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="SSL, untrusted, self-signed" />
+      </HelpKeywords>
+    </Topic>
+  </Topic>
   <Topic id="55c4b378-829f-44e2-af56-20a587c2d24b" visible="True" isExpanded="true" title="Version History">
     <HelpKeywords>
       <HelpKeyword index="K" term="version, history" />
@@ -75,7 +94,7 @@
         <HelpKeyword index="K" term="version, 0.6.3.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="dac96890-5db8-44b8-916b-0579de42e206" visible="True" isSelected="true" title="Version 0.7.0.0">
+    <Topic id="dac96890-5db8-44b8-916b-0579de42e206" visible="True" title="Version 0.7.0.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.7.0.0" />
       </HelpKeywords>

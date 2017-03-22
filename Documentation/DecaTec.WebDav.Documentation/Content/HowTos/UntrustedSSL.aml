@@ -1,27 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<topic id="6eaaa932-6e58-4f05-82be-6bb1a0403612" revisionNumber="1">
+<topic id="ccea8090-12aa-4576-b835-5895ea28629d" revisionNumber="1">
   <developerConceptualDocument
     xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
     xmlns:xlink="http://www.w3.org/1999/xlink">
 
-    <introduction>
-      <para>This section provides some general information about the usage of the Portable WebDAV Library.</para>
-    </introduction>
+    <introduction></introduction>
 
     <section>
       <title>Required app capabilities</title>
-      <content>
-        <para>To be able to use the Portable WebDAV Library in an (UWP) app, the capability <legacyItalic>Private Networks (Client &amp; Server)</legacyItalic> has to be specified in app's manifest (<legacyItalic>Package.appxmanifest</legacyItalic>).
-        When this capability is missing, an exception will be thrown when trying to access WebDAV resources.
-      </para>
-        <mediaLink>
-          <image xlink:href="AppCapabilities"/>
-        </mediaLink>
-      </content>
-    </section>
-
-    <section>
-      <title>Using the library with expired/untrusted SSL certificates</title>
       <content>
         <para>
           The Portable WebDAV Library can also be used with WebDAV servers which use expired/untrusted certificates. This is a common scenario when using self-signed certificates, as these are not trusted.
@@ -68,7 +54,8 @@ webDavSession.Dispose();
     </section>
 
     <relatedTopics>
-      
+      <link xlink:href="6eaaa932-6e58-4f05-82be-6bb1a0403612" />
     </relatedTopics>
+    
   </developerConceptualDocument>
 </topic>
