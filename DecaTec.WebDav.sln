@@ -19,11 +19,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{74568DD0-6575-4C81-9FCA-DADE3CE2787F}"
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "DecaTec.WebDav.Documentation", "Documentation\DecaTec.WebDav.Documentation\DecaTec.WebDav.Documentation.shfbproj", "{A26B15E7-0283-4372-86ED-57FF2FA31E05}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7821C4BA-8C4E-459F-BCA8-4E525D647616} = {7821C4BA-8C4E-459F-BCA8-4E525D647616}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecaTec.WebDav", "Documentation\DecaTec.WebDav.Documentation.Dummy\DecaTec.WebDav.csproj", "{7821C4BA-8C4E-459F-BCA8-4E525D647616}"
-	ProjectSection(ProjectDependencies) = postProject
-		{D88C2DAD-5227-4015-944C-775CA1309BBA} = {D88C2DAD-5227-4015-944C-775CA1309BBA}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
