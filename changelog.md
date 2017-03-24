@@ -1,3 +1,10 @@
+v0.7.0.0
+- The library now targets .NETStandard 1.1 (.NET Core) and can be used on any platform supporting .NETStandard 1.1.
+- Due to .NETStandard support, the library is not separated into two parts (UWP/NetFx) anymore. One library for all the target platforms.
+- **Breaking change**: The whole library is now based on System.Net.Http.HttpClient. Therefore, there are some changes in the API (e.g. method signatures).
+- Upload/download with progress is generally supported, even on projects targeting .NET Framework (formerly the NetFx part of the library).
+- The xml:lang attribute is now supported for prop elements.
+
 v0.6.3.0
 - **Breaking change**: The owner element now allows any content. If a URL or e mail address should be provided (as simple string), use the property OwnerHref. This is the same behavior as in previous versions of the library. When child elements, mixed content, text content or attributes should be provided for the owner, use the new property OwnerRaw.
 - Due to these changes, the owner is not a separate object (WebDavArtifacts) anymore, but represented by the properties OwnerHref and OwnerRaw in the classes ActiveLock and LockInfo.
