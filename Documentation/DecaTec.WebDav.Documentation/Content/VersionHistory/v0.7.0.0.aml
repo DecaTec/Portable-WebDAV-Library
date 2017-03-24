@@ -24,7 +24,7 @@
 
           <listItem>
             <para>
-              Breaking Change: The whole library is now based on System.Net.Http.HttpClient. Therefore, there are some changes in the API (e.g. method signatures).
+              Breaking change: The whole library is now based on System.Net.Http.HttpClient. Therefore, there are some changes in the API (e.g. method signatures).
             </para>
           </listItem>
 
