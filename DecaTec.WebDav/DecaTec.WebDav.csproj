@@ -20,12 +20,12 @@ IMPORTANT: IF you have used the UWP part of the library before, this version has
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>D:\Projects\GitHub\Portable-WebDAV-Library\Build\Debug\</OutputPath>
+    <OutputPath>..\Build\Debug\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\Build\Release\</OutputPath>
-    <DocumentationFile>..\Build\Release\DecaTec.WebDav.XML</DocumentationFile>
+    <DocumentationFile>..\Build\Release\netstandard1.1\DecaTec.WebDav.XML</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
