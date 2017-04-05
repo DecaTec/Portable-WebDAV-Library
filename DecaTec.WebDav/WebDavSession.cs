@@ -168,7 +168,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> CopyAsync(string sourceUrl, string destinationUrl)
         {
-            return await CopyAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), false);
+            return await CopyAsync(UriHelper.CreateUriFromUrl(sourceUrl), UriHelper.CreateUriFromUrl(destinationUrl), false);
         }
 
         /// <summary>
@@ -191,7 +191,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> CopyAsync(string sourceUrl, string destinationUrl, bool overwrite)
         {
-            return await CopyAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), overwrite);
+            return await CopyAsync(UriHelper.CreateUriFromUrl(sourceUrl), UriHelper.CreateUriFromUrl(destinationUrl), overwrite);
         }
 
         /// <summary>
@@ -221,7 +221,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> CreateDirectoryAsync(string url)
         {
-            return await CreateDirectoryAsync(new Uri(url, UriKind.RelativeOrAbsolute));
+            return await CreateDirectoryAsync(UriHelper.CreateUriFromUrl(url));
         }
 
         /// <summary>
@@ -248,7 +248,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> DeleteAsync(string url)
         {
-            return await DeleteAsync(new Uri(url, UriKind.RelativeOrAbsolute));
+            return await DeleteAsync(UriHelper.CreateUriFromUrl(url));
         }
 
         /// <summary>
@@ -276,7 +276,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> DownloadFileAsync(string url, Stream localStream)
         {
-            return await DownloadFileAsync(new Uri(url, UriKind.RelativeOrAbsolute), localStream);
+            return await DownloadFileAsync(UriHelper.CreateUriFromUrl(url), localStream);
         }
 
         /// <summary>
@@ -299,7 +299,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> DownloadFileAsync(string url, Stream localStream, CancellationToken ct)
         {
-            return await DownloadFileAsync(new Uri(url, UriKind.RelativeOrAbsolute), localStream, ct);
+            return await DownloadFileAsync(UriHelper.CreateUriFromUrl(url), localStream, ct);
         }
 
         /// <summary>
@@ -353,8 +353,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> DownloadFileWithProgressAsync(string url, Stream localStream, IProgress<WebDavProgress> progress, CancellationToken cancellationToken)
         {
-            var uri = new Uri(url, UriKind.RelativeOrAbsolute);
-            return await DownloadFileWithProgressAsync(uri, localStream, progress, cancellationToken);
+            return await DownloadFileWithProgressAsync(UriHelper.CreateUriFromUrl(url), localStream, progress, cancellationToken);
         }
 
         /// <summary>
@@ -395,7 +394,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> ExistsAsync(string url)
         {
-            return await ExistsAsync(new Uri(url, UriKind.RelativeOrAbsolute));
+            return await ExistsAsync(UriHelper.CreateUriFromUrl(url));
         }
 
         /// <summary>
@@ -435,7 +434,7 @@ namespace DecaTec.WebDav
         /// If not all of the expected properties are return by the server, use an overload of this method specifying a <see cref="PropFind"/> explicitly.</remarks>
         public async Task<IList<WebDavSessionListItem>> ListAsync(string url)
         {
-            return await ListAsync(new Uri(url, UriKind.RelativeOrAbsolute));
+            return await ListAsync(UriHelper.CreateUriFromUrl(url));
         }
 
         /// <summary>
@@ -446,7 +445,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<IList<WebDavSessionListItem>> ListAsync(string url, PropFind propFind)
         {
-            return await ListAsync(new Uri(url, UriKind.RelativeOrAbsolute), propFind);
+            return await ListAsync(UriHelper.CreateUriFromUrl(url), propFind);
         }
 
         /// <summary>
@@ -582,7 +581,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> LockAsync(string url)
         {
-            return await LockAsync(new Uri(url, UriKind.RelativeOrAbsolute));
+            return await LockAsync(UriHelper.CreateUriFromUrl(url));
         }
 
         /// <summary>
@@ -645,7 +644,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> MoveAsync(string sourceUrl, string destinationUrl)
         {
-            return await MoveAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), false);
+            return await MoveAsync(UriHelper.CreateUriFromUrl(sourceUrl), UriHelper.CreateUriFromUrl(destinationUrl), false);
         }
 
         /// <summary>
@@ -668,7 +667,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite)
         {
-            return await MoveAsync(new Uri(sourceUrl, UriKind.RelativeOrAbsolute), new Uri(destinationUrl, UriKind.RelativeOrAbsolute), overwrite);
+            return await MoveAsync(UriHelper.CreateUriFromUrl(sourceUrl), UriHelper.CreateUriFromUrl(destinationUrl), overwrite);
         }
 
         /// <summary>
@@ -700,7 +699,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> UploadFileAsync(string url, Stream localStream)
         {
-            return await UploadFileAsync(new Uri(url, UriKind.RelativeOrAbsolute), localStream);
+            return await UploadFileAsync(UriHelper.CreateUriFromUrl(url), localStream);
         }
 
         /// <summary>
@@ -786,7 +785,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> UnlockAsync(string url)
         {
-            return await UnlockAsync(new Uri(url, UriKind.RelativeOrAbsolute));
+            return await UnlockAsync(UriHelper.CreateUriFromUrl(url));
         }
 
         /// <summary>
