@@ -64,7 +64,7 @@
     <Compile Include="..\..\DecaTec.WebDav\LockTokenFormat.cs">
       <Link>LockTokenFormat.cs</Link>
     </Compile>
-	<Compile Include="..\..\DecaTec.WebDav\NoTagList.cs">
+    <Compile Include="..\..\DecaTec.WebDav\NoTagList.cs">
       <Link>NoTagList.cs</Link>
     </Compile>
     <Compile Include="..\..\DecaTec.WebDav\PermanentLock.cs">
