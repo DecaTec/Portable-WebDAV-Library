@@ -21,8 +21,11 @@ namespace DecaTec.WebDav
         /// <returns>A a new WebDavTimeoutHeaderValue with infinite timeout.</returns>
         public static WebDavTimeoutHeaderValue CreateInfiniteWebDavTimeout()
         {
-            var t = new WebDavTimeoutHeaderValue();
-            t.timeout = "Infinite";
+            var t = new WebDavTimeoutHeaderValue()
+            {
+                timeout = "Infinite"
+            };
+
             return t;
         }
 
@@ -33,8 +36,11 @@ namespace DecaTec.WebDav
         /// <returns>A new WebDavTimeoutHeaderValue with the timeout specified.</returns>
         public static WebDavTimeoutHeaderValue CreateWebDavTimeout(TimeSpan timeout)
         {
-            var t = new WebDavTimeoutHeaderValue();
-            t.timeout = "Second-" + timeout.TotalSeconds;
+            var t = new WebDavTimeoutHeaderValue()
+            {
+                timeout = "Second-" + timeout.TotalSeconds
+            };
+
             return t;
         }
 

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="486a6aaf-c8ea-4e69-9e2b-afb5e5ef40cd" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction></introduction>
+
+    <section>
+      <title>Changes in release v0.7.1.0</title>
+      <content>
+
+        <list class="bullet">
+          <listItem>
+            <para>
+              When using the Portable WebDAV Library on Xamarin, there was a problem when relative URLs (strings) where used (e.g. webDavSession.ListAsync(@"/folder");)
+            </para>
+          </listItem>
+
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="55c4b378-829f-44e2-af56-20a587c2d24b" />
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

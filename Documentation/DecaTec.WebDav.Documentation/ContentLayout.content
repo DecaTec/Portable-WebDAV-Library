@@ -5,7 +5,7 @@
       <HelpKeyword index="K" term="Welcome" />
     </HelpKeywords>
   </Topic>
-  <Topic id="6eaaa932-6e58-4f05-82be-6bb1a0403612" visible="True" isExpanded="true" isSelected="true">
+  <Topic id="6eaaa932-6e58-4f05-82be-6bb1a0403612" visible="True" isExpanded="true">
     <HelpKeywords>
       <HelpKeyword index="K" term="howto" />
     </HelpKeywords>
@@ -97,6 +97,11 @@
     <Topic id="dac96890-5db8-44b8-916b-0579de42e206" visible="True" title="Version 0.7.0.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.7.0.0" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="486a6aaf-c8ea-4e69-9e2b-afb5e5ef40cd" visible="True" isSelected="true" title="Version 0.7.1.0">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 0.7.1.0" />
       </HelpKeywords>
     </Topic>
   </Topic>

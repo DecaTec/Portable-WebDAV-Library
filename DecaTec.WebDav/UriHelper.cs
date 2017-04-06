@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -13,6 +12,50 @@ namespace DecaTec.WebDav
     {
         private const char Slash = '/';
         private const string SlashStr = @"/";
+        private const string UriSchemeFile = "file";
+
+        /// <summary>
+        /// Creates a <see cref="Uri"/> from the given URL.
+        /// </summary>
+        /// <param name="url">The URL as string.</param>
+        /// <returns>The <see cref="Uri"/> (relative or absolute).</returns>
+        /// <remarks>This method should be used instead of the Uri constructor with UriKind.RelativeOrAbsolute.</remarks>
+        public static Uri CreateUriFromUrl(string url)
+        {
+            var uri = new Uri(url, UriKind.RelativeOrAbsolute);
+            return CreateRelativeUriWhenSchemeIsFile(uri);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="Uri"/> from the given URL.
+        /// </summary>
+        /// <param name="url">The URL as string.</param>
+        /// <param name="result">When this method returns, contains the constructed <see cref="Uri"/>.</param>
+        /// <returns>A Boolean value that is true if the Uri was successfully created; otherwise, false.</returns>
+        public static bool TryCreateUriFromUrl(string url, out Uri result)
+        {
+            if (!Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out result))
+                return false;
+
+            result = CreateRelativeUriWhenSchemeIsFile(result);
+            return true;
+        }
+
+        /// <summary>
+        /// Creates a new relative <see cref="Uri"/> when an absolute Uri with scheme 'file' is specified.
+        /// </summary>
+        /// <param name="uri">The <see cref="Uri"/> to inspect.</param>
+        /// <returns>A relative Uri when the Uri specified was an absolute Uri with scheme 'file'.</returns>
+        /// <remarks>This a a workaround for Xamarin/Mono.</remarks>
+        private static Uri CreateRelativeUriWhenSchemeIsFile(Uri uri)
+        {
+            // On Xamarin, a Uri created with "/folder" will be an absolute Uri with the scheme 'file'.
+            // Due to this fact, there are some problems when creating relative Uris on Xamarin.
+            if (uri.IsAbsoluteUri && uri.Scheme.Equals(UriSchemeFile, StringComparison.Ordinal))
+                return new Uri(uri.AbsolutePath, UriKind.Relative);
+            else
+                return uri;
+        }
 
         /// <summary>
         /// Adds a trailing slash to a URI (only if needed).
@@ -38,7 +81,7 @@ namespace DecaTec.WebDav
             if (uri != null)
                 uriStr = uri.ToString();
 
-            return new Uri(AddTrailingSlash(uriStr, expectFile), UriKind.RelativeOrAbsolute);
+            return CreateUriFromUrl(AddTrailingSlash(uriStr, expectFile));
         }
 
         /// <summary>
@@ -168,7 +211,7 @@ namespace DecaTec.WebDav
             else if (!string.IsNullOrEmpty(uri2Str) && !uri2Str.EndsWith(SlashStr) && fullUrl.EndsWith(SlashStr))
                 fullUrl = fullUrl.Remove(fullUrl.Length - 1);
 
-            return new Uri(fullUrl, UriKind.RelativeOrAbsolute);
+            return CreateUriFromUrl(fullUrl);
         }
 
         /// <summary>
@@ -192,8 +235,8 @@ namespace DecaTec.WebDav
         /// <returns>The combined URL as string.</returns>
         public static string CombineUrl(string url1, string url2, bool removeDuplicatePath)
         {
-            var uri1 = !string.IsNullOrEmpty(url1) ? new Uri(url1, UriKind.RelativeOrAbsolute) : new Uri(string.Empty, UriKind.RelativeOrAbsolute);
-            var uri2 = !string.IsNullOrEmpty(url2) ? new Uri(url2, UriKind.RelativeOrAbsolute) : new Uri(string.Empty, UriKind.RelativeOrAbsolute);
+            var uri1 = !string.IsNullOrEmpty(url1) ? CreateUriFromUrl(url1) : CreateUriFromUrl(string.Empty);
+            var uri2 = !string.IsNullOrEmpty(url2) ? CreateUriFromUrl(url2) : CreateUriFromUrl(string.Empty);
             return CombineUri(uri1, uri2, removeDuplicatePath).ToString();
         }
 
@@ -282,8 +325,8 @@ namespace DecaTec.WebDav
             if (string.IsNullOrEmpty(url2))
                 url2 = string.Empty;
 
-            var uri1 = new Uri(url1, UriKind.RelativeOrAbsolute);
-            var uri2 = new Uri(url2, UriKind.RelativeOrAbsolute);
+            var uri1 = CreateUriFromUrl(url1);
+            var uri2 = CreateUriFromUrl(url2);
             return GetCombinedUriWithTrailingSlash(uri1, uri2, removeDuplicatePath, expectFile).ToString();
         }
 
@@ -311,7 +354,7 @@ namespace DecaTec.WebDav
             if (string.IsNullOrEmpty(url))
                 url = string.Empty;
 
-            return RemovePort(new Uri(url, UriKind.RelativeOrAbsolute)).ToString();
+            return RemovePort(CreateUriFromUrl(url)).ToString();
         }
 
         /// <summary>

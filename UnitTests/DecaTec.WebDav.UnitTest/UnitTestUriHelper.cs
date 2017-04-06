@@ -6,6 +6,73 @@ namespace DecaTec.WebDav.UnitTest
     [TestClass]
     public class UnitTestUriHelper
     {
+        #region CreateUriFromUrl
+
+        [TestMethod]
+        public void UT_UriHelper_CreateUriFromUrl_WithAbsoluteUri()
+        {
+            string url = "http://google.de/test";
+            var actual = UriHelper.CreateUriFromUrl(url);
+            var expected = new Uri(url, UriKind.Absolute);
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void UT_UriHelper_CreateUriFromUrl_WithRelativeUri()
+        {
+            string url = "/test";
+            var actual = UriHelper.CreateUriFromUrl(url);
+            var expected = new Uri(url, UriKind.Relative);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UT_UriHelper_CreateUriFromUrl_WithAbsoluteFileUri()
+        {
+            string url = "file:///test";
+            var actual = UriHelper.CreateUriFromUrl(url);
+            var expected = new Uri("/test", UriKind.Relative);
+            Assert.AreEqual(expected, actual);
+        }
+
+        #endregion CreateUriFromUrl
+
+        #region TryCreateUriFromUrl
+
+        [TestMethod]
+        public void UT_UriHelper_TryCreateUriFromUrl_WithAbsoluteUri()
+        {
+            string url = "http://google.de/test";
+            var result = UriHelper.TryCreateUriFromUrl(url, out Uri actual);
+            var expected = new Uri(url, UriKind.Absolute);
+            Assert.IsTrue(result);
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void UT_UriHelper_TryCreateUriFromUrl_WithRelativeUri()
+        {
+            string url = "/test";
+            var result = UriHelper.TryCreateUriFromUrl(url, out Uri actual);
+            var expected = new Uri(url, UriKind.Relative);
+            Assert.IsTrue(result);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UT_UriHelper_TryCreateUriFromUrl_WithAbsoluteFileUri()
+        {
+            string url = "file:///test";
+            var result = UriHelper.TryCreateUriFromUrl(url, out Uri actual);
+            var expected = new Uri("/test", UriKind.Relative);
+            Assert.IsTrue(result);
+            Assert.AreEqual(expected, actual);
+        }
+
+        #endregion TryCreateUriFromUrl
+
         #region AddTrailingSlash
 
         [TestMethod]
