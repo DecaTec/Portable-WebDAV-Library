@@ -3,7 +3,7 @@
 namespace DecaTec.WebDav
 {
     /// <summary>
-    /// Represents the Coded-URL object as specified in <see href="http://www.webdav.org/specs/rfc4918.html#rfc.section.10.1"/>.
+    /// Represents the Coded-URL object as specified in <see href="https://tools.ietf.org/html/rfc4918#section-10.1"/>.
     /// </summary>
     public class CodedUrl
     {
@@ -24,9 +24,10 @@ namespace DecaTec.WebDav
 
         /// <summary>
         /// Constructs a Coded-URL based on the <paramref name="absoluteUri"/>. <para/>
-        /// See <see href="http://www.webdav.org/specs/rfc4918.html#rfc.section.10.1"/> for the Coded-URL definition.
+        /// See <see href="https://tools.ietf.org/html/rfc4918#section-10.1"/> for the Coded-URL definition.
         /// </summary>
         /// <param name="absoluteUri">The lock token in absolute-URI format.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="absoluteUri"/> is null.</exception>
         internal CodedUrl(AbsoluteUri absoluteUri)
         {
             AbsoluteUri = absoluteUri ?? throw new ArgumentNullException(nameof(absoluteUri));
@@ -37,11 +38,12 @@ namespace DecaTec.WebDav
 
         /// <summary>
         /// Tries to parse the given <paramref name="rawCodedUrl"/> to a <see cref="CodedUrl"/>. <para/>
-        /// See <see href="http://www.webdav.org/specs/rfc4918.html#rfc.section.10.1"/> for the Coded-URL definition.
+        /// See <see href="https://tools.ietf.org/html/rfc4918#section-10.1"/> for the Coded-URL definition.
         /// </summary>
         /// <param name="rawCodedUrl">The raw coded URL to parse into the <see cref="CodedUrl"/>.</param>
         /// <param name="codedUrl">The <see cref="CodedUrl"/>.</param>
         /// <returns>The parsed <see cref="CodedUrl"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="rawCodedUrl"/> is null.</exception>
         public static bool TryParse(string rawCodedUrl, out CodedUrl codedUrl)
         {
             if (rawCodedUrl == null)
@@ -53,21 +55,15 @@ namespace DecaTec.WebDav
                 return false;
             }
 
-            try
+            var rawAbsoluteUri = rawCodedUrl.Trim(CodedUrlPrefix, CodedUrlPostfix);
+            if (AbsoluteUri.TryParse(rawAbsoluteUri, out var absoluteUri))
             {
-                if (AbsoluteUri.TryParse(rawCodedUrl.Trim(CodedUrlPrefix, CodedUrlPostfix), out var absoluteUri))
-                {
-                    codedUrl = new CodedUrl(absoluteUri);
-                    return true;
-                }
-                codedUrl = null;
-                return false;
+                codedUrl = new CodedUrl(absoluteUri);
+                return true;
             }
-            catch (FormatException)
-            {
-                codedUrl = null;
-                return false;
-            }
+
+            codedUrl = null;
+            return false;
         }
     }
 }

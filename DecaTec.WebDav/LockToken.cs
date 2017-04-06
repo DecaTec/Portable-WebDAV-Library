@@ -4,7 +4,7 @@ namespace DecaTec.WebDav
 {
     /// <summary>
     /// Class representing a WebDAV lock token. <para/>
-    /// See <see href="http://www.webdav.org/specs/rfc4918.html#rfc.section.6.5"/> for the definition.
+    /// See <see href="https://tools.ietf.org/html/rfc4918#section-6.5"/> for the definition.
     /// </summary>
     public class LockToken
     {
@@ -13,9 +13,10 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="absoluteUri">The lock token in absolute-URI format as defined in https://tools.ietf.org/html/rfc3986#section-4.3. </param>
         /// <remarks>Use the strong-typed constructors to create a new <see cref="LockToken"/>.</remarks>
+        /// <exception cref="WebDavException">Thrown when <paramref name="absoluteUri"/> is null.</exception>
         public LockToken(AbsoluteUri absoluteUri)
         {
-            AbsoluteUri = absoluteUri ?? throw new WebDavException($"The {nameof(absoluteUri)} cannot be null or empty.");
+            AbsoluteUri = absoluteUri ?? throw new WebDavException($"The {nameof(absoluteUri)} cannot be null.");
 
             var codedUrl = new CodedUrl(absoluteUri);
             LockTokenHeaderFormat = codedUrl;

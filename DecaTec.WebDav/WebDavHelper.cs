@@ -74,7 +74,7 @@ namespace DecaTec.WebDav
             {
                 var lockTokenHeaderValue = lockTokenHeaderValues.FirstOrDefault();
 
-                // Make sure the lockTokenHeaderValue is valid according to spec (http://www.webdav.org/specs/rfc4918.html#rfc.section.10.1).
+                // Make sure the lockTokenHeaderValue is valid according to spec (https://tools.ietf.org/html/rfc4918#section-10.5).
                 if (lockTokenHeaderValue != null && CodedUrl.TryParse(lockTokenHeaderValue, out var codedUrl))
                     return new LockToken(codedUrl.AbsoluteUri);
             }
@@ -83,7 +83,9 @@ namespace DecaTec.WebDav
             try
             {
                 var prop = WebDavResponseContentParser.ParsePropResponseContentAsync(responseMessage.Content).Result;
-                if (prop != null && AbsoluteUri.TryParse(prop.LockDiscovery.ActiveLock[0].LockToken.Href, out var absoluteUri))
+                var href = prop.LockDiscovery.ActiveLock[0].LockToken.Href;
+
+                if (AbsoluteUri.TryParse(href, out var absoluteUri))
                     return new LockToken(absoluteUri);
             }
             catch (Exception)
