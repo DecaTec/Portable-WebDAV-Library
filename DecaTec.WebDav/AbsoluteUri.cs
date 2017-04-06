@@ -32,21 +32,13 @@ namespace DecaTec.WebDav
         /// <returns>True if the parsing succeeded, false if it did not.</returns>
         public static bool TryParse(string rawAbsoluteUri, out AbsoluteUri absoluteUri)
         {
-            try
+            if (Uri.TryCreate(rawAbsoluteUri, UriKind.Absolute, out var parsedUri))
             {
-                if (Uri.TryCreate(rawAbsoluteUri, UriKind.Absolute, out var parsedUri))
-                {
-                    absoluteUri = new AbsoluteUri(parsedUri);
-                    return true;
-                }
-                absoluteUri = null;
-                return false;
+                absoluteUri = new AbsoluteUri(parsedUri);
+                return true;
             }
-            catch (UriFormatException)
-            {
-                absoluteUri = null;
-                return false;
-            }
+            absoluteUri = null;
+            return false;
         }
     }
 }
