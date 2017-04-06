@@ -23,7 +23,7 @@ namespace DecaTec.WebDav
         private const char CodedUrlPostfix = '>';
 
         /// <summary>
-        /// Constructs a Coded-URL based on the <paramref name="absoluteUri"/>. <para/>
+        /// Constructs a Coded-URL based on the <paramref name="absoluteUri"/>.
         /// See <see href="https://tools.ietf.org/html/rfc4918#section-10.1"/> for the Coded-URL definition.
         /// </summary>
         /// <param name="absoluteUri">The lock token in absolute-URI format.</param>
@@ -37,7 +37,7 @@ namespace DecaTec.WebDav
         public override string ToString() => $"{CodedUrlPrefix}{AbsoluteUri}{CodedUrlPostfix}";
 
         /// <summary>
-        /// Tries to parse the given <paramref name="rawCodedUrl"/> to a <see cref="CodedUrl"/>. <para/>
+        /// Tries to parse the given <paramref name="rawCodedUrl"/> to a <see cref="CodedUrl"/>.
         /// See <see href="https://tools.ietf.org/html/rfc4918#section-10.1"/> for the Coded-URL definition.
         /// </summary>
         /// <param name="rawCodedUrl">The raw coded URL to parse into the <see cref="CodedUrl"/>.</param>

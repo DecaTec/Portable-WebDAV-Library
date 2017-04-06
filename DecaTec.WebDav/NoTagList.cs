@@ -8,7 +8,7 @@ namespace DecaTec.WebDav
     public class NoTagList
     {
         /// <summary>
-        /// The coded-URL of this <see cref="NoTagList"/>. <para/>
+        /// The coded-URL of this <see cref="NoTagList"/>.
         /// See <see href="https://tools.ietf.org/html/rfc4918#section-10.4.2"/> for more information.
         /// </summary>
         public readonly CodedUrl CodedUrl;
@@ -24,7 +24,7 @@ namespace DecaTec.WebDav
         private const char NoTagListPostfix = ')';
 
         /// <summary>
-        /// Constructs a No Tag List based on the <paramref name="codedUrl"/>. <para/>
+        /// Constructs a No Tag List based on the <paramref name="codedUrl"/>.
         /// See <see href="https://tools.ietf.org/html/rfc4918#section-10.4.2"/> for the No Tag List definition.
         /// </summary>
         /// <param name="codedUrl">The coded-URL for this No-Tag list.</param>
@@ -38,7 +38,7 @@ namespace DecaTec.WebDav
         public override string ToString() => $"{NoTagListPrefix}{CodedUrl}{NoTagListPostfix}";
 
         /// <summary>
-        /// Tries to parse the given <paramref name="rawNoTagList"/> to a <see cref="NoTagList"/>. <para/>
+        /// Tries to parse the given <paramref name="rawNoTagList"/> to a <see cref="NoTagList"/>.
         /// See <see href="https://tools.ietf.org/html/rfc4918#section-10.4.2"/> for the No-Tag List definition.
         /// </summary>
         /// <param name="rawNoTagList">The raw No-Tag List to parse into the <see cref="NoTagList"/>.</param>

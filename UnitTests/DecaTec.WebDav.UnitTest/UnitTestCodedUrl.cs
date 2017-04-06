@@ -13,7 +13,7 @@ namespace DecaTec.WebDav.UnitTest
 
             Assert.IsTrue(parseResult);
             Assert.IsNotNull(codedUrl);
-            Assert.Equals(expectedString, codedUrl.ToString());
+            Assert.AreEqual(expectedString, codedUrl.ToString());
         }
 
         [TestMethod]

@@ -3,7 +3,7 @@
 namespace DecaTec.WebDav
 {
     /// <summary>
-    /// Class representing a WebDAV lock token. <para/>
+    /// Class representing a WebDAV lock token.
     /// See <see href="https://tools.ietf.org/html/rfc4918#section-6.5"/> for the definition.
     /// </summary>
     public class LockToken
@@ -24,7 +24,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Gets the absolute-URI representation of the lock token for serialization purposes. <para/>
+        /// Gets the absolute-URI representation of the lock token for serialization purposes.
         /// See <see href="https://tools.ietf.org/html/rfc3986#section-4.3"/> for the absolute-URI definition. <para/>
         /// </summary>
         public AbsoluteUri AbsoluteUri { get; }
