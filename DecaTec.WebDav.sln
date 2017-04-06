@@ -8,13 +8,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{7E4D0E
 		Assets\NuGetLogo.png = Assets\NuGetLogo.png
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecaTec.WebDav", "DecaTec.WebDav\DecaTec.WebDav.csproj", "{D88C2DAD-5227-4015-944C-775CA1309BBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DecaTec.WebDav", "DecaTec.WebDav\DecaTec.WebDav.csproj", "{D88C2DAD-5227-4015-944C-775CA1309BBA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{ABE45D69-1010-4EA0-922C-D3DF0AA20CF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecaTec.WebDav.UnitTest", "UnitTests\DecaTec.WebDav.UnitTest\DecaTec.WebDav.UnitTest.csproj", "{9D209D7E-999A-4752-877D-77A94B5A426F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DecaTec.WebDav.UnitTest", "UnitTests\DecaTec.WebDav.UnitTest\DecaTec.WebDav.UnitTest.csproj", "{9D209D7E-999A-4752-877D-77A94B5A426F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecaTec.WebDav.UnitIntegrationTest", "UnitTests\DecaTec.WebDav.UnitIntegrationTest\DecaTec.WebDav.UnitIntegrationTest.csproj", "{513D7CA2-EF97-48A6-A981-F431606CE5E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DecaTec.WebDav.UnitIntegrationTest", "UnitTests\DecaTec.WebDav.UnitIntegrationTest\DecaTec.WebDav.UnitIntegrationTest.csproj", "{513D7CA2-EF97-48A6-A981-F431606CE5E6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{74568DD0-6575-4C81-9FCA-DADE3CE2787F}"
 EndProject
@@ -54,7 +54,6 @@ Global
 		{D88C2DAD-5227-4015-944C-775CA1309BBA}.Release|x86.ActiveCfg = Release|Any CPU
 		{D88C2DAD-5227-4015-944C-775CA1309BBA}.Release|x86.Build.0 = Release|Any CPU
 		{9D209D7E-999A-4752-877D-77A94B5A426F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D209D7E-999A-4752-877D-77A94B5A426F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D209D7E-999A-4752-877D-77A94B5A426F}.Debug|ARM.ActiveCfg = Debug|Any CPU
 		{9D209D7E-999A-4752-877D-77A94B5A426F}.Debug|ARM.Build.0 = Debug|Any CPU
 		{9D209D7E-999A-4752-877D-77A94B5A426F}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -70,7 +69,6 @@ Global
 		{9D209D7E-999A-4752-877D-77A94B5A426F}.Release|x86.ActiveCfg = Release|Any CPU
 		{9D209D7E-999A-4752-877D-77A94B5A426F}.Release|x86.Build.0 = Release|Any CPU
 		{513D7CA2-EF97-48A6-A981-F431606CE5E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{513D7CA2-EF97-48A6-A981-F431606CE5E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{513D7CA2-EF97-48A6-A981-F431606CE5E6}.Debug|ARM.ActiveCfg = Debug|Any CPU
 		{513D7CA2-EF97-48A6-A981-F431606CE5E6}.Debug|ARM.Build.0 = Debug|Any CPU
 		{513D7CA2-EF97-48A6-A981-F431606CE5E6}.Debug|x64.ActiveCfg = Debug|Any CPU
