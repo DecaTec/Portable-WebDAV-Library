@@ -2,40 +2,40 @@
 
 namespace DecaTec.WebDav
 {
-	/// <summary>
-	/// Class representing a WebDAV lock token. <para/>
-	/// See <see href="http://www.webdav.org/specs/rfc4918.html#rfc.section.6.5"/> for the definition.
-	/// </summary>
-	public class LockToken
+    /// <summary>
+    /// Class representing a WebDAV lock token. <para/>
+    /// See <see href="http://www.webdav.org/specs/rfc4918.html#rfc.section.6.5"/> for the definition.
+    /// </summary>
+    public class LockToken
     {
-		/// <summary>
-		/// Constructs a <see cref="LockToken"/> based on the <paramref name="absoluteUri"/>.
-		/// </summary>
-		/// <param name="absoluteUri">The lock token in absolute-URI format as defined in https://tools.ietf.org/html/rfc3986#section-4.3. </param>
-		/// <remarks>Use the strong-typed constructors to create a new <see cref="LockToken"/>.</remarks>
-		public LockToken(AbsoluteUri absoluteUri)
+        /// <summary>
+        /// Constructs a <see cref="LockToken"/> based on the <paramref name="absoluteUri"/>.
+        /// </summary>
+        /// <param name="absoluteUri">The lock token in absolute-URI format as defined in https://tools.ietf.org/html/rfc3986#section-4.3. </param>
+        /// <remarks>Use the strong-typed constructors to create a new <see cref="LockToken"/>.</remarks>
+        public LockToken(AbsoluteUri absoluteUri)
         {
-			AbsoluteUri = absoluteUri ?? throw new WebDavException($"The {nameof(absoluteUri)} cannot be null or empty.");
+            AbsoluteUri = absoluteUri ?? throw new WebDavException($"The {nameof(absoluteUri)} cannot be null or empty.");
 
-	        var codedUrl = new CodedUrl(absoluteUri);
-			LockTokenHeaderFormat = codedUrl;
-			IfHeaderNoTagListFormat = new NoTagList(codedUrl);
+            var codedUrl = new CodedUrl(absoluteUri);
+            LockTokenHeaderFormat = codedUrl;
+            IfHeaderNoTagListFormat = new NoTagList(codedUrl);
         }
 
-		/// <summary>
-		/// Gets the absolute-URI representation of the lock token for serialization purposes. <para/>
-		/// See <see href="https://tools.ietf.org/html/rfc3986#section-4.3"/> for the absolute-URI definition. <para/>
-		/// </summary>
-		public AbsoluteUri AbsoluteUri { get; }
+        /// <summary>
+        /// Gets the absolute-URI representation of the lock token for serialization purposes. <para/>
+        /// See <see href="https://tools.ietf.org/html/rfc3986#section-4.3"/> for the absolute-URI definition. <para/>
+        /// </summary>
+        public AbsoluteUri AbsoluteUri { get; }
 
-		/// <summary>
-		/// The Coded-URL Lock-Token header formatted version of this <see cref="LockToken"/>.
-		/// </summary>
-	    public CodedUrl LockTokenHeaderFormat { get; }
+        /// <summary>
+        /// The Coded-URL Lock-Token header formatted version of this <see cref="LockToken"/>.
+        /// </summary>
+        public CodedUrl LockTokenHeaderFormat { get; }
 
-	    /// <summary>
-	    /// The No-Tag If header formatted version of this <see cref="LockToken"/>.
-	    /// </summary>
-	    public NoTagList IfHeaderNoTagListFormat { get; }
+        /// <summary>
+        /// The No-Tag If header formatted version of this <see cref="LockToken"/>.
+        /// </summary>
+        public NoTagList IfHeaderNoTagListFormat { get; }
     }
 }

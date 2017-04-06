@@ -74,24 +74,24 @@ namespace DecaTec.WebDav
             {
                 var lockTokenHeaderValue = lockTokenHeaderValues.FirstOrDefault();
 
-				// Make sure the lockTokenHeaderValue is valid according to spec (http://www.webdav.org/specs/rfc4918.html#rfc.section.10.1).
-				if (lockTokenHeaderValue != null && CodedUrl.TryParse(lockTokenHeaderValue, out var codedUrl))
-					return new LockToken(codedUrl.AbsoluteUri);
+                // Make sure the lockTokenHeaderValue is valid according to spec (http://www.webdav.org/specs/rfc4918.html#rfc.section.10.1).
+                if (lockTokenHeaderValue != null && CodedUrl.TryParse(lockTokenHeaderValue, out var codedUrl))
+                    return new LockToken(codedUrl.AbsoluteUri);
             }
 
             // If lock token was not submitted by response header, it should be found in the response content.
             try
             {
                 var prop = WebDavResponseContentParser.ParsePropResponseContentAsync(responseMessage.Content).Result;
-				if (prop != null && AbsoluteUri.TryParse(prop.LockDiscovery.ActiveLock[0].LockToken.Href, out var absoluteUri))
-					return new LockToken(absoluteUri);
+                if (prop != null && AbsoluteUri.TryParse(prop.LockDiscovery.ActiveLock[0].LockToken.Href, out var absoluteUri))
+                    return new LockToken(absoluteUri);
             }
             catch (Exception)
             {
                 return null;
             }
 
-	        return null;
+            return null;
         }
     }
 }
