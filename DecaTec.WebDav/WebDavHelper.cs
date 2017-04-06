@@ -72,6 +72,7 @@ namespace DecaTec.WebDav
             // Try to get lock token from response header.
             if (responseMessage.Headers.TryGetValues(WebDavRequestHeader.LockToken, out IEnumerable<string> lockTokenHeaderValues))
             {
+                // We assume only one Lock-Token header is sent, based on the spec: https://tools.ietf.org/html/rfc4918#section-9.10.1
                 var lockTokenHeaderValue = lockTokenHeaderValues.FirstOrDefault();
 
                 // Make sure the lockTokenHeaderValue is valid according to spec (https://tools.ietf.org/html/rfc4918#section-10.5).
