@@ -23,11 +23,36 @@ namespace DecaTec.WebDav
         public static Uri CreateUriFromUrl(string url)
         {
             var uri = new Uri(url, UriKind.RelativeOrAbsolute);
+            return CreateRelativeUriWhenSchemeIsFile(uri);
+        }
 
-            // On Xamarin, a Uri created with "/test" will be an absolute Uri with the scheme 'file'.
+        /// <summary>
+        /// Creates a <see cref="Uri"/> from the given URL.
+        /// </summary>
+        /// <param name="url">The URL as string.</param>
+        /// <param name="result">When this method returns, contains the constructed <see cref="Uri"/>.</param>
+        /// <returns>A Boolean value that is true if the Uri was successfully created; otherwise, false.</returns>
+        public static bool TryCreateUriFromUrl(string url, out Uri result)
+        {
+            if (!Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out result))
+                return false;
+
+            result = CreateRelativeUriWhenSchemeIsFile(result);
+            return true;
+        }
+
+        /// <summary>
+        /// Creates a new relative <see cref="Uri"/> when an absolute Uri with scheme 'file' is specified.
+        /// </summary>
+        /// <param name="uri">The <see cref="Uri"/> to inspect.</param>
+        /// <returns>A relative Uri when the Uri specified was an absolute Uri with scheme 'file'.</returns>
+        /// <remarks>This a a workaround for Xamarin/Mono.</remarks>
+        private static Uri CreateRelativeUriWhenSchemeIsFile(Uri uri)
+        {
+            // On Xamarin, a Uri created with "/folder" will be an absolute Uri with the scheme 'file'.
             // Due to this fact, there are some problems when creating relative Uris on Xamarin.
             if (uri.IsAbsoluteUri && uri.Scheme.Equals(UriSchemeFile, StringComparison.Ordinal))
-                return new Uri(url, UriKind.Relative);
+                return new Uri(uri.AbsolutePath, UriKind.Relative);
             else
                 return uri;
         }

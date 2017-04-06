@@ -480,7 +480,7 @@ namespace DecaTec.WebDav
 
                 if (!string.IsNullOrEmpty(responseItem.Href))
                 {
-                    if (Uri.TryCreate(responseItem.Href, UriKind.RelativeOrAbsolute, out href))
+                    if (UriHelper.TryCreateUriFromUrl(responseItem.Href, out href))
                     {
                         var fullQualifiedUri = UriHelper.CombineUri(uri, href, true);
                         fullQualifiedUri = UriHelper.SetPort(fullQualifiedUri, port);
@@ -596,9 +596,12 @@ namespace DecaTec.WebDav
             if (this.permanentLocks.ContainsKey(uri))
                 return true; // Lock already set.
 
-            var lockInfo = new LockInfo();
-            lockInfo.LockScope = LockScope.CreateExclusiveLockScope();
-            lockInfo.LockType = LockType.CreateWriteLockType();
+            var lockInfo = new LockInfo()
+            {
+                LockScope = LockScope.CreateExclusiveLockScope(),
+                LockType = LockType.CreateWriteLockType()
+            };
+
             var response = await this.webDavClient.LockAsync(uri, WebDavTimeoutHeaderValue.CreateInfiniteWebDavTimeout(), WebDavDepthHeaderValue.Infinity, lockInfo);
 
             if (!response.IsSuccessStatusCode)
@@ -796,9 +799,8 @@ namespace DecaTec.WebDav
         public async Task<bool> UnlockAsync(Uri uri)
         {
             uri = UriHelper.GetCombinedUriWithTrailingSlash(this.BaseUri, uri, true, false);
-            PermanentLock permanentLock;
 
-            if (!this.permanentLocks.TryRemove(uri, out permanentLock))
+            if (!this.permanentLocks.TryRemove(uri, out PermanentLock permanentLock))
                 return false;
 
             var result = await permanentLock.UnlockAsync();
