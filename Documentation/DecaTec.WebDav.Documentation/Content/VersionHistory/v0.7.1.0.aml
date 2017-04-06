@@ -16,6 +16,12 @@
             </para>
           </listItem>
 
+          <listItem>
+            <para>
+              Strongly typed versions of Lock-Token formats as defined in WebDAV specification.
+            </para>
+          </listItem>
+
         </list>
 
       </content>
