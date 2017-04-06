@@ -1,76 +1,41 @@
-﻿namespace DecaTec.WebDav
+﻿using System;
+
+namespace DecaTec.WebDav
 {
-    /// <summary>
-    /// Class representing a WebDAV lock token.
-    /// </summary>
-    public class LockToken
+	/// <summary>
+	/// Class representing a WebDAV lock token. <para/>
+	/// See <see href="http://www.webdav.org/specs/rfc4918.html#rfc.section.6.5"/> for the definition.
+	/// </summary>
+	public class LockToken
     {
-        /// <summary>
-        /// The prefix for a "List" syntax. <para/>
-        /// http://www.webdav.org/specs/rfc4918.html#if.header.syntax
-        /// </summary>
-        private const char ListPrefix = '(';
-
-        /// <summary>
-        /// The postfix for a "List" syntax. <para/>
-        /// http://www.webdav.org/specs/rfc4918.html#if.header.syntax
-        /// </summary>
-        private const char ListPostfix = ')';
-
-        /// <summary>
-        /// The prefix for a "Coded-URL" syntax. <para/>
-        /// http://www.webdav.org/specs/rfc4918.html#HEADER_DAV
-        /// </summary>
-        private const char CodedUrlPrefix = '<';
-
-        /// <summary>
-        /// The postfix for a "Coded-URL" syntax. <para/>
-        /// http://www.webdav.org/specs/rfc4918.html#HEADER_DAV
-        /// </summary>
-        private const char CodedUrlPostfix = '>';
-
-        /// <summary>
-        /// Initializes a new instance of LockToken.
-        /// </summary>
-        /// <param name="lockToken">A lock token string.</param>
-        public LockToken(string lockToken)
+		/// <summary>
+		/// Constructs a <see cref="LockToken"/> based on the <paramref name="absoluteUri"/>.
+		/// </summary>
+		/// <param name="absoluteUri">The lock token in absolute-URI format as defined in https://tools.ietf.org/html/rfc3986#section-4.3. </param>
+		/// <remarks>Use the strong-typed constructors to create a new <see cref="LockToken"/>.</remarks>
+		public LockToken(AbsoluteUri absoluteUri)
         {
-            if (string.IsNullOrEmpty(lockToken))
-                throw new WebDavException("A lock token cannot be null or empty.");
+			AbsoluteUri = absoluteUri ?? throw new WebDavException($"The {nameof(absoluteUri)} cannot be null or empty.");
 
-            this.RawLockToken = lockToken;
+	        var codedUrl = new CodedUrl(absoluteUri);
+			LockTokenHeaderFormat = codedUrl;
+			IfHeaderNoTagListFormat = new NoTagList(codedUrl);
         }
 
-        /// <summary>
-        /// Gets the raw representation of the lock token for serialization purposes. 
-        /// Use <see cref="ToString"/> to get the formatted representation for use in headers.
-        /// </summary>
-        public string RawLockToken { get; }
+		/// <summary>
+		/// Gets the absolute-URI representation of the lock token for serialization purposes. <para/>
+		/// See <see href="https://tools.ietf.org/html/rfc3986#section-4.3"/> for the absolute-URI definition. <para/>
+		/// </summary>
+		public AbsoluteUri AbsoluteUri { get; }
 
-        /// <summary>
-        /// Gets the string representation of a lock token as used in an If or Lock-Token header.
-        /// </summary>
-        /// <param name="format">The desired <see cref="LockTokenFormat"/>.</param>
-        /// <returns>A lock token string with the desired format.</returns>
-        /// <remarks>
-        /// If header according to http://www.webdav.org/specs/rfc4918.html#HEADER_If <para/>
-        /// Lock-Token header according to http://www.webdav.org/specs/rfc4918.html#HEADER_Lock-Token
-        /// </remarks>
-        public string ToString(LockTokenFormat format)
-        {
-            var cleanLockToken = RawLockToken.Trim(ListPrefix, ListPostfix, CodedUrlPrefix, CodedUrlPostfix);
-            var codedUrl = $"{CodedUrlPrefix}{cleanLockToken}{CodedUrlPostfix}";
+		/// <summary>
+		/// The Coded-URL Lock-Token header formatted version of this <see cref="LockToken"/>.
+		/// </summary>
+	    public CodedUrl LockTokenHeaderFormat { get; }
 
-            switch (format)
-            {
-                case LockTokenFormat.IfHeader:
-                    var list = $"{ListPrefix}{codedUrl}{ListPostfix}";
-                    return list;
-                case LockTokenFormat.LockTokenHeader:
-                    return codedUrl;
-                default:
-                    return RawLockToken;
-            }
-        }
+	    /// <summary>
+	    /// The No-Tag If header formatted version of this <see cref="LockToken"/>.
+	    /// </summary>
+	    public NoTagList IfHeaderNoTagListFormat { get; }
     }
 }
