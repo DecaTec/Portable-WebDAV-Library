@@ -24,7 +24,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Constant for Lock-Token header. This is used with an UNLOCK request.
         /// </summary>
-        public const string LockTocken = "Lock-Token";
+        public const string LockToken = "Lock-Token";
 
         /// <summary>
         /// Constant for Overwrite Header.

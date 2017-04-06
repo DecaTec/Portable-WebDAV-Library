@@ -70,24 +70,31 @@ namespace DecaTec.WebDav
         public static LockToken GetLockTokenFromWebDavResponseMessage(WebDavResponseMessage responseMessage)
         {
             // Try to get lock token from response header.
-            if (responseMessage.Headers.TryGetValues(WebDavRequestHeader.LockTocken, out IEnumerable<string> lockTokenHeaderValues))
+            if (responseMessage.Headers.TryGetValues(WebDavRequestHeader.LockToken, out IEnumerable<string> lockTokenHeaderValues))
             {
+                // We assume only one Lock-Token header is sent, based on the spec: https://tools.ietf.org/html/rfc4918#section-9.10.1
                 var lockTokenHeaderValue = lockTokenHeaderValues.FirstOrDefault();
 
-                if (lockTokenHeaderValue != null)
-                    return new LockToken(lockTokenHeaderValue);
+                // Make sure the lockTokenHeaderValue is valid according to spec (https://tools.ietf.org/html/rfc4918#section-10.5).
+                if (lockTokenHeaderValue != null && CodedUrl.TryParse(lockTokenHeaderValue, out var codedUrl))
+                    return new LockToken(codedUrl.AbsoluteUri);
             }
 
             // If lock token was not submitted by response header, it should be found in the response content.
             try
             {
                 var prop = WebDavResponseContentParser.ParsePropResponseContentAsync(responseMessage.Content).Result;
-                return new LockToken(prop.LockDiscovery.ActiveLock[0].LockToken.Href);
+                var href = prop.LockDiscovery.ActiveLock[0].LockToken.Href;
+
+                if (AbsoluteUri.TryParse(href, out var absoluteUri))
+                    return new LockToken(absoluteUri);
             }
             catch (Exception)
             {
                 return null;
             }
+
+            return null;
         }
     }
 }

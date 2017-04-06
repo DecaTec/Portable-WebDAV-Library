@@ -43,6 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\DecaTec.WebDav\AbsoluteUri.cs">
+      <Link>AbsoluteUri.cs</Link>
+    </Compile>
+    <Compile Include="..\..\DecaTec.WebDav\CodedUrl.cs">
+      <Link>CodedUrl.cs</Link>
+    </Compile>
     <Compile Include="..\..\DecaTec.WebDav\Constants\PropNameConstants.cs">
       <Link>Constants\PropNameConstants.cs</Link>
     </Compile>
@@ -57,6 +63,9 @@
     </Compile>
     <Compile Include="..\..\DecaTec.WebDav\LockTokenFormat.cs">
       <Link>LockTokenFormat.cs</Link>
+    </Compile>
+    <Compile Include="..\..\DecaTec.WebDav\NoTagList.cs">
+      <Link>NoTagList.cs</Link>
     </Compile>
     <Compile Include="..\..\DecaTec.WebDav\PermanentLock.cs">
       <Link>PermanentLock.cs</Link>

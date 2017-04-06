@@ -9,93 +9,51 @@ namespace DecaTec.WebDav.UnitTest
     public class UnitTestLockToken
     {
         [TestMethod]
-        public void UT_LockToken_ToString_IfHeaderWithoutBrackets()
+        public void UT_LockToken_IfHeaderNoTagListFormat_IfHeaderWithoutBrackets()
         {
-            var lockToken = new LockToken("my-lock-token");
-            var str = lockToken.ToString(LockTokenFormat.IfHeader);
+            var parseResult = AbsoluteUri.TryParse("urn:uuid:my-lock-token", out var absoluteUri);
 
-            Assert.AreEqual("(<my-lock-token>)", str);
+            var lockToken = new LockToken(absoluteUri);
+            var noTagList = lockToken.IfHeaderNoTagListFormat;
+
+            Assert.AreEqual("(<urn:uuid:my-lock-token>)", noTagList.ToString());
+            Assert.IsTrue(parseResult);
         }
 
         [TestMethod]
-        public void UT_LockToken_ToString_IfHeaderWithBrackets()
+        public void UT_LockToken_IfHeaderNoTagListFormat_IfHeaderWithBrackets()
         {
-            var lockToken = new LockToken("(my-lock-token)");
-            var str = lockToken.ToString(LockTokenFormat.IfHeader);
+            var parseResult = CodedUrl.TryParse("<urn:uuid:my-lock-token>", out var codedUrl);
 
-            Assert.AreEqual("(<my-lock-token>)", str);
+            var lockToken = new LockToken(codedUrl.AbsoluteUri);
+            var noTagList = lockToken.IfHeaderNoTagListFormat;
+
+            Assert.AreEqual("(<urn:uuid:my-lock-token>)", noTagList.ToString());
+            Assert.IsTrue(parseResult);
         }
 
         [TestMethod]
-        public void UT_LockToken_ToString_IfHeaderWithSquaredBrackets()
+        public void UT_LockToken_LockTokenHeaderFormat_LockTokenHeaderWithoutBrackets()
         {
-            var lockToken = new LockToken("<my-lock-token>");
-            var str = lockToken.ToString(LockTokenFormat.IfHeader);
+            var parseResult = AbsoluteUri.TryParse("urn:uuid:my-lock-token", out var absoluteUri);
 
-            Assert.AreEqual("(<my-lock-token>)", str);
+            var lockToken = new LockToken(absoluteUri);
+            var codedUrl = lockToken.LockTokenHeaderFormat;
+
+            Assert.AreEqual("<urn:uuid:my-lock-token>", codedUrl.ToString());
+            Assert.IsTrue(parseResult);
         }
 
         [TestMethod]
-        public void UT_LockToken_ToString_IfHeaderWithBothBrackets()
+        public void UT_LockToken_LockTokenHeaderFormat_LockTokenHeaderWithBrackets()
         {
-            var lockToken = new LockToken("(<my-lock-token>)");
-            var str = lockToken.ToString(LockTokenFormat.IfHeader);
+            var parseResult = CodedUrl.TryParse("<urn:uuid:my-lock-token>", out var codedUrl);
 
-            Assert.AreEqual("(<my-lock-token>)", str);
-        }
+            var lockToken = new LockToken(codedUrl.AbsoluteUri);
+            var lockTokenHeaderFormat = lockToken.LockTokenHeaderFormat;
 
-        [TestMethod]
-        public void UT_LockToken_ToString_IfHeaderWithBothBracketsReversed()
-        {
-            var lockToken = new LockToken("<(my-lock-token)>");
-            var str = lockToken.ToString(LockTokenFormat.IfHeader);
-
-            Assert.AreEqual("(<my-lock-token>)", str);
-        }
-
-        [TestMethod]
-        public void UT_LockToken_ToString_LockTokenHeaderWithoutBrackets()
-        {
-            var lockToken = new LockToken("my-lock-token");
-            var str = lockToken.ToString(LockTokenFormat.LockTokenHeader);
-
-            Assert.AreEqual("<my-lock-token>", str);
-        }
-
-        [TestMethod]
-        public void UT_LockToken_ToString_LockTokenHeaderWithBrackets()
-        {
-            var lockToken = new LockToken("(my-lock-token)");
-            var str = lockToken.ToString(LockTokenFormat.LockTokenHeader);
-
-            Assert.AreEqual("<my-lock-token>", str);
-        }
-
-        [TestMethod]
-        public void UT_LockToken_ToString_LockTokenHeaderWithSquaredBrackets()
-        {
-            var lockToken = new LockToken("<my-lock-token>");
-            var str = lockToken.ToString(LockTokenFormat.LockTokenHeader);
-
-            Assert.AreEqual("<my-lock-token>", str);
-        }
-
-        [TestMethod]
-        public void UT_LockToken_ToString_LockTokenHeaderWithBothBrackets()
-        {
-            var lockToken = new LockToken("(<my-lock-token>)");
-            var str = lockToken.ToString(LockTokenFormat.LockTokenHeader);
-
-            Assert.AreEqual("<my-lock-token>", str);
-        }
-
-        [TestMethod]
-        public void UT_LockToken_ToString_LockTokenHeaderWithBothBracketsReversed()
-        {
-            var lockToken = new LockToken("<(my-lock-token)>");
-            var str = lockToken.ToString(LockTokenFormat.LockTokenHeader);
-
-            Assert.AreEqual("<my-lock-token>", str);
+            Assert.AreEqual("<urn:uuid:my-lock-token>", lockTokenHeaderFormat.ToString());
+            Assert.IsTrue(parseResult);
         }
     }
 }

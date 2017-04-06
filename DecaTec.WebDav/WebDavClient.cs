@@ -259,7 +259,7 @@ namespace DecaTec.WebDav
                 requestMethod.Headers.Add(WebDavRequestHeader.Overwrite, WebDavOverwriteHeaderValue.NoOverwrite);
 
             if (lockTokenDestination != null)
-                requestMethod.Headers.Add(WebDavRequestHeader.If, lockTokenDestination.ToString(LockTokenFormat.IfHeader));
+                requestMethod.Headers.Add(WebDavRequestHeader.If, lockTokenDestination.IfHeaderNoTagListFormat.ToString());
 
             var taskHttpResponseMessage = await this.SendAsync(requestMethod);
             return taskHttpResponseMessage;
@@ -360,7 +360,7 @@ namespace DecaTec.WebDav
             var requestMethod = new HttpRequestMessage(WebDavMethod.Delete, requestUri);
 
             if (lockToken != null)
-                requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.ToString(LockTokenFormat.IfHeader));
+                requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString());
 
             var httpResponseMessage = await this.SendAsync(requestMethod, HttpCompletionOption.ResponseContentRead, cancellationToken);
             return new WebDavResponseMessage(httpResponseMessage);
@@ -856,7 +856,7 @@ namespace DecaTec.WebDav
             if (timeout != null)
                 requestMethod.Headers.Add(WebDavRequestHeader.Timeout, timeout.ToString());
 
-            requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.ToString(LockTokenFormat.IfHeader));
+            requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString());
 
             var httpResponseMessage = await this.SendAsync(requestMethod, completionOption, cancellationToken);
             return new WebDavResponseMessage(httpResponseMessage);
@@ -1006,7 +1006,7 @@ namespace DecaTec.WebDav
             var requestMethod = new HttpRequestMessage(WebDavMethod.Mkcol, requestUri);
 
             if (lockToken != null)
-                requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.ToString(LockTokenFormat.IfHeader));
+                requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString());
 
             var httpResponseMessage = await this.SendAsync(requestMethod, completionOption, cancellationToken);
             return new WebDavResponseMessage(httpResponseMessage);
@@ -1216,10 +1216,10 @@ namespace DecaTec.WebDav
                 var sb = new StringBuilder();
 
                 if (lockTokenSource != null)
-                    sb.Append(lockTokenSource.ToString(LockTokenFormat.IfHeader));
+                    sb.Append(lockTokenSource.IfHeaderNoTagListFormat.ToString());
 
                 if (lockTokenDestination != null)
-                    sb.Append(lockTokenDestination.ToString(LockTokenFormat.IfHeader));
+                    sb.Append(lockTokenDestination.IfHeaderNoTagListFormat.ToString());
 
                 if (lockTokenSource != null)
                     requestMethod.Headers.Add(WebDavRequestHeader.If, sb.ToString());
@@ -1335,7 +1335,7 @@ namespace DecaTec.WebDav
             requestMethod.Content = content;
 
             if (lockToken != null)
-                requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.ToString(LockTokenFormat.IfHeader));
+                requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString());
 
             var httpResponseMessage = await this.SendAsync(requestMethod, HttpCompletionOption.ResponseContentRead, cancellationToken);
             return new WebDavResponseMessage(httpResponseMessage);
@@ -1930,7 +1930,7 @@ namespace DecaTec.WebDav
             var requestMethod = new HttpRequestMessage(WebDavMethod.PropPatch, requestUri);
 
             if (lockToken != null)
-                requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.ToString(LockTokenFormat.IfHeader));
+                requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString());
 
             if (!String.IsNullOrEmpty(propPatchXmlString))
             {
@@ -2043,7 +2043,7 @@ namespace DecaTec.WebDav
             requestMethod.Content = content;
 
             if (lockToken != null)
-                requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.ToString(LockTokenFormat.IfHeader));
+                requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString());
 
             var httpResponseMessage = await this.SendAsync(requestMethod, HttpCompletionOption.ResponseContentRead, cancellationToken);
             return new WebDavResponseMessage(httpResponseMessage);
@@ -2175,7 +2175,7 @@ namespace DecaTec.WebDav
                 throw new WebDavException("No lock token specified. A lock token is required for unlocking.");
 
             var requestMethod = new HttpRequestMessage(WebDavMethod.Unlock, requestUri);
-            requestMethod.Headers.Add(WebDavRequestHeader.LockTocken, lockToken.ToString(LockTokenFormat.LockTokenHeader));
+            requestMethod.Headers.Add(WebDavRequestHeader.LockToken, lockToken.LockTokenHeaderFormat.ToString());
 
             var httpResponseMessage = await this.SendAsync(requestMethod, completionOption, cancellationToken);
             return new WebDavResponseMessage(httpResponseMessage);
@@ -2303,7 +2303,7 @@ namespace DecaTec.WebDav
             streamContent.Headers.Add(HttpHeaderNames.ContentLength, stream.Length.ToString(CultureInfo.InvariantCulture));
 
             if (lockToken != null)
-                streamContent.Headers.Add(WebDavRequestHeader.If, lockToken.ToString(LockTokenFormat.IfHeader));
+                streamContent.Headers.Add(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString());
 
             return new WebDavResponseMessage(await this.PutAsync(uri, streamContent, lockToken, cancellationToken));
         }
