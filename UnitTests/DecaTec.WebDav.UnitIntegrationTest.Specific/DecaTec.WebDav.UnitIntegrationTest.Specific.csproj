@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="..\DecaTec.WebDav.UnitIntegrationTest\TextFile1.txt" Link="TextFile1.txt" />
+    <None Include="..\DecaTec.WebDav.UnitIntegrationTest\TextFile1.txt" Link="TextFile1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

@@ -2,9 +2,11 @@
 using DecaTec.WebDav.WebDavArtifacts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 
 namespace DecaTec.WebDav.UnitIntegrationTest.Specific
 {
@@ -18,7 +20,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
     /// If this file is not present, all test will fail!
     /// </summary>
     [TestClass]
-    public class UnitIntegrationTestWebDavClient
+    public class UnitIntegrationTestWebDavClientSpecific
     {
         private string userName;
         private string password;
@@ -44,6 +46,34 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
             }
         }
 
+        private void DebugWriteResponseContent(string contentString)
+        {
+            var sb = new StringBuilder();
+
+            if (string.IsNullOrEmpty(contentString))
+            {
+                sb.Append("========");
+                sb.Append(Environment.NewLine);
+                sb.Append("RESPONSE CONTENT:");
+                sb.Append(Environment.NewLine);
+                sb.Append("NONE");
+                sb.Append(Environment.NewLine);
+                Debug.WriteLine(sb.ToString());
+                sb.Clear();
+                return;
+            }
+
+            sb.Append("========");
+            sb.Append(Environment.NewLine);
+            sb.Append("REQUEST CONTENT:");
+            sb.Append(Environment.NewLine);
+            sb.Append(contentString);
+            sb.Append(Environment.NewLine);
+            
+            Debug.WriteLine(sb.ToString());
+            sb.Clear();
+        }
+
         private WebDavClient CreateWebDavClientWithDebugHttpMessageHandler()
         {
             var credentials = new NetworkCredential(this.userName, this.password);
@@ -58,39 +88,45 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         #region PropFind
 
         [TestMethod]
-        public void UIT_WebDavClient_PropFind_AllProp()
+        public void UIT_WebDavClient_Specific_PropFind_AllProp()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             PropFind pf = PropFind.CreatePropFindAllProp();
             var response = client.PropFindAsync(this.webDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
+            var responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var propFindResponseSuccess = response.IsSuccessStatusCode;
-            var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+            var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentString(responseContentString);
 
             Assert.IsTrue(propFindResponseSuccess);
             Assert.IsNotNull(multistatus);
         }
 
         [TestMethod]
-        public void UIT_WebDavClient_PropFind_NamedProperties()
+        public void UIT_WebDavClient_Specific_PropFind_NamedProperties()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             PropFind pf = PropFind.CreatePropFindWithEmptyProperties("name");
             var response = client.PropFindAsync(this.webDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
+            var responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var propFindResponseSuccess = response.IsSuccessStatusCode;
-            var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+            var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentString(responseContentString);
 
             Assert.IsTrue(propFindResponseSuccess);
             Assert.IsNotNull(multistatus);           
         }
 
         [TestMethod]
-        public void UIT_WebDavClient_PropFind_PropName()
+        public void UIT_WebDavClient_Specific_PropFind_PropName()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             PropFind pf = PropFind.CreatePropFindWithPropName();
             var response = client.PropFindAsync(this.webDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
+            var responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var propFindResponseSuccess = response.IsSuccessStatusCode;
-            var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+            var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentString(responseContentString);
 
             Assert.IsTrue(propFindResponseSuccess);
             Assert.IsNotNull(multistatus);            
@@ -101,7 +137,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         #region PropPatch / put / delete file
 
         [TestMethod]
-        public void UIT_WebDavClient_PropPatch()
+        public void UIT_WebDavClient_Specific_PropPatch()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             var testFile = UriHelper.CombineUrl(this.webDavRootFolder, TestFile, true);
@@ -159,7 +195,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         #region Mkcol / delete collection
 
         [TestMethod]
-        public void UIT_WebDavClient_Mkcol()
+        public void UIT_WebDavClient_Specific_Mkcol()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             var testCollection = UriHelper.CombineUrl(this.webDavRootFolder, TestCollection, true);
@@ -201,7 +237,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         #region Get
 
         [TestMethod]
-        public void UIT_WebDavClient_Get()
+        public void UIT_WebDavClient_Specific_Get()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             var testFile = UriHelper.CombineUrl(this.webDavRootFolder, TestFile, true);
@@ -233,7 +269,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         #region Copy
 
         [TestMethod]
-        public void UIT_WebDavClient_Copy()
+        public void UIT_WebDavClient_Specific_Copy()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             var testCollectionSource = UriHelper.CombineUrl(this.webDavRootFolder, TestCollection, true);
@@ -292,7 +328,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         #region Move
 
         [TestMethod]
-        public void UIT_WebDavClient_Move()
+        public void UIT_WebDavClient_Specific_Move()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             var testCollectionSource = UriHelper.CombineUrl(this.webDavRootFolder, TestCollection, true);
@@ -350,7 +386,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         #region Lock / unlock
 
         [TestMethod]
-        public void UIT_WebDavClient_LockRefreshLockUnlock()
+        public void UIT_WebDavClient_Specific_LockRefreshLockUnlock()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
 
@@ -378,7 +414,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         }
 
         [TestMethod]
-        public void UIT_WebDavClient_LockAndPutWithoutToken()
+        public void UIT_WebDavClient_Specific_LockAndPutWithoutToken()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
 
@@ -409,7 +445,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         }
 
         [TestMethod]
-        public void UIT_WebDavClient_LockAndPutWithToken()
+        public void UIT_WebDavClient_Specific_LockAndPutWithToken()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
 

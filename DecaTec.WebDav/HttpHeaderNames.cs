@@ -4,7 +4,7 @@ namespace DecaTec.WebDav
     /// <summary>
     /// Class representing (some) HTTP header names.
     /// </summary>
-    internal static class HttpHeaderNames
+    public static class HttpHeaderNames
     {
         /// <summary>
         /// Header name for 'Content-Type'.
