@@ -5,7 +5,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 
-namespace DecaTec.WebDav.UnitIntegrationTest
+namespace DecaTec.WebDav.UnitIntegrationTest.Specific
 {
     /// <summary>
     /// Unit integration test class for WebDavSession.
