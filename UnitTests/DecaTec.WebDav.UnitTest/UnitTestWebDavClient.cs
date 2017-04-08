@@ -127,6 +127,24 @@ namespace DecaTec.WebDav.UnitTest
 
         #endregion Copy
 
+        #region Delete
+
+        [TestMethod]
+        public void UT_WebDavClient_Delete()
+        {
+            var testFileUrl = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
+
+            var mockHandler = new MockHttpMessageHandler();
+            mockHandler.When(HttpMethod.Delete, testFileUrl).Respond(HttpStatusCode.NoContent);
+
+            var client = CreateWebDavClient(mockHandler);
+
+            var response = client.DeleteAsync(testFileUrl).Result;
+            var deleteResponseSuccess = response.IsSuccessStatusCode;
+        }
+
+        #endregion Delete
+
         #region PropFind
 
         [TestMethod]
