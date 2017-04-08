@@ -58,6 +58,8 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
                 sb.Append(Environment.NewLine);
                 sb.Append("NONE");
                 sb.Append(Environment.NewLine);
+                sb.Append("========");
+
                 Debug.WriteLine(sb.ToString());
                 sb.Clear();
                 return;
@@ -65,11 +67,12 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
 
             sb.Append("========");
             sb.Append(Environment.NewLine);
-            sb.Append("REQUEST CONTENT:");
+            sb.Append("RESPONSE CONTENT:");
             sb.Append(Environment.NewLine);
             sb.Append(contentString);
             sb.Append(Environment.NewLine);
-            
+            sb.Append("========");
+
             Debug.WriteLine(sb.ToString());
             sb.Clear();
         }
@@ -77,9 +80,13 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         private WebDavClient CreateWebDavClientWithDebugHttpMessageHandler()
         {
             var credentials = new NetworkCredential(this.userName, this.password);
-            var httpClientHandler = new HttpClientHandler();
-            httpClientHandler.Credentials = credentials;
-            httpClientHandler.PreAuthenticate = true;
+
+            var httpClientHandler = new HttpClientHandler()
+            {
+                Credentials = credentials,
+                PreAuthenticate = true
+            };
+
             var debugHttpMessageHandler = new DebugHttpMessageHandler(httpClientHandler);
             var wdc = new WebDavClient(debugHttpMessageHandler);
             return wdc;
@@ -145,48 +152,64 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
             // Put file.
             var content = new StreamContent(File.OpenRead(TestFile));
             var response = client.PutAsync(testFile, content).Result;
+            var responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var putResponseSuccess = response.IsSuccessStatusCode;            
 
             // PropPatch (set).
             var propertyUpdate = new PropertyUpdate();
             var set = new Set();
-            var prop = new Prop();
-            prop.DisplayName = "TestFileDisplayName";
+
+            var prop = new Prop()
+            {
+                DisplayName = "TestFileDisplayName"
+            };
+
             set.Prop = prop;
             propertyUpdate.Items = new object[] {set};
             response = client.PropPatchAsync(testFile, propertyUpdate).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
+            var multistatusPropPatchSet = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
             var propPatchResponseSuccess = response.IsSuccessStatusCode;            
 
             // PropFind.
-            PropFind pf = PropFind.CreatePropFindWithEmptyProperties("displayname");
+            PropFind pf = PropFind.CreatePropFindWithEmptyProperties(PropNameConstants.DisplayName);
             response = client.PropFindAsync(testFile, WebDavDepthHeaderValue.Zero, pf).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var propFindResponseSuccess = response.IsSuccessStatusCode;
-            var multistatus = (Multistatus)WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
-            var displayName = ((Propstat)multistatus.Response[0].Items[0]).Prop.DisplayName;
+            var multistatusPropFind = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+            var displayName = ((Propstat)multistatusPropFind.Response[0].Items[0]).Prop.DisplayName;
             // IIS ignores display name and always puts the file name as display name.
             var displayNameResult = "TestFileDisplayName" == displayName || TestFile == displayName;            
 
             // PropPatch (remove).
             propertyUpdate = new PropertyUpdate();
             var remove = new Remove();
-            prop = Prop.CreatePropWithEmptyProperties("displayname");
+            prop = Prop.CreatePropWithEmptyProperties(PropNameConstants.DisplayName);
             remove.Prop = prop;
             propertyUpdate.Items = new object[] { remove };
             response = client.PropPatchAsync(testFile, propertyUpdate).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var propPatchRemoveResponseSuccess = response.IsSuccessStatusCode;
-            multistatus = (Multistatus)WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
-            var multistatusResult = ((Propstat)multistatus.Response[0].Items[0]).Prop.DisplayName;            
+            multistatusPropFind = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+            var multistatusPropFindResult = string.IsNullOrEmpty(((Propstat)multistatusPropFind.Response[0].Items[0]).Prop.DisplayName);            
 
             // Delete file.
             response = client.DeleteAsync(testFile).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var deleteResponseSuccess = response.IsSuccessStatusCode;
 
             Assert.IsTrue(putResponseSuccess);
+            Assert.IsNotNull(multistatusPropPatchSet);
             Assert.IsTrue(propPatchResponseSuccess);
             Assert.IsTrue(propFindResponseSuccess);
             Assert.IsTrue(displayNameResult);
             Assert.IsTrue(propPatchRemoveResponseSuccess);
-            Assert.AreEqual(string.Empty, multistatusResult);
+            Assert.IsTrue(multistatusPropFindResult);
             Assert.IsTrue(deleteResponseSuccess);
         }
 

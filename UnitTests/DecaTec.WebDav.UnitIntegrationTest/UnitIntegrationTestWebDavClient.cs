@@ -17,8 +17,6 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         private const string Password = "testpassword";
         private const string WebDavRootFolder = @"http://127.0.0.1/webdav";
 
-        private const string ContentTypeApplicationXml = "application/xml; charset=utf-8";
-
         private const string TestFile = @"TextFile1.txt";
         private const string TestCollection = "TestCollection";
 
@@ -46,11 +44,9 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             var mockHandler = new MockHttpMessageHandler();
             var requestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:allprop /></D:propfind>";
             var requestHeaders = new List<KeyValuePair<string, string>>();
-            var xx = WebDavDepthHeaderValue.Infinity.ToString();
             requestHeaders.Add(new KeyValuePair<string, string>(WebDavConstants.Depth, WebDavDepthHeaderValue.Infinity.ToString()));
-            requestHeaders.Add(new KeyValuePair<string, string>(HttpHeaderNames.ContentType, ContentTypeApplicationXml));
             var responseContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:multistatus xmlns:D=\"DAV:\"><D:response><D:href>http://127.0.0.1/webdav</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Fri, 07 Apr 2017 16:56:40 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>/</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-06T09:32:20.983Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response></D:multistatus>";
-            mockHandler.When(WebDavRootFolder).WithContent(requestContent).WithHeaders(requestHeaders).Respond(HttpStatusCode.OK, new StringContent(responseContent));
+            mockHandler.When(WebDavMethod.PropFind, WebDavRootFolder).WithContent(requestContent).WithHeaders(requestHeaders).Respond(HttpStatusCode.OK, new StringContent(responseContent));
 
             var client = CreateWebDavClient(mockHandler);
             PropFind pf = PropFind.CreatePropFindAllProp();
@@ -68,11 +64,9 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             var mockHandler = new MockHttpMessageHandler();
             var requestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:prop><D:name /></D:prop></D:propfind>";
             var requestHeaders = new List<KeyValuePair<string, string>>();
-            var xx = WebDavDepthHeaderValue.Infinity.ToString();
             requestHeaders.Add(new KeyValuePair<string, string>(WebDavConstants.Depth, WebDavDepthHeaderValue.Infinity.ToString()));
-            requestHeaders.Add(new KeyValuePair<string, string>(HttpHeaderNames.ContentType, ContentTypeApplicationXml));
             var responseContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:multistatus xmlns:D=\"DAV:\"><D:response><D:href>http://127.0.0.1/webdav</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Fri, 07 Apr 2017 16:56:40 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>/</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-06T09:32:20.983Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response></D:multistatus>";
-            mockHandler.When(WebDavRootFolder).WithContent(requestContent).WithHeaders(requestHeaders).Respond(HttpStatusCode.OK, new StringContent(responseContent));
+            mockHandler.When(WebDavMethod.PropFind, WebDavRootFolder).WithContent(requestContent).WithHeaders(requestHeaders).Respond(HttpStatusCode.OK, new StringContent(responseContent));
 
             var client = CreateWebDavClient(mockHandler);
             PropFind pf = PropFind.CreatePropFindWithEmptyProperties("name");
@@ -90,11 +84,9 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             var mockHandler = new MockHttpMessageHandler();
             var requestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:propname /></D:propfind>";
             var requestHeaders = new List<KeyValuePair<string, string>>();
-            var xx = WebDavDepthHeaderValue.Infinity.ToString();
             requestHeaders.Add(new KeyValuePair<string, string>(WebDavConstants.Depth, WebDavDepthHeaderValue.Infinity.ToString()));
-            requestHeaders.Add(new KeyValuePair<string, string>(HttpHeaderNames.ContentType, ContentTypeApplicationXml));
             var responseContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:multistatus xmlns:D=\"DAV:\"><D:response><D:href>http://127.0.0.1/webdav</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified/><D:lockdiscovery/><D:ishidden/><D:supportedlock/><D:getetag/><D:displayname/><D:getcontentlanguage/><D:getcontentlength/><D:iscollection/><D:creationdate/><D:resourcetype/></D:prop></D:propstat></D:response></D:multistatus>";
-            mockHandler.When(WebDavRootFolder).WithContent(requestContent).WithHeaders(requestHeaders).Respond(HttpStatusCode.OK, new StringContent(responseContent));
+            mockHandler.When(WebDavMethod.PropFind, WebDavRootFolder).WithContent(requestContent).WithHeaders(requestHeaders).Respond(HttpStatusCode.OK, new StringContent(responseContent));
 
             var client = CreateWebDavClient(mockHandler);
             PropFind pf = PropFind.CreatePropFindWithPropName();
@@ -108,63 +100,95 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
         #endregion PropFind
 
-        //    #region PropPatch / put / delete file
+        #region PropPatch / put / delete file
 
-        //    [TestMethod]
-        //    public void UIT_WebDavClient_PropPatch()
-        //    {
-        //        var client = CreateWebDavClientWithDebugHttpMessageHandler();
-        //        var testFile = UriHelper.CombineUrl(this.webDavRootFolder, TestFile, true);
+        [TestMethod]
+        public void UIT_WebDavClient_PropPatch()
+        {
+            var mockHandler = new MockHttpMessageHandler();
 
-        //        // Put file.
-        //        var content = new StreamContent(File.OpenRead(TestFile));
-        //        var response = client.PutAsync(testFile, content).Result;
-        //        var putResponseSuccess = response.IsSuccessStatusCode;
+            // Put
+            var requestUrl = WebDavRootFolder + @"/TextFile1.txt";
+            var requestContentPut = "This is a test file for WebDAV.";            
+            mockHandler.When(HttpMethod.Put, requestUrl).WithContent(requestContentPut).Respond(HttpStatusCode.Created);
 
-        //        // PropPatch (set).
-        //        var propertyUpdate = new PropertyUpdate();
-        //        var set = new Set();
-        //        var prop = new Prop();
-        //        prop.DisplayName = "TestFileDisplayName";
-        //        set.Prop = prop;
-        //        propertyUpdate.Items = new object[] { set };
-        //        response = client.PropPatchAsync(testFile, propertyUpdate).Result;
-        //        var propPatchResponseSuccess = response.IsSuccessStatusCode;
+            // Proppatch (set)
+            var requestContentProppatchSet = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propertyupdate xmlns:D=\"DAV:\"><D:set><D:prop><D:displayname>TestFileDisplayName</D:displayname></D:prop></D:set></D:propertyupdate>";
+            var responseContentProppatchSet = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:multistatus xmlns:D=\"DAV:\"><D:response><D:href>http://127.0.0.1/TextFile1.txt</D:href><D:propstat><D:prop><D:displayname/></D:prop><D:status>HTTP/1.1 200 OK</D:status></D:propstat></D:response></D:multistatus>";
+            mockHandler.When(WebDavMethod.PropPatch, requestUrl).WithContent(requestContentProppatchSet).Respond(HttpStatusCode.OK, new StringContent(responseContentProppatchSet));
 
-        //        // PropFind.
-        //        PropFind pf = PropFind.CreatePropFindWithEmptyProperties("displayname");
-        //        response = client.PropFindAsync(testFile, WebDavDepthHeaderValue.Zero, pf).Result;
-        //        var propFindResponseSuccess = response.IsSuccessStatusCode;
-        //        var multistatus = (Multistatus)WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
-        //        var displayName = ((Propstat)multistatus.Response[0].Items[0]).Prop.DisplayName;
-        //        // IIS ignores display name and always puts the file name as display name.
-        //        var displayNameResult = "TestFileDisplayName" == displayName || TestFile == displayName;
+            // Propfind
+            var requestContentPropFind = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:prop><D:displayname /></D:prop></D:propfind>";
+            var requestHeadersPropFind = new List<KeyValuePair<string, string>>();
+            requestHeadersPropFind.Add(new KeyValuePair<string, string>(WebDavConstants.Depth, WebDavDepthHeaderValue.Zero.ToString()));
+            var responseContentPropfind = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:multistatus xmlns:D=\"DAV:\"><D:response><D:href>http://127.0.0.1/TextFile1.txt</D:href><D:propstat><D:prop><D:displayname>TestFileDisplayName</D:displayname></D:prop><D:status>HTTP/1.1 200 OK</D:status></D:propstat></D:response></D:multistatus>";
+            mockHandler.When(WebDavMethod.PropFind, requestUrl).WithHeaders(requestHeadersPropFind).WithContent(requestContentPropFind).Respond(HttpStatusCode.OK, new StringContent(responseContentPropfind));
 
-        //        // PropPatch (remove).
-        //        propertyUpdate = new PropertyUpdate();
-        //        var remove = new Remove();
-        //        prop = Prop.CreatePropWithEmptyProperties("displayname");
-        //        remove.Prop = prop;
-        //        propertyUpdate.Items = new object[] { remove };
-        //        response = client.PropPatchAsync(testFile, propertyUpdate).Result;
-        //        var propPatchRemoveResponseSuccess = response.IsSuccessStatusCode;
-        //        multistatus = (Multistatus)WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
-        //        var multistatusResult = ((Propstat)multistatus.Response[0].Items[0]).Prop.DisplayName;
+            // Proppatch (remove)
+            var requestContentProppatchRemove = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propertyupdate xmlns:D=\"DAV:\"><D:remove><D:prop><D:displayname /></D:prop></D:remove></D:propertyupdate>";
+            var responseContentProppatchRemove = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:multistatus xmlns:D=\"DAV:\"><D:response><D:href>http://127.0.0.1/TextFile1.txt</D:href><D:propstat><D:prop><D:displayname/></D:prop><D:status>HTTP/1.1 204 No Content</D:status></D:propstat></D:response></D:multistatus>";
+            mockHandler.When(WebDavMethod.PropPatch, requestUrl).WithContent(requestContentProppatchRemove).Respond(HttpStatusCode.NoContent, new StringContent(responseContentProppatchRemove));
 
-        //        // Delete file.
-        //        response = client.DeleteAsync(testFile).Result;
-        //        var deleteResponseSuccess = response.IsSuccessStatusCode;
+            // Delete
+            mockHandler.When(HttpMethod.Delete, requestUrl).Respond(HttpStatusCode.NoContent);
 
-        //        Assert.IsTrue(putResponseSuccess);
-        //        Assert.IsTrue(propPatchResponseSuccess);
-        //        Assert.IsTrue(propFindResponseSuccess);
-        //        Assert.IsTrue(displayNameResult);
-        //        Assert.IsTrue(propPatchRemoveResponseSuccess);
-        //        Assert.AreEqual(string.Empty, multistatusResult);
-        //        Assert.IsTrue(deleteResponseSuccess);
-        //    }
+            var client = CreateWebDavClient(mockHandler);
+            var testFile = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
 
-        //    #endregion PropPatch / put / delete file
+            // Put file.
+            var content = new StreamContent(File.OpenRead(TestFile));
+            var response = client.PutAsync(testFile, content).Result;
+            var putResponseSuccess = response.IsSuccessStatusCode;
+
+            // PropPatch (set).
+            var propertyUpdate = new PropertyUpdate();
+            var set = new Set();
+
+            var prop = new Prop()
+            {
+                DisplayName = "TestFileDisplayName"
+            };
+
+            set.Prop = prop;
+            propertyUpdate.Items = new object[] { set };
+            response = client.PropPatchAsync(testFile, propertyUpdate).Result;
+            var multistatusPropPatchSet = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+            var propPatchResponseSuccess = response.IsSuccessStatusCode;
+
+            // PropFind.
+            PropFind pf = PropFind.CreatePropFindWithEmptyProperties(PropNameConstants.DisplayName);
+            response = client.PropFindAsync(testFile, WebDavDepthHeaderValue.Zero, pf).Result;
+            var propFindResponseSuccess = response.IsSuccessStatusCode;
+            var multistatusPropFind = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+            var displayName = ((Propstat)multistatusPropFind.Response[0].Items[0]).Prop.DisplayName;
+            var displayNameResult = "TestFileDisplayName" == displayName;
+
+            // PropPatch (remove).
+            propertyUpdate = new PropertyUpdate();
+            var remove = new Remove();
+            prop = Prop.CreatePropWithEmptyProperties(PropNameConstants.DisplayName);
+            remove.Prop = prop;
+            propertyUpdate.Items = new object[] { remove };
+            response = client.PropPatchAsync(testFile, propertyUpdate).Result;
+            var propPatchRemoveResponseSuccess = response.IsSuccessStatusCode;
+            multistatusPropFind = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+            var multistatusResult = ((Propstat)multistatusPropFind.Response[0].Items[0]).Prop.DisplayName;
+
+            // Delete file.
+            response = client.DeleteAsync(testFile).Result;
+            var deleteResponseSuccess = response.IsSuccessStatusCode;
+
+            Assert.IsTrue(putResponseSuccess);
+            Assert.IsNotNull(multistatusPropPatchSet);
+            Assert.IsTrue(propPatchResponseSuccess);
+            Assert.IsTrue(propFindResponseSuccess);
+            Assert.IsTrue(displayNameResult);
+            Assert.IsTrue(propPatchRemoveResponseSuccess);
+            Assert.AreEqual(string.Empty, multistatusResult);
+            Assert.IsTrue(deleteResponseSuccess);
+        }
+
+        #endregion PropPatch / put / delete file
 
         //    #region Mkcol / delete collection
 

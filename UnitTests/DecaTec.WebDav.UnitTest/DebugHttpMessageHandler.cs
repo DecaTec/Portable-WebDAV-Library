@@ -28,16 +28,18 @@ namespace DecaTec.WebDav.UnitTest
             sb.Append(Environment.NewLine);
             sb.Append("REQUEST:");
             sb.Append(Environment.NewLine);
-            sb.Append(request.ToString());
-            sb.Append(Environment.NewLine);
+            sb.Append(request.ToString());           
 
             if (request.Content != null)
             {
+                sb.Append(Environment.NewLine);
                 sb.Append("REQUEST CONTENT:");
                 sb.Append(Environment.NewLine);
                 sb.Append(await request.Content.ReadAsStringAsync());
-                sb.Append(Environment.NewLine);
             }
+
+            sb.Append(Environment.NewLine);
+            sb.Append("========");
 
             Debug.WriteLine(sb.ToString());
             sb.Clear();
