@@ -23,7 +23,7 @@ Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "DecaTec.WebDav.Documentatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecaTec.WebDav", "Documentation\DecaTec.WebDav.Documentation.Dummy\DecaTec.WebDav.csproj", "{7821C4BA-8C4E-459F-BCA8-4E525D647616}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DecaTec.WebDav.UnitIntegrationTest", "UnitTests\DecaTec.WebDav.UnitIntegrationTest.Specific\DecaTec.WebDav.UnitIntegrationTest.csproj", "{21356EDE-B4BE-489F-B455-C2CB18951FAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DecaTec.WebDav.UnitIntegrationTest", "UnitTests\DecaTec.WebDav.UnitIntegrationTest\DecaTec.WebDav.UnitIntegrationTest.csproj", "{21356EDE-B4BE-489F-B455-C2CB18951FAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
