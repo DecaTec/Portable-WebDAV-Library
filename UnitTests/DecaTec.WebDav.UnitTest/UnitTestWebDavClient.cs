@@ -28,8 +28,11 @@ namespace DecaTec.WebDav.UnitTest
                 PreAuthenticate = true
             };
 
-            var debugHttpMessageHandler = new DebugHttpMessageHandler(httpClientHandler);
-            debugHttpMessageHandler.InnerHandler = mockHandler;
+            var debugHttpMessageHandler = new DebugHttpMessageHandler(httpClientHandler)
+            {
+                InnerHandler = mockHandler
+            };
+
             var wdc = new WebDavClient(debugHttpMessageHandler);
             return wdc;
         }
@@ -103,7 +106,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Copy
 
         [TestMethod]
-        public void UIT_WebDavClient_Copy()
+        public void UT_WebDavClient_Copy()
         {
             var testFolderSource = UriHelper.CombineUrl(WebDavRootFolder, TestFolder, true);
             var testFolderDestination = UriHelper.CombineUrl(WebDavRootFolder, TestFolder + "2", true);
@@ -127,7 +130,7 @@ namespace DecaTec.WebDav.UnitTest
         #region PropFind
 
         [TestMethod]
-        public void UIT_WebDavClient_PropFind_AllPropDepthInfinity()
+        public void UT_WebDavClient_PropFind_AllPropDepthInfinity()
         {
             var mockHandler = new MockHttpMessageHandler();
             var requestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:allprop /></D:propfind>";
@@ -147,7 +150,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UIT_WebDavClient_PropFind_AllPropDepthOne()
+        public void UT_WebDavClient_PropFind_AllPropDepthOne()
         {
             var mockHandler = new MockHttpMessageHandler();
             var requestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:allprop /></D:propfind>";
@@ -167,7 +170,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UIT_WebDavClient_PropFind_AllPropDepthZero()
+        public void UT_WebDavClient_PropFind_AllPropDepthZero()
         {
             var mockHandler = new MockHttpMessageHandler();
             var requestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:allprop /></D:propfind>";
@@ -187,7 +190,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UIT_WebDavClient_PropFind_AllPropWithXmlContentString()
+        public void UT_WebDavClient_PropFind_AllPropWithXmlContentString()
         {
             var mockHandler = new MockHttpMessageHandler();
             var requestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:allprop /></D:propfind>";
@@ -206,7 +209,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UIT_WebDavClient_PropFind_NamedProperties()
+        public void UT_WebDavClient_PropFind_NamedProperties()
         {
             var mockHandler = new MockHttpMessageHandler();
             var requestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:prop><D:name /></D:prop></D:propfind>";
@@ -226,7 +229,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UIT_WebDavClient_PropFind_PropName()
+        public void UT_WebDavClient_PropFind_PropName()
         {
             var mockHandler = new MockHttpMessageHandler();
             var requestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:propname /></D:propfind>";
@@ -250,7 +253,7 @@ namespace DecaTec.WebDav.UnitTest
         #region PropPatch / put / delete file
 
         [TestMethod]
-        public void UIT_WebDavClient_PropPatch()
+        public void UT_WebDavClient_PropPatch()
         {
             var mockHandler = new MockHttpMessageHandler();
 

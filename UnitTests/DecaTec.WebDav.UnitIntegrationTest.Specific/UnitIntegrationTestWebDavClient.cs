@@ -8,7 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 
-namespace DecaTec.WebDav.UnitIntegrationTest.Specific
+namespace DecaTec.WebDav.UnitIntegrationTest
 {
     /// <summary>
     /// Unit integration test class for WebDavClient.
@@ -20,7 +20,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
     /// If this file is not present, all test will fail!
     /// </summary>
     [TestClass]
-    public class UnitIntegrationTestWebDavClientSpecific
+    public class UnitIntegrationTestWebDavClient
     {
         private string userName;
         private string password;
@@ -95,7 +95,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         #region Copy
 
         [TestMethod]
-        public void UIT_WebDavClient_Specific_Copy()
+        public void UIT_WebDavClient_Copy()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             var testCollectionSource = UriHelper.CombineUrl(this.webDavRootFolder, TestCollection, true);
@@ -162,7 +162,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         #region PropFind
 
         [TestMethod]
-        public void UIT_WebDavClient_Specific_PropFind_AllProp()
+        public void UIT_WebDavClient_PropFind_AllProp()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             PropFind pf = PropFind.CreatePropFindAllProp();
@@ -177,7 +177,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         }
 
         [TestMethod]
-        public void UIT_WebDavClient_Specific_PropFind_AllPropY()
+        public void UIT_WebDavClient_PropFind_AllPropY()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             PropFind pf = PropFind.CreatePropFindAllProp();
@@ -192,7 +192,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         }
 
         [TestMethod]
-        public void UIT_WebDavClient_Specific_PropFind_NamedProperties()
+        public void UIT_WebDavClient_PropFind_NamedProperties()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             PropFind pf = PropFind.CreatePropFindWithEmptyProperties("name");
@@ -207,7 +207,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         }
 
         [TestMethod]
-        public void UIT_WebDavClient_Specific_PropFind_PropName()
+        public void UIT_WebDavClient_PropFind_PropName()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             PropFind pf = PropFind.CreatePropFindWithPropName();
@@ -226,7 +226,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         #region PropPatch / put / delete file
 
         [TestMethod]
-        public void UIT_WebDavClient_Specific_PropPatch()
+        public void UIT_WebDavClient_PropPatch()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             var testFile = UriHelper.CombineUrl(this.webDavRootFolder, TestFile, true);
@@ -300,7 +300,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         #region Mkcol / delete collection
 
         [TestMethod]
-        public void UIT_WebDavClient_Specific_Mkcol()
+        public void UIT_WebDavClient_Mkcol()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             var testCollection = UriHelper.CombineUrl(this.webDavRootFolder, TestCollection, true);
@@ -342,7 +342,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         #region Get
 
         [TestMethod]
-        public void UIT_WebDavClient_Specific_Get()
+        public void UIT_WebDavClient_Get()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             var testFile = UriHelper.CombineUrl(this.webDavRootFolder, TestFile, true);
@@ -374,7 +374,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         #region Move
 
         [TestMethod]
-        public void UIT_WebDavClient_Specific_Move()
+        public void UIT_WebDavClient_Move()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             var testCollectionSource = UriHelper.CombineUrl(this.webDavRootFolder, TestCollection, true);
@@ -432,7 +432,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         #region Lock / unlock
 
         [TestMethod]
-        public void UIT_WebDavClient_Specific_LockRefreshLockUnlock()
+        public void UIT_WebDavClient_LockRefreshLockUnlock()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
 
@@ -460,7 +460,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         }
 
         [TestMethod]
-        public void UIT_WebDavClient_Specific_LockAndPutWithoutToken()
+        public void UIT_WebDavClient_LockAndPutWithoutToken()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
 
@@ -491,7 +491,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         }
 
         [TestMethod]
-        public void UIT_WebDavClient_Specific_LockAndPutWithToken()
+        public void UIT_WebDavClient_LockAndPutWithToken()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
 

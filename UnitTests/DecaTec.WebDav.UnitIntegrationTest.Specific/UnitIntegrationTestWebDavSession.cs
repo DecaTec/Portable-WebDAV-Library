@@ -5,7 +5,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 
-namespace DecaTec.WebDav.UnitIntegrationTest.Specific
+namespace DecaTec.WebDav.UnitIntegrationTest
 {
     /// <summary>
     /// Unit integration test class for WebDavSession.
@@ -43,9 +43,12 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
 
         private WebDavSession CreateWebDavSession()
         {
-            var httpClientHandler = new HttpClientHandler();
-            httpClientHandler.PreAuthenticate = true;
-            httpClientHandler.Credentials = new NetworkCredential(this.userName, this.password);
+            var httpClientHandler = new HttpClientHandler()
+            {
+                PreAuthenticate = true,
+                Credentials = new NetworkCredential(this.userName, this.password)
+            };
+
             var debugHttpMessageHandler = new DebugHttpMessageHandler(httpClientHandler);
             var session = new WebDavSession(debugHttpMessageHandler);
             return session;
