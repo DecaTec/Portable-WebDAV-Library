@@ -13,7 +13,7 @@
     <PackageProjectUrl>https://github.com/DecaTec/Portable-WebDAV-Library</PackageProjectUrl>
     <PackageIconUrl>https://github.com/DecaTec/Portable-WebDAV-Library/raw/master/Assets/NuGetLogo.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/DecaTec/Portable-WebDAV-Library</RepositoryUrl>
-    <PackageTags>WebDAV, portable, netstandard, netcore, UWP, dotnet, portable-webdav-library</PackageTags>
+    <PackageTags>WebDAV, portable, NETStandard, NETCore, UWP, dotnet, portable-webdav-library, Xamarin, Mono, multiplatform</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>

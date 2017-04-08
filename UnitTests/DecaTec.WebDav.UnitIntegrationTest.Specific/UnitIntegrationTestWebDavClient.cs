@@ -92,6 +92,73 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
             return wdc;
         }
 
+        #region Copy
+
+        [TestMethod]
+        public void UIT_WebDavClient_Specific_Copy()
+        {
+            var client = CreateWebDavClientWithDebugHttpMessageHandler();
+            var testCollectionSource = UriHelper.CombineUrl(this.webDavRootFolder, TestCollection, true);
+            var testCollectionDestination = UriHelper.CombineUrl(this.webDavRootFolder, TestCollection + "2", true);
+            var testFile = UriHelper.CombineUrl(testCollectionSource, TestFile, true);
+
+            // Create source collection.
+            var response = client.MkcolAsync(testCollectionSource).Result;
+            var responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
+            var mkColResponseSuccess = response.IsSuccessStatusCode;
+
+            // Put file.
+            var content = new StreamContent(File.OpenRead(TestFile));
+            response = client.PutAsync(testFile, content).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
+            var putResponseSuccess = response.IsSuccessStatusCode;
+
+            // Copy.
+            response = client.CopyAsync(testCollectionSource, testCollectionDestination).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
+            var copyResponseSuccess = response.IsSuccessStatusCode;
+
+            // PropFind.
+            PropFind pf = PropFind.CreatePropFindAllProp();
+            response = client.PropFindAsync(testCollectionDestination, WebDavDepthHeaderValue.Infinity, pf).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
+            var propFindResponseSuccess = response.IsSuccessStatusCode;
+
+            var multistatus = (Multistatus)WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+
+            bool collectionfound = false;
+
+            foreach (var item in multistatus.Response)
+            {
+                if (item.Href.EndsWith(TestFile))
+                {
+                    collectionfound = true;
+                    break;
+                }
+            }
+
+            // Delete source and destination.
+            response = client.DeleteAsync(testCollectionSource).Result;
+            var deleteSourceResponseSuccess = response.IsSuccessStatusCode;
+
+            response = client.DeleteAsync(testCollectionDestination).Result;
+            var deleteDestinationResponseSuccess = response.IsSuccessStatusCode;
+
+            Assert.IsTrue(mkColResponseSuccess);
+            Assert.IsTrue(putResponseSuccess);
+            Assert.IsTrue(copyResponseSuccess);
+            Assert.IsTrue(propFindResponseSuccess);
+            Assert.IsTrue(collectionfound);
+            Assert.IsTrue(deleteSourceResponseSuccess);
+            Assert.IsTrue(deleteDestinationResponseSuccess);
+        }
+
+        #endregion Copy
+
         #region PropFind
 
         [TestMethod]
@@ -100,6 +167,21 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             PropFind pf = PropFind.CreatePropFindAllProp();
             var response = client.PropFindAsync(this.webDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
+            var responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
+            var propFindResponseSuccess = response.IsSuccessStatusCode;
+            var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentString(responseContentString);
+
+            Assert.IsTrue(propFindResponseSuccess);
+            Assert.IsNotNull(multistatus);
+        }
+
+        [TestMethod]
+        public void UIT_WebDavClient_Specific_PropFind_AllPropY()
+        {
+            var client = CreateWebDavClientWithDebugHttpMessageHandler();
+            PropFind pf = PropFind.CreatePropFindAllProp();
+            var response = client.PropFindAsync(this.webDavRootFolder, WebDavDepthHeaderValue.Zero, pf).Result;
             var responseContentString = response.Content.ReadAsStringAsync().Result;
             DebugWriteResponseContent(responseContentString);
             var propFindResponseSuccess = response.IsSuccessStatusCode;
@@ -288,65 +370,6 @@ namespace DecaTec.WebDav.UnitIntegrationTest.Specific
         }
 
         #endregion Get
-
-        #region Copy
-
-        [TestMethod]
-        public void UIT_WebDavClient_Specific_Copy()
-        {
-            var client = CreateWebDavClientWithDebugHttpMessageHandler();
-            var testCollectionSource = UriHelper.CombineUrl(this.webDavRootFolder, TestCollection, true);
-            var testCollectionDestination = UriHelper.CombineUrl(this.webDavRootFolder, TestCollection + "2", true);
-            var testFile = UriHelper.CombineUrl(testCollectionSource, TestFile, true);
-
-            // Create source collection.
-            var response = client.MkcolAsync(testCollectionSource).Result;
-            var mkColResponseSuccess = response.IsSuccessStatusCode;
-           
-            // Put file.
-            var content = new StreamContent(File.OpenRead(TestFile));
-            response = client.PutAsync(testFile, content).Result;
-            var putResponseSuccess = response.IsSuccessStatusCode;
-            
-            // Copy.
-            response = client.CopyAsync(testCollectionSource, testCollectionDestination).Result;
-            var copyResponseSuccess = response.IsSuccessStatusCode;            
-
-            // PropFind.
-            PropFind pf = PropFind.CreatePropFindAllProp();
-            response = client.PropFindAsync(testCollectionDestination, WebDavDepthHeaderValue.Infinity, pf).Result;
-            var propFindResponseSuccess = response.IsSuccessStatusCode;            
-
-            var multistatus = (Multistatus)WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
-
-            bool collectionfound = false;
-
-            foreach (var item in multistatus.Response)
-            {
-                if (item.Href.EndsWith(TestFile))
-                {
-                    collectionfound = true;
-                    break;
-                }
-            }
-
-            // Delete source and destination.
-            response = client.DeleteAsync(testCollectionSource).Result;
-            var deleteSourceResponseSuccess = response.IsSuccessStatusCode;
-
-            response = client.DeleteAsync(testCollectionDestination).Result;
-            var deleteDestinationResponseSuccess = response.IsSuccessStatusCode;
-
-            Assert.IsTrue(mkColResponseSuccess);
-            Assert.IsTrue(putResponseSuccess);
-            Assert.IsTrue(copyResponseSuccess);
-            Assert.IsTrue(propFindResponseSuccess);
-            Assert.IsTrue(collectionfound);
-            Assert.IsTrue(deleteSourceResponseSuccess);
-            Assert.IsTrue(deleteDestinationResponseSuccess);
-        }
-
-        #endregion Copy
 
         #region Move
 
