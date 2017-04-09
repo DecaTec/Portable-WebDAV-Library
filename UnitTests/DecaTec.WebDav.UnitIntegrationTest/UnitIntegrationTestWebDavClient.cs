@@ -162,7 +162,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         #region PropFind
 
         [TestMethod]
-        public void UIT_WebDavClient_PropFind_AllProp()
+        public void UIT_WebDavClient_PropFind_AllPropDepthInfinity()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             PropFind pf = PropFind.CreatePropFindAllProp();
@@ -177,7 +177,22 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_WebDavClient_PropFind_AllPropY()
+        public void UIT_WebDavClient_PropFind_AllPropDepthOne()
+        {
+            var client = CreateWebDavClientWithDebugHttpMessageHandler();
+            PropFind pf = PropFind.CreatePropFindAllProp();
+            var response = client.PropFindAsync(this.webDavRootFolder, WebDavDepthHeaderValue.One, pf).Result;
+            var responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
+            var propFindResponseSuccess = response.IsSuccessStatusCode;
+            var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentString(responseContentString);
+
+            Assert.IsTrue(propFindResponseSuccess);
+            Assert.IsNotNull(multistatus);
+        }
+
+        [TestMethod]
+        public void UIT_WebDavClient_PropFind_AllPropDepthZero()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             PropFind pf = PropFind.CreatePropFindAllProp();
