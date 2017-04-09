@@ -7,7 +7,6 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Threading;
 
 namespace DecaTec.WebDav.UnitIntegrationTest
 {
@@ -323,14 +322,18 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
             // Create collection.
             var response = client.MkcolAsync(testCollection).Result;
+            var responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var mkColResponseSuccess = response.IsSuccessStatusCode;
             
             // PropFind.
             PropFind pf = PropFind.CreatePropFindAllProp();
             response = client.PropFindAsync(this.webDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var propFindResponseSuccess = response.IsSuccessStatusCode;            
 
-            var multistatus = (Multistatus)WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+            var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
 
             bool collectionFound = false;
 
@@ -345,6 +348,8 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
             // Delete collection.
             response = client.DeleteAsync(testCollection).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var deleteResponseSuccess = response.IsSuccessStatusCode;
 
             Assert.IsTrue(mkColResponseSuccess);
@@ -355,7 +360,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
         #endregion Mkcol / delete collection
 
-        #region Get
+        #region Get / head
 
         [TestMethod]
         public void UIT_WebDavClient_Get()
@@ -366,26 +371,36 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             // Put file.
             var content = new StreamContent(File.OpenRead(TestFile));
             var response = client.PutAsync(testFile, content).Result;
+            var responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var putResponseSuccess = response.IsSuccessStatusCode;
+
+            // Head
+            response = client.HeadAsync(testFile).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
+            var headResponseSuccess = response.IsSuccessStatusCode;
 
             // Get file.
             response = client.GetAsync(testFile).Result;
-            var getResponseSuccess = response.IsSuccessStatusCode;            
-
-            var responseContent = response.Content.ReadAsStringAsync().Result;
-            var readResponseContent = response.Content.ReadAsStringAsync().Result;            
+            var responseContentStringGet = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
+            var getResponseSuccess = response.IsSuccessStatusCode;
 
             // Delete file.
             response = client.DeleteAsync(testFile).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var deleteResponseSuccess = response.IsSuccessStatusCode;
 
             Assert.IsTrue(putResponseSuccess);
+            Assert.IsTrue(headResponseSuccess);
             Assert.IsTrue(getResponseSuccess);
-            Assert.AreEqual("This is a test file for WebDAV.", readResponseContent);
+            Assert.AreEqual("This is a test file for WebDAV.", responseContentStringGet);
             Assert.IsTrue(deleteResponseSuccess);
         }
 
-        #endregion Get
+        #endregion Get / head
 
         #region Move
 
@@ -399,23 +414,31 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
             // Create source collection.
             var response = client.MkcolAsync(testCollectionSource).Result;
+            var responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var mkColResponseSuccess = response.IsSuccessStatusCode;            
 
             // Put file.
             var content = new StreamContent(File.OpenRead(TestFile));
             response = client.PutAsync(testFile, content).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var putResponseSuccess = response.IsSuccessStatusCode;            
 
             // Move.
             response = client.MoveAsync(testCollectionSource, testCollectionDestination).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var moveResponseSuccess = response.IsSuccessStatusCode;            
 
             // PropFind.
             PropFind pf = PropFind.CreatePropFindAllProp();
             response = client.PropFindAsync(this.webDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var propFindResponseSuccess = response.IsSuccessStatusCode;            
 
-            var multistatus = (Multistatus)WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+            var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
 
             bool foundCollection1 = false;
             bool foundCollection2 = false;
@@ -432,6 +455,8 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             // Delete source and destination.
             // Delete file.
             response = client.DeleteAsync(testCollectionDestination).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var deleteResponseSuccess = response.IsSuccessStatusCode;
 
             Assert.IsTrue(mkColResponseSuccess);
@@ -458,15 +483,21 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             lockInfo.LockType = LockType.CreateWriteLockType();
             lockInfo.OwnerHref = "test@test.com";
             var response = client.LockAsync(this.webDavRootFolder, WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromSeconds(15)), WebDavDepthHeaderValue.Infinity, lockInfo).Result;
+            var responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var lockResponseSuccess = response.IsSuccessStatusCode;            
             LockToken lockToken = WebDavHelper.GetLockTokenFromWebDavResponseMessage(response);            
 
             // Refresh lock.
             response = client.RefreshLockAsync(this.webDavRootFolder, WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromSeconds(10)), lockToken).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var refreshLockResponseSuccess = response.IsSuccessStatusCode;            
 
             // Unlock.
             response = client.UnlockAsync(this.webDavRootFolder, lockToken).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var unlockResponseSuccess = response.IsSuccessStatusCode;
 
             Assert.IsTrue(lockResponseSuccess);
@@ -486,6 +517,8 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             lockInfo.LockType = LockType.CreateWriteLockType();
             lockInfo.OwnerHref = "test@test.com";
             var response = client.LockAsync(this.webDavRootFolder, WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromSeconds(15)), WebDavDepthHeaderValue.Infinity, lockInfo).Result;
+            var responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var lockResponseSuccess = response.IsSuccessStatusCode;            
 
             LockToken lockToken = WebDavHelper.GetLockTokenFromWebDavResponseMessage(response);            
@@ -494,6 +527,8 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             var content = new StreamContent(File.OpenRead(TestFile));
             var requestUrl = UriHelper.CombineUrl(this.webDavRootFolder, TestFile, true);
             response = client.PutAsync(requestUrl, content).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var putResponseSuccess = response.IsSuccessStatusCode;
 
             // Unlock.
@@ -517,6 +552,8 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             lockInfo.LockType = LockType.CreateWriteLockType();
             lockInfo.OwnerHref = "test@test.com";
             var response = client.LockAsync(this.webDavRootFolder, WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromSeconds(15)), WebDavDepthHeaderValue.Infinity, lockInfo).Result;
+            var responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var lockResponseSuccess = response.IsSuccessStatusCode; 
             LockToken lockToken = WebDavHelper.GetLockTokenFromWebDavResponseMessage(response);            
 
@@ -524,14 +561,20 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             var content = new StreamContent(File.OpenRead(TestFile));
             var requestUrl = UriHelper.CombineUrl(this.webDavRootFolder, TestFile, true);
             response = client.PutAsync(requestUrl, content, lockToken).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var putResponseSuccess = response.IsSuccessStatusCode;            
 
             // Delete file.
             response = client.DeleteAsync(requestUrl, lockToken).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var deleteResponseSuccess = response.IsSuccessStatusCode;            
 
             // Unlock.
             response = client.UnlockAsync(this.webDavRootFolder, lockToken).Result;
+            responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
             var unlockResponseSuccess = response.IsSuccessStatusCode;
 
             Assert.IsTrue(lockResponseSuccess);

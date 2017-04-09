@@ -193,6 +193,45 @@ namespace DecaTec.WebDav.UnitTest
 
         #endregion Download file
 
+        #region Get
+
+        [TestMethod]
+        public void UT_WebDavClient_Get()
+        {
+            var testFile = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
+            var downloadFileContent = "This is a file downloaded with progress";
+
+            var mockHandler = new MockHttpMessageHandler();
+            mockHandler.When(HttpMethod.Get, testFile).Respond(HttpStatusCode.OK, new StringContent(downloadFileContent));
+
+            var client = CreateWebDavClient(mockHandler);
+            var response = client.GetAsync(testFile).Result;
+            var responseContentString = response.Content.ReadAsStringAsync().Result;
+
+            Assert.IsTrue(response.IsSuccessStatusCode);
+            Assert.AreEqual(downloadFileContent, responseContentString);
+        }
+
+        #endregion Get
+
+        #region Head
+
+        [TestMethod]
+        public void UT_WebDavClient_Head()
+        {
+            var testFile = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
+
+            var mockHandler = new MockHttpMessageHandler();
+            mockHandler.When(HttpMethod.Head, testFile).Respond(HttpStatusCode.OK);
+
+            var client = CreateWebDavClient(mockHandler);
+            var response = client.HeadAsync(testFile).Result;
+
+            Assert.IsTrue(response.IsSuccessStatusCode);
+        }
+
+        #endregion Head
+
         #region PropFind
 
         [TestMethod]

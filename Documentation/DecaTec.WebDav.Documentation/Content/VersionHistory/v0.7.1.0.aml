@@ -10,6 +10,13 @@
       <content>
 
         <list class="bullet">
+
+          <listItem>
+            <para>
+              When using WebDavClient.DownloadFileWithProgressAsync, the passed Stream does not get disposed automatically. Disposing of this Stream is up to the client calling this method.
+            </para>
+          </listItem>
+          
           <listItem>
             <para>
               When using the Portable WebDAV Library on Xamarin, there was a problem when relative URLs (strings) where used (e.g. webDavSession.ListAsync(@"/folder");)
@@ -19,12 +26,6 @@
           <listItem>
             <para>
               Strongly typed versions of Lock-Token formats as defined in WebDAV specification.
-            </para>
-          </listItem>
-
-          <listItem>
-            <para>
-              When using WebDavClient.DownloadFileWithProgressAsync, the passed Stream does not get disposed automatically. Disposing of this Stream is up to the client calling this method.
             </para>
           </listItem>
 
