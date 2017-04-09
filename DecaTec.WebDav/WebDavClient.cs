@@ -378,6 +378,7 @@ namespace DecaTec.WebDav
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> to use.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <remarks>The <see cref="Stream"/> passed does not get disposed while using this method. It is up to the client to handle disposing of this stream.</remarks>
         public async Task<WebDavResponseMessage> DownloadFileWithProgressAsync(string url, Stream targetStream, CancellationToken cancellationToken, IProgress<WebDavProgress> progress)
         {
             return await this.DownloadFileWithProgressAsync(UriHelper.CreateUriFromUrl(url), targetStream, cancellationToken, progress);
@@ -391,6 +392,7 @@ namespace DecaTec.WebDav
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> to use.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <remarks>The <see cref="Stream"/> passed does not get disposed while using this method. It is up to the client to handle disposing of this stream.</remarks>
         public async Task<WebDavResponseMessage> DownloadFileWithProgressAsync(Uri uri, Stream targetStream, CancellationToken cancellationToken, IProgress<WebDavProgress> progress)
         {
             var response = await this.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead, cancellationToken);

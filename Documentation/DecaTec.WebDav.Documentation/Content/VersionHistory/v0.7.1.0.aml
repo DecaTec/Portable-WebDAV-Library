@@ -22,6 +22,12 @@
             </para>
           </listItem>
 
+          <listItem>
+            <para>
+              When using WebDavClient.DownloadFileWithProgressAsync, the passed Stream does not get disposed automatically. Disposing of this Stream is up to the client calling this method.
+            </para>
+          </listItem>
+
         </list>
 
       </content>
