@@ -402,7 +402,9 @@ namespace DecaTec.WebDav
             var stream = new WebDavProgressStreamContent(new ProgressStream(await response.Content.ReadAsStreamAsync(), cancellationToken), totalLength, progress);
             await stream.CopyToAsync(targetStream);
             await targetStream.FlushAsync();
-            targetStream.Dispose();
+
+            // Do not dispose the targetStream here as it passed by the client.
+            // It's up to the client to handle this stream an dispose it after use.
 
             return response;
         }
