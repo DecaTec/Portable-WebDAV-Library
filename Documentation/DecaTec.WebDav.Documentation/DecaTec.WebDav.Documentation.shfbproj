@@ -31,7 +31,8 @@
       <Argument Key="requestExampleUrl" Value="" />
     </TransformComponentArguments>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\DecaTec.WebDav.Documentation.Dummy\DecaTec.WebDav.csproj" />
+      <DocumentationSource sourceFile="..\..\Build\Release\netstandard1.1\DecaTec.WebDav.dll" />
+      <DocumentationSource sourceFile="..\..\Build\Release\netstandard1.1\DecaTec.WebDav.xml" />
     </DocumentationSources>
     <HelpFileVersion>1.0.0.0</HelpFileVersion>
     <MaximumGroupParts>2</MaximumGroupParts>
