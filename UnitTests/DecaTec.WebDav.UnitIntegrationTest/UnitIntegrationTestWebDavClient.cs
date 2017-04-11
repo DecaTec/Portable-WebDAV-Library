@@ -478,11 +478,14 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
 
             // Lock.
-            var lockInfo = new LockInfo();
-            lockInfo.LockScope = LockScope.CreateExclusiveLockScope();
-            lockInfo.LockType = LockType.CreateWriteLockType();
-            lockInfo.OwnerHref = "test@test.com";
-            var response = client.LockAsync(this.webDavRootFolder, WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromSeconds(15)), WebDavDepthHeaderValue.Infinity, lockInfo).Result;
+            var lockInfo = new LockInfo()
+            {
+                LockScope = LockScope.CreateExclusiveLockScope(),
+                LockType = LockType.CreateWriteLockType(),
+                OwnerHref = "test@test.com"
+            };
+
+            var response = client.LockAsync(this.webDavRootFolder, WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromMinutes(1)), WebDavDepthHeaderValue.Infinity, lockInfo).Result;
             var responseContentString = response.Content.ReadAsStringAsync().Result;
             DebugWriteResponseContent(responseContentString);
             var lockResponseSuccess = response.IsSuccessStatusCode;            
@@ -512,10 +515,13 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
 
             // Lock.
-            var lockInfo = new LockInfo();
-            lockInfo.LockScope = LockScope.CreateExclusiveLockScope();
-            lockInfo.LockType = LockType.CreateWriteLockType();
-            lockInfo.OwnerHref = "test@test.com";
+            var lockInfo = new LockInfo()
+            {
+                LockScope = LockScope.CreateExclusiveLockScope(),
+                LockType = LockType.CreateWriteLockType(),
+                OwnerHref = "test@test.com"
+            };
+
             var response = client.LockAsync(this.webDavRootFolder, WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromSeconds(15)), WebDavDepthHeaderValue.Infinity, lockInfo).Result;
             var responseContentString = response.Content.ReadAsStringAsync().Result;
             DebugWriteResponseContent(responseContentString);
@@ -547,10 +553,13 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
 
             // Lock.
-            var lockInfo = new LockInfo();
-            lockInfo.LockScope = LockScope.CreateExclusiveLockScope();
-            lockInfo.LockType = LockType.CreateWriteLockType();
-            lockInfo.OwnerHref = "test@test.com";
+            var lockInfo = new LockInfo()
+            {
+                LockScope = LockScope.CreateExclusiveLockScope(),
+                LockType = LockType.CreateWriteLockType(),
+                OwnerHref = "test@test.com"
+            };
+
             var response = client.LockAsync(this.webDavRootFolder, WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromSeconds(15)), WebDavDepthHeaderValue.Infinity, lockInfo).Result;
             var responseContentString = response.Content.ReadAsStringAsync().Result;
             DebugWriteResponseContent(responseContentString);
