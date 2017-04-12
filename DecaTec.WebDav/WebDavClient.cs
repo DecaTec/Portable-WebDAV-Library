@@ -1335,8 +1335,10 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<WebDavResponseMessage> PostAsync(Uri requestUri, HttpContent content, LockToken lockToken, CancellationToken cancellationToken)
         {
-            var requestMethod = new HttpRequestMessage(WebDavMethod.Post, requestUri);
-            requestMethod.Content = content;
+            var requestMethod = new HttpRequestMessage(WebDavMethod.Post, requestUri)
+            {
+                Content = content
+            };
 
             if (lockToken != null)
                 requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString());
@@ -2043,8 +2045,10 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<WebDavResponseMessage> PutAsync(Uri requestUri, HttpContent content, LockToken lockToken, CancellationToken cancellationToken)
         {
-            var requestMethod = new HttpRequestMessage(WebDavMethod.Put, requestUri);
-            requestMethod.Content = content;
+            var requestMethod = new HttpRequestMessage(WebDavMethod.Put, requestUri)
+            {
+                Content = content
+            };
 
             if (lockToken != null)
                 requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString());

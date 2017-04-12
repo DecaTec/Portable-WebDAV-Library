@@ -352,6 +352,100 @@ namespace DecaTec.WebDav.UnitTest
 
         #endregion Lock
 
+        #region Mkcol
+
+        [TestMethod]
+        public void UT_WebDavClient_Mkcol()
+        {
+            var testFolder = UriHelper.CombineUrl(WebDavRootFolder, TestFolder, true);
+            var mockHandler = new MockHttpMessageHandler();
+            mockHandler.When(WebDavMethod.Mkcol, testFolder).Respond(HttpStatusCode.Created);
+
+            var client = CreateWebDavClient(mockHandler);
+            var response = client.MkcolAsync(testFolder).Result;
+
+            Assert.IsTrue(response.IsSuccessStatusCode);
+        }
+
+        #endregion Mkcol
+
+        #region Move
+
+        [TestMethod]
+        public void UT_WebDavClient_Move()
+        {
+            var testFolderSource = UriHelper.CombineUrl(WebDavRootFolder, TestFolder, true);
+            var testFolderDestination = UriHelper.CombineUrl(WebDavRootFolder, TestFolder + "Dest", true);
+
+            var mockHandler = new MockHttpMessageHandler();
+
+            var requestHeaders = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>(WebDavRequestHeader.Destination, testFolderDestination),
+                new KeyValuePair<string, string>(WebDavRequestHeader.Depth, WebDavDepthHeaderValue.Infinity.ToString()),
+                new KeyValuePair<string, string>(WebDavRequestHeader.Overwrite, WebDavOverwriteHeaderValue.NoOverwrite)
+            };
+
+            mockHandler.When(WebDavMethod.Move, testFolderSource).WithHeaders(requestHeaders).Respond(HttpStatusCode.Created);
+
+            var client = CreateWebDavClient(mockHandler);
+            var response = client.MoveAsync(testFolderSource, testFolderDestination).Result;
+
+            Assert.IsTrue(response.IsSuccessStatusCode);
+        }
+
+        [TestMethod]
+        public void UT_WebDavClient_Move_WithOverwrite()
+        {
+            var testFolderSource = UriHelper.CombineUrl(WebDavRootFolder, TestFolder, true);
+            var testFolderDestination = UriHelper.CombineUrl(WebDavRootFolder, TestFolder + "Dest", true);
+
+            var mockHandler = new MockHttpMessageHandler();
+
+            var requestHeaders = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>(WebDavRequestHeader.Destination, testFolderDestination),
+                new KeyValuePair<string, string>(WebDavRequestHeader.Depth, WebDavDepthHeaderValue.Infinity.ToString()),
+                new KeyValuePair<string, string>(WebDavRequestHeader.Overwrite, WebDavOverwriteHeaderValue.Overwrite)
+            };
+
+            mockHandler.When(WebDavMethod.Move, testFolderSource).WithHeaders(requestHeaders).Respond(HttpStatusCode.Created);
+
+            var client = CreateWebDavClient(mockHandler);
+            var response = client.MoveAsync(testFolderSource, testFolderDestination, true).Result;
+
+            Assert.IsTrue(response.IsSuccessStatusCode);
+        }
+
+        #endregion Move
+
+        //#region Post
+
+        //[TestMethod]
+        //public void UT_WebDavClient_Post()
+        //{
+        //    var testFolderSource = UriHelper.CombineUrl(WebDavRootFolder, TestFolder, true);
+        //    var testFolderDestination = UriHelper.CombineUrl(WebDavRootFolder, TestFolder + "Dest", true);
+
+        //    var mockHandler = new MockHttpMessageHandler();
+
+        //    var requestHeaders = new List<KeyValuePair<string, string>>
+        //    {
+        //        new KeyValuePair<string, string>(WebDavRequestHeader.Destination, testFolderDestination),
+        //        new KeyValuePair<string, string>(WebDavRequestHeader.Depth, WebDavDepthHeaderValue.Infinity.ToString()),
+        //        new KeyValuePair<string, string>(WebDavRequestHeader.Overwrite, WebDavOverwriteHeaderValue.Overwrite)
+        //    };
+
+        //    mockHandler.When(WebDavMethod.Move, testFolderSource).WithHeaders(requestHeaders).Respond(HttpStatusCode.Created);
+
+        //    var client = CreateWebDavClient(mockHandler);
+        //    var response = client.MoveAsync(testFolderSource, testFolderDestination, true).Result;
+
+        //    Assert.IsTrue(response.IsSuccessStatusCode);
+        //}
+
+        //#endregion Post
+
         #region PropFind
 
         [TestMethod]
