@@ -327,7 +327,7 @@ namespace DecaTec.WebDav.UnitTest
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void UT_UriHelper_CombineUri_FromDifferentBaseUris()
+        public void UT_UriHelper_CombineUri_FromDifferentBaseUris_ShouldThrowArgumentException()
         {
             Uri baseUri = new Uri("http://www.google.de/test");
             Uri baseUri2 = new Uri("http://www.github.com/test2");
@@ -356,7 +356,7 @@ namespace DecaTec.WebDav.UnitTest
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void UT_UriHelper_CombineUri_RelativeUriFirst()
+        public void UT_UriHelper_CombineUri_RelativeUriFirst_ShouldThrowArgumentException()
         {
             Uri baseUri = new Uri("/test2", UriKind.RelativeOrAbsolute);
             Uri relativeUri = new Uri("http://www.google.de/test/");
@@ -399,9 +399,8 @@ namespace DecaTec.WebDav.UnitTest
         public void UT_UriHelper_CombineUri_WithSpacesAndBrackets()
         {
             Uri baseUri = new Uri("http://google.de/remote.php/webdav/folder/folder with space and ()/");
-            Uri relativeUri;
 
-            if (!Uri.TryCreate("/remote.php/webdav/folder/folder%20with%20space%20and%20%28%29/x.mp3", UriKind.RelativeOrAbsolute, out relativeUri))
+            if (!Uri.TryCreate("/remote.php/webdav/folder/folder%20with%20space%20and%20%28%29/x.mp3", UriKind.RelativeOrAbsolute, out Uri relativeUri))
                 Assert.Fail();
 
             Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri, true);
@@ -413,9 +412,8 @@ namespace DecaTec.WebDav.UnitTest
         public void UT_UriHelper_CombineUri_WithDuplicatePathEntriesRemoveDuplicate()
         {
             Uri baseUri = new Uri("http://google.de/remote.php/webdav/folder-sync/x/");
-            Uri relativeUri;
 
-            if (!Uri.TryCreate("/remote.php/webdav/folder-sync/x/folder/", UriKind.RelativeOrAbsolute, out relativeUri))
+            if (!Uri.TryCreate("/remote.php/webdav/folder-sync/x/folder/", UriKind.RelativeOrAbsolute, out Uri relativeUri))
                 Assert.Fail();
 
             Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri, true);
@@ -427,9 +425,8 @@ namespace DecaTec.WebDav.UnitTest
         public void UT_UriHelper_CombineUri_WithDuplicatePathEntries()
         {
             Uri baseUri = new Uri("http://google.de/remote.php/webdav/folder-sync/x/");
-            Uri relativeUri;
 
-            if (!Uri.TryCreate("/remote.php/webdav/folder-sync/x/folder/", UriKind.RelativeOrAbsolute, out relativeUri))
+            if (!Uri.TryCreate("/remote.php/webdav/folder-sync/x/folder/", UriKind.RelativeOrAbsolute, out Uri relativeUri))
                 Assert.Fail();
 
             Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri);
@@ -441,9 +438,8 @@ namespace DecaTec.WebDav.UnitTest
         public void UT_UriHelper_CombineUri_WithDuplicatePathEntriesDuplicateRepetition()
         {
             Uri baseUri = new Uri("https://google.de/remote.php/webdav/x/x/");
-            Uri relativeUri;
 
-            if (!Uri.TryCreate("/remote.php/webdav/x/x/folder/", UriKind.RelativeOrAbsolute, out relativeUri))
+            if (!Uri.TryCreate("/remote.php/webdav/x/x/folder/", UriKind.RelativeOrAbsolute, out Uri relativeUri))
                 Assert.Fail();
 
             Uri combinedUri = UriHelper.CombineUri(baseUri, relativeUri, true);
@@ -668,7 +664,7 @@ namespace DecaTec.WebDav.UnitTest
 
         [TestMethod]
         [ExpectedException(typeof(NullReferenceException))]
-        public void UT_UriHelper_RemovePortFromUri_UriNull()
+        public void UT_UriHelper_RemovePortFromUri_UriNull_ShouldThrowNullReferenceException()
         {
             Uri uri = null;
             var actual = UriHelper.RemovePort(uri);
@@ -729,7 +725,7 @@ namespace DecaTec.WebDav.UnitTest
 
         [TestMethod]
         [ExpectedException(typeof(NullReferenceException))]
-        public void UT_UriHelper_SetPortToUri_UriNull()
+        public void UT_UriHelper_SetPortToUri_UriNull_ShouldThrowNullReferenceException()
         {
             Uri uri = null;
             var actual = UriHelper.SetPort(uri, 9999);
@@ -750,7 +746,7 @@ namespace DecaTec.WebDav.UnitTest
 
         [TestMethod]
         [ExpectedException(typeof(UriFormatException))]
-        public void UT_UriHelper_SetPortToUrl_UrlEmpty()
+        public void UT_UriHelper_SetPortToUrl_UrlEmpty_ShouldThrowUriFormatException()
         {
             string url = string.Empty;
             var actual = UriHelper.SetPort(url, 9999);
@@ -758,7 +754,7 @@ namespace DecaTec.WebDav.UnitTest
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void UT_UriHelper_SetPortToUrl_UrlNull()
+        public void UT_UriHelper_SetPortToUrl_UrlNull_ShouldThrowArgumentNullException()
         {
             string url = null;
             var actual = UriHelper.SetPort(url, 9999);
@@ -779,7 +775,7 @@ namespace DecaTec.WebDav.UnitTest
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void UT_UriHelper_GetPortFromUri_RelativeUri()
+        public void UT_UriHelper_GetPortFromUri_RelativeUri_ShouldThrowInvalidOperationException()
         {
             Uri uri = new Uri("test/test2/test.txt", UriKind.RelativeOrAbsolute);
             var actual = UriHelper.GetPort(uri);
@@ -787,7 +783,7 @@ namespace DecaTec.WebDav.UnitTest
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void UT_UriHelper_GetPortFromUri_UriNull()
+        public void UT_UriHelper_GetPortFromUri_UriNull_ShouldThrowArgumentNullException()
         {
             Uri uri = null;
             var actual = UriHelper.GetPort(uri);
@@ -808,7 +804,7 @@ namespace DecaTec.WebDav.UnitTest
 
         [TestMethod]
         [ExpectedException(typeof(UriFormatException))]
-        public void UT_UriHelper_GetPortFromUrl_UrlEmpty()
+        public void UT_UriHelper_GetPortFromUrl_UrlEmpty_ShouldThrowUriFormatException()
         {
             string url = string.Empty;
             var actual = UriHelper.GetPort(url);
@@ -816,7 +812,7 @@ namespace DecaTec.WebDav.UnitTest
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void UT_UriHelper_GetPortFromUrl_UrlNull()
+        public void UT_UriHelper_GetPortFromUrl_UrlNull_ShouldThrowArgumentNullException()
         {
             string url = null;
             var actual = UriHelper.GetPort(url);

@@ -20,7 +20,7 @@ namespace DecaTec.WebDav
         public AbsoluteUri(string absoluteUrl)
         {
             if (!Uri.TryCreate(absoluteUrl, UriKind.Absolute, out Uri absoluteUri))
-                throw new WebDavException($"Cannot create AbsoluteUri from URL '{absoluteUrl}'");
+                throw new ArgumentException($"Cannot create AbsoluteUri from URL '{absoluteUrl}'");
 
             this.absoluteUri = absoluteUri;
         }
@@ -33,7 +33,7 @@ namespace DecaTec.WebDav
         public AbsoluteUri(Uri absoluteUri)
         {
             if (absoluteUri == null || !absoluteUri.IsAbsoluteUri)
-                throw new WebDavException($"Cannot create AbsoluteUri from Uri '{absoluteUri}'");
+                throw new ArgumentException($"Cannot create AbsoluteUri from Uri '{absoluteUri}'");
 
             this.absoluteUri = absoluteUri;
         }

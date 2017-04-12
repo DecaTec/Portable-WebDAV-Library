@@ -7,7 +7,7 @@ namespace DecaTec.WebDav.UnitTest
     public class UnitTestAbsoluteUri
     {
         [TestMethod]
-        public void UT_AbsoluteUri_ConsctuctFromAbsoluteUri()
+        public void UT_AbsoluteUri_Consctuct_FromAbsoluteUri()
         {
             var uri = new Uri("http://127.0.0.1/", UriKind.Absolute);
             var absoluteUri = new AbsoluteUri(uri);
@@ -16,15 +16,15 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(WebDavException))]
-        public void UT_AbsoluteUri_ConsctuctFromRelativeUri_ShouldThrowException()
+        [ExpectedException(typeof(ArgumentException))]
+        public void UT_AbsoluteUri_Consctuct_FromRelativeUri_ShouldThrowArgumentException()
         {
             var uri = new Uri("/test", UriKind.Relative);
             var absoluteUri = new AbsoluteUri(uri);
         }
 
         [TestMethod]
-        public void UT_AbsoluteUri_ConsctuctFromAbsoluteUrl()
+        public void UT_AbsoluteUri_Consctuct_FromAbsoluteUrl()
         {
             var url = "http://127.0.0.1/";
             var absoluteUri = new AbsoluteUri(url);
@@ -33,8 +33,8 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(WebDavException))]
-        public void UT_AbsoluteUri_ConsctuctFromRelativeUrl_ShouldThrowException()
+        [ExpectedException(typeof(ArgumentException))]
+        public void UT_AbsoluteUri_Consctuct_FromRelativeUrl_ShouldThrowArgumentException()
         {
             var url = "/test";
             var absoluteUri = new AbsoluteUri(url);
@@ -43,7 +43,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UT_AbsoluteUri_TryParseFromAbsoluteUri()
+        public void UT_AbsoluteUri_TryParse_FromAbsoluteUri()
         {
             var url = "http://127.0.0.1/";
             var result = AbsoluteUri.TryParse(url, out var absoluteUri);
@@ -53,7 +53,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UT_AbsoluteUri_TryParseFromRelativeUri()
+        public void UT_AbsoluteUri_TryParse_FromRelativeUri()
         {
             var url = "/test";
             var result = AbsoluteUri.TryParse(url, out var absoluteUri);

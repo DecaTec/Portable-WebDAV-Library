@@ -299,7 +299,7 @@ namespace DecaTec.WebDav.UnitTest
 
         [TestMethod]
         [ExpectedException(typeof(WebDavException))]
-        public void UT_WebDavClient_LockWithDepthOneShouldThrowException()
+        public void UT_WebDavClient_LockWithDepthOneShouldThrowException_ShouldThrowWebDavException()
         {
             var testFileToLock = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);           
             var oneMinuteTimeout = WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromMinutes(1));
@@ -324,30 +324,31 @@ namespace DecaTec.WebDav.UnitTest
             }
         }
 
-        //[TestMethod]
-        //public void UT_WebDavClient_LockRefreshLock()
-        //{
-        //    var lockResponseContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:prop xmlns:D=\"DAV:\"><D:lockdiscovery><D:activelock><D:locktype><D:write/></D:locktype><D:lockscope><D:exclusive/></D:lockscope><D:depth>infinity</D:depth><D:owner><D:href>test@test.com</D:href></D:owner><D:timeout>Second-10</D:timeout><D:locktoken><D:href>opaquelocktoken:0af5a3d3-2ccd-42fb-b8c7-9c59c9b90944.22bc01d2b2e0e947</D:href></D:locktoken><D:lockroot><D:href>http://127.0.0.1/webdav/</D:href></D:lockroot></D:activelock></D:lockdiscovery></D:prop>";
-        //    var oneMinuteTimeout = WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromMinutes(1));
-        //    var test = "(<opaquelocktoken:0af5a3d3-2ccd-42fb-b8c7-9c59c9b90944.22bc01d2b2e0e947>)";
-        //    AbsoluteUri.TryParse(WebDavRootFolder, out AbsoluteUri absoluteUri);
-        //    var lockToken = new LockToken(test);
+        [TestMethod]
+        public void UT_WebDavClient_LockRefreshLock()
+        {
+            var lockResponseContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:prop xmlns:D=\"DAV:\"><D:lockdiscovery><D:activelock><D:locktype><D:write/></D:locktype><D:lockscope><D:exclusive/></D:lockscope><D:depth>infinity</D:depth><D:owner><D:href>test@test.com</D:href></D:owner><D:timeout>Second-10</D:timeout><D:locktoken><D:href>opaquelocktoken:0af5a3d3-2ccd-42fb-b8c7-9c59c9b90944.22bc01d2b2e0e947</D:href></D:locktoken><D:lockroot><D:href>http://127.0.0.1/webdav/</D:href></D:lockroot></D:activelock></D:lockdiscovery></D:prop>";
+            var oneMinuteTimeout = WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromMinutes(1));
+            var lockTokenString = "(<opaquelocktoken:0af5a3d3-2ccd-42fb-b8c7-9c59c9b90944.22bc01d2b2e0e947>)";
+            var parseResult = NoTagList.TryParse(lockTokenString, out NoTagList noTagList);
+            Assert.IsTrue(parseResult);
+            var lockToken = new LockToken(noTagList.CodedUrl.AbsoluteUri);
 
-        //    var mockHandler = new MockHttpMessageHandler();
+            var mockHandler = new MockHttpMessageHandler();
 
-        //    var requestHeaders = new List<KeyValuePair<string, string>>
-        //    {
-        //        new KeyValuePair<string, string>(WebDavRequestHeader.Timeout, oneMinuteTimeout.ToString()),
-        //        new KeyValuePair<string, string>(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString())
-        //    };
+            var requestHeaders = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>(WebDavRequestHeader.Timeout, oneMinuteTimeout.ToString()),
+                new KeyValuePair<string, string>(WebDavRequestHeader.If, lockTokenString)
+            };
 
-        //    mockHandler.When(WebDavMethod.Lock, WebDavRootFolder).WithHeaders(requestHeaders).Respond(HttpStatusCode.OK, new StringContent(lockResponseContent));
+            mockHandler.When(WebDavMethod.Lock, WebDavRootFolder).WithHeaders(requestHeaders).Respond(HttpStatusCode.OK, new StringContent(lockResponseContent));
 
-        //    var client = CreateWebDavClient(mockHandler);
-        //    var response = client.RefreshLockAsync(WebDavRootFolder, oneMinuteTimeout, lockToken).Result;
+            var client = CreateWebDavClient(mockHandler);
+            var response = client.RefreshLockAsync(WebDavRootFolder, oneMinuteTimeout, lockToken).Result;
 
-        //    Assert.IsTrue(response.IsSuccessStatusCode);
-        //}
+            Assert.IsTrue(response.IsSuccessStatusCode);
+        }
 
         #endregion Lock
 

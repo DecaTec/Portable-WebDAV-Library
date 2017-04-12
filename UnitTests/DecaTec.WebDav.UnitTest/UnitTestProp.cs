@@ -9,7 +9,7 @@ namespace DecaTec.WebDav.UnitTest
     public class UnitTestProp
     {
         [TestMethod]
-        public void UT_Prop_CreatePropWithMultipleEmptyPropertiesWithStrings()
+        public void UT_Prop_CreatePropWithEmptyProperties_MultipleEmptyPropertiesWithStrings()
         {
             var serializer = new XmlSerializer(typeof(Prop));
 
@@ -42,7 +42,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UT_Prop_CreatePropWithMultipleEmptyPropertiesWithConstants()
+        public void UT_Prop_CreatePropWithEmptyProperties_MultipleEmptyPropertiesWithConstants()
         {
             var serializer = new XmlSerializer(typeof(Prop));
 

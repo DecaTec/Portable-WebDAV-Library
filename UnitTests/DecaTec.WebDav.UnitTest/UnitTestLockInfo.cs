@@ -10,7 +10,7 @@ namespace DecaTec.WebDav.UnitTest
     {
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void UT_LockInfo_ThrowsInvalidOperationExceptionWhenOwnerRawIsSetAndOwnerHrefShouldBeSet()
+        public void UT_LockInfo_OwnerRawIsSetAndOwnerHrefShouldBeSet_ShouldThrowInvalidOperationException()
         {
             var lockInfo = new LockInfo();
             var ownerRawString = "<owner xmlns=\"DAV:\"><href>http://example.org/~ejw/contact.html</href><x:author xmlns:x=\"http://example.com/ns\"><x:name>Jane Doe</x:name></x:author></owner>";
