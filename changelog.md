@@ -1,3 +1,12 @@
+v0.8.0.0
+- When using WebDavClient.DownloadFileWithProgressAsync, the passed Stream does not get disposed automatically. Disposing of this Stream is up to the client calling this method.
+- Strongly typed versions of Lock-Token formats as defined in WebDAV specification.
+- When using the Portable WebDAV Library on Xamarin, there was a problem when relative URLs (strings) where used (e.g. webDavSession.ListAsync(@"/folder")).
+- When using WebDavSession, a base URL (string) can now be specified.
+- The 'Translate' header is always set to 'f' for IIS WebDAV serving unmapped file types (see https://msdn.microsoft.com/en-us/library/cc250063.aspx).
+- Bugfix: When using WebDavSession with BaseUri and calling methods passing only the relative Uri/URL to a file, these operations always failed.
+- Bugfix: When using WebDavSession.UploadFileWithProgressAsync with a URL, there was a stack overflow exception because the method called itself instead of the correct overload.
+
 v0.7.0.0
 - The library now targets .NETStandard 1.1 (.NET Core) and can be used on any platform supporting .NETStandard 1.1.
 - Due to .NETStandard support, the library is not separated into two parts (UWP/NetFx) anymore. One library for all the target platforms.

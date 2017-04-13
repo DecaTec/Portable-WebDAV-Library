@@ -25,7 +25,7 @@
 
           <listItem>
             <para>
-              When using the Portable WebDAV Library on Xamarin, there was a problem when relative URLs (strings) where used (e.g. webDavSession.ListAsync(@"/folder");)
+              When using the Portable WebDAV Library on Xamarin, there was a problem when relative URLs (strings) where used (e.g. webDavSession.ListAsync(@"/folder")).
             </para>
           </listItem>
 
@@ -37,7 +37,7 @@
 
           <listItem>
             <para>
-              The 'Translate' header is always set to 'f' for IIS WebDAV serving unmapped file types (see <externalLink><linkText>MSDN</linkText><linkUri>https://msdn.microsoft.com/en-us/library/cc250063.aspx</linkUri>)</externalLink>.
+              The 'Translate' header is always set to 'f' for IIS WebDAV serving unmapped file types (see <externalLink><linkText>MSDN</linkText><linkUri>https://msdn.microsoft.com/en-us/library/cc250063.aspx</linkUri></externalLink>).
             </para>
           </listItem>
 
@@ -49,7 +49,7 @@
 
           <listItem>
             <para>
-              Bugfix: When using WebDavSession.UploadFileWithProgressAsync with a URL, there was a stack overflow exception because the method called itself and not the correct overload.
+              Bugfix: When using WebDavSession.UploadFileWithProgressAsync with a URL, there was a stack overflow exception because the method called itself instead of the correct overload.
             </para>
           </listItem>
 

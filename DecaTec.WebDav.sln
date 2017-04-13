@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assets", "Assets", "{7E4D0EB6-A947-40C5-8475-34AFC1F85798}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,6 +17,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{74568DD0-6575-4C81-9FCA-DADE3CE2787F}"
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "DecaTec.WebDav.Documentation", "Documentation\DecaTec.WebDav.Documentation\DecaTec.WebDav.Documentation.shfbproj", "{A26B15E7-0283-4372-86ED-57FF2FA31E05}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D88C2DAD-5227-4015-944C-775CA1309BBA} = {D88C2DAD-5227-4015-944C-775CA1309BBA}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DecaTec.WebDav.UnitIntegrationTest", "UnitTests\DecaTec.WebDav.UnitIntegrationTest\DecaTec.WebDav.UnitIntegrationTest.csproj", "{21356EDE-B4BE-489F-B455-C2CB18951FAB}"
 EndProject
