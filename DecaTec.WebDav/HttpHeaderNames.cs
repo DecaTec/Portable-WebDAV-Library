@@ -15,5 +15,10 @@ namespace DecaTec.WebDav
         /// Header name for 'Content-Length'.
         /// </summary>
         public const string ContentLength = "Content-Length";
+
+        /// <summary> 
+        /// Header name for 'Translate'. 
+        /// </summary>  
+        public const string Translate = "Translate";
     }
 }

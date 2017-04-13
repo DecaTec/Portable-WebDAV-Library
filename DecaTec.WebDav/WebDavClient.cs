@@ -118,7 +118,7 @@ namespace DecaTec.WebDav
         public WebDavClient()
             : base()
         {
-
+            SetDefaultRequestHeaders();
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace DecaTec.WebDav
         public WebDavClient(HttpMessageHandler httpMessageHandler)
             : base(httpMessageHandler)
         {
-
+            SetDefaultRequestHeaders();
         }
 
         /// <summary>
@@ -139,7 +139,17 @@ namespace DecaTec.WebDav
         public WebDavClient(HttpMessageHandler httpMessageHandler, bool disposeHandler)
             : base(httpMessageHandler, disposeHandler)
         {
+            SetDefaultRequestHeaders();
+        }
 
+        private void SetDefaultRequestHeaders()
+        {
+            // This is a workaround when the lib is used for WebDAV/IIS:
+            // When there is a GET request for a file with unmapped extension on IIS (e.g. 'file.01'), the IIS returns 404 ('not found').  
+            // This is due to the server trying to interpret any requested files (which makes sense for ASP, etc.).  
+            // In order that the IIS serves files with unmapped extensions, the "Translate" header has to be set to 'f'.  
+            // See: https://msdn.microsoft.com/en-us/library/cc250063.aspx  
+            this.DefaultRequestHeaders.Add(HttpHeaderNames.Translate, HttpTranslateHeaderValues.TranslateF);
         }
 
         #endregion Constructor        

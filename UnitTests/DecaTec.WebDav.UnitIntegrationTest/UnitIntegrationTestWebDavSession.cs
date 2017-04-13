@@ -9,6 +9,11 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 {
     /// <summary>
     /// Unit integration test class for WebDavSession.
+    /// 
+    /// IMPORTANT:  This is a playground when testing this library against a specific WebDAV server implementation.
+    ///             Not all methods of WebDavSession will be tested here.
+    ///             For unit tests of WebDavSession (with a mocked HTTP handler), see the UnitTestWebDavSession class in the unit test project.
+    ///             
     /// You'll need a file 'TestConfiguration.txt' in the test's output folder with the following content:
     /// Line 1: The user name to use for WebDAV connections
     /// Line 2: The password to use for WebDAV connections
@@ -19,21 +24,31 @@ namespace DecaTec.WebDav.UnitIntegrationTest
     [TestClass]
     public class UnitIntegrationTestWebDavSession
     {
-        private string userName;
-        private string password;
-        private string webDavRootFolder;
+        private static string userName;
+        private static string password;
+        private static string webDavRootFolder;
 
         private const string ConfigurationFile = @"TestConfiguration.txt";
 
-        [TestInitialize]
-        public void ReadTestConfiguration()
+        private const string TestFile = @"TextFile1.txt";
+        private const string TestFileUnknownExtension = @"TestFile1.01";
+        private const string TestFolder = "TestFolder";
+
+        public TestContext TestContext
+        {
+            get;
+            set;
+        }
+
+        [ClassInitialize]
+        public static void ClassSetup(TestContext ctx)
         {
             try
             {
                 var configuration = File.ReadAllLines(ConfigurationFile);
-                this.userName = configuration[0];
-                this.password = configuration[1];
-                this.webDavRootFolder = configuration[2];
+                userName = configuration[0];
+                password = configuration[1];
+                webDavRootFolder = configuration[2];
             }
             catch (Exception ex)
             {
@@ -46,7 +61,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             var httpClientHandler = new HttpClientHandler()
             {
                 PreAuthenticate = true,
-                Credentials = new NetworkCredential(this.userName, this.password)
+                Credentials = new NetworkCredential(userName, password)
             };
 
             var debugHttpMessageHandler = new DebugHttpMessageHandler(httpClientHandler);
@@ -58,7 +73,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         public void UIT_WebDavSession_List()
         {
             var session = CreateWebDavSession();
-            var items = session.ListAsync(this.webDavRootFolder).Result;
+            var items = session.ListAsync(webDavRootFolder).Result;
 
             Assert.IsNotNull(items);
         }
@@ -131,16 +146,53 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         public void UIT_WebDavSession_Lock()
         {
             var session = CreateWebDavSession();
-            var locked = session.LockAsync(this.webDavRootFolder).Result;
-            var requestUrl = UriHelper.CombineUrl(this.webDavRootFolder, "Test", true);
+            var locked = session.LockAsync(webDavRootFolder).Result;
+            var requestUrl = UriHelper.CombineUrl(webDavRootFolder, "Test", true);
             var created = session.CreateDirectoryAsync(requestUrl).Result;
             var deleted = session.DeleteAsync(requestUrl).Result;
-            var unlocked = session.UnlockAsync(this.webDavRootFolder).Result;
+            var unlocked = session.UnlockAsync(webDavRootFolder).Result;
 
             Assert.IsTrue(locked);
             Assert.IsTrue(created);
             Assert.IsTrue(deleted);
             Assert.IsTrue(unlocked);
+        }
+
+        [TestMethod]
+        public void UIT_WebDavSession_DeleteFileFolder_WithBaseUri()
+        {
+            var session = CreateWebDavSession();
+            session.BaseUrl = webDavRootFolder;
+            var testFile = TestFolder + "/" + TestFile;
+            var createdFolder = session.CreateDirectoryAsync(TestFolder).Result;
+            var stream = File.OpenRead(TestFile);
+            var createdFile = session.UploadFileAsync(testFile, stream).Result;
+            stream.Dispose();
+
+            var deletedFile = session.DeleteAsync(testFile).Result;
+            var deletedFolder= session.DeleteAsync(TestFolder).Result;
+
+            Assert.IsTrue(createdFolder);
+            Assert.IsTrue(createdFile);
+            Assert.IsTrue(deletedFile);
+            Assert.IsTrue(deletedFolder);
+        }
+
+        [TestMethod]
+        public void UIT_WebDavSession_CreateAndHead_WithFileUnknown()
+        {
+            var session = CreateWebDavSession();
+            session.BaseUrl = webDavRootFolder;
+            var stream = File.OpenRead(TestFileUnknownExtension);
+            var createdFile = session.UploadFileAsync(TestFileUnknownExtension, stream).Result;
+            stream.Dispose();
+
+            var fileExists = session.ExistsAsync(TestFileUnknownExtension).Result;
+            var deletedFile = session.DeleteAsync(TestFileUnknownExtension).Result;
+
+            Assert.IsTrue(createdFile);
+            Assert.IsTrue(fileExists);
+            Assert.IsTrue(deletedFile);
         }
     }
 }

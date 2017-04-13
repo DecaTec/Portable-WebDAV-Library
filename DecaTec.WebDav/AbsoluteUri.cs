@@ -16,7 +16,7 @@ namespace DecaTec.WebDav
         /// Constructs an <see cref="AbsoluteUri"/>.
         /// </summary>
         /// <param name="absoluteUrl">The URL to use.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="absoluteUri"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="absoluteUrl"/> is null.</exception>
         public AbsoluteUri(string absoluteUrl)
         {
             if (!Uri.TryCreate(absoluteUrl, UriKind.Absolute, out Uri absoluteUri))
@@ -38,9 +38,11 @@ namespace DecaTec.WebDav
             this.absoluteUri = absoluteUri;
         }
 
-        /// <inheritdoc />
-        public override string ToString() =>
-            absoluteUri.ToString();
+        /// <summary>
+        /// Gets the string representation of this AbsoluteUri.
+        /// </summary>
+        /// <returns>The string representation of this AbsoluteUri.</returns>
+        public override string ToString() => absoluteUri.ToString();
 
         /// <summary>
         /// Tries to parse the given <paramref name="rawAbsoluteUri"/> into an <see cref="AbsoluteUri"/>.

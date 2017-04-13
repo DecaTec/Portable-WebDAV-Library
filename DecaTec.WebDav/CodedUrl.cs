@@ -46,7 +46,10 @@ namespace DecaTec.WebDav
             AbsoluteUri = absoluteUri ?? throw new ArgumentNullException(nameof(absoluteUri));
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Gets the string representation of this CodedUrl.
+        /// </summary>
+        /// <returns>The string representation of this CodedUrl.</returns>
         public override string ToString() => $"{CodedUrlPrefix}{AbsoluteUri}{CodedUrlPostfix}";
 
         /// <summary>

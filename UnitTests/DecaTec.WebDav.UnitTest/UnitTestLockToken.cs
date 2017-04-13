@@ -18,7 +18,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UT_LockToken_Construct_IfHeaderNoTagListFormat_IfHeaderWithoutBracketsWithString()
+        public void UT_LockToken_Construct_IfHeaderWithoutBracketsWithString()
         {
             var lockTokenString = "urn:uuid:my-lock-token";
 
@@ -45,7 +45,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UT_LockToken_Construct_IfHeaderNoTagListFormat_IfHeaderWithBracketsWithString()
+        public void UT_LockToken_Construct_IfHeaderWithBracketsWithString()
         {
             var lockTokenString = "<urn:uuid:my-lock-token>";
 
@@ -72,7 +72,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UT_LockToken_Construct_LockTokenHeaderFormat_LockTokenHeaderWithoutBracketsWithString()
+        public void UT_LockToken_Construct_LockTokenHeaderWithoutBracketsWithString()
         {
             var lockTokenString = "urn:uuid:my-lock-token";
 
@@ -99,7 +99,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UT_LockToken_Construct_LockTokenHeaderFormat_LockTokenHeaderWithBracketsWithString()
+        public void UT_LockToken_Construct_LockTokenHeaderWithBracketsWithString()
         {
             var lockTokenString = "<urn:uuid:my-lock-token>";
 
@@ -114,14 +114,16 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UT_LockToken_LockTokenHeaderFormat_LockTokenHeaderWithBothBrackets()
+        public void UT_LockToken_LockTokenHeaderFormat_LockTokenHeaderWithBothBracketsWithString()
         {
-            var parseResult = CodedUrl.TryParse("(<urn:uuid:my-lock-token>)", out var codedUrl);
+            var lockTokenString = "(<urn:uuid:my-lock-token>)";
 
-            var lockToken = new LockToken(codedUrl.AbsoluteUri);
+            var parseResult = NoTagList.TryParse(lockTokenString, out var noTagList);
+
+            var lockToken = new LockToken(noTagList.CodedUrl.AbsoluteUri);
             var lockTokenHeaderFormat = lockToken.LockTokenHeaderFormat;
 
-            Assert.AreEqual("(<urn:uuid:my-lock-token>)", lockTokenHeaderFormat.ToString());
+            Assert.AreEqual("<urn:uuid:my-lock-token>", lockTokenHeaderFormat.ToString());
             Assert.IsTrue(parseResult);
         }
 
@@ -132,12 +134,12 @@ namespace DecaTec.WebDav.UnitTest
 
             var lockToken = new LockToken(lockTokenString);
             var absoluteUri = lockToken.AbsoluteUri;
-            var codedUrl = lockToken.LockTokenHeaderFormat;
-            var lockTokenHeaderFormat = lockToken.IfHeaderNoTagListFormat;
+            var lockTokenHeaderFormat = lockToken.LockTokenHeaderFormat;
+            var ifHeaderNoTagListFormat = lockToken.IfHeaderNoTagListFormat;
 
             Assert.IsNull(absoluteUri);
-            Assert.IsNull(codedUrl);
-            Assert.AreEqual("(<urn:uuid:my-lock-token>)", lockTokenHeaderFormat.ToString());
+            Assert.IsNull(lockTokenHeaderFormat);
+            Assert.AreEqual(lockTokenString, ifHeaderNoTagListFormat.ToString());
         }
     }
 }

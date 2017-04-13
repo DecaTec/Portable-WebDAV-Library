@@ -9,9 +9,9 @@ namespace DecaTec.WebDav
     public class LockToken
     {
         /// <summary>
-        /// Constructs a <see cref="LockToken"/> based on the <paramref name="absoluteUri"/>.
+        /// Constructs a <see cref="LockToken"/> based on the <paramref name="lockToken"/>.
         /// </summary>
-        /// <param name="absoluteUri">The lock token in absolute-URI format as defined in https://tools.ietf.org/html/rfc3986#section-4.3. </param>
+        /// <param name="lockToken">The lock token as string.</param>
         /// <remarks>Use the strong-typed constructors to create a new <see cref="LockToken"/>.</remarks>
         public LockToken(string lockToken)
         {
@@ -37,7 +37,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Constructs a <see cref="LockToken"/> based on the <paramref name="absoluteUri"/>.
         /// </summary>
-        /// <param name="absoluteUri">The lock token in absolute-URI format as defined in https://tools.ietf.org/html/rfc3986#section-4.3. </param>
+        /// <param name="absoluteUri">The lock token in absolute-URI format as defined in https://tools.ietf.org/html/rfc3986#section-4.3.</param>
         /// <remarks>Use the strong-typed constructors to create a new <see cref="LockToken"/>.</remarks>
         /// <exception cref="WebDavException">Thrown when <paramref name="absoluteUri"/> is null.</exception>
         public LockToken(AbsoluteUri absoluteUri)

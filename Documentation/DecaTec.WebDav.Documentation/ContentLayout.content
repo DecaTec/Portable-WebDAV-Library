@@ -99,9 +99,9 @@
         <HelpKeyword index="K" term="version, 0.7.0.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="486a6aaf-c8ea-4e69-9e2b-afb5e5ef40cd" visible="True" isSelected="true" title="Version 0.7.1.0">
+    <Topic id="486a6aaf-c8ea-4e69-9e2b-afb5e5ef40cd" visible="True" isSelected="true" title="Version 0.8.0.0">
       <HelpKeywords>
-        <HelpKeyword index="K" term="version, 0.7.1.0" />
+        <HelpKeyword index="K" term="version, 0.8.0.0" />
       </HelpKeywords>
     </Topic>
   </Topic>

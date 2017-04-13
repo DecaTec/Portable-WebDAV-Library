@@ -47,7 +47,10 @@ namespace DecaTec.WebDav
             CodedUrl = codedUrl ?? throw new ArgumentNullException(nameof(codedUrl));
         }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// Gets the string representation of this NoTagList.
+        /// </summary>
+        /// <returns>The string representation of this NoTagList.</returns>
         public override string ToString() => $"{NoTagListPrefix}{CodedUrl}{NoTagListPostfix}";
 
         /// <summary>
