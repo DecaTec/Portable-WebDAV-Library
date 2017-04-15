@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.1</TargetFramework>
     <PackageId>PortableWebDavLibrary</PackageId>
-    <Version>0.8.0.0</Version>
+    <Version>0.8.1.0</Version>
     <Authors>DecaTec</Authors>
     <Company>DecaTec</Company>
     <Product>PortableWebDavLibrary</Product>
