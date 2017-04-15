@@ -1,3 +1,6 @@
+v0.8.1.0
+- New Timeout property for WebDavSession (default timeout value is 100 seconds).
+
 v0.8.0.0
 - When using WebDavClient.DownloadFileWithProgressAsync, the passed Stream does not get disposed automatically. Disposing of this Stream is up to the client calling this method.
 - Strongly typed versions of Lock-Token formats as defined in WebDAV specification.
