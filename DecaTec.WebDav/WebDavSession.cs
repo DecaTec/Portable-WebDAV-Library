@@ -161,6 +161,23 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Gets or sets the timespan to wait before the request times out.
+        /// </summary>
+        /// <remarks>The default value is 100,000 milliseconds (100 seconds).
+        /// To set an infinite timeout, set the property value to <see cref="Timeout.InfiniteTimeSpan"/>.</remarks>
+        public TimeSpan Timeout
+        {
+            get
+            {
+                return this.webDavClient.Timeout;
+            }
+            set
+            {
+                this.webDavClient.Timeout = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the <see cref="IWebProxy"/> to use with this WebDavSession.
         /// </summary>
         public IWebProxy WebProxy
