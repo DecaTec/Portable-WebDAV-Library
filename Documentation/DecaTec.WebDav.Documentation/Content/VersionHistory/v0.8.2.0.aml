@@ -13,7 +13,7 @@
 
           <listItem>
             <para>
-              The classes AbsoluteUri, CodedUrl and NoTagList do not provide public constructors anymore so that the specification cannot be bypassed. Use the TryPase methods to create an instance of these classes.
+              The classes AbsoluteUri, CodedUrl and NoTagList do not provide public constructors anymore so that the specification cannot be bypassed. Use the TryParse methods to create an instance of these classes.
             </para>
           </listItem>
           
