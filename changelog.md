@@ -1,3 +1,7 @@
+v0.8.2.0
+- The classes AbsoluteUri, CodedUrl and NoTagList do not provide public constructors anymore so that the specification cannot be bypassed. Use the TryPase methods to create an instance of these classes.
+- AbsoluteUri.ToString: Do not try to parse, de- or encode the URI.
+
 v0.8.1.0
 - New Timeout property for WebDavSession (default timeout value is 100 seconds).
 
