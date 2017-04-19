@@ -27,10 +27,12 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Gets the string representation of this AbsoluteUri.
+        /// Gets the string representation of this <see cref="AbsoluteUri"/>.
         /// </summary>
-        /// <returns>The string representation of this AbsoluteUri.</returns>
-        public override string ToString() => absoluteUri.ToString();
+        /// <returns>The string representation of this <see cref="AbsoluteUri"/>.</returns>
+        /// <remarks>This ToString method returns the original string used to create this <see cref="AbsoluteUri"/>. 
+        /// This is according to specification, which states "Clients must not attempt to interpret lock tokens in any way.": http://www.webdav.org/specs/rfc4918.html#lock-tokens. </remarks>
+        public override string ToString() => absoluteUri.OriginalString;
 
         /// <summary>
         /// Tries to parse the given <paramref name="rawAbsoluteUri"/> into an <see cref="AbsoluteUri"/>.
