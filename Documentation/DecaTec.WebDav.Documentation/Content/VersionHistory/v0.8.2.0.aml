@@ -1,19 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<topic id="bb50b563-b0fc-4fac-a67f-ad3b2347a1a0" revisionNumber="1">
+<topic id="275a6ee7-aeae-48d4-97f5-81a478a9a419" revisionNumber="1">
   <developerConceptualDocument
      xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
      xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction></introduction>
 
     <section>
-      <title>Changes in release v0.8.1.0</title>
+      <title>Changes in release v0.8.2.0</title>
       <content>
 
         <list class="bullet">
 
           <listItem>
             <para>
-              New Timeout property for WebDavSession (default timeout value is 100 seconds).
+              The classes AbsoluteUri, CodedUrl and NoTagList do not provide public constructors anymore so that the specification cannot be bypassed. Use the TryPase methods to create an instance of these classes.
+            </para>
+          </listItem>
+          
+        <listItem>
+            <para>
+              AbsoluteUri.ToString: Do not try to parse, de- or encode the URI.
             </para>
           </listItem>
 

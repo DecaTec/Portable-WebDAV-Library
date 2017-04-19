@@ -104,9 +104,14 @@
         <HelpKeyword index="K" term="version, 0.8.0.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="bb50b563-b0fc-4fac-a67f-ad3b2347a1a0" visible="True" isSelected="true" title="Version 0.8.1.0">
+    <Topic id="bb50b563-b0fc-4fac-a67f-ad3b2347a1a0" visible="True" title="Version 0.8.1.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.8.1.0" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="275a6ee7-aeae-48d4-97f5-81a478a9a419" visible="True" isSelected="true" title="Version 0.8.2.0">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 0.8.2.0" />
       </HelpKeywords>
     </Topic>
   </Topic>
