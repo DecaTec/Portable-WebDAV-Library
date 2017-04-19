@@ -7,37 +7,6 @@ namespace DecaTec.WebDav.UnitTest
     public class UnitTestNoTagList
     {
         [TestMethod]
-        public void UT_NoTagList_Construct_ValidNoTagListFormat()
-        {
-            var expectedString = "(<urn:uuid:my-lock-token>)";
-            var noTagList = new NoTagList(expectedString);
-
-            Assert.AreEqual(expectedString, noTagList.ToString());
-            Assert.IsNotNull(noTagList);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void UT_NoTagList_Construct_InvalidNoTagListFormatAbsoluteURI_ShouldThrowArgumentException()
-        {
-            var noTagList = new NoTagList("urn:uuid:my-lock-token");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void UT_NoTagList_Construct_InvalidNoTagListFormatParentheses_ShouldThrowArgumentException()
-        {
-            var noTagList = new NoTagList("(urn:uuid:my-lock-token)");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void UT_NoTagList_Construct_InvalidNoTagListFormatBrackets_ShouldThrowArgumentException()
-        {
-            var noTagList = new NoTagList("<urn:uuid:my-lock-token>");
-        }
-
-        [TestMethod]
         public void UT_NoTagList_TryParse_ValidNoTagListFormat()
         {
             var expectedString = "(<urn:uuid:my-lock-token>)";

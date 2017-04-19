@@ -435,7 +435,6 @@ namespace DecaTec.WebDav.UnitTest
             var success = session.LockAsync(TestFile).Result;
 
             Assert.IsTrue(success);
-            var lockToken = new LockToken(lockTokenString);
             success = session.UnlockAsync(testFileToLock).Result;
 
             Assert.IsTrue(success);
