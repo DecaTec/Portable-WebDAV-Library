@@ -7,30 +7,6 @@ namespace DecaTec.WebDav.UnitTest
     public class UnitTestCodedUrl
     {
         [TestMethod]
-        public void UT_CodedUrl_Construct_ValidCodedUrlFormat()
-        {
-            var expectedString = "<urn:uuid:my-lock-token>";
-            var codedUrl = new CodedUrl(expectedString);
-
-            Assert.IsNotNull(codedUrl);
-            Assert.AreEqual(expectedString, codedUrl.ToString());
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void UT_CodedUrl_Construct_InvalidCodedUrlFormatAbsoluteUri_ShouldThrowArgumentException()
-        {
-            var codedUrl = new CodedUrl("urn:uuid:my-lock-token");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void UT_CodedUrl_Construct_InvalidCodedUrlFormatParentheses_ShouldThrowArgumentException()
-        {
-            var codedUrl = new CodedUrl("(urn:uuid:my-lock-token)");
-        }
-
-        [TestMethod]
         public void UT_CodedUrl_TryParse_ValidCodedUrlFormat()
         {
             var expectedString = "<urn:uuid:my-lock-token>";

@@ -27,30 +27,17 @@ namespace DecaTec.WebDav
         /// Constructs a No Tag List based on the <paramref name="codedUrl"/>.
         /// See <see href="https://tools.ietf.org/html/rfc4918#section-10.4.2"/> for the No Tag List definition.
         /// </summary>
-        /// <param name="codedUrl">The coded-URL for this No-Tag list (as string).</param>
-        public NoTagList(string codedUrl)
-        {
-            if (!TryParse(codedUrl, out var noTagList))
-                throw new ArgumentException($"Cannot create NoTagList from URL '{codedUrl}'");
-
-            CodedUrl = noTagList.CodedUrl;
-        }
-
-        /// <summary>
-        /// Constructs a No Tag List based on the <paramref name="codedUrl"/>.
-        /// See <see href="https://tools.ietf.org/html/rfc4918#section-10.4.2"/> for the No Tag List definition.
-        /// </summary>
         /// <param name="codedUrl">The coded-URL for this No-Tag list.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="codedUrl"/> is null.</exception>
-        public NoTagList(CodedUrl codedUrl)
+        internal NoTagList(CodedUrl codedUrl)
         {
             CodedUrl = codedUrl ?? throw new ArgumentNullException(nameof(codedUrl));
         }
 
         /// <summary>
-        /// Gets the string representation of this NoTagList.
+        /// Gets the string representation of this <see cref="NoTagList"/>.
         /// </summary>
-        /// <returns>The string representation of this NoTagList.</returns>
+        /// <returns>The string representation of this <see cref="NoTagList"/>.</returns>
         public override string ToString() => $"{NoTagListPrefix}{CodedUrl}{NoTagListPostfix}";
 
         /// <summary>

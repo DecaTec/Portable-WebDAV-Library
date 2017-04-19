@@ -23,33 +23,20 @@ namespace DecaTec.WebDav
         private const char CodedUrlPostfix = '>';
 
         /// <summary>
-        /// Constructs a Coded-URL based on the <paramref name="absoluteUrl"/> string.
-        /// See <see href="https://tools.ietf.org/html/rfc4918#section-10.1"/> for the Coded-URL definition.
-        /// </summary>
-        /// <param name="absoluteUrl">The lock token in absolute-URI format (as string).</param>
-        public CodedUrl(string absoluteUrl)
-        {
-            if (!TryParse(absoluteUrl, out var codedUrl))
-                throw new ArgumentException($"Cannot create CodedUrl from URL '{absoluteUrl}'");
-
-            AbsoluteUri = codedUrl.AbsoluteUri;
-        }
-
-        /// <summary>
         /// Constructs a Coded-URL based on the <paramref name="absoluteUri"/>.
         /// See <see href="https://tools.ietf.org/html/rfc4918#section-10.1"/> for the Coded-URL definition.
         /// </summary>
         /// <param name="absoluteUri">The lock token in absolute-URI format.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="absoluteUri"/> is null.</exception>
-        public CodedUrl(AbsoluteUri absoluteUri)
+        internal CodedUrl(AbsoluteUri absoluteUri)
         {
             AbsoluteUri = absoluteUri ?? throw new ArgumentNullException(nameof(absoluteUri));
         }
 
         /// <summary>
-        /// Gets the string representation of this CodedUrl.
+        /// Gets the string representation of this <see cref="CodedUrl"/>.
         /// </summary>
-        /// <returns>The string representation of this CodedUrl.</returns>
+        /// <returns>The string representation of this <see cref="CodedUrl"/>.</returns>
         public override string ToString() => $"{CodedUrlPrefix}{AbsoluteUri}{CodedUrlPostfix}";
 
         /// <summary>

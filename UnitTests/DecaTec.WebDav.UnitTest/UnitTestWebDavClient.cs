@@ -678,6 +678,7 @@ namespace DecaTec.WebDav.UnitTest
         {
             var testFileToUnlock = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
             var lockTokenString = "<opaquelocktoken:cb2b7d6d-98ea-47cf-b569-5b98126b8f13.6df801d2b41b3b6e>";
+            CodedUrl.TryParse(lockTokenString, out var codedUrl);
 
             var mockHandler = new MockHttpMessageHandler();
 
@@ -689,7 +690,7 @@ namespace DecaTec.WebDav.UnitTest
             mockHandler.When(WebDavMethod.Unlock, testFileToUnlock).WithHeaders(requestHeaders).Respond(HttpStatusCode.NoContent);
 
             var client = CreateWebDavClient(mockHandler);
-            var lockToken = new LockToken(lockTokenString);
+            var lockToken = new LockToken(codedUrl.AbsoluteUri);
             var response = client.UnlockAsync(testFileToUnlock, lockToken).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);

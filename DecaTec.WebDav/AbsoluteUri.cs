@@ -15,22 +15,10 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Constructs an <see cref="AbsoluteUri"/>.
         /// </summary>
-        /// <param name="absoluteUrl">The URL to use.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="absoluteUrl"/> is null.</exception>
-        public AbsoluteUri(string absoluteUrl)
-        {
-            if (!Uri.TryCreate(absoluteUrl, UriKind.Absolute, out Uri absoluteUri))
-                throw new ArgumentException($"Cannot create AbsoluteUri from URL '{absoluteUrl}'");
-
-            this.absoluteUri = absoluteUri;
-        }
-
-        /// <summary>
-        /// Constructs an <see cref="AbsoluteUri"/>.
-        /// </summary>
         /// <param name="absoluteUri">The <see cref="Uri"/> to use.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="absoluteUri"/> is null.</exception>
-        public AbsoluteUri(Uri absoluteUri)
+        /// <remarks>Use the <see cref="TryParse"/> factory method to correctly construct an <see cref="AbsoluteUri"/>.</remarks>
+        internal AbsoluteUri(Uri absoluteUri)
         {
             if (absoluteUri == null || !absoluteUri.IsAbsoluteUri)
                 throw new ArgumentException($"Cannot create AbsoluteUri from Uri '{absoluteUri}'");
