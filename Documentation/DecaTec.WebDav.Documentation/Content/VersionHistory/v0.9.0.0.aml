@@ -19,7 +19,7 @@
           
           <listItem>
             <para>
-              New properties available for WebDavSessionListItem: Keep in mind that not every WebDAV server supports the same properties. Often a server only supports a subset of the specifications or even adds additional properties. So, when a property of a WebDavSessionListItem contains the default value (0, false, etc.), it does not mean that this value is correct, maybe the WebDAV server just does not support these properties.
+              New properties available for WebDavSessionListItem: Keep in mind that not every WebDAV server supports the same properties. Often a server only supports a subset of the specifications or even adds additional properties. So, when a property of a WebDavSessionListItem is null, the WebDAV server may not support these properties.
             </para>
           </listItem>
 

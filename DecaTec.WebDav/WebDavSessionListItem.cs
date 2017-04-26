@@ -6,7 +6,7 @@ namespace DecaTec.WebDav
     /// Class representing a list item from a WebDavSession's list method.
     /// </summary>
     /// <remarks>Note that not all properties defined in this class are always used. Some WebDAV servers use only a subset of these properties or even provide additional properties.
-    /// So, if properties provided by this class contain default values (0, false, etc.), these values maybe wrong just because the WebDAV server does not support these properties.</remarks>
+    /// So, if (strongly typed) properties defined by this class are null, these values may be not supported by the specific WebDAV server.</remarks>
     public class WebDavSessionListItem
     {
         /// <summary>
@@ -21,7 +21,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets or sets the <see cref="DateTime"/> when the item was created.
         /// </summary>
-        public DateTime CreationDate
+        public DateTime? CreationDate
         {
             get;
             set;
@@ -40,7 +40,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets or sets the length of the content in bytes.
         /// </summary>
-        public long ContentLength
+        public long? ContentLength
         {
             get;
             set;
@@ -67,7 +67,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets or sets the <see cref="DateTime"/> when the item was last modified.
         /// </summary>
-        public DateTime LastModified
+        public DateTime? LastModified
         {
             get;
             set;
@@ -96,7 +96,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets or sets the quota (available) in bytes.
         /// </summary>
-        public long QuotaAvailableBytes
+        public long? QuotaAvailableBytes
         {
             get;
             set;
@@ -105,7 +105,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets or sets the quota (used) in bytes.
         /// </summary>
-        public long QuotaUsedBytes
+        public long? QuotaUsedBytes
         {
             get;
             set;
@@ -118,7 +118,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets or sets the count of contained resources (files and folders) of the item.
         /// </summary>
-        public long ChildCount
+        public long? ChildCount
         {
             get;
             set;
@@ -145,7 +145,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets or sets a value indicating if the item is a folder.
         /// </summary>
-        public bool IsFolder
+        public bool? IsFolder
         {
             get;
             set;
@@ -154,7 +154,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets or sets a value indicating if the item is hidden.
         /// </summary>
-        public bool IsHidden
+        public bool? IsHidden
         {
             get;
             set;
@@ -163,7 +163,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets or sets a value indicating whether the resource is a structured document.
         /// </summary>
-        public bool IsStructuredDocument
+        public bool? IsStructuredDocument
         {
             get;
             set;
@@ -172,7 +172,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets or sets a value indicating if the item contains subfolders.
         /// </summary>
-        public bool HasSubDirectories
+        public bool? HasSubDirectories
         {
             get;
             set;
@@ -182,7 +182,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets or sets a value indicating if the item allows the creating of subfolders.
         /// </summary>
-        public bool NoSubDirectoriesAllowed
+        public bool? NoSubDirectoriesAllowed
         {
             get;
             set;
@@ -191,7 +191,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets or sets the count of files contained in this item.
         /// </summary>
-        public long FileCount
+        public long? FileCount
         {
             get;
             set;
@@ -200,7 +200,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets or sets a value indicating if the item is reserved (i.e. system controlled). A Reserved item usually not be deleted, renamed or moved.
         /// </summary>
-        public bool IsReserved
+        public bool? IsReserved
         {
             get;
             set;
@@ -209,7 +209,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets or sets the count of visible files contained in this item.
         /// </summary>
-        public long VisibleFiles
+        public long? VisibleFiles
         {
             get;
             set;
@@ -232,7 +232,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets or sets a value indicating if the item is read only.
         /// </summary>
-        public bool IsReadonly
+        public bool? IsReadonly
         {
             get;
             set;
@@ -241,7 +241,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets or sets a value indicating if the item is the root.
         /// </summary>
-        public bool IsRoot
+        public bool? IsRoot
         {
             get;
             set;
@@ -250,7 +250,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets or sets the <see cref="DateTime"/> when the item was last accessed.
         /// </summary>
-        public DateTime LastAccessed
+        public DateTime? LastAccessed
         {
             get;
             set;

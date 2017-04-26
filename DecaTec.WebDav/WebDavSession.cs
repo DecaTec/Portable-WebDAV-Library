@@ -534,33 +534,37 @@ namespace DecaTec.WebDav
                     var prop = propStat.Prop;
 
                     // Do not add hidden items.
-                    if (prop.IsHidden.HasValue && prop.IsHidden.Value)
+                    if (prop.IsHidden ?? false)
                         continue;
 
-                    webDavSessionItem.ContentClass = prop.ContentClass;
+                    webDavSessionItem.CreationDate = prop.CreationDate;
                     webDavSessionItem.ContentLanguage = prop.GetContentLanguage;
-                    webDavSessionItem.ContentLength = prop.GetContentLength ?? 0;
+                    webDavSessionItem.ContentLength = prop.GetContentLength;
                     webDavSessionItem.ContentType = prop.GetContentType;
-                    webDavSessionItem.CreationDate = prop.CreationDate ?? DateTime.MinValue;
-                    webDavSessionItem.DefaultDocument = prop.DefaultDocument;
-                    webDavSessionItem.DisplayName = prop.DisplayName;
                     webDavSessionItem.ETag = prop.GetEtag;
-                    webDavSessionItem.LastModified = prop.GetLastModified ?? DateTime.MinValue;
-                    webDavSessionItem.IsReadonly = prop.IsReadonly ?? false;
-                    webDavSessionItem.IsReadonly = prop.IsRoot ?? false;
-                    webDavSessionItem.IsStructuredDocument = prop.IsStructuredDocument ?? false;
-                    webDavSessionItem.LastAccessed = prop.LastAccessed ?? DateTime.MinValue;
-                    webDavSessionItem.Name = prop.Name;
-                    webDavSessionItem.ParentName = prop.ParentName;
-                    webDavSessionItem.QuotaAvailableBytes = prop.QuotaAvailableBytes ?? 0;
-                    webDavSessionItem.QuotaUsedBytes = prop.QuotaUsedBytes ?? 0;
-                    webDavSessionItem.ChildCount = prop.ChildCount ?? 0;
+                    webDavSessionItem.LastModified = prop.GetLastModified;
+
+                    // RFC4331
+                    webDavSessionItem.QuotaAvailableBytes = prop.QuotaAvailableBytes;
+                    webDavSessionItem.QuotaUsedBytes = prop.QuotaUsedBytes;
+
+                    // Additional WebDAV Collection Properties
+                    webDavSessionItem.ChildCount = prop.ChildCount;
+                    webDavSessionItem.DefaultDocument = prop.DefaultDocument;
                     webDavSessionItem.Id = prop.Id;
-                    webDavSessionItem.HasSubDirectories = prop.HasSubs ?? false;
-                    webDavSessionItem.NoSubDirectoriesAllowed = prop.NoSubs ?? false;
-                    webDavSessionItem.FileCount = prop.ObjectCount ?? 0;
-                    webDavSessionItem.IsReserved = prop.Reserved ?? false;
-                    webDavSessionItem.VisibleFiles = prop.VisibleCount ?? 0;
+                    webDavSessionItem.IsStructuredDocument = prop.IsStructuredDocument;
+                    webDavSessionItem.HasSubDirectories = prop.HasSubs;
+                    webDavSessionItem.NoSubDirectoriesAllowed = prop.NoSubs;
+                    webDavSessionItem.FileCount = prop.ObjectCount;
+                    webDavSessionItem.IsReserved = prop.Reserved;
+                    webDavSessionItem.VisibleFiles = prop.VisibleCount;
+
+                    // IIS specific properties
+                    webDavSessionItem.ContentClass = prop.ContentClass;
+                    webDavSessionItem.IsReadonly = prop.IsReadonly;
+                    webDavSessionItem.IsReadonly = prop.IsRoot;
+                    webDavSessionItem.LastAccessed = prop.LastAccessed;
+                    webDavSessionItem.ParentName = prop.ParentName;
 
                     // Make sure that the IsDirectory property is set if it's a directory.
                     if (prop.IsFolder.HasValue && prop.IsFolder.Value)
