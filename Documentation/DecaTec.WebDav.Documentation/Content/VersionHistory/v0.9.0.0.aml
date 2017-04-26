@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="074658d9-57c6-4a0d-a26a-2db0224ae05e" revisionNumber="1">
+  <developerConceptualDocument
+     xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction></introduction>
+
+    <section>
+      <title>Changes in release v0.9.0.0</title>
+      <content>
+
+        <list class="bullet">
+
+          <listItem>
+            <para>
+              The library now implements <externalLink><linkText>RFC 4918</linkText><linkUri>https://tools.ietf.org/html/rfc4918</linkUri></externalLink>, <externalLink><linkText>RFC 4331</linkText><linkUri>https://tools.ietf.org/html/rfc4331</linkUri></externalLink>, <externalLink><linkText>Additional WebDAV Collection Properties</linkText><linkUri>https://tools.ietf.org/html/draft-hopmann-collection-props-00#section-1.12</linkUri></externalLink> and a some WebDAV properties specific to IIS WebDAV.
+            </para>
+          </listItem>
+          
+        <listItem>
+            <para>
+              New properties available for WebDavSessionListItem: Keep in mind that not every WebDAV server supports the same properties. Often a server only supports a subset of the specifications or even adds additional properties. So, when a property of a WebDavSessionListItem contains the default value (0, false, etc.), it does not mean that this value is correct, maybe the WebDAV server just does not support these properties.
+            </para>
+          </listItem>
+
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="55c4b378-829f-44e2-af56-20a587c2d24b" />
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

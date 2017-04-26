@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -532,65 +531,53 @@ namespace DecaTec.WebDav
                     if (propStat == null || propStat.Status.ToLower().Contains("404 not found"))
                         continue;
 
+                    var prop = propStat.Prop;
+
                     // Do not add hidden items.
-                    if (!string.IsNullOrEmpty(propStat.Prop.IsHidden) && propStat.Prop.IsHidden.Equals("1"))
+                    if (prop.IsHidden.HasValue && prop.IsHidden.Value)
                         continue;
 
-                    webDavSessionItem.ContentClass = propStat.Prop.ContentClass;
-                    webDavSessionItem.ContentLanguage = propStat.Prop.GetContentLanguage;
-
-                    if (!string.IsNullOrEmpty(propStat.Prop.GetContentLength))
-                        webDavSessionItem.ContentLength = long.Parse(propStat.Prop.GetContentLength, CultureInfo.InvariantCulture);
-
-                    webDavSessionItem.ContentType = propStat.Prop.GetContentType;
-
-                    if (propStat.Prop.CreationDateSpecified && !string.IsNullOrEmpty(propStat.Prop.CreationDate))
-                        webDavSessionItem.CreationDate = DateTime.Parse(propStat.Prop.CreationDate, CultureInfo.InvariantCulture);
-
-                    webDavSessionItem.DefaultDocument = propStat.Prop.DefaultDocument;
-                    webDavSessionItem.DisplayName = propStat.Prop.DisplayName;
-                    webDavSessionItem.ETag = propStat.Prop.GetEtag;
-
-                    if (!string.IsNullOrEmpty(propStat.Prop.GetLastModified))
-                        webDavSessionItem.LastModified = DateTime.Parse(propStat.Prop.GetLastModified, CultureInfo.InvariantCulture);
-
-                    if (!string.IsNullOrEmpty(propStat.Prop.IsReadonly))
-                        webDavSessionItem.IsReadonly = propStat.Prop.IsReadonly.Equals("1");
-
-                    if (!string.IsNullOrEmpty(propStat.Prop.IsRoot))
-                        webDavSessionItem.IsRoot = propStat.Prop.IsRoot.Equals("1");
-
-                    if (!string.IsNullOrEmpty(propStat.Prop.IsStructuredDocument))
-                        webDavSessionItem.IsStructuredDocument = propStat.Prop.IsStructuredDocument.Equals("1");
-
-                    if (!string.IsNullOrEmpty(propStat.Prop.LastAccessed))
-                        webDavSessionItem.LastAccessed = DateTime.Parse(propStat.Prop.LastAccessed, CultureInfo.InvariantCulture);
-
-                    webDavSessionItem.Name = propStat.Prop.Name;
-                    webDavSessionItem.ParentName = propStat.Prop.ParentName;
-
-                    if (!string.IsNullOrEmpty(propStat.Prop.QuotaAvailableBytes))
-                        webDavSessionItem.QuotaAvailableBytes = long.Parse(propStat.Prop.QuotaAvailableBytes, CultureInfo.InvariantCulture);
-
-                    if (!string.IsNullOrEmpty(propStat.Prop.QuotaUsedBytes))
-                        webDavSessionItem.QuotaUsedBytes = long.Parse(propStat.Prop.QuotaUsedBytes, CultureInfo.InvariantCulture);
+                    webDavSessionItem.ContentClass = prop.ContentClass;
+                    webDavSessionItem.ContentLanguage = prop.GetContentLanguage;
+                    webDavSessionItem.ContentLength = prop.GetContentLength ?? 0;
+                    webDavSessionItem.ContentType = prop.GetContentType;
+                    webDavSessionItem.CreationDate = prop.CreationDate ?? DateTime.MinValue;
+                    webDavSessionItem.DefaultDocument = prop.DefaultDocument;
+                    webDavSessionItem.DisplayName = prop.DisplayName;
+                    webDavSessionItem.ETag = prop.GetEtag;
+                    webDavSessionItem.LastModified = prop.GetLastModified ?? DateTime.MinValue;
+                    webDavSessionItem.IsReadonly = prop.IsReadonly ?? false;
+                    webDavSessionItem.IsReadonly = prop.IsRoot ?? false;
+                    webDavSessionItem.IsStructuredDocument = prop.IsStructuredDocument ?? false;
+                    webDavSessionItem.LastAccessed = prop.LastAccessed ?? DateTime.MinValue;
+                    webDavSessionItem.Name = prop.Name;
+                    webDavSessionItem.ParentName = prop.ParentName;
+                    webDavSessionItem.QuotaAvailableBytes = prop.QuotaAvailableBytes ?? 0;
+                    webDavSessionItem.QuotaUsedBytes = prop.QuotaUsedBytes ?? 0;
+                    webDavSessionItem.ChildCount = prop.ChildCount ?? 0;
+                    webDavSessionItem.Id = prop.Id;
+                    webDavSessionItem.HasSubDirectories = prop.HasSubs ?? false;
+                    webDavSessionItem.NoSubDirectoriesAllowed = prop.NoSubs ?? false;
+                    webDavSessionItem.FileCount = prop.ObjectCount ?? 0;
+                    webDavSessionItem.IsReserved = prop.Reserved ?? false;
+                    webDavSessionItem.VisibleFiles = prop.VisibleCount ?? 0;
 
                     // Make sure that the IsDirectory property is set if it's a directory.
-                    if (!string.IsNullOrEmpty(propStat.Prop.IsCollection))
-                        webDavSessionItem.IsCollection = propStat.Prop.IsCollection.Equals("1");
-                    else if (propStat.Prop.ResourceType != null && propStat.Prop.ResourceType.Collection != null)
-                        webDavSessionItem.IsCollection = true;
+                    if (prop.IsFolder.HasValue && prop.IsFolder.Value)
+                        webDavSessionItem.IsFolder = prop.IsFolder.Value;
+                    else if (prop.ResourceType != null && prop.ResourceType.Collection != null)
+                        webDavSessionItem.IsFolder = true;
 
                     // Make sure that the name property is set.
                     // Naming priority:
                     // 1. displayname (only if it doesn't contain raw unicode, otherwise there are problems with non western characters)
                     // 2. name
                     // 3. (part of) URI.
-                    if (!TextHelper.StringContainsRawUnicode(propStat.Prop.DisplayName))
-                        webDavSessionItem.Name = propStat.Prop.DisplayName;
+                    if (!TextHelper.StringContainsRawUnicode(prop.DisplayName))
+                        webDavSessionItem.Name = prop.DisplayName;
 
                     if (string.IsNullOrEmpty(webDavSessionItem.Name))
-                        webDavSessionItem.Name = propStat.Prop.Name;
+                        webDavSessionItem.Name = prop.Name;
 
                     if (string.IsNullOrEmpty(webDavSessionItem.Name) && href != null)
                         webDavSessionItem.Name = WebUtility.UrlDecode(href.ToString().Split('/').Last(x => !string.IsNullOrEmpty(x)));

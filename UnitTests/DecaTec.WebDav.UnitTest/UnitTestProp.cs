@@ -13,29 +13,27 @@ namespace DecaTec.WebDav.UnitTest
         {
             var serializer = new XmlSerializer(typeof(Prop));
 
-            var prop = Prop.CreatePropWithEmptyProperties("creationdate", "getcontentlanguage", "displayname", "getcontentlength", "getcontenttype", "getlastmodified", "getetag", "source",
-                "resourcetype", "contentclass", "defaultdocument", "href", "iscollection", "ishidden", "isreadonly", "isroot", "isstructureddocument", "lastaccessed", "name", "parentname", "lockdiscovery");
+            var prop = Prop.CreatePropWithEmptyProperties("creationdate", "getcontentlanguage", "displayname", "getcontentlength", "getcontenttype", "getlastmodified", "getetag",
+                "resourcetype", "contentclass", "defaultdocument", "href", "isfolder", "ishidden", "isreadonly", "isroot", "isstructureddocument", "lastaccessed", "name", "parentname", "lockdiscovery");
 
             Assert.IsNotNull(prop);
-            Assert.IsFalse(prop.CreationDateSpecified);
-            Assert.AreEqual(prop.CreationDate, string.Empty);
+            Assert.AreEqual(prop.CreationDateString, string.Empty);
             Assert.AreEqual(prop.GetContentLanguage, string.Empty);
             Assert.AreEqual(prop.DisplayName, string.Empty);
-            Assert.AreEqual(prop.GetContentLength, string.Empty);
+            Assert.AreEqual(prop.GetContentLengthString, string.Empty);
             Assert.AreEqual(prop.GetContentType, string.Empty);
-            Assert.AreEqual(prop.GetLastModified, string.Empty);
+            Assert.AreEqual(prop.GetLastModifiedString, string.Empty);
             Assert.AreEqual(prop.GetEtag, string.Empty);
-            Assert.IsNotNull(prop.Source);
             Assert.IsNotNull(prop.ResourceType);
             Assert.AreEqual(prop.ContentClass, string.Empty);
             Assert.AreEqual(prop.DefaultDocument, string.Empty);
-            Assert.AreEqual(prop.Href, string.Empty);
-            Assert.AreEqual(prop.IsCollection, string.Empty);
-            Assert.AreEqual(prop.IsHidden, string.Empty);
-            Assert.AreEqual(prop.IsReadonly, string.Empty);
-            Assert.AreEqual(prop.IsRoot, string.Empty);
-            Assert.AreEqual(prop.IsStructuredDocument, string.Empty);
-            Assert.AreEqual(prop.LastAccessed, string.Empty);
+            Assert.AreEqual(prop.HrefString, string.Empty);
+            Assert.AreEqual(prop.IsFolderString, string.Empty);
+            Assert.AreEqual(prop.IsHiddenString, string.Empty);
+            Assert.AreEqual(prop.IsReadonlyString, string.Empty);
+            Assert.AreEqual(prop.IsRootString, string.Empty);
+            Assert.AreEqual(prop.IsStructuredDocumentString, string.Empty);
+            Assert.AreEqual(prop.LastAccessedString, string.Empty);
             Assert.AreEqual(prop.Name, string.Empty);
             Assert.AreEqual(prop.ParentName, string.Empty);
             Assert.IsNotNull(prop.LockDiscovery);
@@ -47,30 +45,28 @@ namespace DecaTec.WebDav.UnitTest
             var serializer = new XmlSerializer(typeof(Prop));
 
             var prop = Prop.CreatePropWithEmptyProperties(PropNameConstants.CreationDate, PropNameConstants.GetContentLanguage, PropNameConstants.DisplayName, PropNameConstants.GetContentLength,
-                PropNameConstants.GetContentType, PropNameConstants.GetLastModified, PropNameConstants.GetEtag, PropNameConstants.Source, PropNameConstants.ResourceType, PropNameConstants.ContentClass,
-                PropNameConstants.DefaultDocument, PropNameConstants.Href, PropNameConstants.IsCollection, PropNameConstants.IsHidden, PropNameConstants.IsReadonly, PropNameConstants.IsRoot,
+                PropNameConstants.GetContentType, PropNameConstants.GetLastModified, PropNameConstants.GetEtag, PropNameConstants.ResourceType, PropNameConstants.ContentClass,
+                PropNameConstants.DefaultDocument, PropNameConstants.Href, PropNameConstants.IsFolder, PropNameConstants.IsHidden, PropNameConstants.IsReadonly, PropNameConstants.IsRoot,
                 PropNameConstants.IsStructuredDocument, PropNameConstants.LastAccessed, PropNameConstants.Name, PropNameConstants.ParentName, PropNameConstants.LockDiscovery);
 
             Assert.IsNotNull(prop);
-            Assert.IsFalse(prop.CreationDateSpecified);
-            Assert.AreEqual(prop.CreationDate, string.Empty);
+            Assert.AreEqual(prop.CreationDateString, string.Empty);
             Assert.AreEqual(prop.GetContentLanguage, string.Empty);
             Assert.AreEqual(prop.DisplayName, string.Empty);
-            Assert.AreEqual(prop.GetContentLength, string.Empty);
+            Assert.AreEqual(prop.GetContentLengthString, string.Empty);
             Assert.AreEqual(prop.GetContentType, string.Empty);
-            Assert.AreEqual(prop.GetLastModified, string.Empty);
+            Assert.AreEqual(prop.GetLastModifiedString , string.Empty);
             Assert.AreEqual(prop.GetEtag, string.Empty);
-            Assert.IsNotNull(prop.Source);
             Assert.IsNotNull(prop.ResourceType);
             Assert.AreEqual(prop.ContentClass, string.Empty);
             Assert.AreEqual(prop.DefaultDocument, string.Empty);
-            Assert.AreEqual(prop.Href, string.Empty);
-            Assert.AreEqual(prop.IsCollection, string.Empty);
-            Assert.AreEqual(prop.IsHidden, string.Empty);
-            Assert.AreEqual(prop.IsReadonly, string.Empty);
-            Assert.AreEqual(prop.IsRoot, string.Empty);
-            Assert.AreEqual(prop.IsStructuredDocument, string.Empty);
-            Assert.AreEqual(prop.LastAccessed, string.Empty);
+            Assert.AreEqual(prop.HrefString, string.Empty);
+            Assert.AreEqual(prop.IsFolderString, string.Empty);
+            Assert.AreEqual(prop.IsHiddenString, string.Empty);
+            Assert.AreEqual(prop.IsReadonlyString, string.Empty);
+            Assert.AreEqual(prop.IsRootString, string.Empty);
+            Assert.AreEqual(prop.IsStructuredDocumentString, string.Empty);
+            Assert.AreEqual(prop.LastAccessedString, string.Empty);
             Assert.AreEqual(prop.Name, string.Empty);
             Assert.AreEqual(prop.ParentName, string.Empty);
             Assert.IsNotNull(prop.LockDiscovery);
