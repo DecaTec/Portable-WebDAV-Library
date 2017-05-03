@@ -63,10 +63,22 @@ namespace DecaTec.WebDav
     /// <seealso cref="DecaTec.WebDav.WebDavClient"/>
     public class WebDavSession : IDisposable
     {
-        private readonly WebDavClient webDavClient;
+        /// <summary>
+        /// The <see cref="WebDavClient"/> to use for this WebDavSession.
+        /// </summary>
+        protected readonly WebDavClient webDavClient;
+
         private readonly ConcurrentDictionary<Uri, PermanentLock> permanentLocks;
 
         #region Constructor
+
+        /// <summary>
+        /// Creates a new instance of WebDavSession.
+        /// </summary>
+        protected WebDavSession()
+        {
+
+        }
 
         /// <summary>
         /// Initializes a new instance of WebDavSession with a default <see cref="HttpClientHandler"/>.
@@ -104,7 +116,7 @@ namespace DecaTec.WebDav
         /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
         public WebDavSession(HttpMessageHandler httpMessageHandler)
             : this(string.Empty, httpMessageHandler)
-        {            
+        {
         }
 
         /// <summary>
@@ -129,6 +141,17 @@ namespace DecaTec.WebDav
             this.permanentLocks = new ConcurrentDictionary<Uri, PermanentLock>();
             this.webDavClient = CreateWebDavClient(httpMessageHandler);
             this.BaseUri = baseUri;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of WebDavSession with the given base <see cref="Uri"/> and <see cref="WebDavClient"/> specified.
+        /// </summary>
+        /// <param name="baseUri">The base <see cref="Uri"/> to use for this WebDavSession.</param>
+        /// <param name="webDavClient">The base <see cref="WebDavClient"/> to use for this WebDavSession.</param>
+        /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
+        protected WebDavSession(Uri baseUri, WebDavClient webDavClient)
+        {
+            this.webDavClient = webDavClient;
         }
 
         #endregion Constructor
@@ -854,6 +877,9 @@ namespace DecaTec.WebDav
 
         private LockToken GetAffectedLockToken(Uri uri)
         {
+            if (this.permanentLocks == null)
+                return null;
+
             uri = UriHelper.CombineUri(this.BaseUri, uri, true);
 
             foreach (var lockItem in this.permanentLocks)

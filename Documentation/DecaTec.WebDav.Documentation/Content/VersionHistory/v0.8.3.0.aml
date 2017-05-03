@@ -29,12 +29,6 @@
             </para>
           </listItem>
 
-          <listItem>
-            <para>
-              WebDavSesion now exposes some protected members, so that the class can be overridden for special purposes (e.g. when new types should be added to the WebDAV object model in a project).
-            </para>
-          </listItem>
-
         </list>
 
       </content>

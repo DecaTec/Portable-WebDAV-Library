@@ -142,7 +142,10 @@ namespace DecaTec.WebDav
             SetDefaultRequestHeaders();
         }
 
-        private void SetDefaultRequestHeaders()
+        /// <summary>
+        /// Sets the default request headers to send with every request of this WebDavClient.
+        /// </summary>
+        protected void SetDefaultRequestHeaders()
         {
             // This is a workaround when the lib is used for WebDAV/IIS:
             // When there is a GET request for a file with unmapped extension on IIS (e.g. 'file.01'), the IIS returns 404 ('not found').  
