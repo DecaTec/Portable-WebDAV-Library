@@ -17,8 +17,11 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <returns>A PropFind instance containing an <see cref="DecaTec.WebDav.WebDavArtifacts.AllProp"/> element.</returns>
         public static PropFind CreatePropFindAllProp()
         {
-            var propFind = new PropFind();
-            propFind.Item = new AllProp();
+            var propFind = new PropFind()
+            {
+                Item = new AllProp()
+            };
+
             return propFind;
         }
 
@@ -62,8 +65,11 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <returns>A PropFind instance containing a <see cref="DecaTec.WebDav.WebDavArtifacts.PropName"/> item.</returns>
         public static PropFind CreatePropFindWithPropName()
         {
-            var propFind = new PropFind();
-            propFind.Item = new PropName();
+            var propFind = new PropFind()
+            {
+                Item = new PropName()
+            };
+
             return propFind;
         }
 

@@ -234,6 +234,21 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         }
 
         [TestMethod]
+        public void UIT_WebDavClient_PropFind_NamedPropertiesAll()
+        {
+            var client = CreateWebDavClientWithDebugHttpMessageHandler();
+            PropFind pf = PropFind.CreatePropFindWithEmptyPropertiesAll();
+            var response = client.PropFindAsync(webDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
+            var responseContentString = response.Content.ReadAsStringAsync().Result;
+            DebugWriteResponseContent(responseContentString);
+            var propFindResponseSuccess = response.IsSuccessStatusCode;
+            var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentString(responseContentString);
+
+            Assert.IsTrue(propFindResponseSuccess);
+            Assert.IsNotNull(multistatus);
+        }
+
+        [TestMethod]
         public void UIT_WebDavClient_PropFind_PropName()
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
