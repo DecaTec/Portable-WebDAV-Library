@@ -13,7 +13,7 @@
 
           <listItem>
             <para>
-              The library now implements <externalLink><linkText>RFC 4918</linkText><linkUri>https://tools.ietf.org/html/rfc4918</linkUri></externalLink>, <externalLink><linkText>RFC 4331</linkText><linkUri>https://tools.ietf.org/html/rfc4331</linkUri></externalLink>, <externalLink><linkText>Additional WebDAV Collection Properties</linkText><linkUri>https://tools.ietf.org/html/draft-hopmann-collection-props-00#section-1.12</linkUri></externalLink> and a some WebDAV properties specific to IIS WebDAV.
+              The library now implements <externalLink><linkText>RFC 4918</linkText><linkUri>https://tools.ietf.org/html/rfc4918</linkUri></externalLink>, <externalLink><linkText>RFC 4331</linkText><linkUri>https://tools.ietf.org/html/rfc4331</linkUri></externalLink>, <externalLink><linkText>Additional WebDAV Collection Properties</linkText><linkUri>https://tools.ietf.org/html/draft-hopmann-collection-props-00</linkUri></externalLink> and a some WebDAV properties specific to IIS WebDAV.
             </para>
           </listItem>
           
