@@ -2,7 +2,7 @@ v0.9.0.0
 - The library now implements RFC 4918, RFC 4331, Additional WebDAV Collection Properties and a some WebDAV properties specific to IIS WebDAV.
 - New properties available for WebDavSessionListItem: Keep in mind that not every WebDAV server supports the same properties. Often a server only supports a subset of the specifications or even adds additional properties. So, when a property of a WebDavSessionListItem is null, the WebDAV server may not support these properties.
 -Some properties of WebDavSessionListItem are strongly-typed now (DateTime and numeric values).
-- WebDavSesion now exposes some protected members, so that the class can be overridden for special purposes (e.g. when new types should be added to the WebDAV object model in a project).
+- WebDavSession now exposes some protected members, so that the class can be overridden for special purposes (e.g. when new types should be added to the WebDAV object model in a project).
 
 v0.8.2.0
 - The classes AbsoluteUri, CodedUrl and NoTagList do not provide public constructors anymore so that the specification cannot be bypassed. Use the TryPase methods to create an instance of these classes.
