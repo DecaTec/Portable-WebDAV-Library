@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="5af7368a-05e7-4d24-9084-81844e441aa3" revisionNumber="1">
+  <developerConceptualDocument
+     xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction></introduction>
+
+    <section>
+      <title>Changes in release v1.0.0.0</title>
+      <content>
+
+        <list class="bullet">
+
+          <listItem>
+            <para>
+              Renamed WebDavSesionListItem to WebDavSessionItem.
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              The methods of WebDavSession (w.g. copy, mode, delete, etc:) can now be used by specifying a WebDavSessionItem.
+            </para>
+          </listItem>
+
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="55c4b378-829f-44e2-af56-20a587c2d24b" />
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

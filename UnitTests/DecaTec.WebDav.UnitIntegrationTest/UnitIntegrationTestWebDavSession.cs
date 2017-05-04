@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Linq;
 
 namespace DecaTec.WebDav.UnitIntegrationTest
 {
@@ -68,6 +69,8 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             var session = new WebDavSession(debugHttpMessageHandler);
             return session;
         }
+
+        #region List
 
         [TestMethod]
         public void UIT_WebDavSession_List()
@@ -143,6 +146,154 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         }
 
         [TestMethod]
+        public void UIT_WebDavSession_List_ByWebDavSessionItem()
+        {
+            var session = CreateWebDavSession();
+            session.BaseUri = new Uri(webDavRootFolder);
+            var created = session.CreateDirectoryAsync("test").Result;
+            var created2 = session.CreateDirectoryAsync("test/test2").Result;
+            var items = session.ListAsync("/").Result;
+            Assert.AreEqual(items.Count, 1);
+            var list = session.ListAsync(items[0]).Result;
+            Assert.AreEqual("test2", list[0].Name);
+            var delete = session.DeleteAsync(list[0]).Result;
+            var delete2 = session.DeleteAsync("test").Result;
+
+            Assert.IsTrue(created);
+            Assert.IsTrue(created2);
+            Assert.IsNotNull(items);
+            Assert.IsNotNull(list);
+            Assert.IsTrue(delete);
+            Assert.IsTrue(delete2);
+        }
+
+        #endregion List
+
+        #region Copy
+
+        [TestMethod]
+        public void UIT_WebDavSession_Copy()
+        {
+            var session = CreateWebDavSession();
+            session.BaseUri = new Uri(webDavRootFolder);
+            var created = session.CreateDirectoryAsync("testSource").Result;
+            var created2 = session.CreateDirectoryAsync("testSource/folderToCopy").Result;
+            var created3 = session.CreateDirectoryAsync("testDestination").Result;
+            var items = session.ListAsync("/testSource").Result;
+            Assert.AreEqual(items.Count, 1);
+            var copy = session.CopyAsync("testSource", "testDestination", true).Result;
+            var items2 = session.ListAsync("/testSource").Result;
+            Assert.AreEqual(items2.Count, 1);
+            var items3 = session.ListAsync("/testDestination").Result;
+            Assert.AreEqual(items2.Count, 1);
+            Assert.AreEqual("folderToCopy", items3[0].Name);
+            var delete = session.DeleteAsync("testSource").Result;
+            var delete2 = session.DeleteAsync("testDestination").Result;
+
+            Assert.IsTrue(created);
+            Assert.IsTrue(created2);
+            Assert.IsTrue(created3);
+            Assert.IsNotNull(items);
+            Assert.IsNotNull(copy);
+            Assert.IsTrue(delete);
+            Assert.IsTrue(delete2);
+        }
+
+        [TestMethod]
+        public void UIT_WebDavSession_Copy_ByWebDavSessionItem()
+        {
+            var session = CreateWebDavSession();
+            session.BaseUri = new Uri(webDavRootFolder);
+            var created = session.CreateDirectoryAsync("testSource").Result;
+            var created2 = session.CreateDirectoryAsync("testSource/folderToCopy").Result;
+            var created3 = session.CreateDirectoryAsync("testDestination").Result;
+            var items = session.ListAsync("/testSource").Result;
+            Assert.AreEqual(items.Count, 1);
+            var items2 = session.ListAsync("/").Result;
+            var copy = session.CopyAsync(items2.FirstOrDefault(x => x.Name == "testSource"), "testDestination", true).Result;
+            var items3 = session.ListAsync("/testSource").Result;
+            Assert.AreEqual(items3.Count, 1);
+            var items4 = session.ListAsync("/testDestination").Result;
+            Assert.AreEqual(items4.Count, 1);
+            Assert.AreEqual("folderToCopy", items4[0].Name);
+            var delete = session.DeleteAsync("testSource").Result;
+            var delete2 = session.DeleteAsync("testDestination").Result;
+
+            Assert.IsTrue(created);
+            Assert.IsTrue(created2);
+            Assert.IsTrue(created3);
+            Assert.IsNotNull(items);
+            Assert.IsNotNull(copy);
+            Assert.IsTrue(delete);
+            Assert.IsTrue(delete2);
+        }
+
+        #endregion Copy
+
+        #region Move
+
+        [TestMethod]
+        public void UIT_WebDavSession_Move()
+        {
+            var session = CreateWebDavSession();
+            session.BaseUri = new Uri(webDavRootFolder);
+            var created = session.CreateDirectoryAsync("testSource").Result;
+            var created2 = session.CreateDirectoryAsync("testSource/folderToMove").Result;
+            var created3 = session.CreateDirectoryAsync("testDestination").Result;
+            var items = session.ListAsync("/testSource").Result;
+            Assert.AreEqual(items.Count, 1);
+            var move = session.MoveAsync("testSource/folderToMove", "testDestination/folderToMove", true).Result;
+            var items2 = session.ListAsync("/testSource").Result;
+            Assert.AreEqual(items2.Count, 0);
+            var items3 = session.ListAsync("/testDestination").Result;
+            Assert.AreEqual(items3.Count, 1);
+            Assert.AreEqual("folderToMove", items3[0].Name);
+            var delete = session.DeleteAsync("testSource").Result;
+            var delete2 = session.DeleteAsync("testDestination").Result;
+
+            Assert.IsTrue(created);
+            Assert.IsTrue(created2);
+            Assert.IsTrue(created3);
+            Assert.IsNotNull(items);
+            Assert.IsNotNull(move);
+            Assert.IsTrue(delete);
+            Assert.IsTrue(delete2);
+        }
+
+        [TestMethod]
+        public void UIT_WebDavSession_Move_ByWebDavSessionItem()
+        {
+            var session = CreateWebDavSession();
+            session.BaseUri = new Uri(webDavRootFolder);
+            var created = session.CreateDirectoryAsync("testSource").Result;
+            var created2 = session.CreateDirectoryAsync("testSource/folderToMove").Result;
+            var created3 = session.CreateDirectoryAsync("testDestination").Result;
+            var items = session.ListAsync("/testSource").Result;
+            Assert.AreEqual(items.Count, 1);
+            var items2 = session.ListAsync("/testSource").Result;
+            var move = session.MoveAsync(items2[0], "testDestination/folderToMove", true).Result;
+            var items3 = session.ListAsync("/testSource").Result;
+            Assert.AreEqual(items3.Count, 0);
+            var items4 = session.ListAsync("/testDestination").Result;
+            Assert.AreEqual(items4.Count, 1);
+            Assert.AreEqual("folderToMove", items4[0].Name);
+            var delete = session.DeleteAsync("testSource").Result;
+            var delete2 = session.DeleteAsync("testDestination").Result;
+
+            Assert.IsTrue(created);
+            Assert.IsTrue(created2);
+            Assert.IsTrue(created3);
+            Assert.IsNotNull(items);
+            Assert.IsNotNull(move);
+            Assert.IsTrue(delete);
+            Assert.IsTrue(delete2);
+        }
+
+        #endregion Move
+
+        #region Lock
+
+        [TestMethod]
         public void UIT_WebDavSession_Lock()
         {
             var session = CreateWebDavSession();
@@ -157,6 +308,10 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             Assert.IsTrue(deleted);
             Assert.IsTrue(unlocked);
         }
+
+        #endregion Lock
+
+        #region Delete
 
         [TestMethod]
         public void UIT_WebDavSession_DeleteFileFolder_WithBaseUri()
@@ -177,6 +332,28 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             Assert.IsTrue(deletedFile);
             Assert.IsTrue(deletedFolder);
         }
+
+        [TestMethod]
+        public void UIT_WebDavSession_DeleteFileFolder_ByWedDavSessionItem()
+        {
+            var session = CreateWebDavSession();
+            session.BaseUrl = webDavRootFolder;
+            var testFile = TestFolder + "/" + TestFile;
+            var createdFolder = session.CreateDirectoryAsync(TestFolder).Result;
+            var stream = File.OpenRead(TestFile);
+            var createdFile = session.UploadFileAsync(testFile, stream).Result;
+            stream.Dispose();
+
+            var deletedFile = session.DeleteAsync(testFile).Result;
+            var deletedFolder = session.DeleteAsync(TestFolder).Result;
+
+            Assert.IsTrue(createdFolder);
+            Assert.IsTrue(createdFile);
+            Assert.IsTrue(deletedFile);
+            Assert.IsTrue(deletedFolder);
+        }
+
+        #endregion Delete
 
         [TestMethod]
         public void UIT_WebDavSession_CreateAndHead_WithFileUnknown()

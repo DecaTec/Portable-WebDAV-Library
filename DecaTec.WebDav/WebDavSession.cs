@@ -226,6 +226,17 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Copies a resource specified as <see cref="WebDavSessionItem"/> to the destination URL (without overwriting).
+        /// </summary>
+        /// <param name="itemToCopy">The <see cref="WebDavSessionItem"/> to copy.</param>
+        /// <param name="destinationUrl">The destination URL.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> CopyAsync(WebDavSessionItem itemToCopy, string destinationUrl)
+        {
+            return await CopyAsync(itemToCopy, UriHelper.CreateUriFromUrl(destinationUrl), false);
+        }
+
+        /// <summary>
         /// Copies a resource from the source <see cref="Uri"/> to the destination <see cref="Uri"/> (without overwriting).
         /// </summary>
         /// <param name="sourceUri">The source <see cref="Uri"/>.</param>
@@ -234,6 +245,17 @@ namespace DecaTec.WebDav
         public async Task<bool> CopyAsync(Uri sourceUri, Uri destinationUri)
         {
             return await CopyAsync(sourceUri, destinationUri, false);
+        }
+
+        /// <summary>
+        /// Copies a resource specified as <see cref="WebDavSessionItem"/> to the destination URL (without overwriting).
+        /// </summary>
+        /// <param name="itemToCopy">The <see cref="WebDavSessionItem"/> to copy.</param>
+        /// <param name="destinationUri">The destination <see cref="Uri"/>.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> CopyAsync(WebDavSessionItem itemToCopy, Uri destinationUri)
+        {
+            return await CopyAsync(itemToCopy, destinationUri, false);
         }
 
         /// <summary>
@@ -246,6 +268,30 @@ namespace DecaTec.WebDav
         public async Task<bool> CopyAsync(string sourceUrl, string destinationUrl, bool overwrite)
         {
             return await CopyAsync(UriHelper.CreateUriFromUrl(sourceUrl), UriHelper.CreateUriFromUrl(destinationUrl), overwrite);
+        }
+
+        /// <summary>
+        /// Copies a resource specified as <see cref="WebDavSessionItem"/> to the destination URL.
+        /// </summary>
+        /// <param name="itemToCopy">The <see cref="WebDavSessionItem"/> to copy.</param>
+        /// <param name="destinationUrl">The destination URL.</param>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> CopyAsync(WebDavSessionItem itemToCopy, string destinationUrl, bool overwrite)
+        {
+            return await CopyAsync(itemToCopy, UriHelper.CreateUriFromUrl(destinationUrl), overwrite);
+        }
+
+        /// <summary>
+        /// Copies a resource specified as <see cref="WebDavSessionItem"/> to the destination <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="itemToCopy">The <see cref="WebDavSessionItem"/> to copy.</param>
+        /// <param name="destinationUri">The destination <see cref="Uri"/>.</param>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> CopyAsync(WebDavSessionItem itemToCopy, Uri destinationUri, bool overwrite)
+        {
+            return await CopyAsync(UriHelper.CombineUri(this.BaseUri, itemToCopy.Uri, true), destinationUri, overwrite);
         }
 
         /// <summary>
@@ -306,6 +352,16 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Deletes a directory or file specified by a <see cref="WebDavSessionItem"/>.
+        /// </summary>
+        /// <param name="itemToDelete">The <see cref="WebDavSessionItem"/> to delete.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> DeleteAsync(WebDavSessionItem itemToDelete)
+        {
+            return await DeleteAsync(UriHelper.CombineUri(this.BaseUri, itemToDelete.Uri, true));
+        }
+
+        /// <summary>
         /// Deletes a directory or file at the <see cref="Uri"/> specified.
         /// </summary>
         /// <param name="uri">The <see cref="Uri"/> of the directory or file to delete.</param>
@@ -345,6 +401,17 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        ///  Downloads a file from specified by a <see cref="WebDavSessionItem"/>.
+        /// </summary>
+        /// <param name="itemToDownload">The <see cref="WebDavSessionItem"/> to download.</param>
+        /// <param name="localStream">The <see cref="Stream"/> to save the file to.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> DownloadFileAsync(WebDavSessionItem itemToDownload, Stream localStream)
+        {
+            return await DownloadFileAsync(itemToDownload, localStream, CancellationToken.None);
+        }
+
+        /// <summary>
         ///  Downloads a file from the URL specified.
         /// </summary>
         /// <param name="url">The URL of the file to download.</param>
@@ -354,6 +421,18 @@ namespace DecaTec.WebDav
         public async Task<bool> DownloadFileAsync(string url, Stream localStream, CancellationToken ct)
         {
             return await DownloadFileAsync(UriHelper.CreateUriFromUrl(url), localStream, ct);
+        }
+
+        /// <summary>
+        ///  Downloads a file from specified by a <see cref="WebDavSessionItem"/>.
+        /// </summary>
+        /// <param name="itemToDownload">The <see cref="WebDavSessionItem"/> to download.</param>
+        /// <param name="localStream">The <see cref="Stream"/> to save the file to.</param>
+        /// <param name="ct">The <see cref="CancellationToken"/> to use.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> DownloadFileAsync(WebDavSessionItem itemToDownload, Stream localStream, CancellationToken ct)
+        {
+            return await DownloadFileAsync(UriHelper.CombineUri(this.BaseUri, itemToDownload.Uri, true), localStream, ct);
         }
 
         /// <summary>
@@ -474,7 +553,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <remarks>This method uses a so called 'allprop'. A server should return all known properties to the server.
         /// If not all of the expected properties are return by the server, use an overload of this method specifying a <see cref="PropFind"/> explicitly.</remarks>
-        public async Task<IList<WebDavSessionListItem>> ListAsync(Uri uri)
+        public async Task<IList<WebDavSessionItem>> ListAsync(Uri uri)
         {
             return await ListAsync(uri, PropFind.CreatePropFindAllProp());
         }
@@ -486,9 +565,21 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <remarks>This method uses a so called 'allprop'. A server should return all known properties to the server.
         /// If not all of the expected properties are return by the server, use an overload of this method specifying a <see cref="PropFind"/> explicitly.</remarks>
-        public async Task<IList<WebDavSessionListItem>> ListAsync(string url)
+        public async Task<IList<WebDavSessionItem>> ListAsync(string url)
         {
             return await ListAsync(UriHelper.CreateUriFromUrl(url));
+        }
+
+        /// <summary>
+        /// Retrieves a list of files and directories of the directory from the <see cref="WebDavSessionItem"/> specified
+        /// </summary>
+        /// <param name="item">The <see cref="WebDavSessionItem"/> which content should be listed.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <remarks>This method uses a so called 'allprop'. A server should return all known properties to the server.
+        /// If not all of the expected properties are return by the server, use an overload of this method specifying a <see cref="PropFind"/> explicitly.</remarks>
+        public async Task<IList<WebDavSessionItem>> ListAsync(WebDavSessionItem item)
+        {
+            return await ListAsync(UriHelper.CombineUri(this.BaseUri, item.Uri, true));
         }
 
         /// <summary>
@@ -497,9 +588,20 @@ namespace DecaTec.WebDav
         /// <param name="url">The URL of the directory which content should be listed. Has to be an absolute URL (including the base URL) or a relative URL (relative to base URL).</param>
         /// <param name="propFind">The <see cref="PropFind"/> to use. Different PropFind  types can be created using the static methods of the class <see cref="PropFind"/>.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<IList<WebDavSessionListItem>> ListAsync(string url, PropFind propFind)
+        public async Task<IList<WebDavSessionItem>> ListAsync(string url, PropFind propFind)
         {
             return await ListAsync(UriHelper.CreateUriFromUrl(url), propFind);
+        }
+
+        /// <summary>
+        /// Retrieves a list of files and directories of the directory from the <see cref="WebDavSessionItem"/> specified using the <see cref="PropFind"/> specified.
+        /// </summary>
+        /// <param name="item">The <see cref="WebDavSessionItem"/> which content should be listed. Has to be an absolute URI (including the base URI) or a relative URI (relative to base URI).</param>
+        /// <param name="propFind">The <see cref="PropFind"/> to use. Different PropFind  types can be created using the static methods of the class <see cref="PropFind"/>.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<IList<WebDavSessionItem>> ListAsync(WebDavSessionItem item, PropFind propFind)
+        {
+            return await ListAsync(UriHelper.CombineUri(this.BaseUri, item.Uri, true), propFind);
         }
 
         /// <summary>
@@ -508,7 +610,7 @@ namespace DecaTec.WebDav
         /// <param name="uri">The <see cref="Uri"/> of the directory which content should be listed. Has to be an absolute URI (including the base URI) or a relative URI (relative to base URI).</param>
         /// <param name="propFind">The <see cref="PropFind"/> to use. Different PropFind  types can be created using the static methods of the class <see cref="PropFind"/>.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<IList<WebDavSessionListItem>> ListAsync(Uri uri, PropFind propFind)
+        public async Task<IList<WebDavSessionItem>> ListAsync(Uri uri, PropFind propFind)
         {
             if (propFind == null)
                 throw new ArgumentException("Argument propFind must not be null.");
@@ -524,11 +626,35 @@ namespace DecaTec.WebDav
 
             var multistatus = await WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content);
 
-            var itemList = new List<WebDavSessionListItem>();
+            var itemList = new List<WebDavSessionItem>();
 
             foreach (var responseItem in multistatus.Response)
             {
-                var webDavSessionItem = new WebDavSessionListItem();
+                Uri webDavSessionItemUri = null;
+                string webDavSessionItemName = string.Empty;
+                DateTime? webDavSessionItemCreationDate = null;
+                string webDavSessionItemContentLanguage = string.Empty;
+                long? webDavSessionItemContentLength = null;
+                string webDavSessionItemContentType = string.Empty;
+                string webDavSessionItemETag = string.Empty;
+                DateTime? webDavSessionItemLastModified = null;
+                long? webDavSessionItemQuotaAvailableBytes = null;
+                long? webDavSessionItemQuotaUsedBytes = null;
+                long? webDavSessionItemChildCount = null;
+                string webDavSessionItemDefaultDocument = string.Empty;
+                string webDavSessionItemId = string.Empty;
+                bool? webDavSessionItemIsStructuredDocument = null;
+                bool? webDavSessionItemHasSubDirectories = null;
+                bool? webDavSessionItemNoSubDirectoriesAllowed = null;
+                long? webDavSessionItemFileCount = null;
+                bool? webDavSessionItemIsReserved = null;
+                long? webDavSessionItemVisibleFiles = null;
+                string webDavSessionItemContentClass = string.Empty;
+                bool? webDavSessionItemIsReadonly = null;
+                bool? webDavSessionItemIsRoot = null;
+                DateTime? webDavSessionItemLastAccessed = null;
+                string webDavSessionItemParentName = string.Empty;
+                bool? webDavSessionItemIsFolder = null;
 
                 Uri href = null;
 
@@ -538,7 +664,7 @@ namespace DecaTec.WebDav
                     {
                         var fullQualifiedUri = UriHelper.CombineUri(uri, href, true);
                         fullQualifiedUri = UriHelper.SetPort(fullQualifiedUri, port);
-                        webDavSessionItem.Uri = fullQualifiedUri;
+                        webDavSessionItemUri = fullQualifiedUri;
                     }
                 }
 
@@ -560,40 +686,40 @@ namespace DecaTec.WebDav
                     if (prop.IsHidden ?? false)
                         continue;
 
-                    webDavSessionItem.CreationDate = prop.CreationDate;
-                    webDavSessionItem.ContentLanguage = prop.GetContentLanguage;
-                    webDavSessionItem.ContentLength = prop.GetContentLength;
-                    webDavSessionItem.ContentType = prop.GetContentType;
-                    webDavSessionItem.ETag = prop.GetEtag;
-                    webDavSessionItem.LastModified = prop.GetLastModified;
+                    webDavSessionItemCreationDate = prop.CreationDate;
+                    webDavSessionItemContentLanguage = prop.GetContentLanguage;
+                    webDavSessionItemContentLength = prop.GetContentLength;
+                    webDavSessionItemContentType = prop.GetContentType;
+                    webDavSessionItemETag = prop.GetEtag;
+                    webDavSessionItemLastModified = prop.GetLastModified;
 
                     // RFC4331
-                    webDavSessionItem.QuotaAvailableBytes = prop.QuotaAvailableBytes;
-                    webDavSessionItem.QuotaUsedBytes = prop.QuotaUsedBytes;
+                    webDavSessionItemQuotaAvailableBytes = prop.QuotaAvailableBytes;
+                    webDavSessionItemQuotaUsedBytes = prop.QuotaUsedBytes;
 
                     // Additional WebDAV Collection Properties
-                    webDavSessionItem.ChildCount = prop.ChildCount;
-                    webDavSessionItem.DefaultDocument = prop.DefaultDocument;
-                    webDavSessionItem.Id = prop.Id;
-                    webDavSessionItem.IsStructuredDocument = prop.IsStructuredDocument;
-                    webDavSessionItem.HasSubDirectories = prop.HasSubs;
-                    webDavSessionItem.NoSubDirectoriesAllowed = prop.NoSubs;
-                    webDavSessionItem.FileCount = prop.ObjectCount;
-                    webDavSessionItem.IsReserved = prop.Reserved;
-                    webDavSessionItem.VisibleFiles = prop.VisibleCount;
+                    webDavSessionItemChildCount = prop.ChildCount;
+                    webDavSessionItemDefaultDocument = prop.DefaultDocument;
+                    webDavSessionItemId = prop.Id;
+                    webDavSessionItemIsStructuredDocument = prop.IsStructuredDocument;
+                    webDavSessionItemHasSubDirectories = prop.HasSubs;
+                    webDavSessionItemNoSubDirectoriesAllowed = prop.NoSubs;
+                    webDavSessionItemFileCount = prop.ObjectCount;
+                    webDavSessionItemIsReserved = prop.Reserved;
+                    webDavSessionItemVisibleFiles = prop.VisibleCount;
 
                     // IIS specific properties
-                    webDavSessionItem.ContentClass = prop.ContentClass;
-                    webDavSessionItem.IsReadonly = prop.IsReadonly;
-                    webDavSessionItem.IsReadonly = prop.IsRoot;
-                    webDavSessionItem.LastAccessed = prop.LastAccessed;
-                    webDavSessionItem.ParentName = prop.ParentName;
+                    webDavSessionItemContentClass = prop.ContentClass;
+                    webDavSessionItemIsReadonly = prop.IsReadonly;
+                    webDavSessionItemIsRoot = prop.IsRoot;
+                    webDavSessionItemLastAccessed = prop.LastAccessed;
+                    webDavSessionItemParentName = prop.ParentName;
 
                     // Make sure that the IsDirectory property is set if it's a directory.
                     if (prop.IsFolder.HasValue && prop.IsFolder.Value)
-                        webDavSessionItem.IsFolder = prop.IsFolder.Value;
+                        webDavSessionItemIsFolder = prop.IsFolder.Value;
                     else if (prop.ResourceType != null && prop.ResourceType.Collection != null)
-                        webDavSessionItem.IsFolder = true;
+                        webDavSessionItemIsFolder = true;
 
                     // Make sure that the name property is set.
                     // Naming priority:
@@ -601,14 +727,20 @@ namespace DecaTec.WebDav
                     // 2. name
                     // 3. (part of) URI.
                     if (!TextHelper.StringContainsRawUnicode(prop.DisplayName))
-                        webDavSessionItem.Name = prop.DisplayName;
+                        webDavSessionItemName = prop.DisplayName;
 
-                    if (string.IsNullOrEmpty(webDavSessionItem.Name))
-                        webDavSessionItem.Name = prop.Name;
+                    if (string.IsNullOrEmpty(webDavSessionItemName))
+                        webDavSessionItemName = prop.Name;
 
-                    if (string.IsNullOrEmpty(webDavSessionItem.Name) && href != null)
-                        webDavSessionItem.Name = WebUtility.UrlDecode(href.ToString().Split('/').Last(x => !string.IsNullOrEmpty(x)));
+                    if (string.IsNullOrEmpty(webDavSessionItemName) && href != null)
+                        webDavSessionItemName = WebUtility.UrlDecode(href.ToString().Split('/').Last(x => !string.IsNullOrEmpty(x)));
                 }
+
+                var webDavSessionItem = new WebDavSessionItem(webDavSessionItemUri, webDavSessionItemCreationDate, webDavSessionItemName, webDavSessionItemContentLanguage, webDavSessionItemContentLength,
+                    webDavSessionItemContentType, webDavSessionItemETag, webDavSessionItemLastModified, webDavSessionItemQuotaAvailableBytes, webDavSessionItemQuotaUsedBytes, webDavSessionItemChildCount,
+                    webDavSessionItemDefaultDocument, webDavSessionItemId, webDavSessionItemIsFolder, webDavSessionItemIsStructuredDocument, webDavSessionItemHasSubDirectories, webDavSessionItemNoSubDirectoriesAllowed,
+                    webDavSessionItemFileCount, webDavSessionItemIsReserved, webDavSessionItemVisibleFiles, webDavSessionItemContentClass, webDavSessionItemIsReadonly, webDavSessionItemIsRoot,
+                    webDavSessionItemLastAccessed, webDavSessionItemName, webDavSessionItemParentName);
 
                 itemList.Add(webDavSessionItem);
             }
@@ -628,6 +760,16 @@ namespace DecaTec.WebDav
         public async Task<bool> LockAsync(string url)
         {
             return await LockAsync(UriHelper.CreateUriFromUrl(url));
+        }
+
+        /// <summary>
+        ///  Locks a file or directory specified as <see cref="WebDavSessionItem"/>.
+        /// </summary>
+        /// <param name="itemToLock">The <see cref="WebDavSessionItem"/> to lock.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> LockAsync(WebDavSessionItem itemToLock)
+        {
+            return await LockAsync(UriHelper.CombineUri(this.BaseUri, itemToLock.Uri, true));
         }
 
         /// <summary>
@@ -699,6 +841,17 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Moves a file or directory specified by a <see cref="WebDavSessionItem"/> to another URI (without overwrite).
+        /// </summary>
+        /// <param name="itemToMove">The <see cref="WebDavSessionItem"/> to move.</param>
+        /// <param name="destinationUrl">The URL of the destination.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> MoveAsync(WebDavSessionItem itemToMove, string destinationUrl)
+        {
+            return await MoveAsync(itemToMove, destinationUrl);
+        }
+
+        /// <summary>
         /// Moves a file or directory with the specified URI to another URI (without overwrite).
         /// </summary>
         /// <param name="sourceUri">The URI of the source.</param>
@@ -707,6 +860,17 @@ namespace DecaTec.WebDav
         public async Task<bool> MoveAsync(Uri sourceUri, Uri destinationUri)
         {
             return await MoveAsync(sourceUri, destinationUri, false);
+        }
+
+        /// <summary>
+        /// Moves a file or directory specified by a <see cref="WebDavSessionItem"/> to another URI (without overwrite).
+        /// </summary>
+        /// <param name="itemToMove">The <see cref="WebDavSessionItem"/> to move.</param>
+        /// <param name="destinationUri">The URL of the destination.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> MoveAsync(WebDavSessionItem itemToMove, Uri destinationUri)
+        {
+            return await MoveAsync(itemToMove, destinationUri, false);
         }
 
         /// <summary>
@@ -719,6 +883,30 @@ namespace DecaTec.WebDav
         public async Task<bool> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite)
         {
             return await MoveAsync(UriHelper.CreateUriFromUrl(sourceUrl), UriHelper.CreateUriFromUrl(destinationUrl), overwrite);
+        }
+
+        /// <summary>
+        /// Moves a file or directory specified by a <see cref="WebDavSessionItem"/> to another URI.
+        /// </summary>
+        /// <param name="itemToMove">The <see cref="WebDavSessionItem"/> to move.</param>
+        /// <param name="destinationUrl">The URL of the destination.</param>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> MoveAsync(WebDavSessionItem itemToMove, string destinationUrl, bool overwrite)
+        {
+            return await MoveAsync(itemToMove, UriHelper.CreateUriFromUrl(destinationUrl), overwrite);
+        }
+
+        /// <summary>
+        /// Moves a file or directory specified by a <see cref="WebDavSessionItem"/> to another <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="itemToMove">The <see cref="WebDavSessionItem"/> to move.</param>
+        /// <param name="destinationUri">The <see cref="Uri"/> of the destination.</param>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> MoveAsync(WebDavSessionItem itemToMove, Uri destinationUri, bool overwrite)
+        {
+            return await MoveAsync(UriHelper.CombineUri(this.BaseUri, itemToMove.Uri, true), destinationUri, overwrite);
         }
 
         /// <summary>
@@ -754,6 +942,20 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Uploads a file to the folder specified by a <see cref="WebDavSessionItem"/>.
+        /// </summary>
+        /// <param name="folderToUploadTo">The folder as <see cref="WebDavSessionItem"/> to upload to.</param>
+        /// <param name="localStream">The <see cref="Stream"/> containing the file to upload.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> UploadFileAsync(WebDavSessionItem folderToUploadTo, Stream localStream)
+        {
+            if (!(folderToUploadTo.IsFolder ?? false))
+                throw new WebDavException("The upload target is no folder.");
+
+            return await UploadFileAsync(UriHelper.CombineUri(this.BaseUri, folderToUploadTo.Uri, true), localStream);
+        }
+
+        /// <summary>
         /// Uploads a file to the <see cref="Uri"/> specified.
         /// </summary>
         /// <param name="uri">The <see cref="Uri"/> of the file to upload.</param>
@@ -782,6 +984,32 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Uploads a file (with progress) to the <see cref="Uri"/> specified.
+        /// </summary>
+        /// <param name="uri">The <see cref="Uri"/> of the file to upload.</param>
+        /// <param name="stream">The <see cref="Stream"/> containing the file to upload.</param>
+        /// <param name="contentType">The content type of the file to upload.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> UploadFileWithProgressAsync(Uri uri, Stream stream, string contentType, IProgress<WebDavProgress> progress)
+        {
+            return await UploadFileWithProgressAsync(uri, stream, contentType, progress, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Uploads a file (with progress) to the folder specified by a <see cref="WebDavSessionItem"/>.
+        /// </summary>
+        /// <param name="folderToUploadTo">The folder as <see cref="WebDavSessionItem"/> to upload to.</param>
+        /// <param name="stream">The <see cref="Stream"/> containing the file to upload.</param>
+        /// <param name="contentType">The content type of the file to upload.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> UploadFileWithProgressAsync(WebDavSessionItem folderToUploadTo, Stream stream, string contentType, IProgress<WebDavProgress> progress)
+        {
+            return await UploadFileWithProgressAsync(folderToUploadTo, stream, contentType, progress, CancellationToken.None);
+        }
+
+        /// <summary>
         /// Uploads a file (with progress) to the URL specified.
         /// </summary>
         /// <param name="url">The URL of the file to upload.</param>
@@ -796,16 +1024,20 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Uploads a file (with progress) to the <see cref="Uri"/> specified.
+        /// Uploads a file (with progress) to the folder specified by a <see cref="WebDavSessionItem"/>.
         /// </summary>
-        /// <param name="uri">The <see cref="Uri"/> of the file to upload.</param>
+        /// <param name="folderToUploadTo">The folder as <see cref="WebDavSessionItem"/> to upload to.</param>
         /// <param name="stream">The <see cref="Stream"/> containing the file to upload.</param>
         /// <param name="contentType">The content type of the file to upload.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to use.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<bool> UploadFileWithProgressAsync(Uri uri, Stream stream, string contentType, IProgress<WebDavProgress> progress)
+        public async Task<bool> UploadFileWithProgressAsync(WebDavSessionItem folderToUploadTo, Stream stream, string contentType, IProgress<WebDavProgress> progress, CancellationToken cancellationToken)
         {
-            return await UploadFileWithProgressAsync(uri, stream, contentType, progress, CancellationToken.None);
+            if (!(folderToUploadTo.IsFolder ?? false))
+                throw new WebDavException("The upload target is no folder.");
+
+            return await UploadFileWithProgressAsync(UriHelper.CombineUri(this.BaseUri, folderToUploadTo.Uri, true), stream, contentType, progress, cancellationToken);
         }
 
         /// <summary>
@@ -837,6 +1069,16 @@ namespace DecaTec.WebDav
         public async Task<bool> UnlockAsync(string url)
         {
             return await UnlockAsync(UriHelper.CreateUriFromUrl(url));
+        }
+
+        /// <summary>
+        /// Unlocks a file or directory specified by a <see cref="WebDavSessionItem"/>. 
+        /// </summary>
+        /// <param name="itemToUnlock">The <see cref="WebDavSessionItem"/> to unlock.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> UnlockAsync(WebDavSessionItem itemToUnlock)
+        {
+            return await UnlockAsync(UriHelper.CombineUri(this.BaseUri, itemToUnlock.Uri, true));
         }
 
         /// <summary>

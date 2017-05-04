@@ -121,8 +121,12 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             var mkColResponseSuccess = response.IsSuccessStatusCode;
 
             // Put file.
-            var content = new StreamContent(File.OpenRead(TestFile));
-            response = client.PutAsync(testFile, content).Result;
+            using (var fileStream = File.OpenRead(TestFile))
+            {
+                var content = new StreamContent(fileStream);
+                response = client.PutAsync(testFile, content).Result;
+            }
+
             responseContentString = response.Content.ReadAsStringAsync().Result;
             DebugWriteResponseContent(responseContentString);
             var putResponseSuccess = response.IsSuccessStatusCode;
@@ -272,13 +276,17 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             var testFile = UriHelper.CombineUrl(webDavRootFolder, TestFile, true);
+            var putResponseSuccess = false;
 
             // Put file.
-            var content = new StreamContent(File.OpenRead(TestFile));
-            var response = client.PutAsync(testFile, content).Result;
-            var responseContentString = response.Content.ReadAsStringAsync().Result;
-            DebugWriteResponseContent(responseContentString);
-            var putResponseSuccess = response.IsSuccessStatusCode;            
+            using (var fileStream = File.OpenRead(TestFile))
+            {
+                var content = new StreamContent(fileStream);
+                var responsePut = client.PutAsync(testFile, content).Result;
+                var responsePutContentString = responsePut.Content.ReadAsStringAsync().Result;
+                DebugWriteResponseContent(responsePutContentString);
+                putResponseSuccess = responsePut.IsSuccessStatusCode;
+            }
 
             // PropPatch (set).
             var propertyUpdate = new PropertyUpdate();
@@ -291,8 +299,8 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
             set.Prop = prop;
             propertyUpdate.Items = new object[] {set};
-            response = client.PropPatchAsync(testFile, propertyUpdate).Result;
-            responseContentString = response.Content.ReadAsStringAsync().Result;
+            var response = client.PropPatchAsync(testFile, propertyUpdate).Result;
+            var responseContentString = response.Content.ReadAsStringAsync().Result;
             DebugWriteResponseContent(responseContentString);
             var multistatusPropPatchSet = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
             var propPatchResponseSuccess = response.IsSuccessStatusCode;            
@@ -394,10 +402,15 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         {
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             var testFile = UriHelper.CombineUrl(webDavRootFolder, TestFile, true);
+            WebDavResponseMessage response = null;
 
             // Put file.
-            var content = new StreamContent(File.OpenRead(TestFile));
-            var response = client.PutAsync(testFile, content).Result;
+            using (var fileStream = File.OpenRead(TestFile))
+            {
+                var content = new StreamContent(fileStream);
+                response = client.PutAsync(testFile, content).Result;
+            }
+
             var responseContentString = response.Content.ReadAsStringAsync().Result;
             DebugWriteResponseContent(responseContentString);
             var putResponseSuccess = response.IsSuccessStatusCode;
@@ -419,6 +432,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             responseContentString = response.Content.ReadAsStringAsync().Result;
             DebugWriteResponseContent(responseContentString);
             var deleteResponseSuccess = response.IsSuccessStatusCode;
+                
 
             Assert.IsTrue(putResponseSuccess);
             Assert.IsTrue(headResponseSuccess);
@@ -434,9 +448,15 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             var client = CreateWebDavClientWithDebugHttpMessageHandler();
             var testFile = UriHelper.CombineUrl(webDavRootFolder, TestFileUnknownExtension, true);
 
+            WebDavResponseMessage response = null;
+
             // Put file.
-            var content = new StreamContent(File.OpenRead(TestFileUnknownExtension));
-            var response = client.PutAsync(testFile, content).Result;
+            using (var fileStream = File.OpenRead(TestFileUnknownExtension))
+            {
+                var content = new StreamContent(fileStream);
+                response = client.PutAsync(testFile, content).Result;
+            }
+
             var responseContentString = response.Content.ReadAsStringAsync().Result;
             DebugWriteResponseContent(responseContentString);
             var putResponseSuccess = response.IsSuccessStatusCode;
@@ -482,11 +502,15 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             var response = client.MkcolAsync(testCollectionSource).Result;
             var responseContentString = response.Content.ReadAsStringAsync().Result;
             DebugWriteResponseContent(responseContentString);
-            var mkColResponseSuccess = response.IsSuccessStatusCode;            
+            var mkColResponseSuccess = response.IsSuccessStatusCode;
 
             // Put file.
-            var content = new StreamContent(File.OpenRead(TestFile));
-            response = client.PutAsync(testFile, content).Result;
+            using (var fileStream = File.OpenRead(TestFile))
+            {
+                var content = new StreamContent(fileStream);
+                response = client.PutAsync(testFile, content).Result;
+            }
+
             responseContentString = response.Content.ReadAsStringAsync().Result;
             DebugWriteResponseContent(responseContentString);
             var putResponseSuccess = response.IsSuccessStatusCode;            
@@ -593,12 +617,16 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             DebugWriteResponseContent(responseContentString);
             var lockResponseSuccess = response.IsSuccessStatusCode;            
 
-            LockToken lockToken = WebDavHelper.GetLockTokenFromWebDavResponseMessage(response);            
+            LockToken lockToken = WebDavHelper.GetLockTokenFromWebDavResponseMessage(response);
 
             // Put file (without lock token) -> this should fail.
-            var content = new StreamContent(File.OpenRead(TestFile));
-            var requestUrl = UriHelper.CombineUrl(webDavRootFolder, TestFile, true);
-            response = client.PutAsync(requestUrl, content).Result;
+            using (var fileStream = File.OpenRead(TestFile))
+            {
+                var content = new StreamContent(fileStream);
+                var requestUrl = UriHelper.CombineUrl(webDavRootFolder, TestFile, true);
+                response = client.PutAsync(requestUrl, content).Result;
+            }
+
             responseContentString = response.Content.ReadAsStringAsync().Result;
             DebugWriteResponseContent(responseContentString);
             var putResponseSuccess = response.IsSuccessStatusCode;
@@ -630,12 +658,16 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             var responseContentString = response.Content.ReadAsStringAsync().Result;
             DebugWriteResponseContent(responseContentString);
             var lockResponseSuccess = response.IsSuccessStatusCode; 
-            LockToken lockToken = WebDavHelper.GetLockTokenFromWebDavResponseMessage(response);            
+            LockToken lockToken = WebDavHelper.GetLockTokenFromWebDavResponseMessage(response);
+            var requestUrl = UriHelper.CombineUrl(webDavRootFolder, TestFile, true);
 
             // Put file.
-            var content = new StreamContent(File.OpenRead(TestFile));
-            var requestUrl = UriHelper.CombineUrl(webDavRootFolder, TestFile, true);
-            response = client.PutAsync(requestUrl, content, lockToken).Result;
+            using (var fileStream = File.OpenRead(TestFile))
+            {
+                var content = new StreamContent(fileStream);               
+                response = client.PutAsync(requestUrl, content, lockToken).Result;
+            }
+
             responseContentString = response.Content.ReadAsStringAsync().Result;
             DebugWriteResponseContent(responseContentString);
             var putResponseSuccess = response.IsSuccessStatusCode;            

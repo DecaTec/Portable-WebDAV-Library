@@ -3,11 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.1</TargetFramework>
     <PackageId>PortableWebDavLibrary</PackageId>
-    <Version>0.9.0.0</Version>
+    <Version>1.0.0.0</Version>
     <Authors>DecaTec</Authors>
     <Company>DecaTec</Company>
     <Product>PortableWebDavLibrary</Product>
-    <Description>The Portable WebDAV Library is a strongly typed, async WebDAV client library which is fully RFC 4918/RFC 4331/"Additional WebDAV Collection Properties" compliant.  It is implemented as .NETStandard 1.1 library in oder to be used on any platform supporting .NETStandard 1.1.</Description>
+    <Description>The Portable WebDAV Library is a strongly typed, async WebDAV client library which is fully compliant to RFC 4918, RFC 4331 and "Additional WebDAV Collection Properties". It is implemented as .NETStandard 1.1 library in oder to be used on any platform supporting .NETStandard 1.1.</Description>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>https://github.com/DecaTec/Portable-WebDAV-Library/raw/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/DecaTec/Portable-WebDAV-Library</PackageProjectUrl>
@@ -16,6 +16,8 @@
     <PackageTags>WebDAV, portable, NETStandard, NETCore, UWP, dotnet, portable-webdav-library, Xamarin, Mono, multiplatform</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageReleaseNotes>Full documentation with changelog is available at https://decatec.de/ext/PortableWebDAVLibrary/Doc</PackageReleaseNotes>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
