@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DecaTec.WebDav.WebDavArtifacts;
+using System;
+using System.Collections.Generic;
 
 namespace DecaTec.WebDav
 {
@@ -9,6 +11,35 @@ namespace DecaTec.WebDav
     /// So, if (strongly typed) properties defined by this class are null, these values may be not supported by the specific WebDAV server.</remarks>
     public class WebDavSessionItem
     {
+        /// <summary>
+        /// Creates a new instance of WebDavSessionitem with the properties specified.
+        /// </summary>
+        /// <param name="uri">The Uri.</param>
+        /// <param name="creationDate">The creation date.</param>
+        /// <param name="displayName">The display name.</param>
+        /// <param name="contentLanguage">The content language.</param>
+        /// <param name="contentLength">The content length.</param>
+        /// <param name="contentType">The content type.</param>
+        /// <param name="eTag">The ETag.</param>
+        /// <param name="lastModified">The last modified date.</param>
+        /// <param name="quotaAvailableBytes">The QuotaAvailableBytes.</param>
+        /// <param name="quotaUsedBytes">The QuotaUsedBytes.</param>
+        /// <param name="childCount">The child count.</param>
+        /// <param name="defaultDocument">The default document.</param>
+        /// <param name="id">The ID.</param>
+        /// <param name="isFolder">The IsFolder.</param>
+        /// <param name="isStructuredDocument">The IsStructuredDocument.</param>
+        /// <param name="hasSubDirectories">The HasSubdirectories.</param>
+        /// <param name="noSubDirectoriesAllowed">The NoSubDirectoriesAllowed.</param>
+        /// <param name="fileCount">The file count.</param>
+        /// <param name="isReserved">The IsReserved.</param>
+        /// <param name="visibleFiles">The visible files count.</param>
+        /// <param name="contentClass">The content class.</param>
+        /// <param name="isReadonly">The IsReadonly.</param>
+        /// <param name="isRoot">The IsRoot.</param>
+        /// <param name="lastAccessed">The last accessed date.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="parentName">The parent name.</param>
         public WebDavSessionItem(Uri uri, DateTime? creationDate, string displayName, string contentLanguage, long? contentLength, string contentType, string eTag, DateTime? lastModified,
             long? quotaAvailableBytes, long? quotaUsedBytes, long? childCount, string defaultDocument, string id, bool? isFolder, bool? isStructuredDocument, bool? hasSubDirectories,
             bool? noSubDirectoriesAllowed, long? fileCount, bool? isReserved, long? visibleFiles, string contentClass, bool? isReadonly, bool? isRoot, DateTime? lastAccessed, string name, string parentName)
@@ -546,7 +577,7 @@ namespace DecaTec.WebDav
             {
                 return this.name;
             }
-            set
+            private set
             {
                 this.name = value;
             }
@@ -571,19 +602,153 @@ namespace DecaTec.WebDav
 
         #endregion IIS specific properties
 
+        #region Internal methods
+
+        internal PropertyUpdate ToPropertyUpdate()
+        {
+            if (!HasChanged)
+                return null;
+
+            var setProp = new Prop();
+            var setRequested = false;
+            var removeRequested = false;
+
+            // If property has changed and is not null/has a value now, it's a set operation.
+            // DateTime values (as string) should have the format of ISO8601.
+            if (this.creationDateChanged && this.CreationDate.HasValue)
+            {
+                setProp.CreationDateString = this.CreationDate.Value.ToString("o");
+                setRequested = true;
+            }
+
+            if (this.displayNameChanged && !string.IsNullOrEmpty(this.DisplayName))
+            {
+                setProp.DisplayName = this.DisplayName;
+                setRequested = true;
+            }
+
+            if (this.contentLanguageChanged && !string.IsNullOrEmpty(this.ContentLanguage))
+            {
+                setProp.GetContentLanguage = this.ContentLanguage;
+                setRequested = true;
+            }
+
+            if (this.contentTypeChanged && !string.IsNullOrEmpty(this.ContentType))
+            {
+                setProp.GetContentType = this.ContentType;
+                setRequested = true;
+            }
+
+            if (this.lastModifiedChanged && this.LastModified.HasValue)
+            {
+                setProp.GetLastModifiedString = this.LastModified.Value.ToString("o");
+                setRequested = true;
+            }
+
+            if (this.defaultDocumentChanged && !string.IsNullOrEmpty(this.DefaultDocument))
+            {
+                setProp.DefaultDocument = this.DefaultDocument;
+                setRequested = true;
+            }
+
+            if (this.isReadonlyChanged && this.IsReadonly.HasValue)
+            {
+                setProp.IsReadonlyString = this.IsReadonly.Value ? "1" : "0";
+                setRequested = true;
+            }
+
+            if (this.lastAccessedChanged && this.lastAccessed.HasValue)
+            {
+                setProp.LastAccessedString = this.LastAccessed.Value.ToString("o");
+                setRequested = true;
+            }
+
+            // If a property has changed and is null/has no value now, it's a remove operation.
+            var removePropertyNames = new List<string>();
+
+            if (this.creationDateChanged && !this.CreationDate.HasValue)
+            {
+                removePropertyNames.Add(PropNameConstants.CreationDate);
+                removeRequested = true;
+            }
+
+            if (this.displayNameChanged && string.IsNullOrEmpty(this.DisplayName))
+            {
+                removePropertyNames.Add(PropNameConstants.DisplayName);
+                removeRequested = true;
+            }
+
+            if (this.contentLanguageChanged && string.IsNullOrEmpty(this.ContentLanguage))
+            {
+                removePropertyNames.Add(PropNameConstants.GetContentLanguage);
+                removeRequested = true;
+            }
+
+            if (this.contentTypeChanged && string.IsNullOrEmpty(this.ContentType))
+            {
+                removePropertyNames.Add(PropNameConstants.GetContentType);
+                removeRequested = true;
+            }
+
+            if (this.lastModifiedChanged && !this.LastModified.HasValue)
+            {
+                removePropertyNames.Add(PropNameConstants.GetLastModified);
+                removeRequested = true;
+            }
+
+            if (this.defaultDocumentChanged && string.IsNullOrEmpty(this.DefaultDocument))
+            {
+                removePropertyNames.Add(PropNameConstants.DefaultDocument);
+                removeRequested = true;
+            }
+
+            if (this.isReadonlyChanged && !this.IsReadonly.HasValue)
+            {
+                removePropertyNames.Add(PropNameConstants.IsReadonly);
+                removeRequested = true;
+            }
+
+            if (this.lastAccessedChanged && !this.lastAccessed.HasValue)
+            {
+                removePropertyNames.Add(PropNameConstants.LastAccessed);
+                removeRequested = true;
+            }
+
+            // Build up PropertyUpdate.
+            var propertyUpdate = new PropertyUpdate();
+            var propertyUpdateItems = new List<object>();
+
+            if (setRequested)
+            {
+                var set = new Set()
+                {
+                    Prop = setProp
+                };
+
+                propertyUpdateItems.Add(set);
+            }
+
+            if (removeRequested)
+            {
+                var remove = new Remove();
+                remove.Prop = Prop.CreatePropWithEmptyProperties(removePropertyNames.ToArray());
+                propertyUpdateItems.Add(remove);
+            }
+
+            propertyUpdate.Items = propertyUpdateItems.ToArray();
+            return propertyUpdate;
+        }
+
+        #endregion Internal methods
+
         #region Private methods
 
-        private bool HasChanged
-        {
-            get
-            {
-                return this.creationDateChanged && this.displayNameChanged && this.contentLanguageChanged &&
-                       this.contentTypeChanged && this.lastModifiedChanged && this.defaultDocumentChanged && 
-                       isReadonlyChanged && this.lastAccessedChanged && this.displayNameChanged;
-            }
-        }
+        private bool HasChanged => this.creationDateChanged || this.displayNameChanged || this.contentLanguageChanged ||
+                                   this.contentTypeChanged || this.lastModifiedChanged || this.defaultDocumentChanged ||
+                                   isReadonlyChanged || this.lastAccessedChanged;
 
         #endregion Private methods
     }
 }
+
 

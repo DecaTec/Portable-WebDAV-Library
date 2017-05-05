@@ -56,62 +56,68 @@ namespace DecaTec.WebDav.UnitTest
         [TestMethod]
         public void UT_WebDavClient_LockAsync_WithDepthOne()
         {
-            var client = CreateWebDavClient(new MockHttpMessageHandler());
-            var lockInfo = new LockInfo();
+            using (var client = CreateWebDavClient(new MockHttpMessageHandler()))
+            {
+                var lockInfo = new LockInfo();
 
-            try
-            {
-                client.LockAsync(WebDavRootFolder, WebDavTimeoutHeaderValue.CreateInfiniteWebDavTimeout(), WebDavDepthHeaderValue.One, lockInfo).Wait();
-            }
-            catch (AggregateException ae)
-            {
-                Assert.AreEqual(ae.InnerException.GetType(), typeof(WebDavException));
+                try
+                {
+                    client.LockAsync(WebDavRootFolder, WebDavTimeoutHeaderValue.CreateInfiniteWebDavTimeout(), WebDavDepthHeaderValue.One, lockInfo).Wait();
+                }
+                catch (AggregateException ae)
+                {
+                    Assert.AreEqual(ae.InnerException.GetType(), typeof(WebDavException));
+                }
             }
         }
 
         [TestMethod]
         public void UT_WebDavClient_RefreshLockAsync_WithoutLockToken()
         {
-            var client = CreateWebDavClient(new MockHttpMessageHandler());
-            var lockInfo = new LockInfo();
+            using (var client = CreateWebDavClient(new MockHttpMessageHandler()))
+            {
+                var lockInfo = new LockInfo();
 
-            try
-            {
-                client.RefreshLockAsync(WebDavRootFolder, WebDavTimeoutHeaderValue.CreateInfiniteWebDavTimeout(), null).Wait();
-            }
-            catch (AggregateException ae)
-            {
-                Assert.AreEqual(ae.InnerException.GetType(), typeof(WebDavException));
+                try
+                {
+                    client.RefreshLockAsync(WebDavRootFolder, WebDavTimeoutHeaderValue.CreateInfiniteWebDavTimeout(), null).Wait();
+                }
+                catch (AggregateException ae)
+                {
+                    Assert.AreEqual(ae.InnerException.GetType(), typeof(WebDavException));
+                }
             }
         }
 
         [TestMethod]
         public void UT_WebDavClient_PropFindAsync_WithoutDepth()
         {
-            var client = CreateWebDavClient(new MockHttpMessageHandler());
-
-            try
+            using (var client = CreateWebDavClient(new MockHttpMessageHandler()))
             {
-                client.PropFindAsync(WebDavRootFolder, null).Wait();
-            }
-            catch (AggregateException ae)
-            {
-                Assert.AreEqual(ae.InnerException.GetType(), typeof(WebDavException));
+                try
+                {
+                    client.PropFindAsync(WebDavRootFolder, null).Wait();
+                }
+                catch (AggregateException ae)
+                {
+                    Assert.AreEqual(ae.InnerException.GetType(), typeof(WebDavException));
+                }
             }
         }
 
         [TestMethod]
         public void UT_WebDavClient_UnLockAsync_WithoutLockToken()
         {
-            var client = CreateWebDavClient(new MockHttpMessageHandler());
-
-            try
+            using (var client = CreateWebDavClient(new MockHttpMessageHandler()))
             {
-                client.UnlockAsync(WebDavRootFolder, null).Wait();
-            }
-            catch (AggregateException ae)
-            {
-                Assert.AreEqual(ae.InnerException.GetType(), typeof(WebDavException));
+                try
+                {
+                    client.UnlockAsync(WebDavRootFolder, null).Wait();
+                }
+                catch (AggregateException ae)
+                {
+                    Assert.AreEqual(ae.InnerException.GetType(), typeof(WebDavException));
+                }
             }
         }
 
@@ -136,10 +142,12 @@ namespace DecaTec.WebDav.UnitTest
 
             mockHandler.When(WebDavMethod.Copy, testFolderSource).WithHeaders(requestHeaders).Respond(HttpStatusCode.Created);
 
-            var client = CreateWebDavClient(mockHandler);
-            var response = client.CopyAsync(testFolderSource, testFolderDestination).Result;
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                var response = client.CopyAsync(testFolderSource, testFolderDestination).Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+            }
         }
 
         #endregion Copy
@@ -154,11 +162,12 @@ namespace DecaTec.WebDav.UnitTest
             var mockHandler = new MockHttpMessageHandler();
             mockHandler.When(HttpMethod.Delete, testFileUrl).Respond(HttpStatusCode.NoContent);
 
-            var client = CreateWebDavClient(mockHandler);
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                var response = client.DeleteAsync(testFileUrl).Result;
 
-            var response = client.DeleteAsync(testFileUrl).Result;
-
-            Assert.IsTrue(response.IsSuccessStatusCode);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+            }
         }
 
         #endregion Delete
@@ -183,24 +192,26 @@ namespace DecaTec.WebDav.UnitTest
             var mockHandler = new MockHttpMessageHandler();
             mockHandler.When(HttpMethod.Get, testFile).Respond(HttpStatusCode.OK, new StringContent(downloadFileContent));
 
-            var client = CreateWebDavClient(mockHandler);
-            WebDavResponseMessage response;
-            string downloadedString;
-
-            using (var stream = new MemoryStream())
+            using (var client = CreateWebDavClient(mockHandler))
             {
-                response = client.DownloadFileWithProgressAsync(testFile, stream, CancellationToken.None, progress).Result;
-                stream.Position = 0;
+                WebDavResponseMessage response;
+                string downloadedString;
 
-                using (StreamReader sr = new StreamReader(stream))
+                using (var stream = new MemoryStream())
                 {
-                    downloadedString = sr.ReadToEnd();
-                }
-            }
+                    response = client.DownloadFileWithProgressAsync(testFile, stream, CancellationToken.None, progress).Result;
+                    stream.Position = 0;
 
-            Assert.AreEqual(downloadFileContent, downloadedString);
-            Assert.IsTrue(progressHandlerIndicator);
-            Assert.IsTrue(response.IsSuccessStatusCode);
+                    using (StreamReader sr = new StreamReader(stream))
+                    {
+                        downloadedString = sr.ReadToEnd();
+                    }
+                }
+
+                Assert.AreEqual(downloadFileContent, downloadedString);
+                Assert.IsTrue(progressHandlerIndicator);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+            }
         }
 
         #endregion Download file
@@ -216,12 +227,14 @@ namespace DecaTec.WebDav.UnitTest
             var mockHandler = new MockHttpMessageHandler();
             mockHandler.When(HttpMethod.Get, testFile).Respond(HttpStatusCode.OK, new StringContent(downloadFileContent));
 
-            var client = CreateWebDavClient(mockHandler);
-            var response = client.GetAsync(testFile).Result;
-            var responseContentString = response.Content.ReadAsStringAsync().Result;
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                var response = client.GetAsync(testFile).Result;
+                var responseContentString = response.Content.ReadAsStringAsync().Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
-            Assert.AreEqual(downloadFileContent, responseContentString);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+                Assert.AreEqual(downloadFileContent, responseContentString);
+            }
         }
 
         #endregion Get
@@ -236,10 +249,12 @@ namespace DecaTec.WebDav.UnitTest
             var mockHandler = new MockHttpMessageHandler();
             mockHandler.When(HttpMethod.Head, testFile).Respond(HttpStatusCode.OK);
 
-            var client = CreateWebDavClient(mockHandler);
-            var response = client.HeadAsync(testFile).Result;
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                var response = client.HeadAsync(testFile).Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+            }
         }
 
         #endregion Head
@@ -272,10 +287,12 @@ namespace DecaTec.WebDav.UnitTest
 
             mockHandler.When(WebDavMethod.Lock, testFileToLock).WithHeaders(requestHeaders).WithContent(lockRequestContent).Respond(HttpStatusCode.OK, new StringContent(lockResponseContent));
 
-            var client = CreateWebDavClient(mockHandler);
-            var response = client.LockAsync(testFileToLock, oneMinuteTimeout, depth, lockInfo).Result;
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                var response = client.LockAsync(testFileToLock, oneMinuteTimeout, depth, lockInfo).Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+            }
         }
 
         [TestMethod]
@@ -303,10 +320,12 @@ namespace DecaTec.WebDav.UnitTest
 
             mockHandler.When(WebDavMethod.Lock, WebDavRootFolder).WithHeaders(requestHeaders).WithContent(lockRequestContent).Respond(HttpStatusCode.OK, new StringContent(lockResponseContent));
 
-            var client = CreateWebDavClient(mockHandler);
-            var response = client.LockAsync(WebDavRootFolder, oneMinuteTimeout, depth, lockInfo).Result;
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                var response = client.LockAsync(WebDavRootFolder, oneMinuteTimeout, depth, lockInfo).Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+            }
         }
 
         [TestMethod]
@@ -324,15 +343,16 @@ namespace DecaTec.WebDav.UnitTest
                 OwnerHref = "test@test.com"
             };
 
-            var client = CreateWebDavClient(new MockHttpMessageHandler());
-
-            try
+            using (var client = CreateWebDavClient(new MockHttpMessageHandler()))
             {
-                var response = client.LockAsync(testFileToLock, oneMinuteTimeout, depth, lockInfo).Result;
-            }
-            catch (AggregateException ex)
-            {
-                throw ex.InnerException;
+                try
+                {
+                    var response = client.LockAsync(testFileToLock, oneMinuteTimeout, depth, lockInfo).Result;
+                }
+                catch (AggregateException ex)
+                {
+                    throw ex.InnerException;
+                }
             }
         }
 
@@ -356,10 +376,12 @@ namespace DecaTec.WebDav.UnitTest
 
             mockHandler.When(WebDavMethod.Lock, WebDavRootFolder).WithHeaders(requestHeaders).Respond(HttpStatusCode.OK, new StringContent(lockResponseContent));
 
-            var client = CreateWebDavClient(mockHandler);
-            var response = client.RefreshLockAsync(WebDavRootFolder, oneMinuteTimeout, lockToken).Result;
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                var response = client.RefreshLockAsync(WebDavRootFolder, oneMinuteTimeout, lockToken).Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+            }
         }
 
         #endregion Lock
@@ -373,10 +395,12 @@ namespace DecaTec.WebDav.UnitTest
             var mockHandler = new MockHttpMessageHandler();
             mockHandler.When(WebDavMethod.Mkcol, testFolder).Respond(HttpStatusCode.Created);
 
-            var client = CreateWebDavClient(mockHandler);
-            var response = client.MkcolAsync(testFolder).Result;
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                var response = client.MkcolAsync(testFolder).Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+            }
         }
 
         #endregion Mkcol
@@ -400,10 +424,12 @@ namespace DecaTec.WebDav.UnitTest
 
             mockHandler.When(WebDavMethod.Move, testFolderSource).WithHeaders(requestHeaders).Respond(HttpStatusCode.Created);
 
-            var client = CreateWebDavClient(mockHandler);
-            var response = client.MoveAsync(testFolderSource, testFolderDestination).Result;
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                var response = client.MoveAsync(testFolderSource, testFolderDestination).Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+            }
         }
 
         [TestMethod]
@@ -423,10 +449,12 @@ namespace DecaTec.WebDav.UnitTest
 
             mockHandler.When(WebDavMethod.Move, testFolderSource).WithHeaders(requestHeaders).Respond(HttpStatusCode.Created);
 
-            var client = CreateWebDavClient(mockHandler);
-            var response = client.MoveAsync(testFolderSource, testFolderDestination, true).Result;
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                var response = client.MoveAsync(testFolderSource, testFolderDestination, true).Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+            }
         }
 
         #endregion Move        
@@ -447,13 +475,15 @@ namespace DecaTec.WebDav.UnitTest
             var responseContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:multistatus xmlns:D=\"DAV:\"><D:response><D:href>http://127.0.0.1/webdav</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:07:38 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>/</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-06T09:32:20.983Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response><D:response><D:href>http://127.0.0.1/webdav/test1/</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:07:54 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>test1</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-08T10:07:32.205Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response><D:response><D:href>http://127.0.0.1/webdav/test2/</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:07:35 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>test2</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-08T10:07:35.866Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response><D:response><D:href>http://127.0.0.1/webdav/test1/file1.txt</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype>text/plain</D:getcontenttype><D:getlastmodified>Sat, 08 Apr 2017 10:08:15 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag>\"4840af950b0d21:0\"</D:getetag><D:displayname>file1.txt</D:displayname><D:getcontentlanguage/><D:getcontentlength>6</D:getcontentlength><D:iscollection>0</D:iscollection><D:creationdate>2017-04-08T10:07:48.579Z</D:creationdate><D:resourcetype/></D:prop></D:propstat></D:response><D:response><D:href>http://127.0.0.1/webdav/test1/test1_1/</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:08:00 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>test1_1</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-08T10:07:42.302Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response><D:response><D:href>http://127.0.0.1/webdav/test1/test1_1/file2.txt</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype>text/plain</D:getcontenttype><D:getlastmodified>Sat, 08 Apr 2017 10:08:09 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag>\"25f646650b0d21:0\"</D:getetag><D:displayname>file2.txt</D:displayname><D:getcontentlanguage/><D:getcontentlength>6</D:getcontentlength><D:iscollection>0</D:iscollection><D:creationdate>2017-04-08T10:07:58.137Z</D:creationdate><D:resourcetype/></D:prop></D:propstat></D:response></D:multistatus>";
             mockHandler.When(WebDavMethod.PropFind, WebDavRootFolder).WithContent(requestContent).WithHeaders(requestHeaders).Respond(HttpStatusCode.OK, new StringContent(responseContent));
 
-            var client = CreateWebDavClient(mockHandler);
-            PropFind pf = PropFind.CreatePropFindAllProp();
-            var response = client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
-            var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                PropFind pf = PropFind.CreatePropFindAllProp();
+                var response = client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
+                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
-            Assert.IsNotNull(multistatus);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+                Assert.IsNotNull(multistatus);
+            }
         }
 
         [TestMethod]
@@ -470,13 +500,15 @@ namespace DecaTec.WebDav.UnitTest
             var responseContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:multistatus xmlns:D=\"DAV:\"><D:response><D:href>http://127.0.0.1/webdav</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:07:38 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>/</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-06T09:32:20.983Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response><D:response><D:href>http://127.0.0.1/webdav/test1/</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:07:54 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>test1</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-08T10:07:32.205Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response><D:response><D:href>http://127.0.0.1/webdav/test2/</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:07:35 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>test2</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-08T10:07:35.866Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response></D:multistatus>";
             mockHandler.When(WebDavMethod.PropFind, WebDavRootFolder).WithContent(requestContent).WithHeaders(requestHeaders).Respond(HttpStatusCode.OK, new StringContent(responseContent));
 
-            var client = CreateWebDavClient(mockHandler);
-            PropFind pf = PropFind.CreatePropFindAllProp();
-            var response = client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.One, pf).Result;
-            var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                PropFind pf = PropFind.CreatePropFindAllProp();
+                var response = client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.One, pf).Result;
+                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
-            Assert.IsNotNull(multistatus);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+                Assert.IsNotNull(multistatus);
+            }
         }
 
         [TestMethod]
@@ -493,13 +525,15 @@ namespace DecaTec.WebDav.UnitTest
             var responseContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:multistatus xmlns:D=\"DAV:\"><D:response><D:href>http://127.0.0.1/webdav</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:07:38 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>/</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-06T09:32:20.983Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response></D:multistatus>";
             mockHandler.When(WebDavMethod.PropFind, WebDavRootFolder).WithContent(requestContent).WithHeaders(requestHeaders).Respond(HttpStatusCode.OK, new StringContent(responseContent));
 
-            var client = CreateWebDavClient(mockHandler);
-            PropFind pf = PropFind.CreatePropFindAllProp();
-            var response = client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.Zero, pf).Result;
-            var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                PropFind pf = PropFind.CreatePropFindAllProp();
+                var response = client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.Zero, pf).Result;
+                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
-            Assert.IsNotNull(multistatus);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+                Assert.IsNotNull(multistatus);
+            }
         }
 
         [TestMethod]
@@ -516,12 +550,14 @@ namespace DecaTec.WebDav.UnitTest
             var responseContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:multistatus xmlns:D=\"DAV:\"><D:response><D:href>http://127.0.0.1/webdav</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:07:38 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>/</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-06T09:32:20.983Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response><D:response><D:href>http://127.0.0.1/webdav/test1/</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:07:54 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>test1</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-08T10:07:32.205Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response><D:response><D:href>http://127.0.0.1/webdav/test2/</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:07:35 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>test2</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-08T10:07:35.866Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response><D:response><D:href>http://127.0.0.1/webdav/test1/file1.txt</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype>text/plain</D:getcontenttype><D:getlastmodified>Sat, 08 Apr 2017 10:08:15 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag>\"4840af950b0d21:0\"</D:getetag><D:displayname>file1.txt</D:displayname><D:getcontentlanguage/><D:getcontentlength>6</D:getcontentlength><D:iscollection>0</D:iscollection><D:creationdate>2017-04-08T10:07:48.579Z</D:creationdate><D:resourcetype/></D:prop></D:propstat></D:response><D:response><D:href>http://127.0.0.1/webdav/test1/test1_1/</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:08:00 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>test1_1</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-08T10:07:42.302Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response><D:response><D:href>http://127.0.0.1/webdav/test1/test1_1/file2.txt</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype>text/plain</D:getcontenttype><D:getlastmodified>Sat, 08 Apr 2017 10:08:09 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag>\"25f646650b0d21:0\"</D:getetag><D:displayname>file2.txt</D:displayname><D:getcontentlanguage/><D:getcontentlength>6</D:getcontentlength><D:iscollection>0</D:iscollection><D:creationdate>2017-04-08T10:07:58.137Z</D:creationdate><D:resourcetype/></D:prop></D:propstat></D:response></D:multistatus>";
             mockHandler.When(WebDavMethod.PropFind, WebDavRootFolder).WithContent(requestContent).WithHeaders(requestHeaders).Respond(HttpStatusCode.OK, new StringContent(responseContent));
 
-            var client = CreateWebDavClient(mockHandler);
-            var response = client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.Infinity, requestContent).Result;
-            var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                var response = client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.Infinity, requestContent).Result;
+                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
-            Assert.IsNotNull(multistatus);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+                Assert.IsNotNull(multistatus);
+            }
         }
 
         [TestMethod]
@@ -538,13 +574,15 @@ namespace DecaTec.WebDav.UnitTest
             var responseContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:multistatus xmlns:D=\"DAV:\"><D:response><D:href>http://127.0.0.1/webdav</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Fri, 07 Apr 2017 16:56:40 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>/</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-06T09:32:20.983Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response></D:multistatus>";
             mockHandler.When(WebDavMethod.PropFind, WebDavRootFolder).WithContent(requestContent).WithHeaders(requestHeaders).Respond(HttpStatusCode.OK, new StringContent(responseContent));
 
-            var client = CreateWebDavClient(mockHandler);
-            PropFind pf = PropFind.CreatePropFindWithEmptyProperties("name");
-            var response = client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
-            var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                PropFind pf = PropFind.CreatePropFindWithEmptyProperties("name");
+                var response = client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
+                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
-            Assert.IsNotNull(multistatus);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+                Assert.IsNotNull(multistatus);
+            }
         }
 
         [TestMethod]
@@ -561,13 +599,15 @@ namespace DecaTec.WebDav.UnitTest
             var responseContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:multistatus xmlns:D=\"DAV:\"><D:response><D:href>http://127.0.0.1/webdav</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified/><D:lockdiscovery/><D:ishidden/><D:supportedlock/><D:getetag/><D:displayname/><D:getcontentlanguage/><D:getcontentlength/><D:iscollection/><D:creationdate/><D:resourcetype/></D:prop></D:propstat></D:response></D:multistatus>";
             mockHandler.When(WebDavMethod.PropFind, WebDavRootFolder).WithContent(requestContent).WithHeaders(requestHeaders).Respond(HttpStatusCode.OK, new StringContent(responseContent));
 
-            var client = CreateWebDavClient(mockHandler);
-            PropFind pf = PropFind.CreatePropFindWithPropName();
-            var response = client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
-            var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                PropFind pf = PropFind.CreatePropFindWithPropName();
+                var response = client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
+                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
-            Assert.IsNotNull(multistatus);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+                Assert.IsNotNull(multistatus);
+            }
         }
 
         #endregion PropFind
@@ -595,12 +635,14 @@ namespace DecaTec.WebDav.UnitTest
             set.Prop = prop;
             propertyUpdate.Items = new object[] { set };
 
-            var client = CreateWebDavClient(mockHandler);
-            var response = client.PropPatchAsync(testFile, propertyUpdate).Result;
-            var multistatusPropPatch = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                var response = client.PropPatchAsync(testFile, propertyUpdate).Result;
+                var multistatusPropPatch = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
 
-            Assert.IsNotNull(multistatusPropPatch);
-            Assert.IsTrue(response.IsSuccessStatusCode);
+                Assert.IsNotNull(multistatusPropPatch);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+            }
         }
 
         [TestMethod]
@@ -619,10 +661,12 @@ namespace DecaTec.WebDav.UnitTest
             remove.Prop = prop;
             propertyUpdate.Items = new object[] { remove };
 
-            var client = new WebDavClient(mockHandler);
-            var response = client.PropPatchAsync(testFile, propertyUpdate).Result;
+            using (var client = new WebDavClient(mockHandler))
+            {
+                var response = client.PropPatchAsync(testFile, propertyUpdate).Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+            }
         }
 
         #endregion PropPatch
@@ -638,10 +682,12 @@ namespace DecaTec.WebDav.UnitTest
             var requestContentPut = "This is a test file for WebDAV.";
             mockHandler.When(HttpMethod.Put, testFile).WithContent(requestContentPut).Respond(HttpStatusCode.Created);
 
-            var client = CreateWebDavClient(mockHandler);
-            var response = client.PutAsync(testFile, new StringContent(requestContentPut)).Result;
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                var response = client.PutAsync(testFile, new StringContent(requestContentPut)).Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+            }
         }
 
         #endregion Put
@@ -657,16 +703,18 @@ namespace DecaTec.WebDav.UnitTest
             var requestContentPut = "This is a test file for WebDAV.";
             mockHandler.When(HttpMethod.Put, testFile).WithContent(requestContentPut).Respond(HttpStatusCode.Created);
 
-            var client = new WebDavClient(mockHandler);
-
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, testFile)
+            using (var client = new WebDavClient(mockHandler))
             {
-                Content = new StringContent(requestContentPut)
-            };
 
-            var response = client.SendAsync(httpRequestMessage).Result;
+                var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, testFile)
+                {
+                    Content = new StringContent(requestContentPut)
+                };
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
+                var response = client.SendAsync(httpRequestMessage).Result;
+
+                Assert.IsTrue(response.IsSuccessStatusCode);
+            }
         }
 
         #endregion Send
@@ -689,11 +737,13 @@ namespace DecaTec.WebDav.UnitTest
 
             mockHandler.When(WebDavMethod.Unlock, testFileToUnlock).WithHeaders(requestHeaders).Respond(HttpStatusCode.NoContent);
 
-            var client = CreateWebDavClient(mockHandler);
-            var lockToken = new LockToken(codedUrl.AbsoluteUri);
-            var response = client.UnlockAsync(testFileToUnlock, lockToken).Result;
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                var lockToken = new LockToken(codedUrl.AbsoluteUri);
+                var response = client.UnlockAsync(testFileToUnlock, lockToken).Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+            }
         }
 
         #endregion Unlock
@@ -724,22 +774,24 @@ namespace DecaTec.WebDav.UnitTest
             var mockHandler = new MockHttpMessageHandler();
             mockHandler.When(HttpMethod.Put, testFile).WithHeaders(requestHeaders).Respond(HttpStatusCode.Created);
 
-            var client = CreateWebDavClient(mockHandler);
-            WebDavResponseMessage response;
-
-            using (var stream = new MemoryStream())
+            using (var client = CreateWebDavClient(mockHandler))
             {
-                using (StreamWriter wr = new StreamWriter(stream))
-                {
-                    wr.Write(uploadFileContent);
-                    wr.Flush();
-                    stream.Position = 0;
-                    response = client.UploadFileWithProgressAsync(testFile, stream, contentType, progress).Result;
-                }
-            }
+                WebDavResponseMessage response;
 
-            Assert.IsTrue(progressHandlerIndicator);
-            Assert.IsTrue(response.IsSuccessStatusCode);
+                using (var stream = new MemoryStream())
+                {
+                    using (StreamWriter wr = new StreamWriter(stream))
+                    {
+                        wr.Write(uploadFileContent);
+                        wr.Flush();
+                        stream.Position = 0;
+                        response = client.UploadFileWithProgressAsync(testFile, stream, contentType, progress).Result;
+                    }
+                }
+
+                Assert.IsTrue(progressHandlerIndicator);
+                Assert.IsTrue(response.IsSuccessStatusCode);
+            }
         }
 
         #endregion Upload file

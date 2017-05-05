@@ -83,9 +83,9 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Initializes a new instance of WebDavSession with a default <see cref="HttpClientHandler"/>.
         /// </summary>
-        /// <param name="networkCredential">The <see cref="NetworkCredential"/> to use.</param>
-        public WebDavSession(NetworkCredential networkCredential)
-            : this(new HttpClientHandler() { PreAuthenticate = true, Credentials = networkCredential })
+        /// <param name="credentials">The <see cref="ICredentials"/> to use.</param>
+        public WebDavSession(ICredentials credentials)
+            : this(new HttpClientHandler() { PreAuthenticate = true, Credentials = credentials })
         {
         }
 
@@ -93,9 +93,9 @@ namespace DecaTec.WebDav
         /// Initializes a new instance of WebDavSession with the given base URL and a default <see cref="HttpClientHandler"/>.
         /// </summary>
         /// <param name="baseUrl">The base URL to use for this WebDavSession.</param>
-        /// <param name="networkCredential">The <see cref="NetworkCredential"/> to use.</param>
-        public WebDavSession(string baseUrl, NetworkCredential networkCredential)
-            : this(new Uri(baseUrl), new HttpClientHandler() { PreAuthenticate = true, Credentials = networkCredential })
+        /// <param name="credentials">The <see cref="ICredentials"/> to use.</param>
+        public WebDavSession(string baseUrl, ICredentials credentials)
+            : this(new Uri(baseUrl), new HttpClientHandler() { PreAuthenticate = true, Credentials = credentials })
         {
         }
 
@@ -103,9 +103,9 @@ namespace DecaTec.WebDav
         /// Initializes a new instance of WebDavSession with the given base <see cref="Uri"/> and a default <see cref="HttpClientHandler"/>.
         /// </summary>
         /// <param name="baseUri">The base <see cref="Uri"/> to use for this WebDavSession.</param>
-        /// <param name="networkCredential">The <see cref="NetworkCredential"/> to use.</param>
-        public WebDavSession(Uri baseUri, NetworkCredential networkCredential)
-            : this(baseUri, new HttpClientHandler() { PreAuthenticate = true, Credentials = networkCredential })
+        /// <param name="credentials">The <see cref="ICredentials"/> to use.</param>
+        public WebDavSession(Uri baseUri, ICredentials credentials)
+            : this(baseUri, new HttpClientHandler() { PreAuthenticate = true, Credentials = credentials })
         {
         }
 
@@ -677,7 +677,7 @@ namespace DecaTec.WebDav
                     var propStat = item as Propstat;
 
                     // Do not items where no properties could be found.
-                    if (propStat == null || propStat.Status.ToLower().Contains("404 not found"))
+                    if (propStat == null || !PropStatHelper.IsSuccessStatusCode(propStat.Status))
                         continue;
 
                     var prop = propStat.Prop;
@@ -928,6 +928,78 @@ namespace DecaTec.WebDav
 
         #endregion Move
 
+        #region UpdateItem
+
+        /// <summary>
+        /// Updates a WebDAV element using a <see cref="WebDavSessionItem"/>.
+        /// </summary>
+        /// <param name="item">The <see cref="WebDavSessionItem"/> representing the changes which should be updated.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <remarks><para>This method is the PROPPATCH equivalent for <see cref="WebDavSession"/>.</para>
+        /// <para>The workflow for updating a WebDAV element is as follows:</para>
+        /// <list type="bullet">
+        /// <item><description>Use the ListAsync methods of WebDavSession to retrieve a list of <see cref="WebDavSessionItem"/>s.</description></item>
+        /// <item><description>Update the properties of the WebDavSessionItems: You can either set new values (this will update the properties on the WebDAV server later on 
+        /// or set values to null or string.Empty (this will remove the properties on the WebDAV server later on).</description></item>
+        /// <item><description>Now you can use the UpdateItem or UpdateItems methods of WebDavSession in order to write the updates elements back to the server.</description></item>
+        /// </list>
+        /// <para>Note that you cannot change all of <see cref="WebDavSessionItem"/>'s properties as some of them are readonly properties. You can only change the values for 
+        /// properties which support an update/remove in terms of a PROPPATCH (as defined in RFC 4918).</para>
+        /// <para>Also note that not all WebDAV servers support the same set of properties to be changed by the client. So, even if you can change a property of <see cref="WebDavSessionItem"/>, 
+        /// the server may not be able to process the update or remove of that property.</para></remarks>
+        public async Task<bool> UpdateItem(WebDavSessionItem item)
+        {
+            var uri = UriHelper.CombineUri(this.BaseUri, item.Uri, true);
+            var lockToken = GetAffectedLockToken(uri);
+            var response = await this.webDavClient.PropPatchAsync(uri, item.ToPropertyUpdate(), lockToken);            
+            var multistatus = await WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content);
+            var success = true;
+
+            foreach (var msResponse in multistatus.Response)
+            {                
+                foreach (var msResponseItem in msResponse.Items)
+                {
+                    if (msResponseItem is Propstat propStat)
+                    {
+                        success &= PropStatHelper.IsSuccessStatusCode(propStat.Status);
+                    }
+                }
+            }
+
+            return success;
+        }
+
+        /// <summary>
+        /// Updates multiple WebDAV elements using an array of <see cref="WebDavSessionItem"/>.
+        /// </summary>
+        /// <param name="items">An array of <see cref="WebDavSessionItem"/> representing the changes which should be updated.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <remarks><para>This method is the PROPPATCH equivalent for <see cref="WebDavSession"/>.</para>
+        /// <para>The workflow for updating a WebDAV element is as follows:</para>
+        /// <list type="bullet">
+        /// <item><description>Use the ListAsync methods of WebDavSession to retrieve a list of <see cref="WebDavSessionItem"/>s.</description></item>
+        /// <item><description>Update the properties of the WebDavSessionItems: You can either set new values (this will update the properties on the WebDAV server later on 
+        /// or set values to null or string.Empty (this will remove the properties on the WebDAV server later on).</description></item>
+        /// <item><description>Now you can use the UpdateItem or UpdateItems methods of WebDavSession in order to write the updates elements back to the server.</description></item>
+        /// </list>
+        /// <para>Note that you cannot change all of <see cref="WebDavSessionItem"/>'s properties as some of them are readonly properties. You can only change the values for 
+        /// properties which support an update/remove in terms of a PROPPATCH (as defined in RFC 4918).</para>
+        /// <para>Also note that not all WebDAV servers support the same set of properties to be changed by the client. So, even if you can change a property of <see cref="WebDavSessionItem"/>, 
+        /// the server may not be able to process the update or remove of that property.</para></remarks>
+        public async Task<bool> UpdateItems(params WebDavSessionItem[] items)
+        {
+            var success = false;
+
+            foreach (var item in items)
+            {
+                success &= await UpdateItem(item);
+            }
+
+            return success;
+        }
+
+        #endregion UpdateItem
+
         #region Upload file
 
         /// <summary>
@@ -953,7 +1025,7 @@ namespace DecaTec.WebDav
             if (!(folderToUploadTo.IsFolder ?? false))
                 throw new WebDavException("The upload target is no folder.");
 
-            var uploadUrl = UriHelper.CombineUrl(folderToUploadTo.Uri.ToString(), fileName, true);
+            var uploadUrl = UriHelper.CombineUriAndUrl(folderToUploadTo.Uri, fileName, true);
             return await UploadFileAsync(uploadUrl, localStream);
         }
 

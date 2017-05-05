@@ -19,6 +19,12 @@
 
           <listItem>
             <para>
+              The constructors expecting credentials now use the interface ICredentials for credentials.
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
               The methods of WebDavSession (e.g. copy, mode, delete, etc:) can now be used by specifying a WebDavSessionItem.
             </para>
           </listItem>
