@@ -355,14 +355,69 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
         #endregion Delete
 
+        #region Upload
+
+        [TestMethod]
+        public void UIT_WebDavSession_Upload()
+        {
+            var session = CreateWebDavSession();
+            session.BaseUrl = webDavRootFolder;
+            var responseUpload = false;
+
+            using (var fileStream = File.OpenRead(TestFile))
+            {
+                responseUpload = session.UploadFileAsync(TestFile, fileStream).Result;
+            }
+
+            var list = session.ListAsync("/").Result;
+            Assert.AreEqual(1, list.Count);
+            Assert.AreEqual(TestFile, list[0].Name);
+            var delete = session.DeleteAsync(TestFile).Result;
+
+            Assert.IsTrue(responseUpload);
+            Assert.IsTrue(delete);
+        }
+
+        [TestMethod]
+        public void UIT_WebDavSession_Upload_ByWebDavSessionItem()
+        {
+            var session = CreateWebDavSession();
+            session.BaseUrl = webDavRootFolder;
+            var responseUpload = false;
+            var create = session.CreateDirectoryAsync(TestFolder).Result;
+            Assert.IsTrue(create);
+            var list = session.ListAsync("/").Result;
+            Assert.AreEqual(1, list.Count);
+
+            using (var fileStream = File.OpenRead(TestFile))
+            {
+                responseUpload = session.UploadFileAsync(list[0], TestFile, fileStream).Result;
+            }
+
+            list = session.ListAsync(TestFolder).Result;
+            Assert.AreEqual(1, list.Count);
+            Assert.AreEqual(TestFile, list[0].Name);
+            var delete = session.DeleteAsync(TestFolder).Result;
+
+            Assert.IsTrue(responseUpload);
+            Assert.IsTrue(delete);
+        }
+
+        #endregion Upload
+
+        #region Misc
+
         [TestMethod]
         public void UIT_WebDavSession_CreateAndHead_WithFileUnknown()
         {
             var session = CreateWebDavSession();
             session.BaseUrl = webDavRootFolder;
-            var stream = File.OpenRead(TestFileUnknownExtension);
-            var createdFile = session.UploadFileAsync(TestFileUnknownExtension, stream).Result;
-            stream.Dispose();
+            var createdFile = false;
+
+            using (var stream = File.OpenRead(TestFileUnknownExtension))
+            {
+                createdFile = session.UploadFileAsync(TestFileUnknownExtension, stream).Result;
+            }
 
             var fileExists = session.ExistsAsync(TestFileUnknownExtension).Result;
             var deletedFile = session.DeleteAsync(TestFileUnknownExtension).Result;
@@ -371,5 +426,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             Assert.IsTrue(fileExists);
             Assert.IsTrue(deletedFile);
         }
+
+        #endregion Misc
     }
 }

@@ -945,14 +945,16 @@ namespace DecaTec.WebDav
         /// Uploads a file to the folder specified by a <see cref="WebDavSessionItem"/>.
         /// </summary>
         /// <param name="folderToUploadTo">The folder as <see cref="WebDavSessionItem"/> to upload to.</param>
+        /// <param name="fileName">The file name of the uploaded file.</param>
         /// <param name="localStream">The <see cref="Stream"/> containing the file to upload.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<bool> UploadFileAsync(WebDavSessionItem folderToUploadTo, Stream localStream)
+        public async Task<bool> UploadFileAsync(WebDavSessionItem folderToUploadTo, string fileName, Stream localStream)
         {
             if (!(folderToUploadTo.IsFolder ?? false))
                 throw new WebDavException("The upload target is no folder.");
 
-            return await UploadFileAsync(UriHelper.CombineUri(this.BaseUri, folderToUploadTo.Uri, true), localStream);
+            var uploadUrl = UriHelper.CombineUrl(folderToUploadTo.Uri.ToString(), fileName, true);
+            return await UploadFileAsync(uploadUrl, localStream);
         }
 
         /// <summary>
@@ -1000,13 +1002,14 @@ namespace DecaTec.WebDav
         /// Uploads a file (with progress) to the folder specified by a <see cref="WebDavSessionItem"/>.
         /// </summary>
         /// <param name="folderToUploadTo">The folder as <see cref="WebDavSessionItem"/> to upload to.</param>
+        /// <param name="fileName">The file name of the uploaded file.</param>
         /// <param name="stream">The <see cref="Stream"/> containing the file to upload.</param>
         /// <param name="contentType">The content type of the file to upload.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<bool> UploadFileWithProgressAsync(WebDavSessionItem folderToUploadTo, Stream stream, string contentType, IProgress<WebDavProgress> progress)
+        public async Task<bool> UploadFileWithProgressAsync(WebDavSessionItem folderToUploadTo, string fileName, Stream stream, string contentType, IProgress<WebDavProgress> progress)
         {
-            return await UploadFileWithProgressAsync(folderToUploadTo, stream, contentType, progress, CancellationToken.None);
+            return await UploadFileWithProgressAsync(folderToUploadTo, fileName, stream, contentType, progress, CancellationToken.None);
         }
 
         /// <summary>
@@ -1027,17 +1030,19 @@ namespace DecaTec.WebDav
         /// Uploads a file (with progress) to the folder specified by a <see cref="WebDavSessionItem"/>.
         /// </summary>
         /// <param name="folderToUploadTo">The folder as <see cref="WebDavSessionItem"/> to upload to.</param>
+        /// <param name="fileName">The file name of the uploaded file.</param>
         /// <param name="stream">The <see cref="Stream"/> containing the file to upload.</param>
         /// <param name="contentType">The content type of the file to upload.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> to use.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<bool> UploadFileWithProgressAsync(WebDavSessionItem folderToUploadTo, Stream stream, string contentType, IProgress<WebDavProgress> progress, CancellationToken cancellationToken)
+        public async Task<bool> UploadFileWithProgressAsync(WebDavSessionItem folderToUploadTo, string fileName, Stream stream, string contentType, IProgress<WebDavProgress> progress, CancellationToken cancellationToken)
         {
             if (!(folderToUploadTo.IsFolder ?? false))
                 throw new WebDavException("The upload target is no folder.");
 
-            return await UploadFileWithProgressAsync(UriHelper.CombineUri(this.BaseUri, folderToUploadTo.Uri, true), stream, contentType, progress, cancellationToken);
+            var uploadUrl = UriHelper.CombineUrl(folderToUploadTo.Uri.ToString(), fileName, true);
+            return await UploadFileWithProgressAsync(uploadUrl, stream, contentType, progress, cancellationToken);
         }
 
         /// <summary>
