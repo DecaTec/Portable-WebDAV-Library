@@ -19,9 +19,7 @@
 
           <listItem>
             <para>
-              WebDavSession now supports Proppatch operations with the methods UpdateItemAsync and UpdateItemsAsync: Use the ListAsync methods to retrieve WebDavSessionItems, then change the properties of these items. Then you can use the methods UpdateItemAsync/UpdateUtemsAsync of WebDavSession passing the changed WebDavSessionItems in oder to update the item's properties on the server (Proppatch).<br />
-              Note that not all WebDAV servers support Proppatch for all properties.
-            </para>
+              WebDavSession now supports Proppatch operations with the methods UpdateItemAsync and UpdateItemsAsync: Use the ListAsync methods to retrieve WebDavSessionItems, then change the properties of these items. Then you can use the methods UpdateItemAsync/UpdateUtemsAsync of WebDavSession passing the changed WebDavSessionItems in oder to update the item's properties on the server (Proppatch).  <legacyBold>Note that not all WebDAV servers support Proppatch for all properties.</legacyBold> So maybe you will not be able to change properties of a WebDAV element with these methods.</para>
           </listItem>
 
           <listItem>
