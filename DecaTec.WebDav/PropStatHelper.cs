@@ -2,6 +2,9 @@
 
 namespace DecaTec.WebDav
 {
+    /// <summary>
+    /// Helper class for Propstat operations.
+    /// </summary>
     public static class PropStatHelper
     {
         /// <summary>
@@ -17,9 +20,9 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Determines if the Status of a <see cref="PropStat"/> signals a successful status code.
+        /// Determines if the Status of a <see cref="Propstat"/> signals a successful status code.
         /// </summary>
-        /// <param name="propstatStatus">The PropStat's status code as string.</param>
+        /// <param name="propStatStatusCode">The PropStat's status code as string.</param>
         /// <returns>True, if the PropStat's Status signals a successful status code. Otherwise false.</returns>
         public static bool IsSuccessStatusCode(string propStatStatusCode)
         {

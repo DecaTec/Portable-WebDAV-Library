@@ -735,8 +735,11 @@ namespace DecaTec.WebDav
 
             if (removeRequested)
             {
-                var remove = new Remove();
-                remove.Prop = Prop.CreatePropWithEmptyProperties(removePropertyNames.ToArray());
+                var remove = new Remove()
+                {
+                    Prop = Prop.CreatePropWithEmptyProperties(removePropertyNames.ToArray())
+                };
+
                 propertyUpdateItems.Add(remove);
             }
 

@@ -455,6 +455,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             using (var session = CreateWebDavSession())
             {
                 session.BaseUrl = webDavRootFolder;
+                // We need an "extended" Propfind in order to get the 'DisplayName' in the ListAsync response.
                 var propFind = PropFind.CreatePropFindWithEmptyPropertiesAll();
 
                 // Upload file.
