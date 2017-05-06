@@ -602,9 +602,14 @@ namespace DecaTec.WebDav
 
         #endregion IIS specific properties
 
-        #region Internal methods
+        #region Public methods
 
-        internal PropertyUpdate ToPropertyUpdate()
+        /// <summary>
+        /// Creates a <see cref="PropertyUpdate"/> from this WebDavSessionItem.
+        /// </summary>
+        /// <returns>A <see cref="PropertyUpdate"/> representing this WebDavSessionItem.</returns>
+        /// <remarks>Use this method then you have changed some properties on the WebDavSessionItem and want to update the item's properties on the server using <see cref="WebDavSession.UpdateItemAsync(WebDavSessionItem)"/>.</remarks>
+        public PropertyUpdate ToPropertyUpdate()
         {
             if (!HasChanged)
                 return null;
@@ -739,7 +744,7 @@ namespace DecaTec.WebDav
             return propertyUpdate;
         }
 
-        #endregion Internal methods
+        #endregion Public methods
 
         #region Private methods
 

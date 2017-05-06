@@ -5,6 +5,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Linq;
+using DecaTec.WebDav.WebDavArtifacts;
 
 namespace DecaTec.WebDav.UnitIntegrationTest
 {
@@ -439,7 +440,63 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             }
         }
 
-        #endregion Upload        
+        #endregion Upload      
+
+        #region UpdateItem
+
+        [TestMethod]
+        public void UIT_WebDavSession_UpdateItem()
+        {
+            // This won't work on IIS because on IIS the 'Name' is always the same as 'DisplayName'.
+            // As the unit integration tests of this library are also run against ownCloud/Nextcloud on a regular basis, just skip this test for IIS.
+            if (!(webDavRootFolder.Contains("nextcloud") || webDavRootFolder.Contains("owncloud")))
+                return;
+
+            using (var session = CreateWebDavSession())
+            {
+                session.BaseUrl = webDavRootFolder;
+                var propFind = PropFind.CreatePropFindWithEmptyPropertiesAll();
+
+                // Upload file.
+                var responseUpload = false;
+
+                using (var fileStream = File.OpenRead(TestFile))
+                {
+                    responseUpload = session.UploadFileAsync(TestFile, fileStream).Result;
+                }
+
+                var list = session.ListAsync("/", propFind).Result;
+                Assert.AreEqual(1, list.Count);
+                Assert.AreEqual(TestFile, list[0].Name);
+                Assert.IsNull(list[0].DisplayName);
+
+                // Proppatch set (DisplayName).
+                var webDavSessionItem = list[0];
+                webDavSessionItem.DisplayName = "ChangedDisplayName";
+                var proppatchResult = session.UpdateItemAsync(webDavSessionItem).Result;
+
+                list = session.ListAsync("/", propFind).Result;
+                Assert.AreEqual(1, list.Count);
+                Assert.AreEqual("ChangedDisplayName", list[0].DisplayName);
+
+                // Proppatch remove (DisplayName).
+                webDavSessionItem = list[0];
+                webDavSessionItem.DisplayName = null;
+                proppatchResult = session.UpdateItemAsync(webDavSessionItem).Result;
+
+                list = session.ListAsync("/", propFind).Result;
+                Assert.AreEqual(1, list.Count);
+                Assert.IsNull(list[0].DisplayName);
+
+                // Delete file
+                var delete = session.DeleteAsync(TestFile).Result;
+
+                Assert.IsTrue(responseUpload);
+                Assert.IsTrue(delete);
+            }
+        }
+
+        #endregion UpdateItem
 
         #region Misc
 

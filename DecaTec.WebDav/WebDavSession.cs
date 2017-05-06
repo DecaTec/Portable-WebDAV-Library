@@ -632,6 +632,7 @@ namespace DecaTec.WebDav
             {
                 Uri webDavSessionItemUri = null;
                 string webDavSessionItemName = string.Empty;
+                string webDavSessionItemDisplayName = string.Empty;
                 DateTime? webDavSessionItemCreationDate = null;
                 string webDavSessionItemContentLanguage = string.Empty;
                 long? webDavSessionItemContentLength = null;
@@ -686,6 +687,7 @@ namespace DecaTec.WebDav
                     if (prop.IsHidden ?? false)
                         continue;
 
+                    webDavSessionItemDisplayName = prop.DisplayName;
                     webDavSessionItemCreationDate = prop.CreationDate;
                     webDavSessionItemContentLanguage = prop.GetContentLanguage;
                     webDavSessionItemContentLength = prop.GetContentLength;
@@ -736,7 +738,7 @@ namespace DecaTec.WebDav
                         webDavSessionItemName = WebUtility.UrlDecode(href.ToString().Split('/').Last(x => !string.IsNullOrEmpty(x)));
                 }
 
-                var webDavSessionItem = new WebDavSessionItem(webDavSessionItemUri, webDavSessionItemCreationDate, webDavSessionItemName, webDavSessionItemContentLanguage, webDavSessionItemContentLength,
+                var webDavSessionItem = new WebDavSessionItem(webDavSessionItemUri, webDavSessionItemCreationDate, webDavSessionItemDisplayName, webDavSessionItemContentLanguage, webDavSessionItemContentLength,
                     webDavSessionItemContentType, webDavSessionItemETag, webDavSessionItemLastModified, webDavSessionItemQuotaAvailableBytes, webDavSessionItemQuotaUsedBytes, webDavSessionItemChildCount,
                     webDavSessionItemDefaultDocument, webDavSessionItemId, webDavSessionItemIsFolder, webDavSessionItemIsStructuredDocument, webDavSessionItemHasSubDirectories, webDavSessionItemNoSubDirectoriesAllowed,
                     webDavSessionItemFileCount, webDavSessionItemIsReserved, webDavSessionItemVisibleFiles, webDavSessionItemContentClass, webDavSessionItemIsReadonly, webDavSessionItemIsRoot,
@@ -947,7 +949,7 @@ namespace DecaTec.WebDav
         /// properties which support an update/remove in terms of a PROPPATCH (as defined in RFC 4918).</para>
         /// <para>Also note that not all WebDAV servers support the same set of properties to be changed by the client. So, even if you can change a property of <see cref="WebDavSessionItem"/>, 
         /// the server may not be able to process the update or remove of that property.</para></remarks>
-        public async Task<bool> UpdateItem(WebDavSessionItem item)
+        public async Task<bool> UpdateItemAsync(WebDavSessionItem item)
         {
             var uri = UriHelper.CombineUri(this.BaseUri, item.Uri, true);
             var lockToken = GetAffectedLockToken(uri);
@@ -986,13 +988,13 @@ namespace DecaTec.WebDav
         /// properties which support an update/remove in terms of a PROPPATCH (as defined in RFC 4918).</para>
         /// <para>Also note that not all WebDAV servers support the same set of properties to be changed by the client. So, even if you can change a property of <see cref="WebDavSessionItem"/>, 
         /// the server may not be able to process the update or remove of that property.</para></remarks>
-        public async Task<bool> UpdateItems(params WebDavSessionItem[] items)
+        public async Task<bool> UpdateItemsAsync(params WebDavSessionItem[] items)
         {
             var success = false;
 
             foreach (var item in items)
             {
-                success &= await UpdateItem(item);
+                success &= await UpdateItemAsync(item);
             }
 
             return success;
