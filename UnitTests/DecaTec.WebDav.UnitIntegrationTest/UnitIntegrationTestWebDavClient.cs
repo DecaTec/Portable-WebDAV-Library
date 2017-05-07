@@ -589,7 +589,12 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         [TestMethod]
         public void UIT_WebDavClient_LockRefreshLockUnlock()
         {
-            using(var client = CreateWebDavClientWithDebugHttpMessageHandler())
+            // This won't work on ownCloud/Nextcloud because they do not support WebDAV locking.
+            // These unit integration test are skipped for ownCloud/Nextcloud.
+            if (webDavRootFolder.Contains("nextcloud") || webDavRootFolder.Contains("owncloud"))
+                return;
+
+            using (var client = CreateWebDavClientWithDebugHttpMessageHandler())
                 {
 
                 // Lock.
@@ -628,6 +633,11 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         [TestMethod]
         public void UIT_WebDavClient_LockAndPutWithoutToken()
         {
+            // This won't work on ownCloud/Nextcloud because they do not support WebDAV locking.
+            // These unit integration test are skipped for ownCloud/Nextcloud.
+            if (webDavRootFolder.Contains("nextcloud") || webDavRootFolder.Contains("owncloud"))
+                return;
+
             using (var client = CreateWebDavClientWithDebugHttpMessageHandler())
             {
                 // Lock.
@@ -671,6 +681,11 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         [TestMethod]
         public void UIT_WebDavClient_LockAndPutWithToken()
         {
+            // This won't work on ownCloud/Nextcloud because they do not support WebDAV locking.
+            // These unit integration test are skipped for ownCloud/Nextcloud.
+            if (webDavRootFolder.Contains("nextcloud") || webDavRootFolder.Contains("owncloud"))
+                return;
+
             using (var client = CreateWebDavClientWithDebugHttpMessageHandler())
             {
                 // Lock.

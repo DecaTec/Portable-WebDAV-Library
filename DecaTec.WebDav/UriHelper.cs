@@ -175,7 +175,12 @@ namespace DecaTec.WebDav
                 throw new ArgumentException("Cannot combine URIs because uri1 is relative URI and uri2 is absolute URI");
 
             if (uri1.IsAbsoluteUri && uri2.IsAbsoluteUri)
-                return new Uri(uri1, uri2);
+            {
+                if (uri1 == uri2)
+                    return uri1;
+                else
+                    return new Uri(uri1, uri2);
+            }
 
             // Manually combine URIs.
             var fullUrl = string.Empty;

@@ -611,6 +611,26 @@ namespace DecaTec.WebDav
         /// <remarks>Use this method then you have changed some properties on the WebDavSessionItem and want to update the item's properties on the server using <see cref="WebDavSession.UpdateItemAsync(WebDavSessionItem)"/>.</remarks>
         public PropertyUpdate ToPropertyUpdate()
         {
+            return GetPropertyUpdate();
+        }
+
+        #endregion Public methods#
+
+        #region Protected methods
+
+        /// <summary>
+        /// Gets a value indicating if this WebDavSessionItem was changed after it was retrieved with the ListAsync methods of <see cref="WebDavSession"/>.
+        /// </summary>
+        protected virtual bool HasChanged => this.creationDateChanged || this.displayNameChanged || this.contentLanguageChanged ||
+                                   this.contentTypeChanged || this.lastModifiedChanged || this.defaultDocumentChanged ||
+                                   isReadonlyChanged || this.lastAccessedChanged;
+
+        #endregion Protected methods
+
+        #region Internal methods
+
+        internal PropertyUpdate GetPropertyUpdate()
+        {
             if (!HasChanged)
                 return null;
 
@@ -747,15 +767,7 @@ namespace DecaTec.WebDav
             return propertyUpdate;
         }
 
-        #endregion Public methods
-
-        #region Private methods
-
-        private bool HasChanged => this.creationDateChanged || this.displayNameChanged || this.contentLanguageChanged ||
-                                   this.contentTypeChanged || this.lastModifiedChanged || this.defaultDocumentChanged ||
-                                   isReadonlyChanged || this.lastAccessedChanged;
-
-        #endregion Private methods
+        #endregion Internal methods
     }
 }
 

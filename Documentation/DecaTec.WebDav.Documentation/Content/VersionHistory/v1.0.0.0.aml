@@ -34,6 +34,12 @@
             </para>
           </listItem>
 
+          <listItem>
+            <para>
+              Bugfix: UriHelper.CombineUri sometimes threw exception when both URIs were the same.
+            </para>
+          </listItem>
+
         </list>
 
       </content>
