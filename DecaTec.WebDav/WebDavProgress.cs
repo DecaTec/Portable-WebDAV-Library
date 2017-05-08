@@ -1,5 +1,4 @@
-﻿
-namespace DecaTec.WebDav
+﻿namespace DecaTec.WebDav
 {
     /// <summary>
     /// Struct representing a progress of an upload or download.

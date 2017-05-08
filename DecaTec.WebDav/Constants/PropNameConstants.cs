@@ -1,11 +1,11 @@
 ﻿namespace DecaTec.WebDav
 {
     /// <summary>
-    /// Class defining all the Prop names defined in RFC4918.
+    /// Class defining all the Prop names defined in RFC 4918.
     /// </summary>
     public static class PropNameConstants
     {
-        #region RFC4918
+        #region RFC 4918
 
         /// <summary>
         /// Prop name for 'creationdate'.
@@ -62,9 +62,9 @@
         /// </summary>
         public const string SupportedLock = "supportedlock";
 
-        #endregion RFC4918
+        #endregion RFC 4918
 
-        #region RFC4331
+        #region RFC 4331
 
         // Properties as defined in https://tools.ietf.org/html/rfc4331
 
@@ -78,7 +78,7 @@
         /// </summary>
         public const string QuotaAvailableBytes = "quota-available-bytes";
 
-        #endregion RFC4331
+        #endregion RFC 4331
 
         #region  Additional WebDAV Collection Properties
 

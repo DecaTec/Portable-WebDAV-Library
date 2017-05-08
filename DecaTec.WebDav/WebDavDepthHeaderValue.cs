@@ -1,5 +1,4 @@
-﻿
-namespace DecaTec.WebDav
+﻿namespace DecaTec.WebDav
 {
     /// <summary>
     /// Class defining the values for the WebDAV depth header.
@@ -21,7 +20,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Depth header value when the resource and all its members should be affected ('infinity').
         /// </summary>
-        /// <remarks>According to RFC4918, servers do not have to support an 'infinity' depth.</remarks>
+        /// <remarks>According to RFC 4918, servers do not have to support an 'infinity' depth.</remarks>
         public static readonly WebDavDepthHeaderValue Infinity = new WebDavDepthHeaderValue("infinity");
 
         private WebDavDepthHeaderValue(string depthValue)

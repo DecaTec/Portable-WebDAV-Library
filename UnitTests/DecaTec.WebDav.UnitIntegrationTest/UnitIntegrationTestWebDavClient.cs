@@ -734,6 +734,26 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             }
         }
 
-        #endregion Lock / unlock                
+        #endregion Lock / unlock        
+
+        #region PropName
+
+        [TestMethod]
+        public void UIT_WebDavClient_PropName()
+        {
+            using (var client = CreateWebDavClientWithDebugHttpMessageHandler())
+            {
+                PropFind pf = PropFind.CreatePropFindWithPropName();
+                var response = client.PropFindAsync(webDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
+                var responseContentString = response.Content.ReadAsStringAsync().Result;
+                DebugWriteResponseContent(responseContentString);
+                var propFindResponseSuccess = response.IsSuccessStatusCode;
+                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentString(responseContentString);
+
+                Assert.IsTrue(propFindResponseSuccess);
+                Assert.IsNotNull(multistatus);
+            }
+        }
+        #endregion PropName
     }
 }

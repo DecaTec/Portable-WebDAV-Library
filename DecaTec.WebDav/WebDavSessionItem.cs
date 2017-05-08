@@ -250,7 +250,7 @@ namespace DecaTec.WebDav
             }
         }
 
-        #region RFC4331
+        #region RFC 4331
 
         private long? quotaAvailableBytes;
 
@@ -286,7 +286,7 @@ namespace DecaTec.WebDav
             }
         }
 
-        #endregion RFC431
+        #endregion RFC 431
 
         #region  Additional WebDAV Collection Properties
 

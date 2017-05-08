@@ -1,5 +1,4 @@
-﻿
-namespace DecaTec.WebDav
+﻿namespace DecaTec.WebDav
 {
     /// <summary>
     /// Enum containing the WebDAV and HTTP status codes.

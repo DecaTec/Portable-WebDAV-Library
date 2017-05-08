@@ -5,9 +5,12 @@ using System.Xml.Serialization;
 namespace DecaTec.WebDav.WebDavArtifacts
 {
     /// <summary>
-    /// Class representing an 'prop' XML element for WebDAV communication.
-    /// This class contains all properties defined in RFC4918, but property names are not limited to these properties.
+    /// Class representing an 'prop' XML element for WebDAV communication. It offers strongly typed access to these WebDAV properties.
+    /// This class contains all properties defined in <see href="https://www.ietf.org/rfc/rfc4918.txt">RFC 4918</see>, <see href="https://tools.ietf.org/html/rfc4331">RFC 4331</see>, <see href="https://tools.ietf.org/html/draft-hopmann-collection-props-00">Additional WebDAV Collection Properties</see> and some IIS specific properties, but property names are not limited to these properties.
     /// </summary>
+    /// <remarks>When the (strongly typed) properties returned by a WebDAV server are null, the server probably does not support these properties.
+    /// In order to find out which properties are supported by the server, you can use a 'propname' request. Every (string) property, which is <see cref="string.Empty"/> then is supported by the WebDAV server 
+    /// (see <see cref="PropFind.CreatePropFindWithPropName"/>).</remarks>
     [DataContract]
     [XmlType(TypeName = WebDavConstants.Prop, Namespace = WebDavConstants.DAV)]
     [XmlRoot(Namespace = WebDavConstants.DAV, IsNullable = false)]
@@ -18,17 +21,18 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// </summary>
         /// <param name="emptyPropertyNames">The name of the properties of the Prop which should be empty.</param>
         /// <returns>A Prop with the empty properties which where requested.</returns>
-        /// <remarks>As an example, if a PROPFIND command should be sent returning only the getlastaccess property, you can use the following code:
+        /// <remarks>As an example, if a PROPFIND command should be sent returning only the 'getlastmodified' property, you can use the following code:
         /// 
         /// <code>
         /// PropFind pf = new PropFind();
-        /// Prop p = Prop.CreatePropWithEmptyProperties("getlastmodified");
+        /// Prop p = Prop.CreatePropWithEmptyProperties(PropNameConstants.GetLastModified);
         /// pf.Item = p;
         ///  </code>
         ///  
         /// This PropFind object can then be used in a PROPFIND command on the WebDavClient.
         /// 
-        /// This implementation of Prop contains all properties defined in RFC4918. If you need to request other properties from a WebDav server, you will need 
+        /// This implementation of Prop contains all properties defined in <see href="https://www.ietf.org/rfc/rfc4918.txt">RFC 4918</see>, <see href="https://tools.ietf.org/html/rfc4331">RFC 4331</see>, <see href="https://tools.ietf.org/html/draft-hopmann-collection-props-00">Additional WebDAV Collection Properties</see> and some IIS specific properties. 
+        /// If you need to request other properties from a WebDav server, you will need 
         /// to implement your own classes which can be (de-)serialized for communication with the server.
         /// </remarks>
         public static Prop CreatePropWithEmptyProperties(params string[] emptyPropertyNames)
@@ -138,9 +142,10 @@ namespace DecaTec.WebDav.WebDavArtifacts
         }
 
         /// <summary>
-        /// Creates a Prop with all empty properties which are defined in RFC4918. This is especially useful for PROPFIND commands when the so called 'allprop' cannot be used because the WebDAV server does not return all properties.
+        /// Creates a Prop with all empty properties which are defined in <see href="https://www.ietf.org/rfc/rfc4918.txt">RFC 4918</see>, <see href="https://tools.ietf.org/html/rfc4331">RFC 4331</see>, <see href="https://tools.ietf.org/html/draft-hopmann-collection-props-00">Additional WebDAV Collection Properties</see> and some IIS specific properties. 
+        /// This is especially useful for PROPFIND commands when the so called 'allprop' cannot be used because the WebDAV server does not return all properties.
         /// </summary>
-        /// <returns>A Prop with all empty properties defined in RFC4918.</returns>
+        /// <returns>A Prop with all empty properties defined in <see href="https://www.ietf.org/rfc/rfc4918.txt">RFC 4918</see>, <see href="https://tools.ietf.org/html/rfc4331">RFC 4331</see>, <see href="https://tools.ietf.org/html/draft-hopmann-collection-props-00">Additional WebDAV Collection Properties</see> and some IIS specific properties.</returns>
         public static Prop CreatePropWithEmptyPropertiesAll()
         {
             Prop prop = new Prop()
@@ -359,7 +364,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
             set;
         }
 
-        #region RFC4331
+        #region RFC 4331
 
         // Properties as defined in https://tools.ietf.org/html/rfc4331
 
@@ -413,7 +418,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
             }
         }
 
-        #endregion RFC4331
+        #endregion RFC 4331
 
         #region  Additional WebDAV Collection Properties
 

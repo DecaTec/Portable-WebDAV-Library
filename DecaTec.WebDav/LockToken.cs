@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DecaTec.WebDav
+﻿namespace DecaTec.WebDav
 {
     /// <summary>
     /// Class representing a WebDAV lock token.

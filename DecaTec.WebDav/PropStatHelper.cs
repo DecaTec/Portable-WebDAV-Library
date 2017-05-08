@@ -5,7 +5,7 @@ namespace DecaTec.WebDav
     /// <summary>
     /// Helper class for Propstat operations.
     /// </summary>
-    public static class PropStatHelper
+    public static class PropstatHelper
     {
         /// <summary>
         /// Gets the <see cref="WebDavStatusCode"/> from a <see cref="Propstat"/>'s status code.

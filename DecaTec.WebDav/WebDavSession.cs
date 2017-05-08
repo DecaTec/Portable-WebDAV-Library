@@ -678,7 +678,7 @@ namespace DecaTec.WebDav
                     var propStat = item as Propstat;
 
                     // Do not items where no properties could be found.
-                    if (propStat == null || !PropStatHelper.IsSuccessStatusCode(propStat.Status))
+                    if (propStat == null || !PropstatHelper.IsSuccessStatusCode(propStat.Status))
                         continue;
 
                     var prop = propStat.Prop;
@@ -695,7 +695,7 @@ namespace DecaTec.WebDav
                     webDavSessionItemETag = prop.GetEtag;
                     webDavSessionItemLastModified = prop.GetLastModified;
 
-                    // RFC4331
+                    // RFC 4331
                     webDavSessionItemQuotaAvailableBytes = prop.QuotaAvailableBytes;
                     webDavSessionItemQuotaUsedBytes = prop.QuotaUsedBytes;
 
@@ -942,7 +942,7 @@ namespace DecaTec.WebDav
         /// <list type="bullet">
         /// <item><description>Use the ListAsync methods of WebDavSession to retrieve a list of <see cref="WebDavSessionItem"/>s.</description></item>
         /// <item><description>Update the properties of the WebDavSessionItems: You can either set new values (this will update the properties on the WebDAV server later on 
-        /// or set values to null or string.Empty (this will remove the properties on the WebDAV server later on).</description></item>
+        /// or set values to null or <see cref="String.Empty"/> (this will remove the properties on the WebDAV server later on).</description></item>
         /// <item><description>Now you can use the UpdateItem or UpdateItems methods of WebDavSession in order to write the updates elements back to the server.</description></item>
         /// </list>
         /// <para>Note that you cannot change all of <see cref="WebDavSessionItem"/>'s properties as some of them are readonly properties. You can only change the values for 
@@ -963,7 +963,7 @@ namespace DecaTec.WebDav
                 {
                     if (msResponseItem is Propstat propStat)
                     {
-                        success &= PropStatHelper.IsSuccessStatusCode(propStat.Status);
+                        success &= PropstatHelper.IsSuccessStatusCode(propStat.Status);
                     }
                 }
             }
@@ -981,7 +981,7 @@ namespace DecaTec.WebDav
         /// <list type="bullet">
         /// <item><description>Use the ListAsync methods of WebDavSession to retrieve a list of <see cref="WebDavSessionItem"/>s.</description></item>
         /// <item><description>Update the properties of the WebDavSessionItems: You can either set new values (this will update the properties on the WebDAV server later on 
-        /// or set values to null or string.Empty (this will remove the properties on the WebDAV server later on).</description></item>
+        /// or set values to null or <see cref="String.Empty"/> (this will remove the properties on the WebDAV server later on).</description></item>
         /// <item><description>Now you can use the UpdateItem or UpdateItems methods of WebDavSession in order to write the updates elements back to the server.</description></item>
         /// </list>
         /// <para>Note that you cannot change all of <see cref="WebDavSessionItem"/>'s properties as some of them are readonly properties. You can only change the values for 

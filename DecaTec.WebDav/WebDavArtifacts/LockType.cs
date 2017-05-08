@@ -6,7 +6,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
 {
     /// <summary>
     /// Class representing an 'locktype' XML element for WebDAV communication.
-    /// RFC4918 only specifies a single lock type, which is the write lock type.
+    /// RFC 4918 only specifies a single lock type, which is the write lock type.
     /// </summary>
     [DataContract]
     [DebuggerStepThrough]

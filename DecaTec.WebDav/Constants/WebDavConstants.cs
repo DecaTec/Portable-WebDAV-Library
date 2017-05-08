@@ -1,5 +1,4 @@
-﻿
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 
 namespace DecaTec.WebDav
 {
