@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="f8c9e154-ff20-4cb4-826a-4264bdc19a5c" revisionNumber="1">
+  <developerConceptualDocument
+     xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction></introduction>
+
+    <section>
+      <title>Changes in release v0.9.1.0</title>
+      <content>
+
+        <list class="bullet">
+
+          <listItem>
+            <para>
+              Security: Updated dependencies to System.Net.Http (see <externalLink><linkText>Microsoft Security Advisory 4021279: Vulnerabilities in .NET Core, ASP.NET Core Could Allow Elevation of Privilege</linkText><linkUri>https://github.com/dotnet/announcements/issues/12</linkUri></externalLink>).
+            </para>
+          </listItem>
+
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="55c4b378-829f-44e2-af56-20a587c2d24b" />
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>
