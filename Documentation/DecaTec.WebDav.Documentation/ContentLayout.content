@@ -19,7 +19,7 @@
         <HelpKeyword index="K" term="app capabilities, UWP" />
       </HelpKeywords>
     </Topic>
-    <Topic id="ccea8090-12aa-4576-b835-5895ea28629d" visible="True" isSelected="true" title="Expired/untrusted SSL certificates" linkText="Expired/untrusted SSL certificates">
+    <Topic id="ccea8090-12aa-4576-b835-5895ea28629d" visible="True" title="Expired/untrusted SSL certificates" linkText="Expired/untrusted SSL certificates">
       <HelpKeywords>
         <HelpKeyword index="K" term="SSL, untrusted, self-signed" />
       </HelpKeywords>
@@ -124,9 +124,14 @@
         <HelpKeyword index="K" term="version, 0.9.0.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="5af7368a-05e7-4d24-9084-81844e441aa3" visible="True" title="Version 1.0.0.0" linkText="Version 1.0.0.0">
+    <Topic id="f8c9e154-ff20-4cb4-826a-4264bdc19a5c" visible="True" isSelected="true" title="Version 0.9.1.0" linkText="Version 0.9.1.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.9.1.0" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="5af7368a-05e7-4d24-9084-81844e441aa3" visible="True" title="Version 1.0.0.0" linkText="Version 1.0.0.0">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 1.0.0.0" />
       </HelpKeywords>
     </Topic>
   </Topic>
