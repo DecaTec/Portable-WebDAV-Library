@@ -9,6 +9,9 @@ using System.Xml.Serialization;
 using System.Linq;
 using System.Collections.Generic;
 using System.Globalization;
+using DecaTec.WebDav.Headers;
+using DecaTec.WebDav.Tools;
+using DecaTec.WebDav.Exceptions;
 
 namespace DecaTec.WebDav
 {

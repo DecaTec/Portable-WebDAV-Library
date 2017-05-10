@@ -1,4 +1,4 @@
-﻿namespace DecaTec.WebDav
+﻿namespace DecaTec.WebDav.Headers
 {
     /// <summary>
     /// Class representing (some) HTTP header names.

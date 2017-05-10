@@ -1,5 +1,7 @@
-﻿using System;
+﻿using DecaTec.WebDav.Tools;
+using System;
 using System.Runtime.Serialization;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace DecaTec.WebDav.WebDavArtifacts
@@ -820,5 +822,16 @@ namespace DecaTec.WebDav.WebDavArtifacts
         }
 
         #endregion IIS specific properties
+
+        /// <summary>
+        /// Gets or sets additional WebDAV properties as <see cref="XElement"/> array.
+        /// </summary>
+        /// <remarks>This property is used for WebDAV properties not defined in <see href="https://www.ietf.org/rfc/rfc4918.txt">RFC 4918</see>, <see href="https://tools.ietf.org/html/rfc4331">RFC 4331</see>, <see href="https://tools.ietf.org/html/draft-hopmann-collection-props-00">Additional WebDAV Collection Properties</see> or IIS WebDAV specification.</remarks>
+        [XmlAnyElement]
+        public XElement[] AdditionalProperties
+        {
+            get;
+            set;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DecaTec.WebDav.WebDavArtifacts;
+﻿using DecaTec.WebDav.Exceptions;
+using DecaTec.WebDav.WebDavArtifacts;
 using System;
 using System.IO;
 using System.Net.Http;

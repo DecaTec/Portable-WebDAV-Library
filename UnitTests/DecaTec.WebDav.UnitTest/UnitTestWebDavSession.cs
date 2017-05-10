@@ -1,4 +1,7 @@
-﻿using DecaTec.WebDav.WebDavArtifacts;
+﻿using DecaTec.WebDav.Headers;
+using DecaTec.WebDav.MessageHandlers;
+using DecaTec.WebDav.Tools;
+using DecaTec.WebDav.WebDavArtifacts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RichardSzalay.MockHttp;
 using System;
@@ -235,6 +238,33 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         #endregion Exists
+
+        #region GetSupportedPropNames
+
+        [TestMethod]
+        public void UT_WebDavSession_GetSupportedPropNames()
+        {
+            var mockHandler = new MockHttpMessageHandler();
+            var requestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:propname /></D:propfind>";
+
+            var requestHeaders = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>(WebDavConstants.Depth, WebDavDepthHeaderValue.Zero.ToString())
+            };
+
+            var responseContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:multistatus xmlns:D=\"DAV:\"><D:response><D:href>http://192.168.178.20:8080/</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop xmlns:T=\"http://test.com/\"><D:getcontenttype/><D:getlastmodified/><D:lockdiscovery/><D:ishidden/><D:supportedlock/><D:getetag/><D:displayname/><D:getcontentlanguage/><D:getcontentlength/><D:iscollection/><D:creationdate/><D:resourcetype/><T:unknownproperty/></D:prop></D:propstat></D:response></D:multistatus>";
+            mockHandler.When(WebDavMethod.PropFind, WebDavRootFolder).WithContent(requestContent).WithHeaders(requestHeaders).Respond((HttpStatusCode)207, new StringContent(responseContent));
+
+            using (var session = CreateWebDavSession(mockHandler))
+            {
+                var propNames = session.GetSupportedPropertyNamesAsync(WebDavRootFolder).Result;
+
+                Assert.IsNotNull(propNames);
+                Assert.AreEqual(13, propNames.Length);
+            }
+        }
+
+        #endregion GetSupportedPropNames
 
         #region List
 

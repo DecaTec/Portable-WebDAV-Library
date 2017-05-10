@@ -55,7 +55,7 @@ namespace DecaTec.WebDav.UnitTest
             Assert.AreEqual(prop.DisplayName, string.Empty);
             Assert.AreEqual(prop.GetContentLengthString, string.Empty);
             Assert.AreEqual(prop.GetContentType, string.Empty);
-            Assert.AreEqual(prop.GetLastModifiedString , string.Empty);
+            Assert.AreEqual(prop.GetLastModifiedString, string.Empty);
             Assert.AreEqual(prop.GetEtag, string.Empty);
             Assert.IsNotNull(prop.ResourceType);
             Assert.AreEqual(prop.ContentClass, string.Empty);

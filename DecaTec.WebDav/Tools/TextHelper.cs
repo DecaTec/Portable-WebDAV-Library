@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace DecaTec.WebDav
+namespace DecaTec.WebDav.Tools
 {
     /// <summary>
     /// Class containing helper methods for text.

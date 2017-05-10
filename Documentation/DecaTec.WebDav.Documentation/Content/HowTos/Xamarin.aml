@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="e6404330-a56c-4bfc-bd05-23a138bbec15" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <introduction>
+      <title>Xamarin</title>
+      <para>
+        As the Portable WebDAV Library targets .NETStandard 1.1, it can also be used in <externalLink><linkText>Xamarin</linkText><linkUri>https://www.xamarin.com/</linkUri></externalLink> projects (UWP/iOS/Android).
+        This page lists some topics when developing for iOS/Android using the Portable WebDAV Library.
+      </para>
+    </introduction>
+
+    <section>
+      <title>
+        Relative Uris
+      </title>
+      <content>
+        <para>
+          When it comes to relative Uris, the class System.Uri behaves a little different on iOS/Android which can result in exceptions raised in the library.
+          Have a look at following example:
+        </para>
+        <code language="c#">
+          <![CDATA[
+var myUri = new Uri("/folder", UriKind.RelativeOrAbsolute);
+          ]]>
+        </code>
+        
+        <list class="bullet">
+          <listItem>
+            <para>On Windows systems, the Uri created is a relative Uri with no Scheme and Host.</para>
+          </listItem>
+          <listItem>
+            <para>On iOS/Android, the Uri created is an absolute Uri (file:///folder) with the Scheme 'file'.</para>
+          </listItem>
+        </list>
+
+        <para>
+          This can result in exceptions thrown in the library code ("The absolute URIs provided do not have the same host/scheme"), e.g. on WebDavSession.ListAsync:
+        </para>
+
+        <code language="c#">
+          <![CDATA[
+var webDavSession = new WebDavSession(new Uri("http://localhost"), new NetworkCredential("user", "pass"));
+var items = await webDavSession.ListAsync("/folder"); // Will raise exception
+          ]]>
+        </code>
+
+        <para>
+          <legacyBold>Solution:</legacyBold> As of version 0.7.1.0, the Portable WebDAV Library handles these issues internally. When an absolute Uri with the Scheme "file" is passed to the library, it gets converted into a relative Uri automatically.
+          When using the library on Xamarin projects, creating a new Uri by using this Uri constructor should be avoided: new Uri("/folder", UriKind.RelativeOrAbsolute).
+          But as a little helper, the class UriHelper from the library now contains two new methods (CreateUriFromUrl and TryCreateUriFromUrl) which can be used to create a Uri from a URL string.
+        </para>
+        
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="6eaaa932-6e58-4f05-82be-6bb1a0403612" />
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

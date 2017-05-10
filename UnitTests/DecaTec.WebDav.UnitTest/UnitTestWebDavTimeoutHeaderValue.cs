@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using DecaTec.WebDav.Headers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace DecaTec.WebDav.UnitTest

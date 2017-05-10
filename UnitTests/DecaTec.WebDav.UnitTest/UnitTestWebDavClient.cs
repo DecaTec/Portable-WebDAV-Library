@@ -1,4 +1,8 @@
-﻿using DecaTec.WebDav.WebDavArtifacts;
+﻿using DecaTec.WebDav.Exceptions;
+using DecaTec.WebDav.Headers;
+using DecaTec.WebDav.MessageHandlers;
+using DecaTec.WebDav.Tools;
+using DecaTec.WebDav.WebDavArtifacts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RichardSzalay.MockHttp;
 using System;

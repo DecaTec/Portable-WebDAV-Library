@@ -4,10 +4,11 @@
     xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
     xmlns:xlink="http://www.w3.org/1999/xlink">
 
-    <introduction></introduction>
+    <introduction>
+      <title>Expired/untrusted SSL certificates</title>
+    </introduction>
 
     <section>
-      <title>Required app capabilities</title>
       <content>
         <para>
           The Portable WebDAV Library can also be used with WebDAV servers which use expired/untrusted certificates. This is a common scenario when using self-signed certificates, as these are not trusted.
@@ -19,7 +20,7 @@
           See the following example using a WebDavSession:
         </para>
         <code language="c#">
-        <![CDATA[
+          <![CDATA[
 // Use the ServicePointManager.ServerCertificateValidationCallback to ignore certificate errors.
 // This call should be done before trying to access any WebDAV resources, otherwise an exception will be thrown.
 ServicePointManager.ServerCertificateValidationCallback += (object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) =>
@@ -56,6 +57,6 @@ webDavSession.Dispose();
     <relatedTopics>
       <link xlink:href="6eaaa932-6e58-4f05-82be-6bb1a0403612" />
     </relatedTopics>
-    
+
   </developerConceptualDocument>
 </topic>

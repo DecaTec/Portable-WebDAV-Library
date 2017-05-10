@@ -5,6 +5,7 @@
     xmlns:xlink="http://www.w3.org/1999/xlink">
 
     <introduction>
+      <title>Upload/download with progress</title>
       <para>
         The Portable WebDAV Library supports upload and download with progress. These short samples show how this can be accomplished:
       </para>
@@ -13,6 +14,7 @@
     <section>
       <title>Download</title>
       <content>
+        <para>See the following example to download a file with progress:</para>
         <code language="c#">
           <![CDATA[
 public async void Download()
@@ -50,6 +52,7 @@ private void Progress_ProgressChanged(object sender, WebDavProgress e)
     <section>
       <title>Upload</title>
       <content>
+        <para>See the following example to upload a file with progress:</para>
         <code language="c#">
           <![CDATA[
 public async void Upload()

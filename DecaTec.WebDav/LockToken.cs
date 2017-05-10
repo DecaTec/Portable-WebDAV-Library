@@ -1,4 +1,6 @@
-﻿namespace DecaTec.WebDav
+﻿using DecaTec.WebDav.Exceptions;
+
+namespace DecaTec.WebDav
 {
     /// <summary>
     /// Class representing a WebDAV lock token.

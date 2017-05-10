@@ -3,7 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 
-namespace DecaTec.WebDav
+namespace DecaTec.WebDav.Tools
 {
     /// <summary>
     /// Helper class for handling URIs/URLs.

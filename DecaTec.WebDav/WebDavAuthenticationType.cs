@@ -1,5 +1,4 @@
-﻿
-namespace DecaTec.WebDav
+﻿namespace DecaTec.WebDav
 {
     /// <summary>
     /// Class defining the WebDAV authentication types.

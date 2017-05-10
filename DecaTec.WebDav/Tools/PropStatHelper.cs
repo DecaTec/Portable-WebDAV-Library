@@ -1,6 +1,6 @@
 ﻿using DecaTec.WebDav.WebDavArtifacts;
 
-namespace DecaTec.WebDav
+namespace DecaTec.WebDav.Tools
 {
     /// <summary>
     /// Helper class for Propstat operations.

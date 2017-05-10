@@ -1,11 +1,14 @@
-﻿using DecaTec.WebDav.UnitTest;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Linq;
 using DecaTec.WebDav.WebDavArtifacts;
+using DecaTec.WebDav.MessageHandlers;
+using DecaTec.WebDav.Tools;
+using System.Xml.Linq;
+using System.Collections.Generic;
 
 namespace DecaTec.WebDav.UnitIntegrationTest
 {
@@ -583,7 +586,93 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             }
         }
 
+        [TestMethod]
+        public void UIT_WebDavSession_UpdateItem_WithUnknowProperty()
+        {
+            // This won't work on IIS because on IIS the 'Name' is always the same as 'DisplayName'.
+            // As the unit integration tests of this library are also run against ownCloud/Nextcloud on a regular basis, just skip this test for IIS.
+            if (!(webDavRootFolder.Contains("nextcloud") || webDavRootFolder.Contains("owncloud")))
+                return;
+
+            using (var session = CreateWebDavSession())
+            {
+                session.BaseUrl = webDavRootFolder;
+                // We need an "extended" Propfind in order to get the 'DisplayName' in the ListAsync response.
+                var propFind = PropFind.CreatePropFindWithEmptyPropertiesAll();
+
+                // Add unknown property to Prop.
+                var prop = (Prop)propFind.Item;
+                XNamespace ns = "http://owncloud.org/ns";
+                var xElementList = new List<XElement>();
+                var xElement = new XElement(ns + "favorite");
+                xElementList.Add(xElement);
+                prop.AdditionalProperties = xElementList.ToArray();
+
+                // Upload file.
+                var responseUpload = false;
+
+                using (var fileStream = File.OpenRead(TestFile))
+                {
+                    responseUpload = session.UploadFileAsync(TestFile, fileStream).Result;
+                }
+
+                var list = session.ListAsync("/", propFind).Result;
+
+                // Get unknown property.
+                var file = list.Where(x => x.Name == TestFile);
+
+                var favoriteItem = file.First().AdditionalProperties.Where(x => x.Key == "favorite").First();
+                Assert.IsNotNull(favoriteItem);
+                Assert.AreEqual("", favoriteItem.Value);
+                Assert.AreEqual(1, list.Count);
+                Assert.AreEqual(TestFile, list[0].Name);
+                Assert.IsNull(list[0].DisplayName);
+
+                // Proppatch set (favorite).               
+                var webDavSessionItem = list[0];
+                var changed = webDavSessionItem.AdditionalProperties.First(x => x.Key == "favorite");
+                changed.Value = "1";
+                var proppatchResult = session.UpdateItemAsync(webDavSessionItem).Result;
+
+                list = session.ListAsync("/", propFind).Result;
+                Assert.AreEqual(1, list.Count);
+                Assert.AreEqual("ChangedDisplayName", list[0].DisplayName);
+
+                // Proppatch remove (DisplayName).
+                webDavSessionItem = list[0];
+                webDavSessionItem.DisplayName = null;
+                proppatchResult = session.UpdateItemAsync(webDavSessionItem).Result;
+
+                list = session.ListAsync("/", propFind).Result;
+                Assert.AreEqual(1, list.Count);
+                Assert.IsNull(list[0].DisplayName);
+
+                // Delete file
+                var delete = session.DeleteAsync(TestFile).Result;
+
+                Assert.IsTrue(responseUpload);
+                Assert.IsTrue(delete);
+            }
+        }
+
         #endregion UpdateItem
+
+        #region GetSupportedPropNames
+
+        [TestMethod]
+        public void UIT_WebDavSession_GetSupportedPropNames()
+        {
+            using (var session = CreateWebDavSession())
+            {
+                session.BaseUrl = webDavRootFolder;
+                var supportedPropNames = session.GetSupportedPropertyNamesAsync("/").Result;
+
+                Assert.IsNotNull(supportedPropNames);
+                Assert.AreNotEqual(0, supportedPropNames.Count());
+            }
+        }
+
+        #endregion GetSupportedPropNames
 
         #region Misc
 
@@ -612,3 +701,4 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         #endregion Misc
     }
 }
+;

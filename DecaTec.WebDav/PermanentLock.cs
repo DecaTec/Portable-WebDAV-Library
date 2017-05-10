@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DecaTec.WebDav.Exceptions;
+using DecaTec.WebDav.Headers;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -110,7 +112,7 @@ namespace DecaTec.WebDav
             task.Wait();
 
             if (!task.Result.IsSuccessStatusCode)
-                throw new WebDavException("The lock for " + this.LockRoot.ToString() + " cannot be refreshed");
+                throw new WebDavException($"The lock for {this.LockRoot.ToString()} cannot be refreshed");
         }
 
         private static TimeSpan? ParseTimeoutString(string timeoutString)

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace DecaTec.WebDav
+namespace DecaTec.WebDav.Exceptions
 {
     /// <summary>
     /// Class for WebDAV exceptions.

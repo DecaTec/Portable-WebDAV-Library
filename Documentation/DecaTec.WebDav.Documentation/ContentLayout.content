@@ -1,125 +1,130 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
-  <Topic id="379fbde2-659c-4cd5-9eb6-0850cd041621" visible="True" isDefault="true" title="Welcome to the Portable WebDAV Library">
+  <Topic id="379fbde2-659c-4cd5-9eb6-0850cd041621" visible="True" isDefault="true" title="Welcome to the Portable WebDAV Library" linkText="Welcome to the Portable WebDAV Library">
     <HelpKeywords>
       <HelpKeyword index="K" term="Welcome" />
     </HelpKeywords>
   </Topic>
-  <Topic id="6eaaa932-6e58-4f05-82be-6bb1a0403612" visible="True" isExpanded="true">
+  <Topic id="6eaaa932-6e58-4f05-82be-6bb1a0403612" visible="True" isExpanded="true" title="HowTo" linkText="HowTo">
     <HelpKeywords>
       <HelpKeyword index="K" term="howto" />
     </HelpKeywords>
-    <Topic id="560d32af-9fd5-40f3-a655-517ba991a293" visible="True" title="Upload/download with progress">
+    <Topic id="560d32af-9fd5-40f3-a655-517ba991a293" visible="True" title="Upload/download with progress" linkText="Upload/download with progress">
       <HelpKeywords>
         <HelpKeyword index="K" term="upload, download, progress" />
       </HelpKeywords>
     </Topic>
-    <Topic id="e4a32f8a-87c3-4542-ad17-0eae7227d3eb" visible="True" title="Required app capabilities">
+    <Topic id="e4a32f8a-87c3-4542-ad17-0eae7227d3eb" visible="True" title="Required app capabilities" linkText="Required app capabilities">
       <HelpKeywords>
         <HelpKeyword index="K" term="app capabilities, UWP" />
       </HelpKeywords>
     </Topic>
-    <Topic id="ccea8090-12aa-4576-b835-5895ea28629d" visible="True" title="Using the library with expired/untrusted SSL certificates">
+    <Topic id="ccea8090-12aa-4576-b835-5895ea28629d" visible="True" isSelected="true" title="Expired/untrusted SSL certificates" linkText="Expired/untrusted SSL certificates">
       <HelpKeywords>
         <HelpKeyword index="K" term="SSL, untrusted, self-signed" />
       </HelpKeywords>
     </Topic>
+    <Topic id="e6404330-a56c-4bfc-bd05-23a138bbec15" visible="True" title="Xamarin" linkText="Xamarin">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="xamarin" />
+      </HelpKeywords>
+    </Topic>
   </Topic>
-  <Topic id="55c4b378-829f-44e2-af56-20a587c2d24b" visible="True" isExpanded="true" title="Version History">
+  <Topic id="55c4b378-829f-44e2-af56-20a587c2d24b" visible="True" isExpanded="true" title="Version History" linkText="Version History">
     <HelpKeywords>
       <HelpKeyword index="K" term="version, history" />
     </HelpKeywords>
-    <Topic id="19f8035c-90f5-4762-bda1-1ac12e6c6601" visible="True" title="Version 0.1.0.0">
+    <Topic id="19f8035c-90f5-4762-bda1-1ac12e6c6601" visible="True" title="Version 0.1.0.0" linkText="Version 0.1.0.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.1.0.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="56f4aaa9-4c8f-47f3-a154-ebfa578e5850" visible="True" title="Version 0.1.1.0">
+    <Topic id="56f4aaa9-4c8f-47f3-a154-ebfa578e5850" visible="True" title="Version 0.1.1.0" linkText="Version 0.1.1.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.1.1.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="337d67df-2f68-4d1c-bb04-71a136847f65" visible="True" title="Version 0.2.0.0">
+    <Topic id="337d67df-2f68-4d1c-bb04-71a136847f65" visible="True" title="Version 0.2.0.0" linkText="Version 0.2.0.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.2.0.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="a40f35cf-bc6d-4fe0-b681-4b3a0c6b11fe" visible="True" title="Version 0.3.0.0">
+    <Topic id="a40f35cf-bc6d-4fe0-b681-4b3a0c6b11fe" visible="True" title="Version 0.3.0.0" linkText="Version 0.3.0.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.3.0.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="7997772e-ca67-4080-9c48-44ea81dbfb5d" visible="True" title="Version 0.4.0.0">
+    <Topic id="7997772e-ca67-4080-9c48-44ea81dbfb5d" visible="True" title="Version 0.4.0.0" linkText="Version 0.4.0.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.4.0.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="9f35fb19-474d-4174-9a3e-f0fad5d4ff74" visible="True" title="Version 0.5.0.0">
+    <Topic id="9f35fb19-474d-4174-9a3e-f0fad5d4ff74" visible="True" title="Version 0.5.0.0" linkText="Version 0.5.0.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.5.0.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="256595ba-c632-452e-91a0-8e642cd6debc" visible="True" title="Version 0.5.1.0">
+    <Topic id="256595ba-c632-452e-91a0-8e642cd6debc" visible="True" title="Version 0.5.1.0" linkText="Version 0.5.1.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.5.1.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="751d4b09-9b05-4d30-8aa1-7a0595524d46" visible="True" title="Version 0.5.2.0">
+    <Topic id="751d4b09-9b05-4d30-8aa1-7a0595524d46" visible="True" title="Version 0.5.2.0" linkText="Version 0.5.2.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.5.2.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="ecc8aa8b-ad07-4724-a472-2df10a6767c5" visible="True" title="Version 0.5.3.0">
+    <Topic id="ecc8aa8b-ad07-4724-a472-2df10a6767c5" visible="True" title="Version 0.5.3.0" linkText="Version 0.5.3.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.5.3.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="35dc5445-5218-415d-b2ed-aa1f04e3cf2e" visible="True" title="Version 0.6.0.0">
+    <Topic id="35dc5445-5218-415d-b2ed-aa1f04e3cf2e" visible="True" title="Version 0.6.0.0" linkText="Version 0.6.0.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.6.0.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="a0dfca82-20c5-4772-9c84-fd483fcdd163" visible="True" title="Version 0.6.1.0">
+    <Topic id="a0dfca82-20c5-4772-9c84-fd483fcdd163" visible="True" title="Version 0.6.1.0" linkText="Version 0.6.1.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.6.1.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="f4d18840-0772-446b-8268-a53efb554502" visible="True" title="Version 0.6.2.0">
+    <Topic id="f4d18840-0772-446b-8268-a53efb554502" visible="True" title="Version 0.6.2.0" linkText="Version 0.6.2.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.6.2.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="5c3aaa98-d191-491f-b502-80cbc1b299c7" visible="True" title="Version 0.6.3.0">
+    <Topic id="5c3aaa98-d191-491f-b502-80cbc1b299c7" visible="True" title="Version 0.6.3.0" linkText="Version 0.6.3.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.6.3.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="dac96890-5db8-44b8-916b-0579de42e206" visible="True" title="Version 0.7.0.0">
+    <Topic id="dac96890-5db8-44b8-916b-0579de42e206" visible="True" title="Version 0.7.0.0" linkText="Version 0.7.0.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.7.0.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="486a6aaf-c8ea-4e69-9e2b-afb5e5ef40cd" visible="True" title="Version 0.8.0.0">
+    <Topic id="486a6aaf-c8ea-4e69-9e2b-afb5e5ef40cd" visible="True" title="Version 0.8.0.0" linkText="Version 0.8.0.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.8.0.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="bb50b563-b0fc-4fac-a67f-ad3b2347a1a0" visible="True" title="Version 0.8.1.0">
+    <Topic id="bb50b563-b0fc-4fac-a67f-ad3b2347a1a0" visible="True" title="Version 0.8.1.0" linkText="Version 0.8.1.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.8.1.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="275a6ee7-aeae-48d4-97f5-81a478a9a419" visible="True" title="Version 0.8.2.0">
+    <Topic id="275a6ee7-aeae-48d4-97f5-81a478a9a419" visible="True" title="Version 0.8.2.0" linkText="Version 0.8.2.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.8.2.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="074658d9-57c6-4a0d-a26a-2db0224ae05e" visible="True" title="Version 0.9.0.0">
+    <Topic id="074658d9-57c6-4a0d-a26a-2db0224ae05e" visible="True" title="Version 0.9.0.0" linkText="Version 0.9.0.0">
       <HelpKeywords>
-        <HelpKeyword index="K" term="verion, 0.9.0.0" />
+        <HelpKeyword index="K" term="version, 0.9.0.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="5af7368a-05e7-4d24-9084-81844e441aa3" visible="True" isSelected="true" title="Version 1.0.0.0">
+    <Topic id="5af7368a-05e7-4d24-9084-81844e441aa3" visible="True" title="Version 1.0.0.0" linkText="Version 1.0.0.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 1.0.0.0" />
       </HelpKeywords>

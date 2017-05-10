@@ -1,4 +1,4 @@
-﻿namespace DecaTec.WebDav
+﻿namespace DecaTec.WebDav.Headers
 {
     /// <summary>
     /// Class defining the values for the HTTP Translate header.

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace DecaTec.WebDav
+namespace DecaTec.WebDav.Headers
 {
     /// <summary>
     /// Class representing the timeout values used by WebDAV.

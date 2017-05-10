@@ -1,4 +1,4 @@
-﻿namespace DecaTec.WebDav
+﻿namespace DecaTec.WebDav.Headers
 {
     /// <summary>
     /// Class defining the headers specific for WebDAV.

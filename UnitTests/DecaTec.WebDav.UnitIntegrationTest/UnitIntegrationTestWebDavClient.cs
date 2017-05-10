@@ -1,12 +1,12 @@
-﻿using DecaTec.WebDav.UnitTest;
+﻿using DecaTec.WebDav.Headers;
+using DecaTec.WebDav.MessageHandlers;
+using DecaTec.WebDav.Tools;
 using DecaTec.WebDav.WebDavArtifacts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 
 namespace DecaTec.WebDav.UnitIntegrationTest
 {
@@ -56,38 +56,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             {
                 throw new FileNotFoundException("The configuration file cannot be found. Make sure that there is a file 'TestConfiguration.txt' in the test's output folder containing data about the WebDAV server to test against.", ConfigurationFile, ex);
             }
-        }        
-
-        private void DebugWriteResponseContent(string contentString)
-        {
-            var sb = new StringBuilder();
-
-            if (string.IsNullOrEmpty(contentString))
-            {
-                sb.Append("========");
-                sb.Append(Environment.NewLine);
-                sb.Append("RESPONSE CONTENT:");
-                sb.Append(Environment.NewLine);
-                sb.Append("NONE");
-                sb.Append(Environment.NewLine);
-                sb.Append("========");
-
-                Debug.WriteLine(sb.ToString());
-                sb.Clear();
-                return;
-            }
-
-            sb.Append("========");
-            sb.Append(Environment.NewLine);
-            sb.Append("RESPONSE CONTENT:");
-            sb.Append(Environment.NewLine);
-            sb.Append(contentString);
-            sb.Append(Environment.NewLine);
-            sb.Append("========");
-
-            Debug.WriteLine(sb.ToString());
-            sb.Clear();
-        }
+        }       
 
         private WebDavClient CreateWebDavClientWithDebugHttpMessageHandler()
         {
@@ -116,9 +85,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 var testFile = UriHelper.CombineUrl(testCollectionSource, TestFile, true);
 
                 // Create source collection.
-                var response = client.MkcolAsync(testCollectionSource).Result;
-                var responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
+                var response = client.MkcolAsync(testCollectionSource).Result;               
                 var mkColResponseSuccess = response.IsSuccessStatusCode;
 
                 // Put file.
@@ -127,22 +94,16 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                     var content = new StreamContent(fileStream);
                     response = client.PutAsync(testFile, content).Result;
                 }
-
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
+                
                 var putResponseSuccess = response.IsSuccessStatusCode;
 
                 // Copy.
-                response = client.CopyAsync(testCollectionSource, testCollectionDestination).Result;
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
+                response = client.CopyAsync(testCollectionSource, testCollectionDestination).Result;               
                 var copyResponseSuccess = response.IsSuccessStatusCode;
 
                 // PropFind.
                 PropFind pf = PropFind.CreatePropFindAllProp();
                 response = client.PropFindAsync(testCollectionDestination, WebDavDepthHeaderValue.Infinity, pf).Result;
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var propFindResponseSuccess = response.IsSuccessStatusCode;
 
                 var multistatus = (Multistatus)WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
@@ -186,10 +147,8 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             {
                 PropFind pf = PropFind.CreatePropFindAllProp();
                 var response = client.PropFindAsync(webDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
-                var responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var propFindResponseSuccess = response.IsSuccessStatusCode;
-                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentString(responseContentString);
+                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
 
                 Assert.IsTrue(propFindResponseSuccess);
                 Assert.IsNotNull(multistatus);
@@ -203,10 +162,8 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             {
                 PropFind pf = PropFind.CreatePropFindAllProp();
                 var response = client.PropFindAsync(webDavRootFolder, WebDavDepthHeaderValue.One, pf).Result;
-                var responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var propFindResponseSuccess = response.IsSuccessStatusCode;
-                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentString(responseContentString);
+                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
 
                 Assert.IsTrue(propFindResponseSuccess);
                 Assert.IsNotNull(multistatus);
@@ -220,10 +177,8 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             {
                 PropFind pf = PropFind.CreatePropFindAllProp();
                 var response = client.PropFindAsync(webDavRootFolder, WebDavDepthHeaderValue.Zero, pf).Result;
-                var responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var propFindResponseSuccess = response.IsSuccessStatusCode;
-                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentString(responseContentString);
+                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
 
                 Assert.IsTrue(propFindResponseSuccess);
                 Assert.IsNotNull(multistatus);
@@ -237,10 +192,8 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             {
                 PropFind pf = PropFind.CreatePropFindWithEmptyProperties("name");
                 var response = client.PropFindAsync(webDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
-                var responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var propFindResponseSuccess = response.IsSuccessStatusCode;
-                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentString(responseContentString);
+                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
 
                 Assert.IsTrue(propFindResponseSuccess);
                 Assert.IsNotNull(multistatus);
@@ -254,10 +207,8 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             {
                 PropFind pf = PropFind.CreatePropFindWithEmptyPropertiesAll();
                 var response = client.PropFindAsync(webDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
-                var responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var propFindResponseSuccess = response.IsSuccessStatusCode;
-                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentString(responseContentString);
+                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
 
                 Assert.IsTrue(propFindResponseSuccess);
                 Assert.IsNotNull(multistatus);
@@ -271,10 +222,8 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             {
                 PropFind pf = PropFind.CreatePropFindWithPropName();
                 var response = client.PropFindAsync(webDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
-                var responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var propFindResponseSuccess = response.IsSuccessStatusCode;
-                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentString(responseContentString);
+                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
 
                 Assert.IsTrue(propFindResponseSuccess);
                 Assert.IsNotNull(multistatus);
@@ -298,8 +247,6 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 {
                     var content = new StreamContent(fileStream);
                     var responsePut = client.PutAsync(testFile, content).Result;
-                    var responsePutContentString = responsePut.Content.ReadAsStringAsync().Result;
-                    DebugWriteResponseContent(responsePutContentString);
                     putResponseSuccess = responsePut.IsSuccessStatusCode;
                 }
 
@@ -315,16 +262,12 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 set.Prop = prop;
                 propertyUpdate.Items = new object[] { set };
                 var response = client.PropPatchAsync(testFile, propertyUpdate).Result;
-                var responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var multistatusPropPatchSet = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
                 var propPatchResponseSuccess = response.IsSuccessStatusCode;
 
                 // PropFind.
                 PropFind pf = PropFind.CreatePropFindWithEmptyProperties(PropNameConstants.DisplayName);
                 response = client.PropFindAsync(testFile, WebDavDepthHeaderValue.Zero, pf).Result;
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var propFindResponseSuccess = response.IsSuccessStatusCode;
                 var multistatusPropFind = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
                 var displayName = ((Propstat)multistatusPropFind.Response[0].Items[0]).Prop.DisplayName;
@@ -338,16 +281,12 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 remove.Prop = prop;
                 propertyUpdate.Items = new object[] { remove };
                 response = client.PropPatchAsync(testFile, propertyUpdate).Result;
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var propPatchRemoveResponseSuccess = response.IsSuccessStatusCode;
                 multistatusPropFind = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
                 var multistatusPropFindResult = string.IsNullOrEmpty(((Propstat)multistatusPropFind.Response[0].Items[0]).Prop.DisplayName);
 
                 // Delete file.
                 response = client.DeleteAsync(testFile).Result;
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var deleteResponseSuccess = response.IsSuccessStatusCode;
 
                 Assert.IsTrue(putResponseSuccess);
@@ -374,15 +313,11 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
                 // Create collection.
                 var response = client.MkcolAsync(testCollection).Result;
-                var responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var mkColResponseSuccess = response.IsSuccessStatusCode;
 
                 // PropFind.
                 PropFind pf = PropFind.CreatePropFindAllProp();
                 response = client.PropFindAsync(webDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var propFindResponseSuccess = response.IsSuccessStatusCode;
 
                 var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
@@ -400,8 +335,6 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
                 // Delete collection.
                 response = client.DeleteAsync(testCollection).Result;
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var deleteResponseSuccess = response.IsSuccessStatusCode;
 
                 Assert.IsTrue(mkColResponseSuccess);
@@ -430,26 +363,19 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                     response = client.PutAsync(testFile, content).Result;
                 }
 
-                var responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var putResponseSuccess = response.IsSuccessStatusCode;
 
                 // Head
                 response = client.HeadAsync(testFile).Result;
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var headResponseSuccess = response.IsSuccessStatusCode;
 
                 // Get file.
                 response = client.GetAsync(testFile).Result;
-                var responseContentStringGet = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var getResponseSuccess = response.IsSuccessStatusCode;
+                var responseContentStringGet = response.Content.ReadAsStringAsync().Result;
 
                 // Delete file.
                 response = client.DeleteAsync(testFile).Result;
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var deleteResponseSuccess = response.IsSuccessStatusCode;
 
 
@@ -478,26 +404,19 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                     response = client.PutAsync(testFile, content).Result;
                 }
 
-                var responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var putResponseSuccess = response.IsSuccessStatusCode;
 
                 // Head
                 response = client.HeadAsync(testFile).Result;
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var headResponseSuccess = response.IsSuccessStatusCode;
 
                 // Get file.
                 response = client.GetAsync(testFile).Result;
-                var responseContentStringGet = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var getResponseSuccess = response.IsSuccessStatusCode;
+                var responseContentStringGet = response.Content.ReadAsStringAsync().Result;
 
                 // Delete file.
                 response = client.DeleteAsync(testFile).Result;
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var deleteResponseSuccess = response.IsSuccessStatusCode;
 
                 Assert.IsTrue(putResponseSuccess);
@@ -523,8 +442,6 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
                 // Create source collection.
                 var response = client.MkcolAsync(testCollectionSource).Result;
-                var responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var mkColResponseSuccess = response.IsSuccessStatusCode;
 
                 // Put file.
@@ -534,21 +451,15 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                     response = client.PutAsync(testFile, content).Result;
                 }
 
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var putResponseSuccess = response.IsSuccessStatusCode;
 
                 // Move.
                 response = client.MoveAsync(testCollectionSource, testCollectionDestination).Result;
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var moveResponseSuccess = response.IsSuccessStatusCode;
 
                 // PropFind.
                 PropFind pf = PropFind.CreatePropFindAllProp();
                 response = client.PropFindAsync(webDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var propFindResponseSuccess = response.IsSuccessStatusCode;
 
                 var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
@@ -568,8 +479,6 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 // Delete source and destination.
                 // Delete file.
                 response = client.DeleteAsync(testCollectionDestination).Result;
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var deleteResponseSuccess = response.IsSuccessStatusCode;
 
                 Assert.IsTrue(mkColResponseSuccess);
@@ -606,21 +515,15 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 };
 
                 var response = client.LockAsync(webDavRootFolder, WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromMinutes(1)), WebDavDepthHeaderValue.Infinity, lockInfo).Result;
-                var responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var lockResponseSuccess = response.IsSuccessStatusCode;
                 LockToken lockToken = WebDavHelper.GetLockTokenFromWebDavResponseMessage(response);
 
                 // Refresh lock.
                 response = client.RefreshLockAsync(webDavRootFolder, WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromSeconds(10)), lockToken).Result;
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var refreshLockResponseSuccess = response.IsSuccessStatusCode;
 
                 // Unlock.
                 response = client.UnlockAsync(webDavRootFolder, lockToken).Result;
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var unlockResponseSuccess = response.IsSuccessStatusCode;
 
                 Assert.IsTrue(lockResponseSuccess);
@@ -649,8 +552,6 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 };
 
                 var response = client.LockAsync(webDavRootFolder, WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromSeconds(15)), WebDavDepthHeaderValue.Infinity, lockInfo).Result;
-                var responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var lockResponseSuccess = response.IsSuccessStatusCode;
 
                 LockToken lockToken = WebDavHelper.GetLockTokenFromWebDavResponseMessage(response);
@@ -663,8 +564,6 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                     response = client.PutAsync(requestUrl, content).Result;
                 }
 
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var putResponseSuccess = response.IsSuccessStatusCode;
 
                 // Unlock.
@@ -697,8 +596,6 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 };
 
                 var response = client.LockAsync(webDavRootFolder, WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromSeconds(15)), WebDavDepthHeaderValue.Infinity, lockInfo).Result;
-                var responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var lockResponseSuccess = response.IsSuccessStatusCode;
                 LockToken lockToken = WebDavHelper.GetLockTokenFromWebDavResponseMessage(response);
                 var requestUrl = UriHelper.CombineUrl(webDavRootFolder, TestFile, true);
@@ -710,20 +607,14 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                     response = client.PutAsync(requestUrl, content, lockToken).Result;
                 }
 
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var putResponseSuccess = response.IsSuccessStatusCode;
 
                 // Delete file.
                 response = client.DeleteAsync(requestUrl, lockToken).Result;
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var deleteResponseSuccess = response.IsSuccessStatusCode;
 
                 // Unlock.
                 response = client.UnlockAsync(webDavRootFolder, lockToken).Result;
-                responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var unlockResponseSuccess = response.IsSuccessStatusCode;
 
                 Assert.IsTrue(lockResponseSuccess);
@@ -745,10 +636,8 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             {
                 PropFind pf = PropFind.CreatePropFindWithPropName();
                 var response = client.PropFindAsync(webDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
-                var responseContentString = response.Content.ReadAsStringAsync().Result;
-                DebugWriteResponseContent(responseContentString);
                 var propFindResponseSuccess = response.IsSuccessStatusCode;
-                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentString(responseContentString);
+                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
 
                 Assert.IsTrue(propFindResponseSuccess);
                 Assert.IsNotNull(multistatus);

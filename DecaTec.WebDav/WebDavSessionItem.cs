@@ -1,6 +1,9 @@
 ﻿using DecaTec.WebDav.WebDavArtifacts;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace DecaTec.WebDav
 {
@@ -40,9 +43,11 @@ namespace DecaTec.WebDav
         /// <param name="lastAccessed">The last accessed date.</param>
         /// <param name="name">The name.</param>
         /// <param name="parentName">The parent name.</param>
+        /// <param name="additionalProperties">The addition/unknown properties.</param>
         public WebDavSessionItem(Uri uri, DateTime? creationDate, string displayName, string contentLanguage, long? contentLength, string contentType, string eTag, DateTime? lastModified,
             long? quotaAvailableBytes, long? quotaUsedBytes, long? childCount, string defaultDocument, string id, bool? isFolder, bool? isStructuredDocument, bool? hasSubDirectories,
-            bool? noSubDirectoriesAllowed, long? fileCount, bool? isReserved, long? visibleFiles, string contentClass, bool? isReadonly, bool? isRoot, DateTime? lastAccessed, string name, string parentName)
+            bool? noSubDirectoriesAllowed, long? fileCount, bool? isReserved, long? visibleFiles, string contentClass, bool? isReadonly, bool? isRoot, DateTime? lastAccessed, string name, string parentName,
+            Dictionary<string, object> additionalProperties)
         {
             this.uri = uri;
             this.creationDate = creationDate;
@@ -69,7 +74,11 @@ namespace DecaTec.WebDav
             this.isRoot = isRoot;
             this.lastAccessed = lastAccessed;
             this.name = name;
-            this.parentName = parentName;
+            this.parentName = parentName;            
+            this.additionalProperties = new ObservableCollection<Dictionary<string, object>>(additionalProperties.ToArray());
+            this.additionalPropertiesOriginal = additionalProperties;
+
+            this.additionalProperties.CollectionChanged += AdditionalProperties_CollectionChanged;
         }
 
         private Uri uri;
@@ -602,6 +611,32 @@ namespace DecaTec.WebDav
 
         #endregion IIS specific properties
 
+        #region Additional/unknown properties
+
+        private ObservableCollection<Dictionary<string, object>> additionalProperties;
+        // For saving the original state of the list of additional properties.
+        private readonly Dictionary<string, object> additionalPropertiesOriginal;
+        private bool additionalPropertiesChanged;
+
+        public ObservableCollection<Dictionary<string, object>> AdditionalProperties
+        {
+            get
+            {
+                return this.additionalProperties;
+            }
+            private set
+            {
+                this.additionalProperties = value;
+            }
+        }
+
+        private void AdditionalProperties_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            this.additionalPropertiesChanged = true;
+        }
+
+        #endregion Additional/unknown properties
+
         #region Public methods
 
         /// <summary>
@@ -623,12 +658,16 @@ namespace DecaTec.WebDav
         /// </summary>
         protected virtual bool HasChanged => this.creationDateChanged || this.displayNameChanged || this.contentLanguageChanged ||
                                    this.contentTypeChanged || this.lastModifiedChanged || this.defaultDocumentChanged ||
-                                   isReadonlyChanged || this.lastAccessedChanged;
+                                   isReadonlyChanged || this.lastAccessedChanged || this.additionalPropertiesChanged;
 
         #endregion Protected methods
 
         #region Internal methods
 
+        /// <summary>
+        /// Gets a PropertyUpdate from the properties changed for a WebDavSessionItem.
+        /// </summary>
+        /// <returns></returns>
         internal PropertyUpdate GetPropertyUpdate()
         {
             if (!HasChanged)
@@ -688,6 +727,23 @@ namespace DecaTec.WebDav
                 setRequested = true;
             }
 
+            if (this.additionalPropertiesChanged)
+            {
+                var xElementList = new List<XElement>();
+
+                foreach (var property in this.additionalPropertiesOriginal)
+                {
+                    var changedProperty = this.additionalProperties.SingleOrDefault(x => x.Keys.Contains(property.Key));
+
+                    if (!changedProperty.Equals(default(KeyValuePair<string, object>)) && changedProperty.Values != property.Value)
+                    {
+                        var xElement = new XElement(property.Key, property.Value);
+                        setProp.AdditionalProperties = xElementList.ToArray();
+                        setRequested = true;
+                    }
+                }
+            }
+
             // If a property has changed and is null/has no value now, it's a remove operation.
             var removePropertyNames = new List<string>();
 
@@ -737,6 +793,20 @@ namespace DecaTec.WebDav
             {
                 removePropertyNames.Add(PropNameConstants.LastAccessed);
                 removeRequested = true;
+            }
+
+            if(this.additionalPropertiesChanged)
+            {
+                foreach (var property in this.additionalPropertiesOriginal)
+                {
+                    var changedProperty = this.additionalProperties.ToDictionary(x => x.Keys, x=> x.Values.AsEnumerable()).SingleOrDefault(y => y.Key == property.Key);
+
+                    if (changedProperty.Equals(default(KeyValuePair<string, object>)))
+                    {
+                        removePropertyNames.Add(property.Key);
+                        removeRequested = true;
+                    }
+                }
             }
 
             // Build up PropertyUpdate.

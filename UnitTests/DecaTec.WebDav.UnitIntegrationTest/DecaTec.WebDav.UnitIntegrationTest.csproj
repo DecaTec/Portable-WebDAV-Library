@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\DecaTec.WebDav\DecaTec.WebDav.csproj" />
-    <ProjectReference Include="..\DecaTec.WebDav.UnitTest\DecaTec.WebDav.UnitTest.csproj" />
   </ItemGroup>
 
   <ItemGroup>

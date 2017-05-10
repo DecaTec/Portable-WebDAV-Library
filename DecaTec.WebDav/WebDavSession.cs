@@ -1,4 +1,7 @@
-﻿using DecaTec.WebDav.WebDavArtifacts;
+﻿using DecaTec.WebDav.Exceptions;
+using DecaTec.WebDav.Headers;
+using DecaTec.WebDav.Tools;
+using DecaTec.WebDav.WebDavArtifacts;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -544,6 +547,48 @@ namespace DecaTec.WebDav
 
         #endregion Exists
 
+        #region GetSupportedPropNames
+
+        /// <summary>
+        /// Gets the WebDAV property names which are supported by the WebDAV server for the given <see cref="WebDavSessionItem"/>.
+        /// </summary>
+        /// <param name="item">The <see cref="WebDavSessionItem"/> to get the supported property names for.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <remarks>Not all WebDAV servers return all known property names upon such a request.</remarks>
+        public async Task<string[]> GetSupportedPropertyNamesAsync(WebDavSessionItem item)
+        {
+            return await GetSupportedPropertyNamesAsync(UriHelper.CombineUri(this.BaseUri, item.Uri, true));
+        }
+
+        /// <summary>
+        /// Gets the WebDAV property names which are supported by the WebDAV server for the element at the given URL.
+        /// </summary>
+        /// <param name="url">The URL to get the supported property names for.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <remarks>Not all WebDAV servers return all known property names upon such a request.</remarks>
+        public async Task<string[]> GetSupportedPropertyNamesAsync(string url)
+        {
+            return await GetSupportedPropertyNamesAsync(UriHelper.CreateUriFromUrl(url));
+        }
+
+        /// <summary>
+        /// Gets the WebDAV property names which are supported by the WebDAV server for the element at the given <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="uri">The <see cref="Uri"/> to get the supported property names for.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <remarks>Not all WebDAV servers return all known property names upon such a request.</remarks>
+        public async Task<string[]> GetSupportedPropertyNamesAsync(Uri uri)
+        {
+            uri = UriHelper.CombineUri(this.BaseUri, uri, true);
+            var propFind = PropFind.CreatePropFindWithPropName();
+            var response = await this.webDavClient.PropFindAsync(uri, WebDavDepthHeaderValue.Zero, propFind);
+            var propertyNames = await WebDavHelper.GetPropertyNamesKnownAndUnknownFromMultiStatusContentAsync(response.Content);
+
+            return propertyNames;
+        }
+
+        #endregion GetSupportedPropNames
+
         #region List
 
         /// <summary>
@@ -656,6 +701,7 @@ namespace DecaTec.WebDav
                 DateTime? webDavSessionItemLastAccessed = null;
                 string webDavSessionItemParentName = string.Empty;
                 bool? webDavSessionItemIsFolder = null;
+                Dictionary<string, object> webDavSessionItemAdditionalProperties = null;
 
                 Uri href = null;
 
@@ -717,6 +763,16 @@ namespace DecaTec.WebDav
                     webDavSessionItemLastAccessed = prop.LastAccessed;
                     webDavSessionItemParentName = prop.ParentName;
 
+                    // Additional/unknown properties.
+                    Dictionary<string, object> additionalProperties = new Dictionary<string, object>();
+
+                    foreach (var unknownProperty in prop.AdditionalProperties)
+                    {
+                        additionalProperties.Add(unknownProperty.Name.LocalName, unknownProperty.Value);
+                    }
+
+                    webDavSessionItemAdditionalProperties = additionalProperties;
+
                     // Make sure that the IsDirectory property is set if it's a directory.
                     if (prop.IsFolder.HasValue && prop.IsFolder.Value)
                         webDavSessionItemIsFolder = prop.IsFolder.Value;
@@ -742,7 +798,7 @@ namespace DecaTec.WebDav
                     webDavSessionItemContentType, webDavSessionItemETag, webDavSessionItemLastModified, webDavSessionItemQuotaAvailableBytes, webDavSessionItemQuotaUsedBytes, webDavSessionItemChildCount,
                     webDavSessionItemDefaultDocument, webDavSessionItemId, webDavSessionItemIsFolder, webDavSessionItemIsStructuredDocument, webDavSessionItemHasSubDirectories, webDavSessionItemNoSubDirectoriesAllowed,
                     webDavSessionItemFileCount, webDavSessionItemIsReserved, webDavSessionItemVisibleFiles, webDavSessionItemContentClass, webDavSessionItemIsReadonly, webDavSessionItemIsRoot,
-                    webDavSessionItemLastAccessed, webDavSessionItemName, webDavSessionItemParentName);
+                    webDavSessionItemLastAccessed, webDavSessionItemName, webDavSessionItemParentName, webDavSessionItemAdditionalProperties);
 
                 itemList.Add(webDavSessionItem);
             }
