@@ -1,3 +1,6 @@
+v0.9.1.0
+- Security: Updated dependencies to System.Net.Http (see Microsoft Security Advisory 4021279: Vulnerabilities in .NET Core, ASP.NET Core Could Allow Elevation of Privilege: https://github.com/dotnet/announcements/issues/12).
+
  v0.9.0.0
 - The library now implements RFC 4918, RFC 4331, Additional WebDAV Collection Properties and a some WebDAV properties specific to IIS WebDAV.
 - New properties available for WebDavSessionListItem: Keep in mind that not every WebDAV server supports the same properties. Often a server only supports a subset of the specifications or even adds additional properties. So, when a property of a WebDavSessionListItem is null, the WebDAV server may not support these properties.
