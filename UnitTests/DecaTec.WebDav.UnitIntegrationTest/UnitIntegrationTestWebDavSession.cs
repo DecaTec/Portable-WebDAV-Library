@@ -631,7 +631,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 // Proppatch set (favorite).               
                 var webDavSessionItem = list[0];
                 var changed = webDavSessionItem.AdditionalProperties.First(x => x.Key == "favorite");
-                changed.Value = "1";
+                changed =  new KeyValuePair<string, object>(changed.Key, "1");
                 var proppatchResult = session.UpdateItemAsync(webDavSessionItem).Result;
 
                 list = session.ListAsync("/", propFind).Result;

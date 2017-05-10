@@ -47,7 +47,7 @@ namespace DecaTec.WebDav
         public WebDavSessionItem(Uri uri, DateTime? creationDate, string displayName, string contentLanguage, long? contentLength, string contentType, string eTag, DateTime? lastModified,
             long? quotaAvailableBytes, long? quotaUsedBytes, long? childCount, string defaultDocument, string id, bool? isFolder, bool? isStructuredDocument, bool? hasSubDirectories,
             bool? noSubDirectoriesAllowed, long? fileCount, bool? isReserved, long? visibleFiles, string contentClass, bool? isReadonly, bool? isRoot, DateTime? lastAccessed, string name, string parentName,
-            Dictionary<string, object> additionalProperties)
+            List<KeyValuePair<string, object>> additionalProperties)
         {
             this.uri = uri;
             this.creationDate = creationDate;
@@ -74,11 +74,12 @@ namespace DecaTec.WebDav
             this.isRoot = isRoot;
             this.lastAccessed = lastAccessed;
             this.name = name;
-            this.parentName = parentName;            
-            this.additionalProperties = new ObservableCollection<Dictionary<string, object>>(additionalProperties.ToArray());
+            this.parentName = parentName;
+
+            this.additionalProperties = additionalProperties;
             this.additionalPropertiesOriginal = additionalProperties;
 
-            this.additionalProperties.CollectionChanged += AdditionalProperties_CollectionChanged;
+           // this.additionalProperties.CollectionChanged += AdditionalProperties_CollectionChanged;
         }
 
         private Uri uri;
@@ -613,12 +614,12 @@ namespace DecaTec.WebDav
 
         #region Additional/unknown properties
 
-        private ObservableCollection<Dictionary<string, object>> additionalProperties;
+        private List<KeyValuePair<string, object>> additionalProperties;
         // For saving the original state of the list of additional properties.
-        private readonly Dictionary<string, object> additionalPropertiesOriginal;
+        private readonly List<KeyValuePair<string, object>> additionalPropertiesOriginal;
         private bool additionalPropertiesChanged;
 
-        public ObservableCollection<Dictionary<string, object>> AdditionalProperties
+        public List<KeyValuePair<string, object>> AdditionalProperties
         {
             get
             {
@@ -733,9 +734,9 @@ namespace DecaTec.WebDav
 
                 foreach (var property in this.additionalPropertiesOriginal)
                 {
-                    var changedProperty = this.additionalProperties.SingleOrDefault(x => x.Keys.Contains(property.Key));
+                    var changedProperty = this.additionalProperties.SingleOrDefault(x => x.Key.Contains(property.Key));
 
-                    if (!changedProperty.Equals(default(KeyValuePair<string, object>)) && changedProperty.Values != property.Value)
+                    if (!changedProperty.Equals(default(KeyValuePair<string, object>)) && changedProperty.Value != property.Value)
                     {
                         var xElement = new XElement(property.Key, property.Value);
                         setProp.AdditionalProperties = xElementList.ToArray();
@@ -799,7 +800,7 @@ namespace DecaTec.WebDav
             {
                 foreach (var property in this.additionalPropertiesOriginal)
                 {
-                    var changedProperty = this.additionalProperties.ToDictionary(x => x.Keys, x=> x.Values.AsEnumerable()).SingleOrDefault(y => y.Key == property.Key);
+                    var changedProperty = this.additionalProperties.ToDictionary(x => x.Key, x=> x.Value).SingleOrDefault(y => y.Key == property.Key);
 
                     if (changedProperty.Equals(default(KeyValuePair<string, object>)))
                     {

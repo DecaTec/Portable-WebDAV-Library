@@ -701,7 +701,7 @@ namespace DecaTec.WebDav
                 DateTime? webDavSessionItemLastAccessed = null;
                 string webDavSessionItemParentName = string.Empty;
                 bool? webDavSessionItemIsFolder = null;
-                Dictionary<string, object> webDavSessionItemAdditionalProperties = null;
+                List<KeyValuePair<string, object>> webDavSessionItemAdditionalProperties = null;
 
                 Uri href = null;
 
@@ -764,11 +764,11 @@ namespace DecaTec.WebDav
                     webDavSessionItemParentName = prop.ParentName;
 
                     // Additional/unknown properties.
-                    Dictionary<string, object> additionalProperties = new Dictionary<string, object>();
+                    var additionalProperties = new List<KeyValuePair<string, object>>();
 
                     foreach (var unknownProperty in prop.AdditionalProperties)
                     {
-                        additionalProperties.Add(unknownProperty.Name.LocalName, unknownProperty.Value);
+                        additionalProperties.Add(new KeyValuePair<string, object>(unknownProperty.Name.LocalName, unknownProperty.Value));
                     }
 
                     webDavSessionItemAdditionalProperties = additionalProperties;
