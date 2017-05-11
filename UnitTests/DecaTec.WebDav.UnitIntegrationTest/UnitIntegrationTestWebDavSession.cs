@@ -600,10 +600,12 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 var propFind = PropFind.CreatePropFindWithEmptyPropertiesAll();
 
                 // Add unknown property to Prop.
-                var prop = (Prop)propFind.Item;
+                // The additional property is taken from https://docs.nextcloud.com/server/12/developer_manual/client_apis/WebDAV/index.html (mark item as favorite)
+                // As the additional item is part of another namespace than "DAV:", the key to access this item is a complete XElement (with namespace and name).
                 XNamespace ns = "http://owncloud.org/ns";
-                var xElementList = new List<XElement>();
                 var xElement = new XElement(ns + "favorite");
+                var prop = (Prop)propFind.Item;
+                var xElementList = new List<XElement>();                
                 xElementList.Add(xElement);
                 prop.AdditionalProperties = xElementList.ToArray();
 
@@ -618,18 +620,18 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 var list = session.ListAsync("/", propFind).Result;
 
                 // Get unknown property.
+                var xName = XName.Get("favorite", "http://owncloud.org/ns");
                 var file = list.Where(x => x.Name == TestFile);
 
-                var favoriteItem = file.First().AdditionalProperties.Where(x => x.Key.LocalName == "favorite").First();
+                var favoriteItem = file.First().AdditionalProperties[xName];
                 Assert.IsNotNull(favoriteItem);
-                Assert.AreEqual("", favoriteItem.Value);
+                Assert.AreEqual("", favoriteItem);
                 Assert.AreEqual(1, list.Count);
                 Assert.AreEqual(TestFile, list[0].Name);
                 Assert.IsNull(list[0].DisplayName);
 
                 // Proppatch set (favorite).
                 var webDavSessionItem = list[0];
-                var xName = XName.Get("favorite", "http://owncloud.org/ns");
                 webDavSessionItem.AdditionalProperties[xName] = "1";
                 var proppatchResult = session.UpdateItemAsync(webDavSessionItem).Result;
 
@@ -644,9 +646,9 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
                 list = session.ListAsync("/", propFind).Result;
                 file = list.Where(x => x.Name == TestFile);
-                favoriteItem = file.First().AdditionalProperties.Where(x => x.Key.LocalName == "favorite").First();
+                favoriteItem = file.First().AdditionalProperties[xName];
                 Assert.IsNotNull(favoriteItem);
-                Assert.AreEqual("", favoriteItem.Value);
+                Assert.AreEqual("", favoriteItem);
                 Assert.AreEqual(1, list.Count);
 
                 // Delete file
