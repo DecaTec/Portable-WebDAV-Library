@@ -79,7 +79,7 @@ namespace DecaTec.WebDav
 
             // Save additional properties as Dictionary.
             this.additionalProperties = additionalProperties.ToDictonary();
-            this.additionalPropertiesOriginal = new Dictionary<string, string>(this.additionalProperties);
+            this.additionalPropertiesOriginal = new Dictionary<XName, string>(this.additionalProperties);
         }
 
         private Uri uri;
@@ -614,14 +614,14 @@ namespace DecaTec.WebDav
 
         #region Additional/unknown properties
 
-        private readonly IDictionary<string, string> additionalProperties;
+        private readonly IDictionary<XName, string> additionalProperties;
         // For saving the original state of the list of additional properties.
-        private readonly Dictionary<string, string> additionalPropertiesOriginal;
+        private readonly Dictionary<XName, string> additionalPropertiesOriginal;
 
         /// <summary>
         /// Gets a Dictionary representing the additional WebDAV properties not defined in <see href="https://www.ietf.org/rfc/rfc4918.txt">RFC 4918</see>, <see href="https://tools.ietf.org/html/rfc4331">RFC 4331</see>, <see href="https://tools.ietf.org/html/draft-hopmann-collection-props-00">Additional WebDAV Collection Properties</see> or the IIS WebDAV specification.
         /// </summary>
-        public IDictionary<string, string> AdditionalProperties
+        public IDictionary<XName, string> AdditionalProperties
         {
             get
             {
@@ -731,7 +731,7 @@ namespace DecaTec.WebDav
 
                 foreach (var propertyOriginal in this.additionalPropertiesOriginal)
                 {
-                    var changedProperty = this.additionalProperties.SingleOrDefault(x => string.CompareOrdinal(x.Key, propertyOriginal.Key) == 0);
+                    var changedProperty = this.additionalProperties.SingleOrDefault(x => x.Key == propertyOriginal.Key);
 
                     if (changedProperty.Equals(default(KeyValuePair<string, string>)) || (propertyOriginal.Value != null && string.CompareOrdinal(changedProperty.Value, propertyOriginal.Value) != 0))
                     {
@@ -807,7 +807,7 @@ namespace DecaTec.WebDav
 
                 foreach (var property in additionalPropertiesOriginal)
                 {
-                    var changedProperty = additionalProperties.SingleOrDefault(x => string.CompareOrdinal(x.Key, property.Key) == 0);
+                    var changedProperty = additionalProperties.SingleOrDefault(x => x.Key == property.Key);
 
                     if (changedProperty.Equals(default(KeyValuePair<string, string>)))
                     {

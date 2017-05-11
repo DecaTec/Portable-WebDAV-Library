@@ -15,12 +15,12 @@ namespace DecaTec.WebDav.Extensions
         /// </summary>
         /// <param name="array">The <see cref="XElement"/> array to convert into a Dictionary.</param>
         /// <returns>A Dictionary containing the elements of the <see cref="XElement"/> array.</returns>
-        public static Dictionary<string, string> ToDictonary(this XElement[] array)
+        public static Dictionary<XName, string> ToDictonary(this XElement[] array)
         {
             if (array == null)
-                return new Dictionary<string, string>();
+                return new Dictionary<XName, string>();
 
-            return array.ToDictionary(element => element.Name.LocalName, element => element.Value);
+            return array.ToDictionary(element => element.Name, element => element.Value);
         }
     }
 }
