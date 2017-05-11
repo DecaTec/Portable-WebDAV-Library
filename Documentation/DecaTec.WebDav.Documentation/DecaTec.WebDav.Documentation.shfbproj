@@ -59,7 +59,8 @@
 <NamespaceSummaryItem name="DecaTec.WebDav.Exceptions" isDocumented="True">The DecaTec.WebDav.Exceptions namespace contains exception types used for WebDAV comunication.</NamespaceSummaryItem>
 <NamespaceSummaryItem name="DecaTec.WebDav.Headers" isDocumented="True">The DecaTec.WebDav.Headers namespace contains types for header names and values used for WebDAV communication.</NamespaceSummaryItem>
 <NamespaceSummaryItem name="DecaTec.WebDav.MessageHandlers" isDocumented="True">The DecaTec.WebDav.MessageHandlers namespace contains HttpMessageHandlers which can be used for WebDavClient and WebDavSession.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="DecaTec.WebDav.Tools" isDocumented="True">The DecaTec.WebDav.Tools namespace contains tools and helper classes for WebDAV.</NamespaceSummaryItem></NamespaceSummaries>
+<NamespaceSummaryItem name="DecaTec.WebDav.Tools" isDocumented="True">The DecaTec.WebDav.Tools namespace contains tools and helper classes for WebDAV.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="DecaTec.WebDav.Extensions" isDocumented="True">The DecaTec.WebDav.Extensions namespace contains extension classes.</NamespaceSummaryItem></NamespaceSummaries>
     <WorkingPath>..\..\Build\Doc\Working\</WorkingPath>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform

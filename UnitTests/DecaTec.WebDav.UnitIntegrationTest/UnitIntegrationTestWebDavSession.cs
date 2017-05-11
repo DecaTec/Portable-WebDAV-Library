@@ -630,13 +630,12 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
                 // Proppatch set (favorite).               
                 var webDavSessionItem = list[0];
-                var changed = webDavSessionItem.AdditionalProperties.First(x => x.Key == "favorite");
-                changed =  new KeyValuePair<string, object>(changed.Key, "1");
+                webDavSessionItem.AdditionalProperties["favorite"] = "1";
                 var proppatchResult = session.UpdateItemAsync(webDavSessionItem).Result;
 
                 list = session.ListAsync("/", propFind).Result;
                 Assert.AreEqual(1, list.Count);
-                Assert.AreEqual("ChangedDisplayName", list[0].DisplayName);
+                Assert.AreEqual("1", list[0].AdditionalProperties["favorite"]);
 
                 // Proppatch remove (DisplayName).
                 webDavSessionItem = list[0];

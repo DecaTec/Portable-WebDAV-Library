@@ -1,4 +1,5 @@
-﻿using DecaTec.WebDav.WebDavArtifacts;
+﻿using DecaTec.WebDav.Extensions;
+using DecaTec.WebDav.WebDavArtifacts;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -47,7 +48,7 @@ namespace DecaTec.WebDav
         public WebDavSessionItem(Uri uri, DateTime? creationDate, string displayName, string contentLanguage, long? contentLength, string contentType, string eTag, DateTime? lastModified,
             long? quotaAvailableBytes, long? quotaUsedBytes, long? childCount, string defaultDocument, string id, bool? isFolder, bool? isStructuredDocument, bool? hasSubDirectories,
             bool? noSubDirectoriesAllowed, long? fileCount, bool? isReserved, long? visibleFiles, string contentClass, bool? isReadonly, bool? isRoot, DateTime? lastAccessed, string name, string parentName,
-            List<KeyValuePair<string, object>> additionalProperties)
+            XElement[] additionalProperties)
         {
             this.uri = uri;
             this.creationDate = creationDate;
@@ -76,10 +77,9 @@ namespace DecaTec.WebDav
             this.name = name;
             this.parentName = parentName;
 
-            this.additionalProperties = additionalProperties;
-            this.additionalPropertiesOriginal = additionalProperties;
-
-           // this.additionalProperties.CollectionChanged += AdditionalProperties_CollectionChanged;
+            // Save additional properties as Dictionary.
+            this.additionalProperties = additionalProperties.ToDictonary();
+            this.additionalPropertiesOriginal = new Dictionary<string, string>(this.additionalProperties);
         }
 
         private Uri uri;
@@ -614,26 +614,19 @@ namespace DecaTec.WebDav
 
         #region Additional/unknown properties
 
-        private List<KeyValuePair<string, object>> additionalProperties;
+        private readonly IDictionary<string, string> additionalProperties;
         // For saving the original state of the list of additional properties.
-        private readonly List<KeyValuePair<string, object>> additionalPropertiesOriginal;
-        private bool additionalPropertiesChanged;
+        private readonly Dictionary<string, string> additionalPropertiesOriginal;
 
-        public List<KeyValuePair<string, object>> AdditionalProperties
+        /// <summary>
+        /// Gets a Dictionary representing the additional WebDAV properties not defined in <see href="https://www.ietf.org/rfc/rfc4918.txt">RFC 4918</see>, <see href="https://tools.ietf.org/html/rfc4331">RFC 4331</see>, <see href="https://tools.ietf.org/html/draft-hopmann-collection-props-00">Additional WebDAV Collection Properties</see> or the IIS WebDAV specification.
+        /// </summary>
+        public IDictionary<string, string> AdditionalProperties
         {
             get
             {
                 return this.additionalProperties;
             }
-            private set
-            {
-                this.additionalProperties = value;
-            }
-        }
-
-        private void AdditionalProperties_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            this.additionalPropertiesChanged = true;
         }
 
         #endregion Additional/unknown properties
@@ -650,7 +643,7 @@ namespace DecaTec.WebDav
             return GetPropertyUpdate();
         }
 
-        #endregion Public methods#
+        #endregion Public methods
 
         #region Protected methods
 
@@ -659,7 +652,7 @@ namespace DecaTec.WebDav
         /// </summary>
         protected virtual bool HasChanged => this.creationDateChanged || this.displayNameChanged || this.contentLanguageChanged ||
                                    this.contentTypeChanged || this.lastModifiedChanged || this.defaultDocumentChanged ||
-                                   isReadonlyChanged || this.lastAccessedChanged || this.additionalPropertiesChanged;
+                                   isReadonlyChanged || this.lastAccessedChanged || this.AdditionalPropertiesChanged;
 
         #endregion Protected methods
 
@@ -675,6 +668,7 @@ namespace DecaTec.WebDav
                 return null;
 
             var setProp = new Prop();
+            var removeProp = new Prop();
             var setRequested = false;
             var removeRequested = false;
 
@@ -728,24 +722,32 @@ namespace DecaTec.WebDav
                 setRequested = true;
             }
 
-            if (this.additionalPropertiesChanged)
+            if (this.AdditionalPropertiesChanged)
             {
+                // Set for additional properties when:
+                // - a property in the dictionary was changed (and is not null now).
+                // - an element was added to the dictionary.
                 var xElementList = new List<XElement>();
 
-                foreach (var property in this.additionalPropertiesOriginal)
+                foreach (var propertyOriginal in this.additionalPropertiesOriginal)
                 {
-                    var changedProperty = this.additionalProperties.SingleOrDefault(x => x.Key.Contains(property.Key));
+                    var changedProperty = this.additionalProperties.SingleOrDefault(x => string.CompareOrdinal(x.Key, propertyOriginal.Key) == 0);
 
-                    if (!changedProperty.Equals(default(KeyValuePair<string, object>)) && changedProperty.Value != property.Value)
+                    if (changedProperty.Equals(default(KeyValuePair<string, string>)) || (propertyOriginal.Value != null && string.CompareOrdinal(changedProperty.Value, propertyOriginal.Value) != 0))
                     {
-                        var xElement = new XElement(property.Key, property.Value);
-                        setProp.AdditionalProperties = xElementList.ToArray();
-                        setRequested = true;
+                        // Property was changed or added.
+                        xElementList.Add(new XElement(changedProperty.Key, changedProperty.Value));
                     }
+                }
+
+                if (xElementList.Count > 0)
+                {
+                    setProp.AdditionalProperties = xElementList.ToArray();
+                    setRequested = true;
                 }
             }
 
-            // If a property has changed and is null/has no value now, it's a remove operation.
+            // If a property has changed and is null/has no value now, it's a remove operation.			
             var removePropertyNames = new List<string>();
 
             if (this.creationDateChanged && !this.CreationDate.HasValue)
@@ -796,17 +798,33 @@ namespace DecaTec.WebDav
                 removeRequested = true;
             }
 
-            if(this.additionalPropertiesChanged)
-            {
-                foreach (var property in this.additionalPropertiesOriginal)
-                {
-                    var changedProperty = this.additionalProperties.ToDictionary(x => x.Key, x=> x.Value).SingleOrDefault(y => y.Key == property.Key);
+            removeProp = Prop.CreatePropWithEmptyProperties(removePropertyNames.ToArray());
 
-                    if (changedProperty.Equals(default(KeyValuePair<string, object>)))
+            if (this.AdditionalPropertiesChanged)
+            {
+                // The property is to remove if it is was deleted on the source dictonary or is null.
+                var xElementList = new List<XElement>();
+
+                foreach (var property in additionalPropertiesOriginal)
+                {
+                    var changedProperty = additionalProperties.SingleOrDefault(x => string.CompareOrdinal(x.Key, property.Key) == 0);
+
+                    if (changedProperty.Equals(default(KeyValuePair<string, string>)))
                     {
-                        removePropertyNames.Add(property.Key);
+                        // Property was set to null.
+                        xElementList.Add(new XElement(property.Key, string.Empty));
                         removeRequested = true;
                     }
+                    else if (changedProperty.Value == null)
+                    {
+                        xElementList.Add(new XElement(changedProperty.Key, string.Empty));
+                    }
+                }
+
+                if (xElementList.Count > 0)
+                {
+                    removeProp.AdditionalProperties = xElementList.ToArray();
+                    removeRequested = true;
                 }
             }
 
@@ -828,7 +846,7 @@ namespace DecaTec.WebDav
             {
                 var remove = new Remove()
                 {
-                    Prop = Prop.CreatePropWithEmptyProperties(removePropertyNames.ToArray())
+                    Prop = removeProp
                 };
 
                 propertyUpdateItems.Add(remove);
@@ -839,7 +857,41 @@ namespace DecaTec.WebDav
         }
 
         #endregion Internal methods
+
+        #region Private methods
+
+        private bool AdditionalPropertiesChanged
+        {
+            get
+            {
+                bool equal = false;
+
+                if (this.additionalProperties.Count == this.additionalPropertiesOriginal.Count)
+                {
+                    equal = true;
+
+                    foreach (var pair in additionalProperties)
+                    {
+                        if (additionalPropertiesOriginal.TryGetValue(pair.Key, out string value))
+                        {
+                            if (string.CompareOrdinal(value, pair.Value) != 0)
+                            {
+                                equal = false;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            equal = false;
+                            break;
+                        }
+                    }
+                }
+
+                return !equal;
+            }
+        }
+
+        #endregion Private methods
     }
 }
-
-

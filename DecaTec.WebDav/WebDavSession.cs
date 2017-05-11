@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace DecaTec.WebDav
 {
@@ -701,7 +702,7 @@ namespace DecaTec.WebDav
                 DateTime? webDavSessionItemLastAccessed = null;
                 string webDavSessionItemParentName = string.Empty;
                 bool? webDavSessionItemIsFolder = null;
-                List<KeyValuePair<string, object>> webDavSessionItemAdditionalProperties = null;
+                XElement[] webDavSessionItemAdditionalProperties = null;
 
                 Uri href = null;
 
@@ -764,14 +765,7 @@ namespace DecaTec.WebDav
                     webDavSessionItemParentName = prop.ParentName;
 
                     // Additional/unknown properties.
-                    var additionalProperties = new List<KeyValuePair<string, object>>();
-
-                    foreach (var unknownProperty in prop.AdditionalProperties)
-                    {
-                        additionalProperties.Add(new KeyValuePair<string, object>(unknownProperty.Name.LocalName, unknownProperty.Value));
-                    }
-
-                    webDavSessionItemAdditionalProperties = additionalProperties;
+                    webDavSessionItemAdditionalProperties = prop.AdditionalProperties;
 
                     // Make sure that the IsDirectory property is set if it's a directory.
                     if (prop.IsFolder.HasValue && prop.IsFolder.Value)
