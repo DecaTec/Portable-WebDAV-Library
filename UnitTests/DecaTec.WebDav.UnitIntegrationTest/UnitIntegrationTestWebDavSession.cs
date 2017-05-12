@@ -618,35 +618,33 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 }
 
                 var list = session.ListAsync("/", propFind).Result;
-
                 // Get unknown property.
                 var xName = XName.Get("favorite", "http://owncloud.org/ns");
                 var file = list.Where(x => x.Name == TestFile);
 
-                var favoriteItem = file.First().AdditionalProperties[xName];
+                var favoriteItem = file.First().AdditionalProperties["favorite"];
                 Assert.IsNotNull(favoriteItem);
                 Assert.AreEqual("", favoriteItem);
                 Assert.AreEqual(1, list.Count);
                 Assert.AreEqual(TestFile, list[0].Name);
-                Assert.IsNull(list[0].DisplayName);
 
                 // Proppatch set (favorite).
                 var webDavSessionItem = list[0];
-                webDavSessionItem.AdditionalProperties[xName] = "1";
+                webDavSessionItem.AdditionalProperties["favorite"] = "1";
                 var proppatchResult = session.UpdateItemAsync(webDavSessionItem).Result;
 
                 list = session.ListAsync("/", propFind).Result;
                 Assert.AreEqual(1, list.Count);
-                Assert.AreEqual("1", list[0].AdditionalProperties[xName]);
+                Assert.AreEqual("1", list[0].AdditionalProperties["favorite"]);
 
                 // Proppatch remove (DisplayName).
                 webDavSessionItem = list[0];
-                webDavSessionItem.AdditionalProperties[xName] = null;
+                webDavSessionItem.AdditionalProperties["favorite"] = null;
                 proppatchResult = session.UpdateItemAsync(webDavSessionItem).Result;
 
                 list = session.ListAsync("/", propFind).Result;
                 file = list.Where(x => x.Name == TestFile);
-                favoriteItem = file.First().AdditionalProperties[xName];
+                favoriteItem = file.First().AdditionalProperties["favorite"];
                 Assert.IsNotNull(favoriteItem);
                 Assert.AreEqual("", favoriteItem);
                 Assert.AreEqual(1, list.Count);

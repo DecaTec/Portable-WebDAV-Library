@@ -220,9 +220,12 @@ namespace DecaTec.WebDav.Tools
                             propertyList.Add(PropNameConstants.VisibleCount);
 
                         // Add unknown properties.
-                        foreach (var unknownElement in prop.AdditionalProperties)
+                        if (prop.AdditionalProperties != null)
                         {
-                            propertyList.Add(unknownElement.Name.LocalName);
+                            foreach (var unknownElement in prop.AdditionalProperties)
+                            {
+                                propertyList.Add(unknownElement.Name.LocalName);
+                            }
                         }
                     }
                 }

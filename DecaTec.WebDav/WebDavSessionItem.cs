@@ -1,8 +1,6 @@
-﻿using DecaTec.WebDav.Extensions;
-using DecaTec.WebDav.WebDavArtifacts;
+﻿using DecaTec.WebDav.WebDavArtifacts;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -48,7 +46,7 @@ namespace DecaTec.WebDav
         public WebDavSessionItem(Uri uri, DateTime? creationDate, string displayName, string contentLanguage, long? contentLength, string contentType, string eTag, DateTime? lastModified,
             long? quotaAvailableBytes, long? quotaUsedBytes, long? childCount, string defaultDocument, string id, bool? isFolder, bool? isStructuredDocument, bool? hasSubDirectories,
             bool? noSubDirectoriesAllowed, long? fileCount, bool? isReserved, long? visibleFiles, string contentClass, bool? isReadonly, bool? isRoot, DateTime? lastAccessed, string name, string parentName,
-            XElement[] additionalProperties)
+            XElement[] additionalProperties = null)
         {
             this.uri = uri;
             this.creationDate = creationDate;
@@ -77,9 +75,7 @@ namespace DecaTec.WebDav
             this.name = name;
             this.parentName = parentName;
 
-            // Save additional properties as Dictionary.
-            this.additionalProperties = additionalProperties.ToDictonary();
-            this.additionalPropertiesOriginal = new Dictionary<XName, string>(this.additionalProperties);
+            this.additionalProperties = new AdditionalWebDavProperties(additionalProperties);
         }
 
         private Uri uri;
@@ -614,14 +610,12 @@ namespace DecaTec.WebDav
 
         #region Additional/unknown properties
 
-        private readonly IDictionary<XName, string> additionalProperties;
-        // For saving the original state of the list of additional properties.
-        private readonly Dictionary<XName, string> additionalPropertiesOriginal;
+        private AdditionalWebDavProperties additionalProperties;
 
         /// <summary>
         /// Gets a Dictionary representing the additional WebDAV properties not defined in <see href="https://www.ietf.org/rfc/rfc4918.txt">RFC 4918</see>, <see href="https://tools.ietf.org/html/rfc4331">RFC 4331</see>, <see href="https://tools.ietf.org/html/draft-hopmann-collection-props-00">Additional WebDAV Collection Properties</see> or the IIS WebDAV specification.
         /// </summary>
-        public IDictionary<XName, string> AdditionalProperties
+        public AdditionalWebDavProperties AdditionalProperties
         {
             get
             {
@@ -652,7 +646,7 @@ namespace DecaTec.WebDav
         /// </summary>
         protected virtual bool HasChanged => this.creationDateChanged || this.displayNameChanged || this.contentLanguageChanged ||
                                    this.contentTypeChanged || this.lastModifiedChanged || this.defaultDocumentChanged ||
-                                   isReadonlyChanged || this.lastAccessedChanged || this.AdditionalPropertiesChanged;
+                                   isReadonlyChanged || this.lastAccessedChanged || this.additionalProperties.HasChanged;
 
         #endregion Protected methods
 
@@ -722,23 +716,9 @@ namespace DecaTec.WebDav
                 setRequested = true;
             }
 
-            if (this.AdditionalPropertiesChanged)
+            if (this.additionalProperties.HasChanged)
             {
-                // Set for additional properties when:
-                // - a property in the dictionary was changed (and is not null now).
-                // - an element was added to the dictionary.
-                var xElementList = new List<XElement>();
-
-                foreach (var propertyOriginal in this.additionalPropertiesOriginal)
-                {
-                    var changedProperty = this.additionalProperties.SingleOrDefault(x => x.Key == propertyOriginal.Key);
-
-                    if (changedProperty.Equals(default(KeyValuePair<string, string>)) || (propertyOriginal.Value != null && string.CompareOrdinal(changedProperty.Value, propertyOriginal.Value) != 0))
-                    {
-                        // Property was changed or added.
-                        xElementList.Add(new XElement(changedProperty.Key, changedProperty.Value));
-                    }
-                }
+                var xElementList = additionalProperties.GetChangedAndAddedProperties();                
 
                 if (xElementList.Count > 0)
                 {
@@ -800,26 +780,9 @@ namespace DecaTec.WebDav
 
             removeProp = Prop.CreatePropWithEmptyProperties(removePropertyNames.ToArray());
 
-            if (this.AdditionalPropertiesChanged)
+            if (this.additionalProperties.HasChanged)
             {
-                // The property is to remove if it is was deleted on the source dictonary or is null.
-                var xElementList = new List<XElement>();
-
-                foreach (var property in additionalPropertiesOriginal)
-                {
-                    var changedProperty = additionalProperties.SingleOrDefault(x => x.Key == property.Key);
-
-                    if (changedProperty.Equals(default(KeyValuePair<string, string>)))
-                    {
-                        // Property was set to null.
-                        xElementList.Add(new XElement(property.Key, string.Empty));
-                        removeRequested = true;
-                    }
-                    else if (changedProperty.Value == null)
-                    {
-                        xElementList.Add(new XElement(changedProperty.Key, string.Empty));
-                    }
-                }
+                var xElementList = this.additionalProperties.GetRemovedProperties();               
 
                 if (xElementList.Count > 0)
                 {
@@ -857,41 +820,5 @@ namespace DecaTec.WebDav
         }
 
         #endregion Internal methods
-
-        #region Private methods
-
-        private bool AdditionalPropertiesChanged
-        {
-            get
-            {
-                bool equal = false;
-
-                if (this.additionalProperties.Count == this.additionalPropertiesOriginal.Count)
-                {
-                    equal = true;
-
-                    foreach (var pair in additionalProperties)
-                    {
-                        if (additionalPropertiesOriginal.TryGetValue(pair.Key, out string value))
-                        {
-                            if (string.CompareOrdinal(value, pair.Value) != 0)
-                            {
-                                equal = false;
-                                break;
-                            }
-                        }
-                        else
-                        {
-                            equal = false;
-                            break;
-                        }
-                    }
-                }
-
-                return !equal;
-            }
-        }
-
-        #endregion Private methods
     }
 }
