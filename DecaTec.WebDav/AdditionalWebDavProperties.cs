@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Linq;
 using DecaTec.WebDav.Extensions;
+using DecaTec.WebDav.WebDavArtifacts;
 
 namespace DecaTec.WebDav
 {
@@ -87,7 +88,7 @@ namespace DecaTec.WebDav
         /// <summary>
         /// Gets or sets the value associated with the specified key.
         /// </summary>
-        /// <param name="key">The key of the value to get or set (as <see cref="XName"/>).</param>
+        /// <param name="xNameKey">The key of the value to get or set (as <see cref="XName"/>).</param>
         /// <returns>The value associated with the specified key. If the specified key is not found, a get operation throws a KeyNotFoundException, and a set operation creates a new element with the specified key.</returns>
         public string this[XName xNameKey]
         {

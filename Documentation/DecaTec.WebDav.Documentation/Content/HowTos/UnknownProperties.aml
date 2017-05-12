@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="3023122f-9dd2-4d7e-83b9-50db4c2fe2b3" revisionNumber="1">
+  <developerConceptualDocument
+   xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+   xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <introduction>
+      <title>Handle unknown WebDAV properties</title>
+    </introduction>
+
+    <section>
+      <content>
+        <para>
+          The Portable WebDAV Library supports WebDAV properties defined in <externalLink><linkText>RFC 4918</linkText><linkUri>https://tools.ietf.org/html/rfc4918</linkUri></externalLink>, <externalLink><linkText>RFC 4331</linkText><linkUri>https://tools.ietf.org/html/rfc4331</linkUri></externalLink>, <externalLink><linkText>Additional WebDAV Collection Properties</linkText><linkUri>https://tools.ietf.org/html/draft-hopmann-collection-props-00</linkUri></externalLink> and some properties specific to IIS WebDAV. 
+          Some WebDAV servers use additional WebDAV properties which are "unknown properties". The Portable WebDAV Library also supports these unknown properties, even if they are not part of the library's WebDAV object model and access to these properties is not strongly typed.
+        </para>       
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="6eaaa932-6e58-4f05-82be-6bb1a0403612" />
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>

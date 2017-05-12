@@ -24,6 +24,11 @@
         <HelpKeyword index="K" term="SSL, untrusted, self-signed" />
       </HelpKeywords>
     </Topic>
+    <Topic id="3023122f-9dd2-4d7e-83b9-50db4c2fe2b3" visible="True" isSelected="true" title="Unknown WebDAV properties" linkText="Unknown WebDAV properties">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="unknown webdav properties" />
+      </HelpKeywords>
+    </Topic>
     <Topic id="e6404330-a56c-4bfc-bd05-23a138bbec15" visible="True" title="Xamarin" linkText="Xamarin">
       <HelpKeywords>
         <HelpKeyword index="K" term="xamarin" />
@@ -124,7 +129,7 @@
         <HelpKeyword index="K" term="version, 0.9.0.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="f8c9e154-ff20-4cb4-826a-4264bdc19a5c" visible="True" isSelected="true" title="Version 0.9.1.0" linkText="Version 0.9.1.0">
+    <Topic id="f8c9e154-ff20-4cb4-826a-4264bdc19a5c" visible="True" title="Version 0.9.1.0" linkText="Version 0.9.1.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 0.9.1.0" />
       </HelpKeywords>

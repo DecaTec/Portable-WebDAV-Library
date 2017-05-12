@@ -13,6 +13,12 @@
 
           <listItem>
             <para>
+              The Portable WebDAV Library can now cope with unknown WebDAV properties, i.e. properties which are not defined in <externalLink><linkText>RFC 4918</linkText><linkUri>https://tools.ietf.org/html/rfc4918</linkUri></externalLink>, <externalLink><linkText>RFC 4331</linkText><linkUri>https://tools.ietf.org/html/rfc4331</linkUri></externalLink>, <externalLink><linkText>Additional WebDAV Collection Properties</linkText><linkUri>https://tools.ietf.org/html/draft-hopmann-collection-props-00</linkUri></externalLink> or IIS WebDAV specification. These unknown properties are handled by the class AdditionalProperties. See the documentation for instructions on how to use unknown WebDAV properties with the library.
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
               Renamed WebDavSesionListItem to WebDavSessionItem.
             </para>
           </listItem>
@@ -25,13 +31,7 @@
 
           <listItem>
             <para>
-              The constructors expecting credentials now use the interface ICredentials for credentials.
-            </para>
-          </listItem>
-
-          <listItem>
-            <para>
-              The methods of WebDavSession (e.g. copy, mode, delete, etc:) can now be used by specifying a WebDavSessionItem.
+              The methods of WebDavSession (e.g. copy, mode, delete, etc.) can now be used by specifying a WebDavSessionItem.
             </para>
           </listItem>
 
@@ -43,13 +43,13 @@
 
           <listItem>
             <para>
-              The class Prop now contains a Property AdditionalProperties which supports WebDAV properties which are not defined in RFC 4918, RFC 4331, "Additional WebDAV Collection Properties" or IIS WebDAV specification. These unknown properties are exposed as array of XElements.
+              The library know contains a DebugHttpMessageHandler: This handler can be used for WebDavClient and WebDavSesion in order to get the request/response (and their content) printed on the debug console. Note that this MessageHandler should not be used in a productive environment.
             </para>
           </listItem>
 
           <listItem>
             <para>
-              The library know contains a DebugHttpMessageHandler: This handler can be used for WebDavClient and WebDavSesion in order to get the request/response (and their content) printed on the debug console. Note that this MessageHandler should not be used in a productive environment.
+              The constructors expecting credentials now use the interface ICredentials for credentials.
             </para>
           </listItem>
 
