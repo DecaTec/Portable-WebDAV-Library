@@ -113,5 +113,36 @@ namespace DecaTec.WebDav.UnitTest
             var additionalProperties = new AdditionalWebDavProperties(xElementList.ToArray());
             additionalProperties["favorite"] = "x";
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(KeyNotFoundException))]
+        public void UT_AdditionalWebDavProperties_GetKeyWhichDoesNotExist_WithString_ShouldThrowKeyNotFoundException()
+        {
+            XNamespace ns = "http://owncloud.org/ns";
+            var xElement = new XElement(ns + "favorite", "1");
+
+            var xElementList = new List<XElement>();
+            xElementList.Add(xElement);
+
+            var additionalProperties = new AdditionalWebDavProperties(xElementList.ToArray());
+            var element = additionalProperties["fav"];
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(KeyNotFoundException))]
+        public void UT_AdditionalWebDavProperties_GetKeyWhichDoesNotExist_WithXName_ShouldThrowKeyNotFoundException()
+        {
+            XNamespace ns1 = "http://owncloud.org/ns";
+            var xElement1 = new XElement(ns1 + "favorite", "1");
+
+            XNamespace ns2 = "http://owncloud.org/ns2";
+            var xElement2 = new XElement(ns2 + "favorite", "2");
+
+            var xElementList = new List<XElement>();
+            xElementList.Add(xElement1);
+
+            var additionalProperties = new AdditionalWebDavProperties(xElementList.ToArray());
+            var element = additionalProperties[xElement2.Name];
+        }
     }
 }
