@@ -13,7 +13,7 @@
 
           <listItem>
             <para>
-              The Portable WebDAV Library can now cope with unknown WebDAV properties, i.e. properties which are not defined in <externalLink><linkText>RFC 4918</linkText><linkUri>https://tools.ietf.org/html/rfc4918</linkUri></externalLink>, <externalLink><linkText>RFC 4331</linkText><linkUri>https://tools.ietf.org/html/rfc4331</linkUri></externalLink>, <externalLink><linkText>Additional WebDAV Collection Properties</linkText><linkUri>https://tools.ietf.org/html/draft-hopmann-collection-props-00</linkUri></externalLink> or IIS WebDAV specification. These unknown properties are handled by the class AdditionalProperties. See the documentation for instructions on how to use unknown WebDAV properties with the library.
+              Extension of the Portable WebDAV Library's WebDAV object model: Properties which are not defined in <externalLink><linkText>RFC 4918</linkText><linkUri>https://tools.ietf.org/html/rfc4918</linkUri></externalLink>, <externalLink><linkText>RFC 4331</linkText><linkUri>https://tools.ietf.org/html/rfc4331</linkUri></externalLink>, <externalLink><linkText>Additional WebDAV Collection Properties</linkText><linkUri>https://tools.ietf.org/html/draft-hopmann-collection-props-00</linkUri></externalLink> or IIS WebDAV specification can now also be accessed through the library's WebDAV object model. These unknown properties are handled by the class AdditionalProperties. See the documentation for instructions on how to use unknown WebDAV properties with the library.
             </para>
           </listItem>
 
