@@ -110,6 +110,43 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Determines whether the AdditionalWebDavProperties contains the key (as string) specified.
+        /// </summary>
+        /// <param name="key">The key to locate in the AdditionalWebDavProperties.</param>
+        /// <returns>True, if the AdditionalWebDavProperties contain an element withe the specified key, otherwise false.</returns>
+        public bool ContainsKey(string key)
+        {
+            // Try to get with key only.
+            var property = additionalPropertiesInternal.Where(x => string.CompareOrdinal(x.Key.LocalName, key) == 0);
+
+            if (property.Count() == 1)
+                return true;
+
+            // Try to get with '{namespace}:{key}'
+            var splitIndex = key.LastIndexOf(':');
+
+            if (splitIndex != -1)
+            {
+                var ns = key.Substring(0, splitIndex);
+                var localName = key.Substring(splitIndex + 1);
+                var xName = XName.Get(localName, ns);
+                return ContainsKey(xName);
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Determines whether the AdditionalWebDavProperties contains the key (as <see cref="XName"/>) specified.
+        /// </summary>
+        /// <param name="key">The key to locate in the AdditionalWebDavProperties.</param>
+        /// <returns>True, if the AdditionalWebDavProperties contain an element withe the specified key, otherwise false.</returns>
+        public bool ContainsKey(XName key)
+        {
+            return this.additionalPropertiesInternal.ContainsKey(key);
+        }
+
+        /// <summary>
         /// Gets a list of <see cref="XElement"/> with changed and added properties.
         /// </summary>
         /// <returns>A list of <see cref="XElement"/> with changed and added properties.</returns>
