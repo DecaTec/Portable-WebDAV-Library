@@ -31,56 +31,50 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="key">The key of the value to get or set (as string).</param>
         /// <returns>The value associated with the specified key. If the specified key is not found, a get operation throws a KeyNotFoundException, and a set operation creates a new element with the specified key.</returns>
-		/// <remarks>The string key can either be name of the property without namespace (but only if there is no other property with the same name and other namespace present), 
-		/// or the full qualified name in the form '{namespace}:{name}' (e.g. 'http://owncloud.org/ns:favorite').</remarks>
+        /// <remarks>The string key can either be name of the property without namespace (but only if there is no other property with the same name and other namespace present), 
+        /// or the full qualified name in the form '{namespace}key' (e.g. '{http://owncloud.org/ns}favorite').</remarks>
         public string this[string key]
         {
             get
             {
                 // Try to get with key only.
                 var property = additionalPropertiesInternal.Where(x => string.CompareOrdinal(x.Key.LocalName, key) == 0);
+                var keyValuePairs = property as KeyValuePair<XName, string>[] ?? property.ToArray();
 
-                if (property.Count() == 1)
-                    return property.First().Value;
+                if (keyValuePairs.Length == 1)
+                {
+                    // Key exists only once, namespace does not matter.
+                    return keyValuePairs.First().Value;
+                }
+                else if (keyValuePairs.Length > 1 && !(key.Contains("{") && key.Contains("}")))
+                {
+                    // Key exists multiple times, no namespace was given.
+                    throw new InvalidOperationException($"The key '{key}' exists multiple times in the AdditionalWebDavProperties (with different namespaces). Try to request the element with '{{namespace}}key' or use the getter accepting an XName.");
+                }
 
-                // Try to get with '{namespace}:{key}'
-                var splitIndex = key.LastIndexOf(':');
-
-                if (splitIndex != -1)
-                {
-                    var ns = key.Substring(0, splitIndex);
-                    var localName = key.Substring(splitIndex + 1);
-                    var xName = XName.Get(localName, ns);
-                    return this[xName];
-                }
-                else if(property.Count() == 0)
-                {
-                    throw new KeyNotFoundException($"The key '{key}' cannot be found in the AdditionalWebDavProperties.");
-                }
-                else
-                {
-                    throw new InvalidOperationException($"The key '{key}' exists multiple times in the AdditionalWebDavProperties (with different namespaces). Try to request the element with '{{namespace}}:{{key}}' or use the getter accepting an XName.");
-                }
+                // Try to get with '{namespace}key'.
+                return this[XName.Get(key)];
             }
             set
             {
                 // Try to get with namespace ignored.
                 var property = additionalPropertiesInternal.Where(x => string.CompareOrdinal(x.Key.LocalName, key) == 0);
+                var keyValuePairs = property as KeyValuePair<XName, string>[] ?? property.ToArray();
 
-                if (property.Count() == 0)
+                if (!keyValuePairs.Any())
                 {
-                    // Add/edit by using the name only.
+                    // Add by using the name only.
                     additionalPropertiesInternal[key] = value;
                 }
-                else if (property.Count() == 1)
+                else if (keyValuePairs.Length == 1)
                 {
                     // Edit by using namespace and key.
-                    additionalPropertiesInternal[property.First().Key] = value;
+                    additionalPropertiesInternal[keyValuePairs.First().Key] = value;
                 }
                 else
                 {
                     // There are multiple entries with different namespaces, it is not clear which one to edit.
-                    throw new InvalidOperationException($"Cannot set element with the key '{key}' because it exists multiple times in the AdditionalWebDavProperties (with different namespaces) and it is not clear which element is affected by the setter. Try to set the element with '{{namespace}}:{{key}}' or use the setter accepting an XName.");
+                    throw new InvalidOperationException($"Cannot set element with the key '{key}' because it exists multiple times in the AdditionalWebDavProperties (with different namespaces) and it is not clear which element is affected by the setter. Try to set the element with '{{namespace}}key' or use the setter accepting an XName.");
                 }
             }
         }
@@ -96,10 +90,8 @@ namespace DecaTec.WebDav
             {
                 var properties = additionalPropertiesInternal.Where(x => x.Key == xNameKey);
 
-                if(properties.Count() == 0)
-                {
-                    throw new KeyNotFoundException($"The key '{xNameKey.ToString()}' cannot be found in the AdditionalWebDavProperties.");
-                }
+                if (!properties.Any())
+                    throw new KeyNotFoundException($"The key '{xNameKey}' cannot be found in the AdditionalWebDavProperties.");
 
                 return additionalPropertiesInternal.Single(x => x.Key == xNameKey).Value;
             }
@@ -122,18 +114,8 @@ namespace DecaTec.WebDav
             if (property.Count() == 1)
                 return true;
 
-            // Try to get with '{namespace}:{key}'
-            var splitIndex = key.LastIndexOf(':');
-
-            if (splitIndex != -1)
-            {
-                var ns = key.Substring(0, splitIndex);
-                var localName = key.Substring(splitIndex + 1);
-                var xName = XName.Get(localName, ns);
-                return ContainsKey(xName);
-            }
-
-            return false;
+            // Try to get with '{namespace}:key'.
+            return ContainsKey(XName.Get(key));
         }
 
         /// <summary>
@@ -214,7 +196,7 @@ namespace DecaTec.WebDav
         {
             get
             {
-                bool equal = false;
+                var equal = false;
 
                 if (this.additionalPropertiesInternal.Count == this.additionalPropertiesInternalOriginal.Count)
                 {
@@ -243,4 +225,3 @@ namespace DecaTec.WebDav
         }
     }
 }
-

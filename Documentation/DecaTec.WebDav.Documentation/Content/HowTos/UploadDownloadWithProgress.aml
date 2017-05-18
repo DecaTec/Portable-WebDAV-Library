@@ -19,30 +19,32 @@
           <![CDATA[
 public async void Download()
 {
-	// The base URL of the WebDAV server.
-	var webDavServerUrl = @"http://www.myserver.com/webdav/";
+    // The base URL of the WebDAV server.
+    var webDavServerUrl = @"http://www.myserver.com/webdav/";
 
-	// Specify the user credentials and use it to create a WebDavSession instance.
-	var credentials = new NetworkCredential("MyUsername", "MyPassword");
-	var webDavSession = new WebDavSession(webDavServerUrl, credentials);
+    // Specify the user credentials and use it to create a WebDavSession instance.
+    var credentials = new NetworkCredential("MyUsername", "MyPassword");
 
-	// Define progress information which is passed to the WebDavSession.
-	Progress<WebDavProgress> progress = new Progress<WebDavProgress>();
-	progress.ProgressChanged += Progress_ProgressChanged;
+    using (var webDavSession = new WebDavSession(webDavServerUrl, credentials))
+    {
+        // Define progress information which is passed to the WebDavSession.
+        Progress<WebDavProgress> progress = new Progress<WebDavProgress>();
+        progress.ProgressChanged += Progress_ProgressChanged;
 
-	using (var stream = File.Create(@"C:\audio.mp3"))
-	{
-		var responseStream = await webDavSession.DownloadFileWithProgressAsync(@"/audio.mp3", stream, progress, CancellationToken.None);
-	}
+        using (var stream = File.Create(@"C:\audio.mp3"))
+        {
+            var responseStream = await webDavSession.DownloadFileWithProgressAsync(@"/audio.mp3", stream, progress, CancellationToken.None);
+        }
+    }
 }
 
 private void Progress_ProgressChanged(object sender, WebDavProgress e)
 {
-	// Do not report every single update of the progress.
-	if (e.Bytes % 1000 == 0)
-	{
-		Debug.WriteLine($"Bytes processed: {e.Bytes} (Total bytes: {e.TotalBytes})");
-	}
+    // Do not report every single update of the progress.
+    if (e.Bytes % 1000 == 0)
+    {
+        Debug.WriteLine($"Bytes processed: {e.Bytes} (Total bytes: {e.TotalBytes})");
+    }
 }
           ]]>
         </code>
@@ -57,31 +59,33 @@ private void Progress_ProgressChanged(object sender, WebDavProgress e)
           <![CDATA[
 public async void Upload()
 {
-	// The base URL of the WebDAV server.
-	var webDavServerUrl = @"http://www.myserver.com/webdav/";
-	var fileUrl = $"{webDavServerUrl}audio.mp3";
+    // The base URL of the WebDAV server.
+    var webDavServerUrl = @"http://www.myserver.com/webdav/";
+    var fileUrl = $"{webDavServerUrl}audio.mp3";
 
-	// Specify the user credentials and use it to create a WebDavSession instance.
-	var credentials = new NetworkCredential("MyUsername", "MyPassword");
-	var webDavSession = new WebDavSession(webDavServerUrl, credentials);
+    // Specify the user credentials and use it to create a WebDavSession instance.
+    var credentials = new NetworkCredential("MyUsername", "MyPassword");
 
-	// Define progress information which is passed to the WebDavSession.
-	Progress<WebDavProgress> progress = new Progress<WebDavProgress>();
-	progress.ProgressChanged += Progress_ProgressChanged;
+    using (var webDavSession = new WebDavSession(webDavServerUrl, credentials))
+    {
+        // Define progress information which is passed to the WebDavSession.
+        Progress<WebDavProgress> progress = new Progress<WebDavProgress>();
+        progress.ProgressChanged += Progress_ProgressChanged;
 
-	using (var stream = File.OpenRead(@"D:\audio.mp3"))
-	{
-		var responseStream = await webDavSession.UploadFileWithProgressAsync(fileUrl, stream, "audio/mpeg", progress, CancellationToken.None);
-	}
+        using (var stream = File.OpenRead(@"D:\audio.mp3"))
+        {
+            var responseStream = await webDavSession.UploadFileWithProgressAsync(fileUrl, stream, "audio/mpeg", progress, CancellationToken.None);
+        }
+    }
 }
 
 private void Progress_ProgressChanged(object sender, WebDavProgress e)
 {
-	// Do not report every single update of the progress.
-	if (e.Bytes % 1000 == 0)
-	{
-		Debug.WriteLine($"Bytes processed: {e.Bytes} (Total bytes: {e.TotalBytes})");
-	}
+    // Do not report every single update of the progress.
+    if (e.Bytes % 1000 == 0)
+    {
+        Debug.WriteLine($"Bytes processed: {e.Bytes} (Total bytes: {e.TotalBytes})");
+    }
 }
           ]]>
         </code>

@@ -9,7 +9,7 @@ namespace DecaTec.WebDav.UnitTest
     public class UnitTestAdditionalWebDavProperties
     {
         [TestMethod]
-        public void UT_AdditionalWebDavProperties_GetValueWithStringIndexer()
+        public void UT_AdditionalWebDavProperties_GetValue_WithStringIndexer()
         {
             XNamespace ns = "http://owncloud.org/ns";
             var xElement = new XElement(ns + "favorite", "1");
@@ -24,23 +24,22 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UT_AdditionalWebDavProperties_GetValueWithStringIndexerWithNamespace()
+        public void UT_AdditionalWebDavProperties_GetValue_WithStringIndexer_WithNamespace()
         {
             XNamespace ns = "http://owncloud.org/ns";
-            string nsString = "http://owncloud.org/ns";
             var xElement = new XElement(ns + "favorite", "1");
 
             var xElementList = new List<XElement>();
             xElementList.Add(xElement);
 
             var additionalProperties = new AdditionalWebDavProperties(xElementList.ToArray());
-            var actual = additionalProperties[nsString + ":" + "favorite"];
+            var actual = additionalProperties[$"{{http://owncloud.org/ns}}favorite"];
 
             Assert.AreEqual("1", actual);
         }
 
         [TestMethod]
-        public void UT_AdditionalWebDavProperties_GetValueWithXNameIndexer()
+        public void UT_AdditionalWebDavProperties_GetValue_WithXNameIndexer()
         {
             XNamespace ns = "http://owncloud.org/ns";
             var xElement = new XElement(ns + "favorite", "1");
@@ -56,7 +55,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UT_AdditionalWebDavProperties_AddPropertyWithXNameIndexer()
+        public void UT_AdditionalWebDavProperties_AddProperty_WithXNameIndexer()
         {
             XNamespace ns1 = "http://owncloud.org/ns";
             var xElement1 = new XElement(ns1 + "favorite", "1");
@@ -76,7 +75,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UT_AdditionalWebDavProperties_MultipleValuesWithDifferentNamespaces()
+        public void UT_AdditionalWebDavProperties_GetValue_WithStringIndexer_WithNamespace_MultipleValuesWithDifferentNamespaces()
         {
             XNamespace ns1 = "http://owncloud.org/ns";
             var xElement1 = new XElement(ns1 + "favorite", "1");
@@ -89,14 +88,14 @@ namespace DecaTec.WebDav.UnitTest
             xElementList.Add(xElement2);
 
             var additionalProperties = new AdditionalWebDavProperties(xElementList.ToArray());
-            var actual = additionalProperties[ns1.NamespaceName + ":favorite"];
+            var actual = additionalProperties["{" + ns1.NamespaceName + "}" + "favorite"];
 
             Assert.AreEqual("1", actual);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void UT_AdditionalWebDavProperties_MultipleValuesWithDifferentNamespacesAccessByElementNameOnly_ShouldThrowInvalidOperationException()
+        public void UT_AdditionalWebDavProperties_GetValue_WithStringIndexer_ElementNameOnly_MultipleValuesWithDifferentNamespaces_ShouldThrowInvalidOperationException()
         {
             XNamespace ns1 = "http://owncloud.org/ns";
             var xElement1 = new XElement(ns1 + "favorite", "1");
@@ -114,7 +113,7 @@ namespace DecaTec.WebDav.UnitTest
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void UT_AdditionalWebDavProperties_MultipleValuesWithDifferentNamespacesSetValueByElementNameOnly_ShouldThrowInvalidOperationException()
+        public void UT_AdditionalWebDavProperties_SetValue_WithStringIndexer_ElementNameOnly_MultipleValuesWithDifferentNamespaces_ShouldThrowInvalidOperationException()
         {
             XNamespace ns1 = "http://owncloud.org/ns";
             var xElement1 = new XElement(ns1 + "favorite", "1");
@@ -132,7 +131,7 @@ namespace DecaTec.WebDav.UnitTest
 
         [TestMethod]
         [ExpectedException(typeof(KeyNotFoundException))]
-        public void UT_AdditionalWebDavProperties_GetKeyWhichDoesNotExist_WithString_ShouldThrowKeyNotFoundException()
+        public void UT_AdditionalWebDavProperties_GetValue_KeyDoesNotExist_WithStringIndexer_ShouldThrowKeyNotFoundException()
         {
             XNamespace ns = "http://owncloud.org/ns";
             var xElement = new XElement(ns + "favorite", "1");
@@ -146,7 +145,7 @@ namespace DecaTec.WebDav.UnitTest
 
         [TestMethod]
         [ExpectedException(typeof(KeyNotFoundException))]
-        public void UT_AdditionalWebDavProperties_GetKeyWhichDoesNotExist_WithXName_ShouldThrowKeyNotFoundException()
+        public void UT_AdditionalWebDavProperties_GetValue_KeyDoesNotExist_WithXNameIndexer_ShouldThrowKeyNotFoundException()
         {
             XNamespace ns1 = "http://owncloud.org/ns";
             var xElement1 = new XElement(ns1 + "favorite", "1");
@@ -187,7 +186,7 @@ namespace DecaTec.WebDav.UnitTest
             xElementList.Add(xElement);
 
             var additionalProperties = new AdditionalWebDavProperties(xElementList.ToArray());
-            var exists = additionalProperties.ContainsKey(nsString + ":" + "favorite");
+            var exists = additionalProperties.ContainsKey("{" + nsString + "}" + "favorite");
 
             Assert.IsTrue(exists);
         }
@@ -222,7 +221,7 @@ namespace DecaTec.WebDav.UnitTest
             xElementList.Add(xElement1);
 
             var additionalProperties = new AdditionalWebDavProperties(xElementList.ToArray());
-            var exists = additionalProperties.ContainsKey(ns2 + ":" + "favorite");
+            var exists = additionalProperties.ContainsKey("{" + ns2 + "}" + "favorite");
 
             Assert.IsFalse(exists);
         }

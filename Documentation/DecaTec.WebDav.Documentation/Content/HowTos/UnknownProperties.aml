@@ -11,13 +11,89 @@
     <section>
       <content>
         <para>
-          The Portable WebDAV Library supports WebDAV properties defined in <externalLink><linkText>RFC 4918</linkText><linkUri>https://tools.ietf.org/html/rfc4918</linkUri></externalLink>, <externalLink><linkText>RFC 4331</linkText><linkUri>https://tools.ietf.org/html/rfc4331</linkUri></externalLink>, <externalLink><linkText>Additional WebDAV Collection Properties</linkText><linkUri>https://tools.ietf.org/html/draft-hopmann-collection-props-00</linkUri></externalLink> and some properties specific to IIS WebDAV. 
+          The Portable WebDAV Library supports WebDAV properties defined in <externalLink><linkText>RFC 4918</linkText><linkUri>https://tools.ietf.org/html/rfc4918</linkUri></externalLink>, <externalLink><linkText>RFC 4331</linkText><linkUri>https://tools.ietf.org/html/rfc4331</linkUri></externalLink>, <externalLink><linkText>Additional WebDAV Collection Properties</linkText><linkUri>https://tools.ietf.org/html/draft-hopmann-collection-props-00</linkUri></externalLink> and some properties specific to IIS WebDAV.
           These properties are included in the library's "WebDAV object model" for a strongly typed access to these properties.
         </para>
 
         <para>
-          Some WebDAV servers use additional WebDAV properties which are not known to the WebDAV object model. The Portable WebDAV Library also offers access to these unknown properties through the WebDAV object model, with the limitation that the access is not strongly typed.
+          However, some WebDAV servers use additional WebDAV properties. Despite of these properties are unknown for the library itself, they can still be accessed through the WebDAV object model.
+          Therefor the class Prop (from the WebDAV object model) exposes these unknown properties as XElement array (property AdditionalProperties). When using a WebDavClient, the unknown properties can be accessed by this property as XML elements.
+          When using WebDavSession, the unknown properties can be retrieved by a WebDavSessionItem (property AdditionalProperties). They are wrapped in the class AdditionalWebDavProperties, which offers a dictionary like access to the unknown properties.
         </para>
+
+        <para>
+          See the following example on how to use WebDavSesion for retrieving additional properties from a WebDAV server, adding/editing properties and update these on the server:
+        </para>
+
+        <code language="c#">
+          <![CDATA[
+public async Task UseAdditionalProperties()
+{
+	// The base URL of the WebDAV server.
+	var webDavServerUrl = @"http://www.myserver.com/webdav/";
+
+	// Specify the user credentials and use it to create a WebDavSession instance.
+	var credentials = new NetworkCredential("MyUsername", "MyPassword");
+	var webDavSession = new WebDavSession(webDavServerUrl, credentials);
+	
+	//
+	// Retrieve additional properties from the server:
+	//
+	
+	// Create a "standard" PropFind containing all known properties. 
+	var propFind = PropFind.CreatePropFindWithEmptyPropertiesAll();
+
+	// Extract the Prop from the PropFind.
+	var prop = (Prop)propFind.Item;
+	
+	// Define additional property.
+	XNamespace ns = "http://owncloud.org/ns";
+    var xElement = new XElement(ns + "favorite");
+	var xElementList = new List<XElement>();                
+    xElementList.Add(xElement);
+	
+	// Add additional properties to this Prop.
+	prop.AdditionalProperties = xElementList.ToArray();
+	
+	// Use the created PropFind to get the WebDAV items.
+	var items = await webDavSession.ListAsync("/", propFind);
+	
+	//
+	// Get all WebDAV items where the 'favorite' property is set to "1".
+	//
+	
+	// Create an XName (combination of XML element name and namespace).
+	var xName = XName.Get("favorite", "http://owncloud.org/ns");
+	
+	var favorites = items.Where(x => x.AdditionalProperties[xName] == "1");
+	
+	// You could also use the XML element's name as string(only when there is no other property with the name 'favorite').
+	// var favorites = items.Where(x => x.AdditionalProperties["favorite"] == "1");
+	
+	// When there are more properties with the name 'favorite', you'll also have to specify the namespace when you want to access the 'favorite' property by string.
+	// Format: "{namespace}propertyname"
+	// var favorites = items.Where(x => x.AdditionalProperties["{http://owncloud.org/ns}favorite"] == "1");
+	
+	//
+	// Edit/remove property.
+	//
+	var firstFavorite = favorites.First();
+	
+	// To edit a property, just set a new (string) value.
+	// This will result in a PROPPATCH (set).
+	firstFavorite.AdditionalProperties[xName] = "0";
+	
+	// To remove a property, just set the value to null.
+	// This will result in a PROPPATCH (remove).
+	firstFavorite.AdditionalProperties[xName] = null;
+	
+	// Use WebDavSession to update item.
+	await webDavSession.UpdateItemAsync(firstFavorite);	
+}
+          ]]>
+        </code>
+
+
       </content>
     </section>
 

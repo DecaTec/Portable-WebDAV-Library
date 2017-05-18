@@ -27,9 +27,9 @@ ServicePointManager.ServerCertificateValidationCallback += (object sender, X509C
 {
     // Specify which certificate errors should be ignored.
     if (sslPolicyErrors == SslPolicyErrors.RemoteCertificateNotAvailable)
-	    return true;
+        return true;
     else
-	    return false;
+        return false;
 };
 
 // The base URL (HTTPS) of the WebDAV server.
@@ -39,16 +39,15 @@ var webDavServerUrl = @"https://www.myserver.com/webdav/";
 var credentials = new NetworkCredential("MyUsername", "MyPassword");
 
 // Create a WebDavSession with the HttpBaseProtocolFilter.
-var webDavSession = new WebDavSession(webDavServerUrl, credentials);
-
-var items = await webDavSession.ListAsync(@"MyFolder/");
-
-foreach (var item in items)
+using (var webDavSession = new WebDavSession(webDavServerUrl, credentials))
 {
-    // Handle the response (list of WebDavSessionListItems).
-}
+    var items = await webDavSession.ListAsync(@"MyFolder/");
 
-webDavSession.Dispose();
+    foreach (var item in items)
+    {
+        // Handle the response (list of WebDavSessionListItems).
+    }
+}
           ]]>
         </code>
       </content>
