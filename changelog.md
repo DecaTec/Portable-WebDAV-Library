@@ -1,3 +1,13 @@
+v1.0.0.0
+- Extension of the Portable WebDAV Library's WebDAV object model: Properties which are not defined in RFC 4918, RFC 4331, Additional WebDAV Collection Properties or IIS WebDAV specification can now also be accessed through the library's WebDAV object model. These unknown properties are exposed as XML (when using WebDavClient) or are handled by the class AdditionalProperties (when using WebDavSession/WebDavSessionItem). See the documentation for instructions on how to use unknown WebDAV properties with the library.
+- Renamed WebDavSesionListItem to WebDavSessionItem.
+- WebDavSession now supports Proppatch operations with the methods UpdateItemAsync and UpdateItemsAsync: Use the ListAsync methods to retrieve WebDavSessionItems, then change the properties of these items. Finally you can use the methods UpdateItemAsync/UpdateUtemsAsync of WebDavSession passing the changed WebDavSessionItems in oder to update the item's properties on the server (Proppatch). Note that not all WebDAV servers support Proppatch for all properties. So maybe you will not be able to change properties of a WebDAV element with these methods.
+- The methods of WebDavSession (e.g. copy, mode, delete, etc.) can now be used by specifying a WebDavSessionItem.
+- New methods for WebDavSession (GetSupportedPropertyNamesAsync) to retrieve a list of WebDAV properties supported by a WebDAV item.
+- The library now contains a DebugHttpMessageHandler: This handler can be used for WebDavClient and WebDavSesion in order to get the request/response (and their content) printed on the debug console. Note that this message handler should not be used in a productive environment.
+- The constructors expecting credentials now use the interface ICredentials for credentials.
+- Bugfix: UriHelper.CombineUri sometimes threw exception when both URIs were the same.
+
 v0.9.1.0
 - Security: Updated dependencies to System.Net.Http (see Microsoft Security Advisory 4021279: Vulnerabilities in .NET Core, ASP.NET Core Could Allow Elevation of Privilege: https://github.com/dotnet/announcements/issues/12).
 
