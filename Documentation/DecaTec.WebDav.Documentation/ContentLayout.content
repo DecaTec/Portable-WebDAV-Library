@@ -14,22 +14,22 @@
         <HelpKeyword index="K" term="upload, download, progress" />
       </HelpKeywords>
     </Topic>
-    <Topic id="e4a32f8a-87c3-4542-ad17-0eae7227d3eb" visible="True" title="Required app capabilities" linkText="Required app capabilities">
-      <HelpKeywords>
-        <HelpKeyword index="K" term="app capabilities, UWP" />
-      </HelpKeywords>
-    </Topic>
     <Topic id="ccea8090-12aa-4576-b835-5895ea28629d" visible="True" title="Expired/untrusted SSL certificates" linkText="Expired/untrusted SSL certificates">
       <HelpKeywords>
         <HelpKeyword index="K" term="SSL, untrusted, self-signed" />
       </HelpKeywords>
     </Topic>
-    <Topic id="3023122f-9dd2-4d7e-83b9-50db4c2fe2b3" visible="True" isSelected="true" title="Unknown WebDAV properties" linkText="Unknown WebDAV properties">
+    <Topic id="e4a32f8a-87c3-4542-ad17-0eae7227d3eb" visible="True" title="Required app capabilities" linkText="Required app capabilities">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="app capabilities, UWP" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="3023122f-9dd2-4d7e-83b9-50db4c2fe2b3" visible="True" title="Unknown WebDAV properties" linkText="Unknown WebDAV properties">
       <HelpKeywords>
         <HelpKeyword index="K" term="unknown webdav properties" />
       </HelpKeywords>
     </Topic>
-    <Topic id="e6404330-a56c-4bfc-bd05-23a138bbec15" visible="True" title="Xamarin" linkText="Xamarin">
+    <Topic id="e6404330-a56c-4bfc-bd05-23a138bbec15" visible="True" isSelected="true" title="Xamarin" linkText="Xamarin">
       <HelpKeywords>
         <HelpKeyword index="K" term="xamarin" />
       </HelpKeywords>
