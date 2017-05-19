@@ -457,6 +457,16 @@ namespace DecaTec.WebDav.UnitTest
             Assert.AreEqual(expected, combine);
         }
 
+        [TestMethod]
+        public void UT_UriHelper_CombineUri_SamePathWithAndWithoutSlash()
+        {
+            var uri1 = new Uri("http://google.de/test");
+            var uri2 = new Uri("http://google.de/test/");
+            var combine = UriHelper.CombineUri(uri1, uri2, true);
+            var expected = new Uri("http://google.de/test/");
+            Assert.AreEqual(expected, combine);
+        }
+
         #endregion CombineUri
 
         #region CombineUrl
@@ -685,6 +695,16 @@ namespace DecaTec.WebDav.UnitTest
             string url2 = null;
             var combine = UriHelper.CombineUrl(url1, url2, true);
             var expected = "/test/test2/";
+            Assert.AreEqual(expected, combine);
+        }
+
+        [TestMethod]
+        public void UT_UriHelper_CombineUrl_SamePathWithAndWithoutSlash()
+        {
+            var url1 = "http://google.de/test";
+            var url2 = "http://google.de/test/";
+            var combine = UriHelper.CombineUrl(url1, url2, true);
+            var expected = "http://google.de/test/";
             Assert.AreEqual(expected, combine);
         }
 
