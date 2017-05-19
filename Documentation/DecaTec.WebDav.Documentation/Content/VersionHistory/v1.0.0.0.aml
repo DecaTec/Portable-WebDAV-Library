@@ -13,7 +13,7 @@
 
           <listItem>
             <para>
-              Extension of the Portable WebDAV Library's WebDAV object model: Properties which are not defined in <externalLink><linkText>RFC 4918</linkText><linkUri>https://tools.ietf.org/html/rfc4918</linkUri></externalLink>, <externalLink><linkText>RFC 4331</linkText><linkUri>https://tools.ietf.org/html/rfc4331</linkUri></externalLink>, <externalLink><linkText>Additional WebDAV Collection Properties</linkText><linkUri>https://tools.ietf.org/html/draft-hopmann-collection-props-00</linkUri></externalLink> or IIS WebDAV specification can now also be accessed through the library's WebDAV object model. These unknown properties are handled by the class AdditionalProperties. See the documentation for instructions on how to use unknown WebDAV properties with the library.
+              Extension of the Portable WebDAV Library's WebDAV object model: Properties which are not defined in <externalLink><linkText>RFC 4918</linkText><linkUri>https://tools.ietf.org/html/rfc4918</linkUri></externalLink>, <externalLink><linkText>RFC 4331</linkText><linkUri>https://tools.ietf.org/html/rfc4331</linkUri></externalLink>, <externalLink><linkText>Additional WebDAV Collection Properties</linkText><linkUri>https://tools.ietf.org/html/draft-hopmann-collection-props-00</linkUri></externalLink> or IIS WebDAV specification can now also be accessed through the library's WebDAV object model. These unknown properties are exposed as XML (when using WebDavClient) or are handled by the class AdditionalProperties (when using WebDavSession/WebDavSessionItem). See the documentation for instructions on how to use unknown WebDAV properties with the library.
             </para>
           </listItem>
 
@@ -25,7 +25,7 @@
 
           <listItem>
             <para>
-              WebDavSession now supports Proppatch operations with the methods UpdateItemAsync and UpdateItemsAsync: Use the ListAsync methods to retrieve WebDavSessionItems, then change the properties of these items. Then you can use the methods UpdateItemAsync/UpdateUtemsAsync of WebDavSession passing the changed WebDavSessionItems in oder to update the item's properties on the server (Proppatch).  <legacyBold>Note that not all WebDAV servers support Proppatch for all properties.</legacyBold> So maybe you will not be able to change properties of a WebDAV element with these methods.
+              WebDavSession now supports Proppatch operations with the methods UpdateItemAsync and UpdateItemsAsync: Use the ListAsync methods to retrieve WebDavSessionItems, then change the properties of these items. Finally you can use the methods UpdateItemAsync/UpdateUtemsAsync of WebDavSession passing the changed WebDavSessionItems in oder to update the item's properties on the server (Proppatch).  <legacyItalic>Note that not all WebDAV servers support Proppatch for all properties.</legacyItalic> So maybe you will not be able to change properties of a WebDAV element with these methods.
             </para>
           </listItem>
 
@@ -43,7 +43,7 @@
 
           <listItem>
             <para>
-              The library know contains a DebugHttpMessageHandler: This handler can be used for WebDavClient and WebDavSesion in order to get the request/response (and their content) printed on the debug console. Note that this MessageHandler should not be used in a productive environment.
+              The library now contains a DebugHttpMessageHandler: This handler can be used for WebDavClient and WebDavSesion in order to get the request/response (and their content) printed on the debug console. <legacyItalic>Note that this message handler should not be used in a productive environment.</legacyItalic>
             </para>
           </listItem>
 
