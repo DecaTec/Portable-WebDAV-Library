@@ -29,7 +29,7 @@
         <HelpKeyword index="K" term="unknown webdav properties" />
       </HelpKeywords>
     </Topic>
-    <Topic id="e6404330-a56c-4bfc-bd05-23a138bbec15" visible="True" isSelected="true" title="Xamarin" linkText="Xamarin">
+    <Topic id="e6404330-a56c-4bfc-bd05-23a138bbec15" visible="True" title="Xamarin" linkText="Xamarin">
       <HelpKeywords>
         <HelpKeyword index="K" term="xamarin" />
       </HelpKeywords>
@@ -134,9 +134,14 @@
         <HelpKeyword index="K" term="version, 0.9.1.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="5af7368a-05e7-4d24-9084-81844e441aa3" visible="True" title="Version 1.0.0.0" linkText="Version 1.0.0.0">
+    <Topic id="5af7368a-05e7-4d24-9084-81844e441aa3" visible="True" isSelected="true" title="Version 1.0.0.0" linkText="Version 1.0.0.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 1.0.0.0" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="db29aae2-8523-4d48-8bb9-9383dabf26d8" visible="True" title="Version 1.0.1.0" linkText="Version 1.0.1.0">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 1.0.1.0" />
       </HelpKeywords>
     </Topic>
   </Topic>
