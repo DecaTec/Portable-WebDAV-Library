@@ -1,3 +1,7 @@
+v1.0.1.0
+- Bugfix [Xamarin]: WebDavSession.ListAsync returned wrong URLs when used with folders containing spaces.
+- Bugfix [Xamarin]: WebDavSession.ListAsync returned the containing folder when used with folders containing spaces.
+
 v1.0.0.0
 - Extension of the Portable WebDAV Library's WebDAV object model: Properties which are not defined in RFC 4918, RFC 4331, Additional WebDAV Collection Properties or IIS WebDAV specification can now also be accessed through the library's WebDAV object model. These unknown properties are exposed as XML (when using WebDavClient) or are handled by the class AdditionalProperties (when using WebDavSession/WebDavSessionItem). See the documentation for instructions on how to use unknown WebDAV properties with the library.
 - Renamed WebDavSesionListItem to WebDavSessionItem.
