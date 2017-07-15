@@ -53,8 +53,9 @@ namespace DecaTec.WebDav.Tools
         {
             // On Xamarin, a Uri created with "/folder" will be an absolute Uri with the scheme 'file'.
             // Due to this fact, there are some problems when creating relative Uris on Xamarin.
+            // Additional, you cannot use the property 'AbsolutePath', because it will mess up the URL. Use 'LocalPath' instead.
             if (uri.IsAbsoluteUri && uri.Scheme.Equals(UriSchemeFile, StringComparison.Ordinal))
-                return new Uri(uri.AbsolutePath, UriKind.Relative);
+                return new Uri(uri.LocalPath, UriKind.Relative);
             else
                 return uri;
         }

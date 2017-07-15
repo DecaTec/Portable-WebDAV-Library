@@ -37,6 +37,15 @@ namespace DecaTec.WebDav.UnitTest
             Assert.AreEqual(expected, actual);
         }
 
+        [TestMethod]
+        public void UT_UriHelper_CreateUriFromUrl_WithAbsoluteFileUriWithSpaces()
+        {
+            var url = "file:///nextcloud/remote.php/webdav/Test%20Folder/";
+            var actual = UriHelper.CreateUriFromUrl(url);
+            var expected = new Uri("/nextcloud/remote.php/webdav/Test Folder/", UriKind.Relative);
+            Assert.AreEqual(expected, actual);
+        }
+
         #endregion CreateUriFromUrl
 
         #region TryCreateUriFromUrl
