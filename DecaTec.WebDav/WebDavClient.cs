@@ -260,6 +260,10 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> CopyAsync(Uri sourceUri, Uri destinationUri, bool overwrite, WebDavDepthHeaderValue depth, LockToken lockTokenDestination)
         {
             var requestMethod = new HttpRequestMessage(WebDavMethod.Copy, sourceUri);
+
+            // Use HTTP/2 if the underlying implementation supports it
+            requestMethod.Version = new Version("2.0");
+
             // Destination header must be present on copy commands.
             requestMethod.Headers.Add(WebDavRequestHeader.Destination, destinationUri.ToString());
 
@@ -374,6 +378,9 @@ namespace DecaTec.WebDav
             // A DELETE command without depth header will be treated by the server as if Depth = 'infinity' was used.
             // Thus, no Depth header is explicitly specified.
             var requestMethod = new HttpRequestMessage(WebDavMethod.Delete, requestUri);
+
+            // Use HTTP/2 if the underlying implementation supports it
+            requestMethod.Version = new Version("2.0");
 
             if (lockToken != null)
                 requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString());
@@ -588,6 +595,10 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> HeadAsync(Uri requestUri, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
             var requestMethod = new HttpRequestMessage(HttpMethod.Head, requestUri);
+
+            // Use HTTP/2 if the underlying implementation supports it
+            requestMethod.Version = new Version("2.0");
+
             var httpResponseMessage = await this.SendAsync(requestMethod, completionOption, cancellationToken);
             return new WebDavResponseMessage(httpResponseMessage);
         }
@@ -773,6 +784,9 @@ namespace DecaTec.WebDav
 
             var requestMethod = new HttpRequestMessage(WebDavMethod.Lock, requestUri);
 
+            // Use HTTP/2 if the underlying implementation supports it
+            requestMethod.Version = new Version("2.0");
+
             if (depth != null)
                 requestMethod.Headers.Add(WebDavRequestHeader.Depth, depth.ToString());
 
@@ -872,6 +886,9 @@ namespace DecaTec.WebDav
                 throw new WebDavException("No lock token specified. A lock token is required to refresh a lock.");
 
             var requestMethod = new HttpRequestMessage(WebDavMethod.Lock, requestUri);
+
+            // Use HTTP/2 if the underlying implementation supports it
+            requestMethod.Version = new Version("2.0");
 
             if (timeout != null)
                 requestMethod.Headers.Add(WebDavRequestHeader.Timeout, timeout.ToString());
@@ -1024,6 +1041,9 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> MkcolAsync(Uri requestUri, LockToken lockToken, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
             var requestMethod = new HttpRequestMessage(WebDavMethod.Mkcol, requestUri);
+
+            // Use HTTP/2 if the underlying implementation supports it
+            requestMethod.Version = new Version("2.0");
 
             if (lockToken != null)
                 requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString());
@@ -1224,6 +1244,10 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> MoveAsync(Uri sourceUri, Uri destinationUri, bool overwrite, LockToken lockTokenSource, LockToken lockTokenDestination, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
             var requestMethod = new HttpRequestMessage(WebDavMethod.Move, sourceUri);
+
+            // Use HTTP/2 if the underlying implementation supports it
+            requestMethod.Version = new Version("2.0");
+
             // Destination header must be present on MOVE commands.
             requestMethod.Headers.Add(WebDavRequestHeader.Destination, destinationUri.ToString());
 
@@ -1355,6 +1379,9 @@ namespace DecaTec.WebDav
             {
                 Content = content
             };
+
+            // Use HTTP/2 if the underlying implementation supports it
+            requestMethod.Version = new Version("2.0");
 
             if (lockToken != null)
                 requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString());
@@ -1624,6 +1651,9 @@ namespace DecaTec.WebDav
                 throw new WebDavException("A Depth header must be present on a PROPFIND command.");
 
             var requestMethod = new HttpRequestMessage(WebDavMethod.PropFind, requestUri);
+
+            // Use HTTP/2 if the underlying implementation supports it
+            requestMethod.Version = new Version("2.0");
 
             // If Depth = 'infinity', the server could response with 403 (Forbidden) when Depth = 'infinity' is not supported.
             requestMethod.Headers.Add(WebDavRequestHeader.Depth, depth.ToString());
@@ -1951,6 +1981,9 @@ namespace DecaTec.WebDav
         {
             var requestMethod = new HttpRequestMessage(WebDavMethod.PropPatch, requestUri);
 
+            // Use HTTP/2 if the underlying implementation supports it
+            requestMethod.Version = new Version("2.0");
+
             if (lockToken != null)
                 requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString());
 
@@ -2065,6 +2098,9 @@ namespace DecaTec.WebDav
             {
                 Content = content
             };
+
+            // Use HTTP/2 if the underlying implementation supports it
+            requestMethod.Version = new Version("2.0");
 
             if (lockToken != null)
                 requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString());
@@ -2199,6 +2235,10 @@ namespace DecaTec.WebDav
                 throw new WebDavException("No lock token specified. A lock token is required for unlocking.");
 
             var requestMethod = new HttpRequestMessage(WebDavMethod.Unlock, requestUri);
+
+            // Use HTTP/2 if the underlying implementation supports it
+            requestMethod.Version = new Version("2.0");
+
             requestMethod.Headers.Add(WebDavRequestHeader.LockToken, lockToken.LockTokenHeaderFormat.ToString());
 
             var httpResponseMessage = await this.SendAsync(requestMethod, completionOption, cancellationToken);
