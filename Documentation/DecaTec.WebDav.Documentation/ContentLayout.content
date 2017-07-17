@@ -134,7 +134,7 @@
         <HelpKeyword index="K" term="version, 0.9.1.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="5af7368a-05e7-4d24-9084-81844e441aa3" visible="True" isSelected="true" title="Version 1.0.0.0" linkText="Version 1.0.0.0">
+    <Topic id="5af7368a-05e7-4d24-9084-81844e441aa3" visible="True" title="Version 1.0.0.0" linkText="Version 1.0.0.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 1.0.0.0" />
       </HelpKeywords>
@@ -142,6 +142,11 @@
     <Topic id="db29aae2-8523-4d48-8bb9-9383dabf26d8" visible="True" title="Version 1.0.1.0" linkText="Version 1.0.1.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 1.0.1.0" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="84c16af9-768f-4ca6-9887-751edce44079" visible="True" isSelected="true" title="Version 1.1.0.0" linkText="Version 1.1.0.0">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 1.1.0.0" />
       </HelpKeywords>
     </Topic>
   </Topic>

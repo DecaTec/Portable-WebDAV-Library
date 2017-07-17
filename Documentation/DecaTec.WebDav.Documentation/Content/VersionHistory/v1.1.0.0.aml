@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="84c16af9-768f-4ca6-9887-751edce44079" revisionNumber="1">
+  <developerConceptualDocument
+     xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction></introduction>
+
+    <section>
+      <title>Changes in release v1.1.0.0</title>
+      <content>
+
+        <list class="bullet">          
+
+          <listItem>
+            <para>
+              Added full HTTP/2 support. The library now defaults to HTTP/2. Use the overloaded constructors to use other HTTP versions than 2.0.
+            </para>
+          </listItem>
+
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="55c4b378-829f-44e2-af56-20a587c2d24b" />
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>
