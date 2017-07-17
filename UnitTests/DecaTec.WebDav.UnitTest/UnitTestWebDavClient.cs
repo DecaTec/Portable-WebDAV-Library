@@ -55,6 +55,24 @@ namespace DecaTec.WebDav.UnitTest
             return wdc;
         }
 
+        #region Constructor
+
+        [TestMethod]
+        public void UT_WebDavClient_ConstructorWithDefaultHttpVersion()
+        {
+            var client = new WebDavClient();
+            Assert.AreEqual(new Version(2, 0), client.HttpVersion);
+        }
+
+        [TestMethod]
+        public void UT_WebDavClient_ConstructorWithNonDefaultHttpVersion()
+        {
+            var client = new WebDavClient(new Version(1, 1));
+            Assert.AreEqual(new Version(1, 1), client.HttpVersion);
+        }
+
+        #endregion Constructor
+
         #region General
 
         [TestMethod]

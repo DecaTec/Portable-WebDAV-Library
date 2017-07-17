@@ -58,6 +58,28 @@ namespace DecaTec.WebDav.UnitTest
             return session;
         }
 
+        #region Constructor
+
+        [TestMethod]
+        public void UT_WebDavSession_ConstructorWithDefaultHttpVersion()
+        {
+            var credentials = new NetworkCredential(UserName, Password);
+            var session = new WebDavSession(credentials);
+            Assert.AreEqual(new Version(2, 0), session.HttpVersion);
+        }
+
+
+        [TestMethod]
+        public void UT_WebDavSession_ConstructorWithNomDefaultHttpVersion()
+        {
+            var credentials = new NetworkCredential(UserName, Password);
+            var session = new WebDavSession(credentials, new Version(1, 1));
+            Assert.AreEqual(new Version(1, 1), session.HttpVersion);
+        }
+
+
+        #endregion Constructor
+
         #region Copy
 
         [TestMethod]

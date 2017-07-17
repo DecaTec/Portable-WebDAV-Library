@@ -113,6 +113,8 @@ namespace DecaTec.WebDav
 
         private const string MediaTypeXml = "application/xml";
 
+        internal static readonly Version DefaultHttpVersion = new Version(2, 0);
+
         #region Constructor
 
         /// <summary>
@@ -122,6 +124,16 @@ namespace DecaTec.WebDav
             : base()
         {
             SetDefaultRequestHeaders();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of WebDavClient.
+        /// </summary>
+        /// <param name="httpVersion">The HTTP version to use for requests.</param>
+        public WebDavClient(Version httpVersion)
+            : this()
+        {
+            this.HttpVersion = httpVersion;
         }
 
         /// <summary>
@@ -138,11 +150,34 @@ namespace DecaTec.WebDav
         ///  Initializes a new instance of WebDavClient.
         /// </summary>
         /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> responsible for processing the HTTP response messages.</param>
+        /// <param name="httpVersion">The HTTP version to use for requests.</param>
+        public WebDavClient(HttpMessageHandler httpMessageHandler, Version httpVersion)
+            : this(httpMessageHandler)
+        {
+            this.HttpVersion = httpVersion;
+        }
+
+        /// <summary>
+        ///  Initializes a new instance of WebDavClient.
+        /// </summary>
+        /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> responsible for processing the HTTP response messages.</param>
         /// <param name="disposeHandler">True if the inner handler should be disposed of by Dispose(), false if you intend to reuse the inner handler.</param>
         public WebDavClient(HttpMessageHandler httpMessageHandler, bool disposeHandler)
             : base(httpMessageHandler, disposeHandler)
         {
             SetDefaultRequestHeaders();
+        }
+
+        /// <summary>
+        ///  Initializes a new instance of WebDavClient.
+        /// </summary>
+        /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> responsible for processing the HTTP response messages.</param>
+        /// <param name="disposeHandler">True if the inner handler should be disposed of by Dispose(), false if you intend to reuse the inner handler.</param>
+        /// <param name="httpVersion">The HTTP version to use for requests.</param>
+        public WebDavClient(HttpMessageHandler httpMessageHandler, bool disposeHandler, Version httpVersion)
+            : this(httpMessageHandler, disposeHandler)
+        {
+            this.HttpVersion = httpVersion;
         }
 
         /// <summary>
@@ -158,7 +193,21 @@ namespace DecaTec.WebDav
             this.DefaultRequestHeaders.Add(HttpHeaderNames.Translate, HttpTranslateHeaderValues.TranslateF);
         }
 
-        #endregion Constructor        
+        #endregion Constructor
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the HTTP <see cref="Version"/> the WebDavClient should use for its requests. Defaults to HTTP/2.
+        /// </summary>
+        /// <remarks>Even when HTTP/2 is specified as HTTP version, there will be a fall back to HTTP/1.1 when the server does not support HTTP/2.</remarks>
+        public Version HttpVersion
+        {
+            get;
+            set;
+        } = DefaultHttpVersion;
+
+        #endregion Properties
 
         #region Copy
 
@@ -260,9 +309,7 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> CopyAsync(Uri sourceUri, Uri destinationUri, bool overwrite, WebDavDepthHeaderValue depth, LockToken lockTokenDestination)
         {
             var requestMethod = new HttpRequestMessage(WebDavMethod.Copy, sourceUri);
-
-            // Use HTTP/2 if the underlying implementation supports it
-            requestMethod.Version = new Version("2.0");
+            SetHttpVersion(requestMethod);
 
             // Destination header must be present on copy commands.
             requestMethod.Headers.Add(WebDavRequestHeader.Destination, destinationUri.ToString());
@@ -378,9 +425,7 @@ namespace DecaTec.WebDav
             // A DELETE command without depth header will be treated by the server as if Depth = 'infinity' was used.
             // Thus, no Depth header is explicitly specified.
             var requestMethod = new HttpRequestMessage(WebDavMethod.Delete, requestUri);
-
-            // Use HTTP/2 if the underlying implementation supports it
-            requestMethod.Version = new Version("2.0");
+            SetHttpVersion(requestMethod);
 
             if (lockToken != null)
                 requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString());
@@ -418,20 +463,24 @@ namespace DecaTec.WebDav
         /// <remarks>The <see cref="Stream"/> passed does not get disposed while using this method. It is up to the client to handle disposing of this stream.</remarks>
         public async Task<WebDavResponseMessage> DownloadFileWithProgressAsync(Uri uri, Stream targetStream, CancellationToken cancellationToken, IProgress<WebDavProgress> progress)
         {
-            var response = await this.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
-            response.EnsureSuccessStatusCode();
+            var requestMethod = new HttpRequestMessage(HttpMethod.Get, uri);
+            SetHttpVersion(requestMethod);
+            var httpResponseMessage = await this.SendAsync(requestMethod, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+            // #TODO
+            //var response = await this.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+            httpResponseMessage.EnsureSuccessStatusCode();
 
-            if (!(response.Content.Headers.TryGetValues(HttpHeaderNames.ContentLength, out IEnumerable<string> contentLengthHeader) && long.TryParse(contentLengthHeader.FirstOrDefault(), out long totalLength)))
+            if (!(httpResponseMessage.Content.Headers.TryGetValues(HttpHeaderNames.ContentLength, out IEnumerable<string> contentLengthHeader) && long.TryParse(contentLengthHeader.FirstOrDefault(), out long totalLength)))
                 totalLength = 0L;
 
-            var stream = new WebDavProgressStreamContent(new ProgressStream(await response.Content.ReadAsStreamAsync(), cancellationToken), totalLength, progress);
+            var stream = new WebDavProgressStreamContent(new ProgressStream(await httpResponseMessage.Content.ReadAsStreamAsync(), cancellationToken), totalLength, progress);
             await stream.CopyToAsync(targetStream);
             await targetStream.FlushAsync();
 
             // Do not dispose the targetStream here as it passed by the client.
             // It's up to the client to handle this stream an dispose it after use.
 
-            return response;
+            return new WebDavResponseMessage(httpResponseMessage);
         }
 
         #endregion Download file
@@ -523,7 +572,11 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public new async Task<WebDavResponseMessage> GetAsync(Uri requestUri, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
-            var httpResponseMessage = await base.GetAsync(requestUri, completionOption, cancellationToken);
+            var requestMethod = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            SetHttpVersion(requestMethod);
+            var httpResponseMessage = await this.SendAsync(requestMethod, completionOption, cancellationToken);
+            // #TODO
+            //var httpResponseMessage = await base.GetAsync(requestUri, completionOption, cancellationToken);
             return new WebDavResponseMessage(httpResponseMessage);
         }
 
@@ -595,9 +648,7 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> HeadAsync(Uri requestUri, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
             var requestMethod = new HttpRequestMessage(HttpMethod.Head, requestUri);
-
-            // Use HTTP/2 if the underlying implementation supports it
-            requestMethod.Version = new Version("2.0");
+            SetHttpVersion(requestMethod);
 
             var httpResponseMessage = await this.SendAsync(requestMethod, completionOption, cancellationToken);
             return new WebDavResponseMessage(httpResponseMessage);
@@ -783,9 +834,7 @@ namespace DecaTec.WebDav
                 throw new WebDavException("Values other than '0' or 'infinity' must not be used on a LOCK command.");
 
             var requestMethod = new HttpRequestMessage(WebDavMethod.Lock, requestUri);
-
-            // Use HTTP/2 if the underlying implementation supports it
-            requestMethod.Version = new Version("2.0");
+            SetHttpVersion(requestMethod);
 
             if (depth != null)
                 requestMethod.Headers.Add(WebDavRequestHeader.Depth, depth.ToString());
@@ -886,9 +935,7 @@ namespace DecaTec.WebDav
                 throw new WebDavException("No lock token specified. A lock token is required to refresh a lock.");
 
             var requestMethod = new HttpRequestMessage(WebDavMethod.Lock, requestUri);
-
-            // Use HTTP/2 if the underlying implementation supports it
-            requestMethod.Version = new Version("2.0");
+            SetHttpVersion(requestMethod);
 
             if (timeout != null)
                 requestMethod.Headers.Add(WebDavRequestHeader.Timeout, timeout.ToString());
@@ -900,6 +947,91 @@ namespace DecaTec.WebDav
         }
 
         #endregion Refresh lock
+
+        #region Unlock
+
+        /// <summary>
+        /// Send a UNLOCK request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> of a locked resource which should be unlocked.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> UnlockAsync(string requestUrl, LockToken lockToken)
+        {
+            return await UnlockAsync(UriHelper.CreateUriFromUrl(requestUrl), lockToken, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Send a UNLOCK request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> of a locked resource which should be unlocked.</param>
+        /// <returns>The <see cref="Task"/>t representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> UnlockAsync(Uri requestUri, LockToken lockToken)
+        {
+            return await UnlockAsync(requestUri, lockToken, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Send a UNLOCK request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> of a locked resource which should be unlocked.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> UnlockAsync(string requestUrl, LockToken lockToken, HttpCompletionOption completionOption)
+        {
+            return await UnlockAsync(UriHelper.CreateUriFromUrl(requestUrl), lockToken, completionOption, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Send a UNLOCK request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> of a locked resource which should be unlocked.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> UnlockAsync(Uri requestUri, LockToken lockToken, HttpCompletionOption completionOption)
+        {
+            return await UnlockAsync(requestUri, lockToken, completionOption, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Send a UNLOCK request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> of a locked resource which should be unlocked.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> UnlockAsync(string requestUrl, LockToken lockToken, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+        {
+            return await UnlockAsync(UriHelper.CreateUriFromUrl(requestUrl), lockToken, completionOption, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send a UNLOCK request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> of a locked resource which should be unlocked.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> UnlockAsync(Uri requestUri, LockToken lockToken, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+        {
+            if (lockToken == null)
+                throw new WebDavException("No lock token specified. A lock token is required for unlocking.");
+
+            var requestMethod = new HttpRequestMessage(WebDavMethod.Unlock, requestUri);
+            SetHttpVersion(requestMethod);
+
+            requestMethod.Headers.Add(WebDavRequestHeader.LockToken, lockToken.LockTokenHeaderFormat.ToString());
+
+            var httpResponseMessage = await this.SendAsync(requestMethod, completionOption, cancellationToken);
+            return new WebDavResponseMessage(httpResponseMessage);
+        }
+
+        #endregion Unlock
 
         #endregion Lock
 
@@ -1041,9 +1173,7 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> MkcolAsync(Uri requestUri, LockToken lockToken, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
             var requestMethod = new HttpRequestMessage(WebDavMethod.Mkcol, requestUri);
-
-            // Use HTTP/2 if the underlying implementation supports it
-            requestMethod.Version = new Version("2.0");
+            SetHttpVersion(requestMethod);
 
             if (lockToken != null)
                 requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString());
@@ -1244,9 +1374,7 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> MoveAsync(Uri sourceUri, Uri destinationUri, bool overwrite, LockToken lockTokenSource, LockToken lockTokenDestination, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
             var requestMethod = new HttpRequestMessage(WebDavMethod.Move, sourceUri);
-
-            // Use HTTP/2 if the underlying implementation supports it
-            requestMethod.Version = new Version("2.0");
+            SetHttpVersion(requestMethod);
 
             // Destination header must be present on MOVE commands.
             requestMethod.Headers.Add(WebDavRequestHeader.Destination, destinationUri.ToString());
@@ -1380,8 +1508,7 @@ namespace DecaTec.WebDav
                 Content = content
             };
 
-            // Use HTTP/2 if the underlying implementation supports it
-            requestMethod.Version = new Version("2.0");
+            SetHttpVersion(requestMethod);
 
             if (lockToken != null)
                 requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString());
@@ -1651,9 +1778,7 @@ namespace DecaTec.WebDav
                 throw new WebDavException("A Depth header must be present on a PROPFIND command.");
 
             var requestMethod = new HttpRequestMessage(WebDavMethod.PropFind, requestUri);
-
-            // Use HTTP/2 if the underlying implementation supports it
-            requestMethod.Version = new Version("2.0");
+            SetHttpVersion(requestMethod);
 
             // If Depth = 'infinity', the server could response with 403 (Forbidden) when Depth = 'infinity' is not supported.
             requestMethod.Headers.Add(WebDavRequestHeader.Depth, depth.ToString());
@@ -1980,9 +2105,7 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, string propPatchXmlString, LockToken lockToken, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
             var requestMethod = new HttpRequestMessage(WebDavMethod.PropPatch, requestUri);
-
-            // Use HTTP/2 if the underlying implementation supports it
-            requestMethod.Version = new Version("2.0");
+            SetHttpVersion(requestMethod);
 
             if (lockToken != null)
                 requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString());
@@ -2099,8 +2222,7 @@ namespace DecaTec.WebDav
                 Content = content
             };
 
-            // Use HTTP/2 if the underlying implementation supports it
-            requestMethod.Version = new Version("2.0");
+            SetHttpVersion(requestMethod);
 
             if (lockToken != null)
                 requestMethod.Headers.Add(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString());
@@ -2158,94 +2280,7 @@ namespace DecaTec.WebDav
             return new WebDavResponseMessage(httpResponseMessage);
         }
 
-        #endregion Send
-
-        #region Unlock
-
-        /// <summary>
-        /// Send a UNLOCK request to the specified URL.
-        /// </summary>
-        /// <param name="requestUrl">The URL the request is sent to.</param>
-        /// <param name="lockToken">The <see cref="LockToken"/> of a locked resource which should be unlocked.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> UnlockAsync(string requestUrl, LockToken lockToken)
-        {
-            return await UnlockAsync(UriHelper.CreateUriFromUrl(requestUrl), lockToken, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Send a UNLOCK request to the specified <see cref="Uri"/>.
-        /// </summary>
-        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
-        /// <param name="lockToken">The <see cref="LockToken"/> of a locked resource which should be unlocked.</param>
-        /// <returns>The <see cref="Task"/>t representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> UnlockAsync(Uri requestUri, LockToken lockToken)
-        {
-            return await UnlockAsync(requestUri, lockToken, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Send a UNLOCK request to the specified URL.
-        /// </summary>
-        /// <param name="requestUrl">The URL the request is sent to.</param>
-        /// <param name="lockToken">The <see cref="LockToken"/> of a locked resource which should be unlocked.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> UnlockAsync(string requestUrl, LockToken lockToken, HttpCompletionOption completionOption)
-        {
-            return await UnlockAsync(UriHelper.CreateUriFromUrl(requestUrl), lockToken, completionOption, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Send a UNLOCK request to the specified <see cref="Uri"/>.
-        /// </summary>
-        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
-        /// <param name="lockToken">The <see cref="LockToken"/> of a locked resource which should be unlocked.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> UnlockAsync(Uri requestUri, LockToken lockToken, HttpCompletionOption completionOption)
-        {
-            return await UnlockAsync(requestUri, lockToken, completionOption, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Send a UNLOCK request to the specified URL.
-        /// </summary>
-        /// <param name="requestUrl">The URL the request is sent to.</param>
-        /// <param name="lockToken">The <see cref="LockToken"/> of a locked resource which should be unlocked.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
-        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> UnlockAsync(string requestUrl, LockToken lockToken, HttpCompletionOption completionOption, CancellationToken cancellationToken)
-        {
-            return await UnlockAsync(UriHelper.CreateUriFromUrl(requestUrl), lockToken, completionOption, cancellationToken);
-        }
-
-        /// <summary>
-        /// Send a UNLOCK request to the specified <see cref="Uri"/>.
-        /// </summary>
-        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
-        /// <param name="lockToken">The <see cref="LockToken"/> of a locked resource which should be unlocked.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
-        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> UnlockAsync(Uri requestUri, LockToken lockToken, HttpCompletionOption completionOption, CancellationToken cancellationToken)
-        {
-            if (lockToken == null)
-                throw new WebDavException("No lock token specified. A lock token is required for unlocking.");
-
-            var requestMethod = new HttpRequestMessage(WebDavMethod.Unlock, requestUri);
-
-            // Use HTTP/2 if the underlying implementation supports it
-            requestMethod.Version = new Version("2.0");
-
-            requestMethod.Headers.Add(WebDavRequestHeader.LockToken, lockToken.LockTokenHeaderFormat.ToString());
-
-            var httpResponseMessage = await this.SendAsync(requestMethod, completionOption, cancellationToken);
-            return new WebDavResponseMessage(httpResponseMessage);
-        }
-
-        #endregion Unlock
+        #endregion Send        
 
         #region Upload file
 
@@ -2368,12 +2403,26 @@ namespace DecaTec.WebDav
             if (lockToken != null)
                 streamContent.Headers.Add(WebDavRequestHeader.If, lockToken.IfHeaderNoTagListFormat.ToString());
 
-            return new WebDavResponseMessage(await this.PutAsync(uri, streamContent, lockToken, cancellationToken));
+            var requestMethod = new HttpRequestMessage(WebDavMethod.Put, uri)
+            {
+                Content = streamContent
+            };
+
+            SetHttpVersion(requestMethod);
+            var httpResponseMessage = await this.SendAsync(requestMethod, cancellationToken);
+            return new WebDavResponseMessage(httpResponseMessage);
+            // #TODO
+            //return new WebDavResponseMessage(await this.PutAsync(uri, streamContent, lockToken, cancellationToken));
         }
 
         #endregion Upload file
 
         #region Private methods
+
+        private void SetHttpVersion(HttpRequestMessage httpRequestMessage)
+        {
+            httpRequestMessage.Version = this.HttpVersion;
+        }
 
         private static Multistatus GetMultistatusRequestResult(HttpResponseMessage responseMessage)
         {

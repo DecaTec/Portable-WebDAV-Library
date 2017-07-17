@@ -64,6 +64,8 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
             var httpClientHandler = new HttpClientHandler()
             {
+                // Ignore invalid SSL certificates.
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; },
                 Credentials = credentials,
                 PreAuthenticate = true
             };
@@ -71,7 +73,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             var debugHttpMessageHandler = new DebugHttpMessageHandler(httpClientHandler);
             var wdc = new WebDavClient(debugHttpMessageHandler);
             return wdc;
-        }
+        }        
 
         #region Copy
 

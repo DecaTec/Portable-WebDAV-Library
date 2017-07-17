@@ -65,6 +65,8 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         {
             var httpClientHandler = new HttpClientHandler()
             {
+                // Ignore invalid SSL certificates.
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; },
                 PreAuthenticate = true,
                 Credentials = new NetworkCredential(userName, password)
             };
@@ -406,7 +408,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_WebDavSession_DeleteFileFolder_ByWedDavSessionItem()
+        public void UIT_WebDavSession_DeleteFileFolder_ByWebDavSessionItem()
         {
             using (var session = CreateWebDavSession())
             {

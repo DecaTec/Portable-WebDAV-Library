@@ -94,6 +94,17 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Initializes a new instance of WebDavSession with a default <see cref="HttpClientHandler"/> and the HTTP version specified.
+        /// </summary>
+        /// <param name="credentials">The <see cref="ICredentials"/> to use.</param>
+        /// <param name="httpVersion">The HTTP <see cref="Version"/> to use for requests.</param>
+        public WebDavSession(ICredentials credentials, Version httpVersion)
+            : this(credentials)
+        {
+            this.webDavClient.HttpVersion = httpVersion;
+        }
+
+        /// <summary>
         /// Initializes a new instance of WebDavSession with the given base URL and a default <see cref="HttpClientHandler"/>.
         /// </summary>
         /// <param name="baseUrl">The base URL to use for this WebDavSession.</param>
@@ -101,6 +112,18 @@ namespace DecaTec.WebDav
         public WebDavSession(string baseUrl, ICredentials credentials)
             : this(new Uri(baseUrl), new HttpClientHandler() { PreAuthenticate = true, Credentials = credentials })
         {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of WebDavSession with the given base URL and a default <see cref="HttpClientHandler"/> and the HTTP version specified.
+        /// </summary>
+        /// <param name="baseUrl">The base URL to use for this WebDavSession.</param>
+        /// <param name="credentials">The <see cref="ICredentials"/> to use.</param>
+        /// <param name="httpVersion">The HTTP <see cref="Version"/> to use for requests.</param>
+        public WebDavSession(string baseUrl, ICredentials credentials, Version httpVersion)
+            : this(baseUrl, credentials)
+        {
+            this.webDavClient.HttpVersion = httpVersion;
         }
 
         /// <summary>
@@ -114,6 +137,18 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Initializes a new instance of WebDavSession with the given base <see cref="Uri"/> and a default <see cref="HttpClientHandler"/> and the HTTP version specified.
+        /// </summary>
+        /// <param name="baseUri">The base <see cref="Uri"/> to use for this WebDavSession.</param>
+        /// <param name="credentials">The <see cref="ICredentials"/> to use.</param>
+        /// <param name="httpVersion">The HTTP <see cref="Version"/> to use for requests.</param>
+        public WebDavSession(Uri baseUri, ICredentials credentials, Version httpVersion)
+            : this(baseUri, credentials)
+        {
+            this.webDavClient.HttpVersion = httpVersion;
+        }
+
+        /// <summary>
         /// Initializes a new instance of WebDavSession with the <see cref="HttpMessageHandler"/> specified.
         /// </summary>
         /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> to use with this WebDavSession.</param>
@@ -121,6 +156,18 @@ namespace DecaTec.WebDav
         public WebDavSession(HttpMessageHandler httpMessageHandler)
             : this(string.Empty, httpMessageHandler)
         {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of WebDavSession with the <see cref="HttpMessageHandler"/> specified and the HTTP version specified.
+        /// </summary>
+        /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> to use with this WebDavSession.</param>
+        /// <param name="httpVersion">The HTTP <see cref="Version"/> to use for requests.</param>
+        /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
+        public WebDavSession(HttpMessageHandler httpMessageHandler, Version httpVersion)
+            : this(httpMessageHandler)
+        {
+            this.webDavClient.HttpVersion = httpVersion;
         }
 
         /// <summary>
@@ -135,16 +182,65 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Initializes a new instance of WebDavSession with the given base URL and the <see cref="HttpMessageHandler"/> specified and the HTTP version specified.
+        /// </summary>
+        /// <param name="baseUrl">The base URL to use for this WebDavSession.</param>
+        /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> to use with this WebDavSession.</param>
+        /// <param name="httpVersion">The HTTP <see cref="Version"/> to use for requests.</param>
+        /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
+        public WebDavSession(string baseUrl, HttpMessageHandler httpMessageHandler, Version httpVersion)
+            : this(baseUrl, httpMessageHandler)
+        {
+            this.webDavClient.HttpVersion = httpVersion;
+        }
+
+        /// <summary>
         /// Initializes a new instance of WebDavSession with the given base <see cref="Uri"/> and the <see cref="HttpMessageHandler"/> specified.
         /// </summary>
         /// <param name="baseUri">The base <see cref="Uri"/> to use for this WebDavSession.</param>
         /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> to use with this WebDavSession.</param>
         /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
         public WebDavSession(Uri baseUri, HttpMessageHandler httpMessageHandler)
+            : this(baseUri, httpMessageHandler, WebDavClient.DefaultHttpVersion)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of WebDavSession with the given base <see cref="Uri"/> and the <see cref="HttpMessageHandler"/> specified and the HTTP version specified.
+        /// </summary>
+        /// <param name="baseUri">The base <see cref="Uri"/> to use for this WebDavSession.</param>
+        /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> to use with this WebDavSession.</param>
+        /// <param name="httpVersion">The HTTP <see cref="Version"/> to use for requests.</param>
+        /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
+        public WebDavSession(Uri baseUri, HttpMessageHandler httpMessageHandler, Version httpVersion)
         {
             this.permanentLocks = new ConcurrentDictionary<Uri, PermanentLock>();
             this.webDavClient = CreateWebDavClient(httpMessageHandler);
+            this.webDavClient.HttpVersion = httpVersion;
             this.BaseUri = baseUri;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of WebDavSession with the given base URL and <see cref="WebDavClient"/> specified.
+        /// </summary>
+        /// <param name="baseUrl">The base URL to use for this WebDavSession.</param>
+        /// <param name="webDavClient">The base <see cref="WebDavClient"/> to use for this WebDavSession.</param>
+        /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
+        protected WebDavSession(string baseUrl, WebDavClient webDavClient)
+            : this(string.IsNullOrEmpty(baseUrl) ? null : new Uri(baseUrl), webDavClient, WebDavClient.DefaultHttpVersion)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of WebDavSession with the given base URL and <see cref="WebDavClient"/> specified and the HTTP version specified.
+        /// </summary>
+        /// <param name="baseUrl">The base URL to use for this WebDavSession.</param>
+        /// <param name="webDavClient">The base <see cref="WebDavClient"/> to use for this WebDavSession.</param>
+        /// <param name="httpVersion">The HTTP <see cref="Version"/> to use for requests.</param>
+        /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
+        protected WebDavSession(string baseUrl, WebDavClient webDavClient, Version httpVersion)
+            : this(string.IsNullOrEmpty(baseUrl) ? null : new Uri(baseUrl), webDavClient, httpVersion)
+        {
         }
 
         /// <summary>
@@ -154,8 +250,21 @@ namespace DecaTec.WebDav
         /// <param name="webDavClient">The base <see cref="WebDavClient"/> to use for this WebDavSession.</param>
         /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
         protected WebDavSession(Uri baseUri, WebDavClient webDavClient)
+            : this(baseUri, webDavClient, WebDavClient.DefaultHttpVersion)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of WebDavSession with the given base <see cref="Uri"/> and <see cref="WebDavClient"/> specified and the HTTP version specified.
+        /// </summary>
+        /// <param name="baseUri">The base <see cref="Uri"/> to use for this WebDavSession.</param>
+        /// <param name="webDavClient">The base <see cref="WebDavClient"/> to use for this WebDavSession.</param>
+        /// <param name="httpVersion">The HTTP <see cref="Version"/> to use for requests.</param>
+        /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
+        protected WebDavSession(Uri baseUri, WebDavClient webDavClient, Version httpVersion)
         {
             this.webDavClient = webDavClient;
+            this.webDavClient.HttpVersion = httpVersion;
         }
 
         #endregion Constructor
@@ -200,6 +309,22 @@ namespace DecaTec.WebDav
             set
             {
                 this.webDavClient.Timeout = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the HTTP version the WebDavClient should use for its requests. Defaults to HTTP/2.
+        /// </summary>
+        /// <remarks>Even when HTTP/2 is specified as HTTP version, there will be a fall back to HTTP/1.1 when the server does not support HTTP/2.</remarks>
+        public Version HttpVersion
+        {
+            get
+            {
+                return this.webDavClient.HttpVersion;
+            }
+            set
+            {
+                this.webDavClient.HttpVersion = value;
             }
         }
 
@@ -858,7 +983,7 @@ namespace DecaTec.WebDav
                 return false;
 
             var url = uri.ToString();
-            var lockGranted = lockDiscovery.ActiveLock.FirstOrDefault(x => UriHelper.AddTrailingSlash(url, false).EndsWith(UriHelper.AddTrailingSlash(x.LockRoot.Href, false), StringComparison.OrdinalIgnoreCase));
+            var lockGranted = lockDiscovery.ActiveLock.FirstOrDefault(x => UriHelper.AddTrailingSlash(UriHelper.RemovePort(url), false).EndsWith(UriHelper.AddTrailingSlash(x.LockRoot.Href, false), StringComparison.OrdinalIgnoreCase));
 
             if (lockGranted == null)
             {
