@@ -1,3 +1,7 @@
+v1.1.0.0
+- Added full HTTP/2 support.
+- The library now uses HTTP/2 by default. Use the overloaded constructors (WebDavClient/WebDavSession) to use other HTTP versions than 2.0.
+
 v1.0.1.0
 - Bugfix [Xamarin]: WebDavSession.ListAsync returned wrong URLs when used with folders containing spaces.
 - Bugfix [Xamarin]: WebDavSession.ListAsync returned the containing folder when used with folders containing spaces.
