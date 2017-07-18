@@ -13,7 +13,13 @@
 
           <listItem>
             <para>
-              Added full HTTP/2 support. The library now defaults to HTTP/2. Use the overloaded constructors to use other HTTP versions than 2.0.
+              Added full HTTP/2 support.
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              The library now uses HTTP/2 by default. Use the overloaded constructors (WebDavClient/WebDavSession) to use other HTTP versions than 2.0.
             </para>
           </listItem>
 

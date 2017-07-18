@@ -5,16 +5,14 @@
    xmlns:xlink="http://www.w3.org/1999/xlink">
 
     <introduction>
-      <title>Handle unknown WebDAV properties</title>
+      <para>
+        The Portable WebDAV Library supports WebDAV properties defined in <externalLink><linkText>RFC 4918</linkText><linkUri>https://tools.ietf.org/html/rfc4918</linkUri></externalLink>, <externalLink><linkText>RFC 4331</linkText><linkUri>https://tools.ietf.org/html/rfc4331</linkUri></externalLink>, <externalLink><linkText>Additional WebDAV Collection Properties</linkText><linkUri>https://tools.ietf.org/html/draft-hopmann-collection-props-00</linkUri></externalLink> and some properties specific to IIS WebDAV.
+        These properties are included in the library's "WebDAV object model" for a strongly typed access to these properties.
+      </para>
     </introduction>
 
     <section>
       <content>
-        <para>
-          The Portable WebDAV Library supports WebDAV properties defined in <externalLink><linkText>RFC 4918</linkText><linkUri>https://tools.ietf.org/html/rfc4918</linkUri></externalLink>, <externalLink><linkText>RFC 4331</linkText><linkUri>https://tools.ietf.org/html/rfc4331</linkUri></externalLink>, <externalLink><linkText>Additional WebDAV Collection Properties</linkText><linkUri>https://tools.ietf.org/html/draft-hopmann-collection-props-00</linkUri></externalLink> and some properties specific to IIS WebDAV.
-          These properties are included in the library's "WebDAV object model" for a strongly typed access to these properties.
-        </para>
-
         <para>
           However, some WebDAV servers use additional WebDAV properties. Despite of these properties are unknown for the library itself, they can still be accessed through the WebDAV object model.
           Therefor the class Prop (from the WebDAV object model) exposes these unknown properties as XElement array (property AdditionalProperties). When using a WebDavClient, the unknown properties can be accessed by this property as XML elements.

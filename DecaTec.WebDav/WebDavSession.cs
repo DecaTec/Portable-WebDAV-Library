@@ -24,6 +24,7 @@ namespace DecaTec.WebDav
     /// <para>The WebDavSession can be used with a base URL/<see cref="System.Uri"/>. If such a base URL/<see cref="System.Uri"/> is specified, all subsequent operations involving an 
     /// URL/<see cref="System.Uri"/> will be relative on this base URL/<see cref="System.Uri"/>.
     /// If no base URL/<see cref="System.Uri"/> is specified, all operations has the be called with an absolute URL/<see cref="System.Uri"/>.</para>
+    /// <para>The WebDavSession uses HTTP/2 by default. To use other HTTP versions, specify the HTTP version to use in an overloaded constructor of WebDavSession or set the HTTP version with the property <see cref="HttpVersion"/>.</para>
     /// </remarks>
     /// <example>See the following code to list the content of a directory with the WebDavSession:
     /// <code>

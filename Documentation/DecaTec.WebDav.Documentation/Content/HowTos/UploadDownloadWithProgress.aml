@@ -5,7 +5,6 @@
     xmlns:xlink="http://www.w3.org/1999/xlink">
 
     <introduction>
-      <title>Upload/download with progress</title>
       <para>
         The Portable WebDAV Library supports upload and download with progress. These short samples show how this can be accomplished:
       </para>

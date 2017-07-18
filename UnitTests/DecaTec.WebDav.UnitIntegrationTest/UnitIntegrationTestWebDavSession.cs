@@ -65,7 +65,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         {
             var httpClientHandler = new HttpClientHandler()
             {
-                // Ignore invalid SSL certificates.
+                // Ignore all certificate errors.
                 ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; },
                 PreAuthenticate = true,
                 Credentials = new NetworkCredential(userName, password)

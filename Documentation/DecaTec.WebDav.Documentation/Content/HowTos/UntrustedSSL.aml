@@ -5,19 +5,18 @@
     xmlns:xlink="http://www.w3.org/1999/xlink">
 
     <introduction>
-      <title>Expired/untrusted SSL certificates</title>
+      <para>
+        The Portable WebDAV Library can also be used with WebDAV servers which use expired/untrusted certificates. This is a common scenario when using self-signed certificates, as these are not trusted.
+      </para>
     </introduction>
 
     <section>
       <content>
         <para>
-          The Portable WebDAV Library can also be used with WebDAV servers which use expired/untrusted certificates. This is a common scenario when using self-signed certificates, as these are not trusted.
-        </para>
-        <para>
           <legacyBold>Important:</legacyBold> It is up to the app using the Portable WebDAV Library to specify which certificate errors should be ignored. This can be accomplished by using the ServerCertificateValidationCallback of the ServicePointManager and specifying the SSL errors which should be ignored.
         </para>
         <para>
-          See the following example using a WebDavSession:
+          See the following example using a WebDavSession with untrusted SSL certificates (.NET Framework):
         </para>
         <code language="c#">
           <![CDATA[
@@ -40,6 +39,44 @@ var credentials = new NetworkCredential("MyUsername", "MyPassword");
 
 // Create a WebDavSession with the HttpBaseProtocolFilter.
 using (var webDavSession = new WebDavSession(webDavServerUrl, credentials))
+{
+    var items = await webDavSession.ListAsync(@"MyFolder/");
+
+    foreach (var item in items)
+    {
+        // Handle the response (list of WebDavSessionListItems).
+    }
+}
+          ]]>
+        </code>
+
+        <para>
+          See the following example using a WebDavSession with untrusted SSL certificates (.NET Core):
+        </para>
+        <code language="c#">
+          <![CDATA[
+// Use the ServerCertificateCustomValidationCallback of HttpClientHandler to ignore certificate errors.
+// This call should be done before trying to access any WebDAV resources, otherwise an exception will be thrown.
+var httpClientHandler = new HttpClientHandler()
+{
+	PreAuthenticate = true,
+	// Specify the user credentials.
+	Credentials = new NetworkCredential("MyUsername", "MyPassword")
+};
+
+httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => {
+	// Specify which certificate errors should be ignored.
+	if (errors == System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable)
+		return true;
+	else
+		return false;
+};
+
+// The base URL (HTTPS) of the WebDAV server.
+var webDavServerUrl = @"https://www.myserver.com/webdav/";
+
+// Create a WebDavSession with the HttpBaseProtocolFilter.
+using (var webDavSession = new WebDavSession(webDavServerUrl, httpClientHandler))
 {
     var items = await webDavSession.ListAsync(@"MyFolder/");
 

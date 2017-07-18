@@ -23,6 +23,7 @@ namespace DecaTec.WebDav
     /// <para>It implements the <see href="http://tools.ietf.org/html/rfc4918">RFC 4918</see> specification and can be used to communicate directly with a WebDAV server.</para>
     /// <para>For most use cases regarding WebDAV communication, the <see cref="DecaTec.WebDav.WebDavSession"/> is sufficient because it hides most of the WebDAV specific communication 
     /// and provides an easy access to WebDAV servers.</para>
+    /// <para>The WebDavClient uses HTTP/2 by default. To use other HTTP versions, specify the HTTP version to use in an overloaded constructor of WebDavClient or set the HTTP version with the property <see cref="HttpVersion"/>.</para>
     /// <example>To send a propfind request you can use following code:
     /// <code>
     /// // The base URL of the WebDAV server.

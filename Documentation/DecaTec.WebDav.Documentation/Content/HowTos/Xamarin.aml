@@ -5,7 +5,6 @@
     xmlns:xlink="http://www.w3.org/1999/xlink">
 
     <introduction>
-      <title>Xamarin</title>
       <para>
         As the Portable WebDAV Library targets .NETStandard 1.1, it can also be used in <externalLink><linkText>Xamarin</linkText><linkUri>https://www.xamarin.com/</linkUri></externalLink> projects (UWP/iOS/Android).
         This page lists some topics when developing for iOS/Android using the Portable WebDAV Library.
