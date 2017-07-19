@@ -23,6 +23,12 @@
             </para>
           </listItem>
 
+          <listItem>
+            <para>
+              The WebDavSession now exposes the DefaultRequestHeaders of the underlying WebDavClient. By using this property, default headers can be set which should be sent with every request of the WebDavSession.
+            </para>
+          </listItem>
+        
         </list>
 
       </content>

@@ -143,6 +143,39 @@ namespace DecaTec.WebDav.UnitTest
             }
         }
 
+        [TestMethod]
+        public void UT_WebDavClient_WithHttpVersionDefault()
+        {
+            var mockHandler = new MockHttpMessageHandler();
+            var defaultHttpVersion = new Version(2, 0);
+
+            mockHandler.When(WebDavMethod.PropFind, WebDavRootFolder).With(req => req.Version == defaultHttpVersion).Respond(HttpStatusCode.OK);
+
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                var response = client.PropFindAsync(WebDavRootFolder).Result;
+
+                Assert.IsTrue(response.IsSuccessStatusCode);
+            }
+        }
+
+        [TestMethod]
+        public void UT_WebDavClient_WithHttpVersion11()
+        {
+            var mockHandler = new MockHttpMessageHandler();
+            var defaultHttpVersion = new Version(1, 1);
+
+            mockHandler.When(WebDavMethod.PropFind, WebDavRootFolder).With(req => req.Version == defaultHttpVersion).Respond(HttpStatusCode.OK);
+
+            using (var client = CreateWebDavClient(mockHandler))
+            {
+                client.HttpVersion = new Version(1, 1);
+                var response = client.PropFindAsync(WebDavRootFolder).Result;
+
+                Assert.IsTrue(response.IsSuccessStatusCode);
+            }
+        }
+
         #endregion General
 
         #region Copy

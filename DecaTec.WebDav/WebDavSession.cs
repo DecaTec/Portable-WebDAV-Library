@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -326,6 +327,17 @@ namespace DecaTec.WebDav
             set
             {
                 this.webDavClient.HttpVersion = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the headers which should be sent with every request of this WebDavSession.
+        /// </summary>
+        public HttpRequestHeaders DefaultRequestHeaders
+        {
+            get
+            {
+                return this.webDavClient.DefaultRequestHeaders;
             }
         }
 
