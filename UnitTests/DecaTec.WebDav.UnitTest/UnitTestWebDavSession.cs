@@ -1,7 +1,6 @@
 ﻿using DecaTec.WebDav.Headers;
 using DecaTec.WebDav.MessageHandlers;
 using DecaTec.WebDav.Tools;
-using DecaTec.WebDav.WebDavArtifacts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RichardSzalay.MockHttp;
 using System;
@@ -9,7 +8,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 
 namespace DecaTec.WebDav.UnitTest
 {
@@ -65,7 +63,7 @@ namespace DecaTec.WebDav.UnitTest
         {
             var credentials = new NetworkCredential(UserName, Password);
             var session = new WebDavSession(credentials);
-            Assert.AreEqual(new Version(2, 0), session.HttpVersion);
+            Assert.AreEqual(new Version(1, 1), session.HttpVersion);
         }
 
 
@@ -73,8 +71,8 @@ namespace DecaTec.WebDav.UnitTest
         public void UT_WebDavSession_ConstructorWithNomDefaultHttpVersion()
         {
             var credentials = new NetworkCredential(UserName, Password);
-            var session = new WebDavSession(credentials, new Version(1, 1));
-            Assert.AreEqual(new Version(1, 1), session.HttpVersion);
+            var session = new WebDavSession(credentials, new Version(2, 0));
+            Assert.AreEqual(new Version(2, 0), session.HttpVersion);
         }
 
 

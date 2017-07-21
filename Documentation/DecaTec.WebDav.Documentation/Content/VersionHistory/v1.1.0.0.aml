@@ -13,13 +13,11 @@
 
           <listItem>
             <para>
-              Added full HTTP/2 support.
+              Added full HTTP/2 support. 
             </para>
-          </listItem>
-
-          <listItem>
+            
             <para>
-              The library now uses HTTP/2 by default. Use the overloaded constructors (WebDavClient/WebDavSession) to use other HTTP versions than 2.0.
+              The default HTTP version is still HTTP/1.1 for compatibility reasons (Xamarin). Use the overloaded constructors or the property HttpVersion (WebDavClient/WebDavSession) to use HTTP/2 instead.
             </para>
           </listItem>
 

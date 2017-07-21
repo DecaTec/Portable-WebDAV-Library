@@ -1,6 +1,6 @@
 v1.1.0.0
-- Added full HTTP/2 support.
-- The library now uses HTTP/2 by default. Use the overloaded constructors (WebDavClient/WebDavSession) to use other HTTP versions than 2.0.
+- Added full HTTP/2 support. The default HTTP version is still HTTP/1.1 for compatibility reasons (Xamarin). Use the overloaded constructors or the property HttpVersion (WebDavClient/WebDavSession) to use HTTP/2 instead.
+- The WebDavSession now exposes the DefaultRequestHeaders of the underlying WebDavClient. By using this property, default headers can be set which should be sent with every request of the WebDavSession.
 
 v1.0.1.0
 - Bugfix [Xamarin]: WebDavSession.ListAsync returned wrong URLs when used with folders containing spaces.

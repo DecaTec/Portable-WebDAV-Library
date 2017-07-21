@@ -826,7 +826,9 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// <summary>
         /// Gets or sets additional WebDAV properties as <see cref="XElement"/> array.
         /// </summary>
-        /// <remarks>This property is used for WebDAV properties not defined in <see href="https://www.ietf.org/rfc/rfc4918.txt">RFC 4918</see>, <see href="https://tools.ietf.org/html/rfc4331">RFC 4331</see>, <see href="https://tools.ietf.org/html/draft-hopmann-collection-props-00">Additional WebDAV Collection Properties</see> or IIS WebDAV specification.</remarks>
+        /// <remarks>This property is used for WebDAV properties not defined in <see href="https://www.ietf.org/rfc/rfc4918.txt">RFC 4918</see>, <see href="https://tools.ietf.org/html/rfc4331">RFC 4331</see>, <see href="https://tools.ietf.org/html/draft-hopmann-collection-props-00">Additional WebDAV Collection Properties</see> or IIS WebDAV specification.
+        /// <br /><br />
+        /// Important: Additional WebDAV properties are currently not supported on Xamarin. See <see href="https://github.com/DecaTec/Portable-WebDAV-Library/wiki/Xamarin">the project's wiki</see> for more information about the Portable WebDAV Library used on Xamarin.</remarks>
         [XmlAnyElement]
         public XElement[] AdditionalProperties
         {

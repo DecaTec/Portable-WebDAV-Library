@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="f451c65c-190c-4e25-af1e-b7d2e6cb24cb" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <introduction>
+      <para>
+        The Portable WebDAV Library has full HTTP/2 support. But for compatibility reasons (Xamarin), the default is still HTTP/1.1.
+      </para>
+    </introduction>
+
+    <section>
+      <content>
+        <para>
+          In oder to use HTTP/2, use the property HttpVersion or an overloaded constructor of WebDavClient/WebDavSession:
+        </para>
+        <code language="c#">
+          <![CDATA[
+public async Task<IList<WebDavSessionItem>> List()
+{
+    // The base URL of the WebDAV server.
+    var webDavServerUrl = @"http://www.myserver.com/webdav/";
+
+    // Specify the user credentials and use it to create a WebDavSession instance.
+    var credentials = new NetworkCredential("MyUsername", "MyPassword");
+
+    using (var webDavSession = new WebDavSession(webDavServerUrl, credentials, new Version(2, 0)))
+    {
+        // You could also use the property HttpVersion to use HTTP/2:
+        // webDavSession.HttpVersion = new Version(2, 0);
+
+        var list = await webDavSession.ListAsync("/");
+        return list;
+    }
+}
+          ]]>
+        </code>
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="6eaaa932-6e58-4f05-82be-6bb1a0403612" />
+    </relatedTopics>
+    
+  </developerConceptualDocument>
+</topic>

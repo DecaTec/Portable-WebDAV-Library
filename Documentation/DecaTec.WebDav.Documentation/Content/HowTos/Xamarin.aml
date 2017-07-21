@@ -55,6 +55,20 @@ var items = await webDavSession.ListAsync("/folder"); // Will raise exception
       </content>
     </section>
 
+    <section>
+      <title>
+        Unknown WebDAV properties
+      </title>
+      <content>
+        <para>
+          Currently unknown WebDAV properties are not supported when using the Portable WebDAV Library on Xamarin. This is due to the fact that these AdditionalProperties of Prop cannot be (de-) serialized on Xamarin. The operations will throw an exception that the XmlAnyElementAttribute cannot be applied to XElement arrays.
+        </para>
+        <para>
+          As a workaround, use WebDavClient providing XML strings directly (e.g. for PropFind). These XML strings need to be created by the client using the library.
+        </para>
+      </content>
+    </section>
+
     <relatedTopics>
       <link xlink:href="6eaaa932-6e58-4f05-82be-6bb1a0403612" />
     </relatedTopics>

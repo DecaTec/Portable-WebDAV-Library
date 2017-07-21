@@ -114,7 +114,7 @@ namespace DecaTec.WebDav
 
         private const string MediaTypeXml = "application/xml";
 
-        internal static readonly Version DefaultHttpVersion = new Version(2, 0);
+        internal static readonly Version DefaultHttpVersion = new Version(1, 1);
 
         #region Constructor
 

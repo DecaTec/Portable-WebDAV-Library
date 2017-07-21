@@ -92,6 +92,7 @@
   <ItemGroup>
     <None Include="Content\HowTos\AppCapabilities.aml" />
     <None Include="Content\HowTos\HowTo.aml" />
+    <None Include="Content\HowTos\Http2.aml" />
     <None Include="Content\HowTos\UnknownProperties.aml" />
     <None Include="Content\HowTos\UntrustedSSL.aml" />
     <None Include="Content\HowTos\UploadDownloadWithProgress.aml" />
