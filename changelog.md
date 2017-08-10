@@ -1,3 +1,6 @@
+v1.1.1.0
+- WebDavClient: Added missing overload for Mkcol accepting an URI/URL and a CancellationToken.
+
 v1.1.0.0
 - Added full HTTP/2 support. The default HTTP version is still HTTP/1.1 for compatibility reasons (Xamarin). Use the overloaded constructors or the property HttpVersion (WebDavClient/WebDavSession) to use HTTP/2 instead.
 - The WebDavSession now exposes the DefaultRequestHeaders of the underlying WebDavClient. By using this property, default headers can be set which should be sent with every request of the WebDavSession.
