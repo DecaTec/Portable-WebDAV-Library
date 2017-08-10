@@ -1081,6 +1081,28 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Creates a collection at the <see cref="Uri"/> specified.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> of the collection to create.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> MkcolAsync(Uri requestUri, CancellationToken cancellationToken)
+        {
+            return await MkcolAsync(requestUri, null, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Creates a collection at the URL specified.
+        /// </summary>
+        /// <param name="requestUrl">The URL of the collection to create.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> MkcolAsync(string requestUrl, CancellationToken cancellationToken)
+        {
+            return await MkcolAsync(UriHelper.CreateUriFromUrl(requestUrl), null, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
+        }
+
+        /// <summary>
         /// Creates a collection at the URL specified.
         /// </summary>
         /// <param name="requestUrl">The URL of the collection to create.</param>
