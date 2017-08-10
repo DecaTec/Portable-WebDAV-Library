@@ -29,7 +29,7 @@
         <HelpKeyword index="K" term="HTTP/2" />
       </HelpKeywords>
     </Topic>
-    <Topic id="3023122f-9dd2-4d7e-83b9-50db4c2fe2b3" visible="True" isSelected="true" title="Unknown WebDAV properties" linkText="Unknown WebDAV properties">
+    <Topic id="3023122f-9dd2-4d7e-83b9-50db4c2fe2b3" visible="True" title="Unknown WebDAV properties" linkText="Unknown WebDAV properties">
       <HelpKeywords>
         <HelpKeyword index="K" term="unknown webdav properties" />
       </HelpKeywords>
@@ -152,6 +152,11 @@
     <Topic id="84c16af9-768f-4ca6-9887-751edce44079" visible="True" title="Version 1.1.0.0" linkText="Version 1.1.0.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="version, 1.1.0.0" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="a81c2bc3-db0e-42dd-a55c-7f34d5e597f2" visible="True" isSelected="true" title="Version 1.1.1.0" linkText="Version 1.1.1.0">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="version, 1.1.1.0" />
       </HelpKeywords>
     </Topic>
   </Topic>

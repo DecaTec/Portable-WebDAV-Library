@@ -391,6 +391,17 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Sends a DELETE request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public new async Task<WebDavResponseMessage> DeleteAsync(Uri requestUri, CancellationToken cancellationToken)
+        {
+            return await DeleteAsync(requestUri, null, cancellationToken);
+        }
+
+        /// <summary>
         /// Sends a DELETE request to the specified URL.
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>
@@ -400,17 +411,6 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> DeleteAsync(string requestUrl, LockToken lockToken, CancellationToken cancellationToken)
         {
             return await DeleteAsync(UriHelper.CreateUriFromUrl(requestUrl), lockToken, cancellationToken);
-        }
-
-        /// <summary>
-        /// Sends a DELETE request to the specified <see cref="Uri"/>.
-        /// </summary>
-        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public new async Task<WebDavResponseMessage> DeleteAsync(Uri requestUri, CancellationToken cancellationToken)
-        {
-            return await DeleteAsync(requestUri, null, cancellationToken);
         }
 
         /// <summary>
@@ -1099,7 +1099,7 @@ namespace DecaTec.WebDav
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<WebDavResponseMessage> MkcolAsync(string requestUrl, CancellationToken cancellationToken)
         {
-            return await MkcolAsync(UriHelper.CreateUriFromUrl(requestUrl), null, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
+            return await MkcolAsync(UriHelper.CreateUriFromUrl(requestUrl), null, HttpCompletionOption.ResponseContentRead, cancellationToken);
         }
 
         /// <summary>
