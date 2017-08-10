@@ -513,7 +513,6 @@ namespace DecaTec.WebDav
         private bool? isReadonly;
         private bool isReadonlyChanged;
 
-        // #TODO Readonly setter? Test with IIS
         /// <summary>
         /// Gets or sets a value indicating if the item is read only.
         /// </summary>

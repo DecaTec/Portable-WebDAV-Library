@@ -467,8 +467,6 @@ namespace DecaTec.WebDav
             var requestMethod = new HttpRequestMessage(HttpMethod.Get, uri);
             SetHttpVersion(requestMethod);
             var httpResponseMessage = await this.SendAsync(requestMethod, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
-            // #TODO
-            //var response = await this.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
             httpResponseMessage.EnsureSuccessStatusCode();
 
             if (!(httpResponseMessage.Content.Headers.TryGetValues(HttpHeaderNames.ContentLength, out IEnumerable<string> contentLengthHeader) && long.TryParse(contentLengthHeader.FirstOrDefault(), out long totalLength)))
@@ -576,8 +574,6 @@ namespace DecaTec.WebDav
             var requestMethod = new HttpRequestMessage(HttpMethod.Get, requestUri);
             SetHttpVersion(requestMethod);
             var httpResponseMessage = await this.SendAsync(requestMethod, completionOption, cancellationToken);
-            // #TODO
-            //var httpResponseMessage = await base.GetAsync(requestUri, completionOption, cancellationToken);
             return new WebDavResponseMessage(httpResponseMessage);
         }
 
@@ -2434,8 +2430,6 @@ namespace DecaTec.WebDav
             SetHttpVersion(requestMethod);
             var httpResponseMessage = await this.SendAsync(requestMethod, cancellationToken);
             return new WebDavResponseMessage(httpResponseMessage);
-            // #TODO
-            //return new WebDavResponseMessage(await this.PutAsync(uri, streamContent, lockToken, cancellationToken));
         }
 
         #endregion Upload file
