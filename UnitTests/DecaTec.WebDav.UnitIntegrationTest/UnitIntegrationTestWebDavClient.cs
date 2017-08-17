@@ -56,7 +56,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             {
                 throw new FileNotFoundException("The configuration file cannot be found. Make sure that there is a file 'TestConfiguration.txt' in the test's output folder containing data about the WebDAV server to test against.", ConfigurationFile, ex);
             }
-        }       
+        }
 
         private WebDavClient CreateWebDavClientWithDebugHttpMessageHandler()
         {
@@ -73,7 +73,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             var debugHttpMessageHandler = new DebugHttpMessageHandler(httpClientHandler);
             var wdc = new WebDavClient(debugHttpMessageHandler);
             return wdc;
-        }        
+        }
 
         #region Copy
 
@@ -87,7 +87,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 var testFile = UriHelper.CombineUrl(testCollectionSource, TestFile, true);
 
                 // Create source collection.
-                var response = client.MkcolAsync(testCollectionSource).Result;               
+                var response = client.MkcolAsync(testCollectionSource).Result;
                 var mkColResponseSuccess = response.IsSuccessStatusCode;
 
                 // Put file.
@@ -96,11 +96,11 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                     var content = new StreamContent(fileStream);
                     response = client.PutAsync(testFile, content).Result;
                 }
-                
+
                 var putResponseSuccess = response.IsSuccessStatusCode;
 
                 // Copy.
-                response = client.CopyAsync(testCollectionSource, testCollectionDestination).Result;               
+                response = client.CopyAsync(testCollectionSource, testCollectionDestination).Result;
                 var copyResponseSuccess = response.IsSuccessStatusCode;
 
                 // PropFind.
@@ -506,19 +506,21 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 return;
 
             using (var client = CreateWebDavClientWithDebugHttpMessageHandler())
-                {
+            {
+                var userEmail = "test@test.com";
 
                 // Lock.
                 var lockInfo = new LockInfo()
                 {
                     LockScope = LockScope.CreateExclusiveLockScope(),
                     LockType = LockType.CreateWriteLockType(),
-                    OwnerHref = "test@test.com"
+                    OwnerHref = userEmail
                 };
 
                 var response = client.LockAsync(webDavRootFolder, WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromMinutes(1)), WebDavDepthHeaderValue.Infinity, lockInfo).Result;
                 var lockResponseSuccess = response.IsSuccessStatusCode;
                 LockToken lockToken = WebDavHelper.GetLockTokenFromWebDavResponseMessage(response);
+                ActiveLock activeLock = WebDavHelper.GetActiveLockFromWebDavResponseMessage(response);
 
                 // Refresh lock.
                 response = client.RefreshLockAsync(webDavRootFolder, WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromSeconds(10)), lockToken).Result;
@@ -530,6 +532,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
                 Assert.IsTrue(lockResponseSuccess);
                 Assert.IsNotNull(lockToken);
+                Assert.AreEqual(userEmail, activeLock.OwnerHref);
                 Assert.IsTrue(refreshLockResponseSuccess);
                 Assert.IsTrue(unlockResponseSuccess);
             }

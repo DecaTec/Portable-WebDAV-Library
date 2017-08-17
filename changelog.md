@@ -1,3 +1,6 @@
+v1.1.2.0
+- WebDavHelper: Added method to receive the ActiveLock from a WebDavResponseMessage.
+
 v1.1.1.0
 - WebDavClient: Added missing overload for Mkcol accepting an URI/URL and a CancellationToken.
 
