@@ -54,7 +54,7 @@ namespace DecaTec.WebDav
     /// // Now you can use the MultiStatus object to get access to the items properties.
     /// foreach (var responseItem in multistatus.Response)
     /// {
-	///    // Handle propfind multistatus response, e.g responseItem.Href is the URL of an item (folder or file).
+    ///    // Handle propfind multistatus response, e.g responseItem.Href is the URL of an item (folder or file).
     /// }
     ///
     /// // Dispose the WebDavClient when it is not longer needed.
@@ -716,6 +716,67 @@ namespace DecaTec.WebDav
         /// <param name="timeout">The <see cref="WebDavTimeoutHeaderValue"/> to use for the lock. The server might ignore this timeout.</param>
         /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
         /// <param name="lockInfo">The <see cref="LockInfo"/> object specifying the lock.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> LockAsync(string requestUrl, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, LockInfo lockInfo, CancellationToken cancellationToken)
+        {
+            return await LockAsync(UriHelper.CreateUriFromUrl(requestUrl), timeout, depth, lockInfo, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send a LOCK request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="timeout">The <see cref="WebDavTimeoutHeaderValue"/> to use for the lock. The server might ignore this timeout.</param>
+        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
+        /// <param name="lockInfoXmlString">The XML string specifying which item should be locked.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> LockAsync(string requestUrl, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, string lockInfoXmlString, CancellationToken cancellationToken)
+        {
+            return await LockAsync(UriHelper.CreateUriFromUrl(requestUrl), timeout, depth, lockInfoXmlString, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send a LOCK request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="timeout">The <see cref="WebDavTimeoutHeaderValue"/> to use for the lock. The server might ignore this timeout.</param>
+        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
+        /// <param name="lockInfo">The <see cref="LockInfo"/> object specifying the lock.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> LockAsync(Uri requestUri, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, LockInfo lockInfo, CancellationToken cancellationToken)
+        {
+            string requestContentString = string.Empty;
+
+            if (lockInfo != null)
+                requestContentString = WebDavHelper.GetUtf8EncodedXmlWebDavRequestString(LockInfoSerializer, lockInfo);
+
+            return await LockAsync(requestUri, timeout, depth, requestContentString, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send a LOCK request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="timeout">The <see cref="WebDavTimeoutHeaderValue"/> to use for the lock. The server might ignore this timeout.</param>
+        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
+        /// <param name="lockinfoXmlString">The XML string specifying which item should be locked.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> LockAsync(Uri requestUri, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, string lockinfoXmlString, CancellationToken cancellationToken)
+        {
+            return await LockAsync(requestUri, timeout, depth, lockinfoXmlString, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send a LOCK request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="timeout">The <see cref="WebDavTimeoutHeaderValue"/> to use for the lock. The server might ignore this timeout.</param>
+        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
+        /// <param name="lockInfo">The <see cref="LockInfo"/> object specifying the lock.</param>
         /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<WebDavResponseMessage> LockAsync(string requestUrl, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, LockInfo lockInfo, HttpCompletionOption completionOption)
@@ -967,6 +1028,30 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> UnlockAsync(Uri requestUri, LockToken lockToken)
         {
             return await UnlockAsync(requestUri, lockToken, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Send a UNLOCK request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> of a locked resource which should be unlocked.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> UnlockAsync(string requestUrl, LockToken lockToken, CancellationToken cancellationToken)
+        {
+            return await UnlockAsync(UriHelper.CreateUriFromUrl(requestUrl), lockToken, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send a UNLOCK request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> of a locked resource which should be unlocked.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> UnlockAsync(Uri requestUri, LockToken lockToken, CancellationToken cancellationToken)
+        {
+            return await UnlockAsync(requestUri, lockToken, HttpCompletionOption.ResponseContentRead, cancellationToken);
         }
 
         /// <summary>
