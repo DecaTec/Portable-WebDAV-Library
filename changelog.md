@@ -1,3 +1,7 @@
+v1.1.3.0
+- WebDavSession: New overload for DownloadFileWithProgressAsync accepting a WebDavSessionItem to download.
+- WebDavClient: Added missing method overloads.
+
 v1.1.2.0
 - WebDavHelper: Added method to receive the ActiveLock from a WebDavResponseMessage.
 
