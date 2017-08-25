@@ -543,7 +543,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        ///  Downloads a file from specified by a <see cref="WebDavSessionItem"/>.
+        ///  Downloads a file specified by a <see cref="WebDavSessionItem"/>.
         /// </summary>
         /// <param name="itemToDownload">The <see cref="WebDavSessionItem"/> to download.</param>
         /// <param name="localStream">The <see cref="Stream"/> to save the file to.</param>
@@ -566,7 +566,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        ///  Downloads a file from specified by a <see cref="WebDavSessionItem"/>.
+        ///  Downloads a file specified by a <see cref="WebDavSessionItem"/>.
         /// </summary>
         /// <param name="itemToDownload">The <see cref="WebDavSessionItem"/> to download.</param>
         /// <param name="localStream">The <see cref="Stream"/> to save the file to.</param>
@@ -619,6 +619,18 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Downloads a file (with progress) specified by a <see cref="WebDavSessionItem"/>.
+        /// </summary>
+        /// <param name="itemToDownload">The <see cref="WebDavSessionItem"/> to download.</param>
+        /// <param name="localStream">The <see cref="Stream"/> to save the downloaded file to.</param> 
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> DownloadFileWithProgressAsync(WebDavSessionItem itemToDownload, Stream localStream, IProgress<WebDavProgress> progress)
+        {
+            return await DownloadFileWithProgressAsync(UriHelper.CombineUri(this.BaseUri, itemToDownload.Uri, true), localStream, progress, CancellationToken.None);
+        }
+
+        /// <summary>
         /// Downloads a file (with progress) from the given URL.
         /// </summary>
         /// <param name="url">Te URL of the file to download.</param>
@@ -629,6 +641,19 @@ namespace DecaTec.WebDav
         public async Task<bool> DownloadFileWithProgressAsync(string url, Stream localStream, IProgress<WebDavProgress> progress, CancellationToken cancellationToken)
         {
             return await DownloadFileWithProgressAsync(UriHelper.CreateUriFromUrl(url), localStream, progress, cancellationToken);
+        }
+
+        /// <summary>
+        /// Downloads a file (with progress) specified by a <see cref="WebDavSessionItem"/>.
+        /// </summary>
+        /// <param name="itemToDownload">The <see cref="WebDavSessionItem"/> to download.</param>
+        /// <param name="localStream">The <see cref="Stream"/> to save the downloaded file to.</param> 
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to use.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<bool> DownloadFileWithProgressAsync(WebDavSessionItem itemToDownload, Stream localStream, IProgress<WebDavProgress> progress, CancellationToken cancellationToken)
+        {
+            return await DownloadFileWithProgressAsync(UriHelper.CombineUri(this.BaseUri, itemToDownload.Uri, true), localStream, progress, cancellationToken);
         }
 
         /// <summary>
