@@ -54,7 +54,7 @@ namespace DecaTec.WebDav
     /// // Now you can use the MultiStatus object to get access to the items properties.
     /// foreach (var responseItem in multistatus.Response)
     /// {
-	///    // Handle propfind multistatus response, e.g responseItem.Href is the URL of an item (folder or file).
+    ///    // Handle propfind multistatus response, e.g responseItem.Href is the URL of an item (folder or file).
     /// }
     ///
     /// // Dispose the WebDavClient when it is not longer needed.
@@ -107,7 +107,6 @@ namespace DecaTec.WebDav
     /// <seealso cref="DecaTec.WebDav.WebDavSession"/>
     public class WebDavClient : HttpClient
     {
-        private static readonly XmlSerializer MultistatusSerializer = new XmlSerializer(typeof(Multistatus));
         private static readonly XmlSerializer PropFindSerializer = new XmlSerializer(typeof(PropFind));
         private static readonly XmlSerializer PropertyUpdateSerializer = new XmlSerializer(typeof(PropertyUpdate));
         private static readonly XmlSerializer LockInfoSerializer = new XmlSerializer(typeof(LockInfo));
@@ -202,11 +201,7 @@ namespace DecaTec.WebDav
         /// Gets or sets the HTTP <see cref="Version"/> the WebDavClient should use for its requests. Defaults to HTTP/2.
         /// </summary>
         /// <remarks>Even when HTTP/2 is specified as HTTP version, there will be a fall back to HTTP/1.1 when the server does not support HTTP/2.</remarks>
-        public Version HttpVersion
-        {
-            get;
-            set;
-        } = DefaultHttpVersion;
+        public Version HttpVersion { get; set; } = DefaultHttpVersion;
 
         #endregion Properties
 
@@ -361,28 +356,6 @@ namespace DecaTec.WebDav
         /// Sends a DELETE request to the specified URL.
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>
-        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> DeleteAsync(string requestUrl, LockToken lockToken)
-        {
-            return await DeleteAsync(UriHelper.CreateUriFromUrl(requestUrl), lockToken, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Sends a DELETE request to the specified <see cref="Uri"/>.
-        /// </summary>
-        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
-        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> DeleteAsync(Uri requestUri, LockToken lockToken)
-        {
-            return await DeleteAsync(requestUri, lockToken, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Sends a DELETE request to the specified URL.
-        /// </summary>
-        /// <param name="requestUrl">The URL the request is sent to.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public new async Task<WebDavResponseMessage> DeleteAsync(string requestUrl, CancellationToken cancellationToken)
@@ -399,6 +372,28 @@ namespace DecaTec.WebDav
         public new async Task<WebDavResponseMessage> DeleteAsync(Uri requestUri, CancellationToken cancellationToken)
         {
             return await DeleteAsync(requestUri, null, cancellationToken);
+        }
+
+        /// <summary>
+        /// Sends a DELETE request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> DeleteAsync(string requestUrl, LockToken lockToken)
+        {
+            return await DeleteAsync(UriHelper.CreateUriFromUrl(requestUrl), lockToken, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Sends a DELETE request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> DeleteAsync(Uri requestUri, LockToken lockToken)
+        {
+            return await DeleteAsync(requestUri, lockToken, CancellationToken.None);
         }
 
         /// <summary>
@@ -605,6 +600,28 @@ namespace DecaTec.WebDav
         /// Send a HEAD request to the specified URL.
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> HeadAsync(string requestUrl, CancellationToken cancellationToken)
+        {
+            return await HeadAsync(UriHelper.CreateUriFromUrl(requestUrl), HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send a HEAD request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> HeadAsync(Uri requestUri, CancellationToken cancellationToken)
+        {
+            return await HeadAsync(requestUri, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send a HEAD request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
         /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<WebDavResponseMessage> HeadAsync(string requestUrl, HttpCompletionOption completionOption)
@@ -671,19 +688,6 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Send a LOCK request to the specified URL.
-        /// </summary>
-        /// <param name="requestUrl">The URL the request is sent to.</param>
-        /// <param name="timeout">The <see cref="WebDavTimeoutHeaderValue"/> to use for the lock. The server might ignore this timeout.</param>
-        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
-        /// <param name="lockInfoXmlString">The XML string specifying which item should be locked.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> LockAsync(string requestUrl, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, string lockInfoXmlString)
-        {
-            return await LockAsync(requestUrl, timeout, depth, lockInfoXmlString, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
-        }
-
-        /// <summary>
         /// Send a LOCK request to the specified <see cref="Uri"/>.
         /// </summary>
         /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
@@ -694,6 +698,19 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> LockAsync(Uri requestUri, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, LockInfo lockInfo)
         {
             return await LockAsync(requestUri, timeout, depth, lockInfo, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Send a LOCK request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="timeout">The <see cref="WebDavTimeoutHeaderValue"/> to use for the lock. The server might ignore this timeout.</param>
+        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
+        /// <param name="lockInfoXmlString">The XML string specifying which item should be locked.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> LockAsync(string requestUrl, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, string lockInfoXmlString)
+        {
+            return await LockAsync(requestUrl, timeout, depth, lockInfoXmlString, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
         }
 
         /// <summary>
@@ -716,11 +733,30 @@ namespace DecaTec.WebDav
         /// <param name="timeout">The <see cref="WebDavTimeoutHeaderValue"/> to use for the lock. The server might ignore this timeout.</param>
         /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
         /// <param name="lockInfo">The <see cref="LockInfo"/> object specifying the lock.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> LockAsync(string requestUrl, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, LockInfo lockInfo, HttpCompletionOption completionOption)
+        public async Task<WebDavResponseMessage> LockAsync(string requestUrl, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, LockInfo lockInfo, CancellationToken cancellationToken)
         {
-            return await LockAsync(requestUrl, timeout, depth, lockInfo, completionOption, CancellationToken.None);
+            return await LockAsync(UriHelper.CreateUriFromUrl(requestUrl), timeout, depth, lockInfo, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send a LOCK request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="timeout">The <see cref="WebDavTimeoutHeaderValue"/> to use for the lock. The server might ignore this timeout.</param>
+        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
+        /// <param name="lockInfo">The <see cref="LockInfo"/> object specifying the lock.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> LockAsync(Uri requestUri, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, LockInfo lockInfo, CancellationToken cancellationToken)
+        {
+            string requestContentString = string.Empty;
+
+            if (lockInfo != null)
+                requestContentString = WebDavHelper.GetUtf8EncodedXmlWebDavRequestString(LockInfoSerializer, lockInfo);
+
+            return await LockAsync(requestUri, timeout, depth, requestContentString, HttpCompletionOption.ResponseContentRead, cancellationToken);
         }
 
         /// <summary>
@@ -730,11 +766,39 @@ namespace DecaTec.WebDav
         /// <param name="timeout">The <see cref="WebDavTimeoutHeaderValue"/> to use for the lock. The server might ignore this timeout.</param>
         /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
         /// <param name="lockInfoXmlString">The XML string specifying which item should be locked.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> LockAsync(string requestUrl, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, string lockInfoXmlString, CancellationToken cancellationToken)
+        {
+            return await LockAsync(UriHelper.CreateUriFromUrl(requestUrl), timeout, depth, lockInfoXmlString, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send a LOCK request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="timeout">The <see cref="WebDavTimeoutHeaderValue"/> to use for the lock. The server might ignore this timeout.</param>
+        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
+        /// <param name="lockinfoXmlString">The XML string specifying which item should be locked.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> LockAsync(Uri requestUri, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, string lockinfoXmlString, CancellationToken cancellationToken)
+        {
+            return await LockAsync(requestUri, timeout, depth, lockinfoXmlString, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send a LOCK request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="timeout">The <see cref="WebDavTimeoutHeaderValue"/> to use for the lock. The server might ignore this timeout.</param>
+        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
+        /// <param name="lockInfo">The <see cref="LockInfo"/> object specifying the lock.</param>
         /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> LockAsync(string requestUrl, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, string lockInfoXmlString, HttpCompletionOption completionOption)
+        public async Task<WebDavResponseMessage> LockAsync(string requestUrl, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, LockInfo lockInfo, HttpCompletionOption completionOption)
         {
-            return await LockAsync(requestUrl, timeout, depth, lockInfoXmlString, completionOption, CancellationToken.None);
+            return await LockAsync(requestUrl, timeout, depth, lockInfo, completionOption, CancellationToken.None);
         }
 
         /// <summary>
@@ -749,6 +813,20 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> LockAsync(Uri requestUri, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, LockInfo lockInfo, HttpCompletionOption completionOption)
         {
             return await LockAsync(requestUri, timeout, depth, lockInfo, completionOption, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Send a LOCK request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="timeout">The <see cref="WebDavTimeoutHeaderValue"/> to use for the lock. The server might ignore this timeout.</param>
+        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
+        /// <param name="lockInfoXmlString">The XML string specifying which item should be locked.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> LockAsync(string requestUrl, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, string lockInfoXmlString, HttpCompletionOption completionOption)
+        {
+            return await LockAsync(requestUrl, timeout, depth, lockInfoXmlString, completionOption, CancellationToken.None);
         }
 
         /// <summary>
@@ -781,21 +859,6 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Send a LOCK request to the specified URL.
-        /// </summary>
-        /// <param name="requestUrl">The URL the request is sent to.</param>
-        /// <param name="timeout">The <see cref="WebDavTimeoutHeaderValue"/> to use for the lock. The server might ignore this timeout.</param>
-        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
-        /// <param name="lockInfoXmlString">The XML string specifying which item should be locked.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
-        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> LockAsync(string requestUrl, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, string lockInfoXmlString, HttpCompletionOption completionOption, CancellationToken cancellationToken)
-        {
-            return await LockAsync(UriHelper.CreateUriFromUrl(requestUrl), timeout, depth, lockInfoXmlString, completionOption, cancellationToken);
-        }
-
-        /// <summary>
         /// Send a LOCK request to the specified <see cref="Uri"/>.
         /// </summary>
         /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
@@ -813,6 +876,21 @@ namespace DecaTec.WebDav
                 requestContentString = WebDavHelper.GetUtf8EncodedXmlWebDavRequestString(LockInfoSerializer, lockInfo);
 
             return await LockAsync(requestUri, timeout, depth, requestContentString, completionOption, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send a LOCK request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="timeout">The <see cref="WebDavTimeoutHeaderValue"/> to use for the lock. The server might ignore this timeout.</param>
+        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
+        /// <param name="lockInfoXmlString">The XML string specifying which item should be locked.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> LockAsync(string requestUrl, WebDavTimeoutHeaderValue timeout, WebDavDepthHeaderValue depth, string lockInfoXmlString, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+        {
+            return await LockAsync(UriHelper.CreateUriFromUrl(requestUrl), timeout, depth, lockInfoXmlString, completionOption, cancellationToken);
         }
 
         /// <summary>
@@ -875,6 +953,32 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> RefreshLockAsync(Uri requestUri, WebDavTimeoutHeaderValue timeout, LockToken lockToken)
         {
             return await RefreshLockAsync(requestUri, timeout, lockToken, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Send a LOCK request to the specified URL in order to refresh an already existing lock.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="timeout">The <see cref="WebDavTimeoutHeaderValue"/> to use for the lock. The server might ignore this timeout.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> of the lock which should be refreshed.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> RefreshLockAsync(string requestUrl, WebDavTimeoutHeaderValue timeout, LockToken lockToken, CancellationToken cancellationToken)
+        {
+            return await RefreshLockAsync(UriHelper.CreateUriFromUrl(requestUrl), timeout, lockToken, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send a LOCK request to the specified <see cref="Uri"/> in order to refresh an already existing lock.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="timeout">The <see cref="WebDavTimeoutHeaderValue"/> to use for the lock. The server might ignore this timeout.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> of the lock which should be refreshed.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> RefreshLockAsync(Uri requestUri, WebDavTimeoutHeaderValue timeout, LockToken lockToken, CancellationToken cancellationToken)
+        {
+            return await RefreshLockAsync(requestUri, timeout, lockToken, HttpCompletionOption.ResponseContentRead, cancellationToken);
         }
 
         /// <summary>
@@ -967,6 +1071,30 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> UnlockAsync(Uri requestUri, LockToken lockToken)
         {
             return await UnlockAsync(requestUri, lockToken, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Send a UNLOCK request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> of a locked resource which should be unlocked.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> UnlockAsync(string requestUrl, LockToken lockToken, CancellationToken cancellationToken)
+        {
+            return await UnlockAsync(UriHelper.CreateUriFromUrl(requestUrl), lockToken, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send a UNLOCK request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> of a locked resource which should be unlocked.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> UnlockAsync(Uri requestUri, LockToken lockToken, CancellationToken cancellationToken)
+        {
+            return await UnlockAsync(requestUri, lockToken, HttpCompletionOption.ResponseContentRead, cancellationToken);
         }
 
         /// <summary>
@@ -1077,6 +1205,17 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Creates a collection at the URL specified.
+        /// </summary>
+        /// <param name="requestUrl">The URL of the collection to create.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> MkcolAsync(string requestUrl, CancellationToken cancellationToken)
+        {
+            return await MkcolAsync(UriHelper.CreateUriFromUrl(requestUrl), null, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
         /// Creates a collection at the <see cref="Uri"/> specified.
         /// </summary>
         /// <param name="requestUri">The <see cref="Uri"/> of the collection to create.</param>
@@ -1091,11 +1230,24 @@ namespace DecaTec.WebDav
         /// Creates a collection at the URL specified.
         /// </summary>
         /// <param name="requestUrl">The URL of the collection to create.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> MkcolAsync(string requestUrl, CancellationToken cancellationToken)
+        public async Task<WebDavResponseMessage> MkcolAsync(string requestUrl, LockToken lockToken, CancellationToken cancellationToken)
         {
-            return await MkcolAsync(UriHelper.CreateUriFromUrl(requestUrl), null, HttpCompletionOption.ResponseContentRead, cancellationToken);
+            return await MkcolAsync(UriHelper.CreateUriFromUrl(requestUrl), lockToken, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        ///  Creates a collection at the <see cref="Uri"/> specified.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> of the collection to create.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> MkcolAsync(Uri requestUri, LockToken lockToken, CancellationToken cancellationToken)
+        {
+            return await MkcolAsync(requestUri, lockToken, HttpCompletionOption.ResponseContentRead, cancellationToken);
         }
 
         /// <summary>
@@ -1110,6 +1262,17 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Creates a collection at the <see cref="Uri"/> specified.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> of the collection to create.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> MkcolAsync(Uri requestUri, HttpCompletionOption completionOption)
+        {
+            return await MkcolAsync(requestUri, null, completionOption, CancellationToken.None);
+        }
+
+        /// <summary>
         /// Creates a collection at the URL specified.
         /// </summary>
         /// <param name="requestUrl">The URL of the collection to create.</param>
@@ -1119,17 +1282,6 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> MkcolAsync(string requestUrl, LockToken lockToken, HttpCompletionOption completionOption)
         {
             return await MkcolAsync(UriHelper.CreateUriFromUrl(requestUrl), lockToken, completionOption, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Creates a collection at the <see cref="Uri"/> specified.
-        /// </summary>
-        /// <param name="requestUri">The <see cref="Uri"/> of the collection to create.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> MkcolAsync(Uri requestUri, HttpCompletionOption completionOption)
-        {
-            return await MkcolAsync(requestUri, null, completionOption, CancellationToken.None);
         }
 
         /// <summary>
@@ -1157,6 +1309,18 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        ///  Creates a collection at the <see cref="Uri"/> specified.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> of the collection to create.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> MkcolAsync(Uri requestUri, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+        {
+            return await MkcolAsync(requestUri, null, completionOption, cancellationToken);
+        }
+
+        /// <summary>
         /// Creates a collection at the URL specified.
         /// </summary>
         /// <param name="requestUrl">The URL of the collection to create.</param>
@@ -1167,18 +1331,6 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> MkcolAsync(string requestUrl, LockToken lockToken, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
             return await MkcolAsync(UriHelper.CreateUriFromUrl(requestUrl), lockToken, completionOption, cancellationToken);
-        }
-
-        /// <summary>
-        ///  Creates a collection at the <see cref="Uri"/> specified.
-        /// </summary>
-        /// <param name="requestUri">The <see cref="Uri"/> of the collection to create.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> MkcolAsync(Uri requestUri, HttpCompletionOption completionOption, CancellationToken cancellationToken)
-        {
-            return await MkcolAsync(requestUri, null, completionOption, cancellationToken);
         }
 
         /// <summary>
@@ -1228,7 +1380,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Moves a resource to another URL (Overwrite = false).
+        /// Moves a resource to another URL.
         /// </summary>
         /// <param name="sourceUrl">The URL of the resource which should be moved.</param>
         /// <param name="destinationUrl">The target URL.</param>
@@ -1240,7 +1392,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Moves a resource to another <see cref="Uri"/> (Overwrite = false).
+        /// Moves a resource to another <see cref="Uri"/>.
         /// </summary>
         /// <param name="sourceUri">The <see cref="Uri"/> of the resource which should be moved.</param>
         /// <param name="destinationUri">The target <see cref="Uri"/>.</param>
@@ -1249,6 +1401,86 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> MoveAsync(Uri sourceUri, Uri destinationUri, bool overwrite)
         {
             return await MoveAsync(sourceUri, destinationUri, overwrite, null, null, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Moves a resource to another URL.
+        /// </summary>
+        /// <param name="sourceUrl">The URL of the resource which should be moved.</param>
+        /// <param name="destinationUrl">The target URL.</param>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite, CancellationToken cancellationToken)
+        {
+            return await MoveAsync(UriHelper.CreateUriFromUrl(sourceUrl), UriHelper.CreateUriFromUrl(destinationUrl), overwrite, null, null, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Moves a resource to another <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="sourceUri">The <see cref="Uri"/> of the resource which should be moved.</param>
+        /// <param name="destinationUri">The target <see cref="Uri"/>.</param>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> MoveAsync(Uri sourceUri, Uri destinationUri, bool overwrite, CancellationToken cancellationToken)
+        {
+            return await MoveAsync(sourceUri, destinationUri, overwrite, null, null, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Moves a resource to another URL.
+        /// </summary>
+        /// <param name="sourceUrl">The URL of the resource which should be moved.</param>
+        /// <param name="destinationUrl">The target URL.</param>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite, HttpCompletionOption completionOption)
+        {
+            return await MoveAsync(UriHelper.CreateUriFromUrl(sourceUrl), UriHelper.CreateUriFromUrl(destinationUrl), overwrite, null, null, completionOption, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Moves a resource to another <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="sourceUri">The <see cref="Uri"/> of the resource which should be moved.</param>
+        /// <param name="destinationUri">The target <see cref="Uri"/>.</param>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> MoveAsync(Uri sourceUri, Uri destinationUri, bool overwrite, HttpCompletionOption completionOption)
+        {
+            return await MoveAsync(sourceUri, destinationUri, overwrite, null, null, completionOption, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Moves a resource to another URL.
+        /// </summary>
+        /// <param name="sourceUrl">The URL of the resource which should be moved.</param>
+        /// <param name="destinationUrl">The target URL.</param>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+        {
+            return await MoveAsync(UriHelper.CreateUriFromUrl(sourceUrl), UriHelper.CreateUriFromUrl(destinationUrl), overwrite, null, null, completionOption, cancellationToken);
+        }
+
+        /// <summary>
+        /// Moves a resource to another <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="sourceUri">The <see cref="Uri"/> of the resource which should be moved.</param>
+        /// <param name="destinationUri">The target <see cref="Uri"/>.</param>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> MoveAsync(Uri sourceUri, Uri destinationUri, bool overwrite, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+        {
+            return await MoveAsync(sourceUri, destinationUri, overwrite, null, null, completionOption, cancellationToken);
         }
 
         /// <summary>
@@ -1285,11 +1517,28 @@ namespace DecaTec.WebDav
         /// <param name="sourceUrl">The URL of the resource which should be moved.</param>
         /// <param name="destinationUrl">The target URL.</param>
         /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <param name="lockTokenSource">The <see cref="LockToken"/> of the source. Specify null if the source is not locked.</param>
+        /// <param name="lockTokenDestination">The <see cref="LockToken"/> of the destination. Specify null if the destination is not locked.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite, HttpCompletionOption completionOption)
+        public async Task<WebDavResponseMessage> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite, LockToken lockTokenSource, LockToken lockTokenDestination, CancellationToken cancellationToken)
         {
-            return await MoveAsync(UriHelper.CreateUriFromUrl(sourceUrl), UriHelper.CreateUriFromUrl(destinationUrl), overwrite, null, null, completionOption, CancellationToken.None);
+            return await MoveAsync(UriHelper.CreateUriFromUrl(sourceUrl), UriHelper.CreateUriFromUrl(destinationUrl), overwrite, lockTokenSource, lockTokenDestination, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Moves a resource to another <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="sourceUri">The <see cref="Uri"/> of the resource which should be moved.</param>
+        /// <param name="destinationUri">The target <see cref="Uri"/>.</param>
+        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="lockTokenSource">The <see cref="LockToken"/> of the source. Specify null if the source is not locked.</param>
+        /// <param name="lockTokenDestination">The <see cref="LockToken"/> of the destination. Specify null if the destination is not locked.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> MoveAsync(Uri sourceUri, Uri destinationUri, bool overwrite, LockToken lockTokenSource, LockToken lockTokenDestination, CancellationToken cancellationToken)
+        {
+            return await MoveAsync(sourceUri, destinationUri, overwrite, lockTokenSource, lockTokenDestination, HttpCompletionOption.ResponseContentRead, cancellationToken);
         }
 
         /// <summary>
@@ -1313,19 +1562,6 @@ namespace DecaTec.WebDav
         /// <param name="sourceUri">The <see cref="Uri"/> of the resource which should be moved.</param>
         /// <param name="destinationUri">The target <see cref="Uri"/>.</param>
         /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> MoveAsync(Uri sourceUri, Uri destinationUri, bool overwrite, HttpCompletionOption completionOption)
-        {
-            return await MoveAsync(sourceUri, destinationUri, overwrite, null, null, completionOption, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Moves a resource to another <see cref="Uri"/>.
-        /// </summary>
-        /// <param name="sourceUri">The <see cref="Uri"/> of the resource which should be moved.</param>
-        /// <param name="destinationUri">The target <see cref="Uri"/>.</param>
-        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
         /// <param name="lockTokenSource">The <see cref="LockToken"/> of the source. Specify null if the source is not locked.</param>
         /// <param name="lockTokenDestination">The <see cref="LockToken"/> of the destination. Specify null if the destination is not locked.</param>
         /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
@@ -1333,20 +1569,6 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> MoveAsync(Uri sourceUri, Uri destinationUri, bool overwrite, LockToken lockTokenSource, LockToken lockTokenDestination, HttpCompletionOption completionOption)
         {
             return await MoveAsync(sourceUri, destinationUri, overwrite, lockTokenSource, lockTokenDestination, completionOption, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Moves a resource to another URL.
-        /// </summary>
-        /// <param name="sourceUrl">The URL of the resource which should be moved.</param>
-        /// <param name="destinationUrl">The target URL.</param>
-        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite, HttpCompletionOption completionOption, CancellationToken cancellationToken)
-        {
-            return await MoveAsync(UriHelper.CreateUriFromUrl(sourceUrl), UriHelper.CreateUriFromUrl(destinationUrl), overwrite, null, null, completionOption, cancellationToken);
         }
 
         /// <summary>
@@ -1363,20 +1585,6 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite, LockToken lockTokenSource, LockToken lockTokenDestination, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
             return await MoveAsync(UriHelper.CreateUriFromUrl(sourceUrl), UriHelper.CreateUriFromUrl(destinationUrl), overwrite, lockTokenSource, lockTokenDestination, completionOption, cancellationToken);
-        }
-
-        /// <summary>
-        /// Moves a resource to another <see cref="Uri"/>.
-        /// </summary>
-        /// <param name="sourceUri">The <see cref="Uri"/> of the resource which should be moved.</param>
-        /// <param name="destinationUri">The target <see cref="Uri"/>.</param>
-        /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> MoveAsync(Uri sourceUri, Uri destinationUri, bool overwrite, HttpCompletionOption completionOption, CancellationToken cancellationToken)
-        {
-            return await MoveAsync(sourceUri, destinationUri, overwrite, null, null, completionOption, cancellationToken);
         }
 
         /// <summary>
@@ -1488,6 +1696,18 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Send a POST request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="content">The <see cref="HttpContent"/> sent to the server.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public new async Task<WebDavResponseMessage> PostAsync(Uri requestUri, HttpContent content, CancellationToken cancellationToken)
+        {
+            return await PostAsync(requestUri, content, null, cancellationToken);
+        }
+
+        /// <summary>
         /// Send a POST request to the specified URL.
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>
@@ -1498,18 +1718,6 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> PostAsync(string requestUrl, HttpContent content, LockToken lockToken, CancellationToken cancellationToken)
         {
             return await PostAsync(UriHelper.CreateUriFromUrl(requestUrl), content, lockToken, cancellationToken);
-        }
-
-        /// <summary>
-        /// Send a POST request to the specified <see cref="Uri"/>.
-        /// </summary>
-        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
-        /// <param name="content">The <see cref="HttpContent"/> sent to the server.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public new async Task<WebDavResponseMessage> PostAsync(Uri requestUri, HttpContent content, CancellationToken cancellationToken)
-        {
-            return await PostAsync(requestUri, content, null, cancellationToken);
         }
 
         /// <summary>
@@ -1636,58 +1844,6 @@ namespace DecaTec.WebDav
         /// <param name="requestUrl">The URL the request is sent to.</param>
         /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
         /// <param name="propfindXmlString">The XML string specifying which items should be returned by the response. If an empty string is specified here, a so called 'allprop' request will be sent.</param>
-        /// <param name="completionOption">An <see cref="HttpContent"/> value that indicates when the operation should be considered completed.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> PropFindAsync(string requestUrl, WebDavDepthHeaderValue depth, string propfindXmlString, HttpCompletionOption completionOption)
-        {
-            return await PropFindAsync(UriHelper.CreateUriFromUrl(requestUrl), depth, propfindXmlString, completionOption, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Send a PROPFIND request to the specified <see cref="Uri"/>.
-        /// </summary>
-        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
-        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
-        /// <param name="propfindXmlString">The XML string specifying which items should be returned by the response. If an empty string is specified here, a so called 'allprop' request will be sent.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> PropFindAsync(Uri requestUri, WebDavDepthHeaderValue depth, string propfindXmlString, HttpCompletionOption completionOption)
-        {
-            return await PropFindAsync(requestUri, depth, propfindXmlString, completionOption, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Send a PROPFIND request to the specified URL.
-        /// </summary>
-        /// <param name="requestUrl">The URL the request is sent to.</param>
-        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
-        /// <param name="propfind">The <see cref="PropFind"/> object specifying which properties should be searched for. If null is specified here, a so called 'allprop' request will be sent.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> PropFindAsync(string requestUrl, WebDavDepthHeaderValue depth, PropFind propfind, HttpCompletionOption completionOption)
-        {
-            return await PropFindAsync(UriHelper.CreateUriFromUrl(requestUrl), depth, propfind, completionOption, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Send a PROPFIND request to the specified <see cref="Uri"/>.
-        /// </summary>
-        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
-        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
-        /// <param name="propfind">The <see cref="PropFind"/> object specifying which properties should be searched for. If null is specified here, a so called 'allprop' request will be sent.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> PropFindAsync(Uri requestUri, WebDavDepthHeaderValue depth, PropFind propfind, HttpCompletionOption completionOption)
-        {
-            return await PropFindAsync(requestUri, depth, propfind, completionOption, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Send a PROPFIND request to the specified URL.
-        /// </summary>
-        /// <param name="requestUrl">The URL the request is sent to.</param>
-        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
-        /// <param name="propfindXmlString">The XML string specifying which items should be returned by the response. If an empty string is specified here, a so called 'allprop' request will be sent.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<WebDavResponseMessage> PropFindAsync(string requestUrl, WebDavDepthHeaderValue depth, string propfindXmlString, CancellationToken cancellationToken)
@@ -1740,12 +1896,95 @@ namespace DecaTec.WebDav
         /// <param name="requestUrl">The URL the request is sent to.</param>
         /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
         /// <param name="propfindXmlString">The XML string specifying which items should be returned by the response. If an empty string is specified here, a so called 'allprop' request will be sent.</param>
+        /// <param name="completionOption">An <see cref="HttpContent"/> value that indicates when the operation should be considered completed.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> PropFindAsync(string requestUrl, WebDavDepthHeaderValue depth, string propfindXmlString, HttpCompletionOption completionOption)
+        {
+            return await PropFindAsync(UriHelper.CreateUriFromUrl(requestUrl), depth, propfindXmlString, completionOption, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Send a PROPFIND request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
+        /// <param name="propfindXmlString">The XML string specifying which items should be returned by the response. If an empty string is specified here, a so called 'allprop' request will be sent.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> PropFindAsync(Uri requestUri, WebDavDepthHeaderValue depth, string propfindXmlString, HttpCompletionOption completionOption)
+        {
+            return await PropFindAsync(requestUri, depth, propfindXmlString, completionOption, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Send a PROPFIND request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
+        /// <param name="propfind">The <see cref="PropFind"/> object specifying which properties should be searched for. If null is specified here, a so called 'allprop' request will be sent.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> PropFindAsync(string requestUrl, WebDavDepthHeaderValue depth, PropFind propfind, HttpCompletionOption completionOption)
+        {
+            return await PropFindAsync(UriHelper.CreateUriFromUrl(requestUrl), depth, propfind, completionOption, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Send a PROPFIND request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
+        /// <param name="propfind">The <see cref="PropFind"/> object specifying which properties should be searched for. If null is specified here, a so called 'allprop' request will be sent.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> PropFindAsync(Uri requestUri, WebDavDepthHeaderValue depth, PropFind propfind, HttpCompletionOption completionOption)
+        {
+            return await PropFindAsync(requestUri, depth, propfind, completionOption, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Send a PROPFIND request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
+        /// <param name="propfindXmlString">The XML string specifying which items should be returned by the response. If an empty string is specified here, a so called 'allprop' request will be sent.</param>
         /// <param name="completionOption">An <see cref="HttpCompletionOption"/>  value that indicates when the operation should be considered completed.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<WebDavResponseMessage> PropFindAsync(string requestUrl, WebDavDepthHeaderValue depth, string propfindXmlString, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
             return await PropFindAsync(UriHelper.CreateUriFromUrl(requestUrl), depth, propfindXmlString, completionOption, cancellationToken);
+        }
+
+        /// <summary>
+        /// Send a PROPFIND request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
+        /// <param name="propfindXmlString">The XML string specifying which items should be returned by the response. If an empty string is specified here, a so called 'allprop' request will be sent.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> PropFindAsync(Uri requestUri, WebDavDepthHeaderValue depth, string propfindXmlString, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+        {
+            // Client must submit a depth header.
+            if (depth == null)
+                throw new WebDavException("A Depth header must be present on a PROPFIND command.");
+
+            var requestMethod = new HttpRequestMessage(WebDavMethod.PropFind, requestUri);
+            SetHttpVersion(requestMethod);
+
+            // If Depth = 'infinity', the server could response with 403 (Forbidden) when Depth = 'infinity' is not supported.
+            requestMethod.Headers.Add(WebDavRequestHeader.Depth, depth.ToString());
+
+            if (!String.IsNullOrEmpty(propfindXmlString))
+            {
+                var httpContent = new StringContent(propfindXmlString, Encoding.UTF8, MediaTypeXml);
+                requestMethod.Content = httpContent;
+            }
+
+            var httpResponseMessage = await this.SendAsync(requestMethod, completionOption, cancellationToken);
+            return new WebDavResponseMessage(httpResponseMessage);
         }
 
         /// <summary>
@@ -1781,37 +2020,6 @@ namespace DecaTec.WebDav
             return await PropFindAsync(requestUri, depth, requestContentString, completionOption, cancellationToken);
         }
 
-        /// <summary>
-        /// Send a PROPFIND request to the specified <see cref="Uri"/>.
-        /// </summary>
-        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
-        /// <param name="depth">The <see cref="WebDavDepthHeaderValue"/> to use for the operation.</param>
-        /// <param name="propfindXmlString">The XML string specifying which items should be returned by the response. If an empty string is specified here, a so called 'allprop' request will be sent.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
-        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> PropFindAsync(Uri requestUri, WebDavDepthHeaderValue depth, string propfindXmlString, HttpCompletionOption completionOption, CancellationToken cancellationToken)
-        {
-            // Client must submit a depth header.
-            if (depth == null)
-                throw new WebDavException("A Depth header must be present on a PROPFIND command.");
-
-            var requestMethod = new HttpRequestMessage(WebDavMethod.PropFind, requestUri);
-            SetHttpVersion(requestMethod);
-
-            // If Depth = 'infinity', the server could response with 403 (Forbidden) when Depth = 'infinity' is not supported.
-            requestMethod.Headers.Add(WebDavRequestHeader.Depth, depth.ToString());
-
-            if (!String.IsNullOrEmpty(propfindXmlString))
-            {
-                var httpContent = new StringContent(propfindXmlString, Encoding.UTF8, MediaTypeXml);
-                requestMethod.Content = httpContent;
-            }
-
-            var httpResponseMessage = await this.SendAsync(requestMethod, completionOption, cancellationToken);
-            return new WebDavResponseMessage(httpResponseMessage);
-        }
-
         #endregion Propfind
 
         #region Proppatch
@@ -1828,17 +2036,6 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Sends a PROPPATCH request to the specified URL.
-        /// </summary>
-        /// <param name="requestUrl">The URL the request is sent to.</param>
-        /// <param name="propertyUpdate">A <see cref="PropertyUpdate"/> which specifies the properties and values which should be updated.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> PropPatchAsync(string requestUrl, PropertyUpdate propertyUpdate)
-        {
-            return await PropPatchAsync(UriHelper.CreateUriFromUrl(requestUrl), propertyUpdate, null, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
-        }
-
-        /// <summary>
         /// Sends a PROPPATCH request to the specified <see cref="Uri"/>.
         /// </summary>
         /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
@@ -1847,6 +2044,17 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, string propPatchXmlString)
         {
             return await PropPatchAsync(requestUri, propPatchXmlString, null, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Sends a PROPPATCH request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="propertyUpdate">A <see cref="PropertyUpdate"/> which specifies the properties and values which should be updated.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> PropPatchAsync(string requestUrl, PropertyUpdate propertyUpdate)
+        {
+            return await PropPatchAsync(UriHelper.CreateUriFromUrl(requestUrl), propertyUpdate, null, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
         }
 
         /// <summary>
@@ -1865,23 +2073,11 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>
         /// <param name="propPatchXmlString">The XML string specifying which changes to which properties should be sent with this request.</param>
-        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> PropPatchAsync(string requestUrl, string propPatchXmlString, LockToken lockToken)
+        public async Task<WebDavResponseMessage> PropPatchAsync(string requestUrl, string propPatchXmlString, CancellationToken cancellationToken)
         {
-            return await PropPatchAsync(UriHelper.CreateUriFromUrl(requestUrl), propPatchXmlString, lockToken, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Sends a PROPPATCH request to the specified URL.
-        /// </summary>
-        /// <param name="requestUrl">The URL the request is sent to.</param>
-        /// <param name="propertyUpdate">A <see cref="PropertyUpdate"/> which specifies the properties and values which should be updated.</param>
-        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> PropPatchAsync(string requestUrl, PropertyUpdate propertyUpdate, LockToken lockToken)
-        {
-            return await PropPatchAsync(UriHelper.CreateUriFromUrl(requestUrl), propertyUpdate, lockToken, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
+            return await PropPatchAsync(UriHelper.CreateUriFromUrl(requestUrl), propPatchXmlString, null, HttpCompletionOption.ResponseContentRead, cancellationToken);
         }
 
         /// <summary>
@@ -1889,11 +2085,23 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
         /// <param name="propPatchXmlString">The XML string specifying which changes to which properties should be sent with this request.</param>
-        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, string propPatchXmlString, LockToken lockToken)
+        public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, string propPatchXmlString, CancellationToken cancellationToken)
         {
-            return await PropPatchAsync(requestUri, propPatchXmlString, lockToken, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
+            return await PropPatchAsync(requestUri, propPatchXmlString, null, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Sends a PROPPATCH request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="propertyUpdate">A <see cref="PropertyUpdate"/> which specifies the properties and values which should be updated.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> PropPatchAsync(string requestUrl, PropertyUpdate propertyUpdate, CancellationToken cancellationToken)
+        {
+            return await PropPatchAsync(UriHelper.CreateUriFromUrl(requestUrl), propertyUpdate, null, HttpCompletionOption.ResponseContentRead, cancellationToken);
         }
 
         /// <summary>
@@ -1901,11 +2109,16 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
         /// <param name="propertyUpdate">A <see cref="PropertyUpdate"/> which specifies the properties and values which should be updated.</param>
-        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, PropertyUpdate propertyUpdate, LockToken lockToken)
+        public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, PropertyUpdate propertyUpdate, CancellationToken cancellationToken)
         {
-            return await PropPatchAsync(requestUri, propertyUpdate, lockToken, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
+            string requestContentString = string.Empty;
+
+            if (propertyUpdate != null)
+                requestContentString = WebDavHelper.GetUtf8EncodedXmlWebDavRequestString(PropertyUpdateSerializer, propertyUpdate);
+
+            return await PropPatchAsync(requestUri, requestContentString, null, HttpCompletionOption.ResponseContentRead, cancellationToken);
         }
 
         /// <summary>
@@ -1921,16 +2134,15 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Sends a PROPPATCH request to the specified URL.
+        /// Sends a PROPPATCH request to the specified <see cref="Uri"/>.
         /// </summary>
-        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
         /// <param name="propPatchXmlString">The XML string specifying which changes to which properties should be sent with this request.</param>
-        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
         /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> PropPatchAsync(string requestUrl, string propPatchXmlString, LockToken lockToken, HttpCompletionOption completionOption)
+        public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, string propPatchXmlString, HttpCompletionOption completionOption)
         {
-            return await PropPatchAsync(UriHelper.CreateUriFromUrl(requestUrl), propPatchXmlString, lockToken, completionOption, CancellationToken.None);
+            return await PropPatchAsync(requestUri, propPatchXmlString, null, completionOption, CancellationToken.None);
         }
 
         /// <summary>
@@ -1946,44 +2158,6 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Sends a PROPPATCH request to the specified URL.
-        /// </summary>
-        /// <param name="requestUrl">The URL the request is sent to.</param>
-        /// <param name="propertyUpdate">A <see cref="PropertyUpdate"/> which specifies the properties and values which should be updated.</param>
-        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> PropPatchAsync(string requestUrl, PropertyUpdate propertyUpdate, LockToken lockToken, HttpCompletionOption completionOption)
-        {
-            return await PropPatchAsync(UriHelper.CreateUriFromUrl(requestUrl), propertyUpdate, lockToken, completionOption, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Sends a PROPPATCH request to the specified <see cref="Uri"/>.
-        /// </summary>
-        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
-        /// <param name="propPatchXmlString">The XML string specifying which changes to which properties should be sent with this request.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, string propPatchXmlString, HttpCompletionOption completionOption)
-        {
-            return await PropPatchAsync(requestUri, propPatchXmlString, null, completionOption, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Sends a PROPPATCH request to the specified <see cref="Uri"/>n.
-        /// </summary>
-        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
-        /// <param name="propPatchXmlString">The XML string specifying which changes to which properties should be sent with this request.</param>
-        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, string propPatchXmlString, LockToken lockToken, HttpCompletionOption completionOption)
-        {
-            return await PropPatchAsync(requestUri, propPatchXmlString, lockToken, completionOption, CancellationToken.None);
-        }
-
-        /// <summary>
         /// Sends a PROPPATCH request to the specified <see cref="Uri"/>.
         /// </summary>
         /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
@@ -1993,19 +2167,6 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, PropertyUpdate propertyUpdate, HttpCompletionOption completionOption)
         {
             return await PropPatchAsync(requestUri, propertyUpdate, null, completionOption, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Sends a PROPPATCH request to the specified <see cref="Uri"/>.
-        /// </summary>
-        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
-        /// <param name="propertyUpdate">A <see cref="PropertyUpdate"/> which specifies the properties and values which should be updated.</param>
-        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, PropertyUpdate propertyUpdate, LockToken lockToken, HttpCompletionOption completionOption)
-        {
-            return await PropPatchAsync(requestUri, propertyUpdate, lockToken, completionOption, CancellationToken.None);
         }
 
         /// <summary>
@@ -2022,17 +2183,16 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Sends a PROPPATCH request to the specified URL.
+        /// Sends a PROPPATCH request to the specified <see cref="Uri"/>.
         /// </summary>
-        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
         /// <param name="propPatchXmlString">The XML string specifying which changes to which properties should be sent with this request.</param>
-        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
         /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> PropPatchAsync(string requestUrl, string propPatchXmlString, LockToken lockToken, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+        public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, string propPatchXmlString, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
-            return await PropPatchAsync(UriHelper.CreateUriFromUrl(requestUrl), propPatchXmlString, lockToken, completionOption, cancellationToken);
+            return await PropPatchAsync(requestUri, propPatchXmlString, null, completionOption, cancellationToken);
         }
 
         /// <summary>
@@ -2046,20 +2206,6 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> PropPatchAsync(string requestUrl, PropertyUpdate propertyUpdate, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
             return await PropPatchAsync(UriHelper.CreateUriFromUrl(requestUrl), propertyUpdate, null, completionOption, cancellationToken);
-        }
-
-        /// <summary>
-        /// Sends a PROPPATCH request to the specified URL.
-        /// </summary>
-        /// <param name="requestUrl">The URL the request is sent to.</param>
-        /// <param name="propertyUpdate">A <see cref="PropertyUpdate"/> which specifies the properties and values which should be updated.</param>
-        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
-        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> PropPatchAsync(string requestUrl, PropertyUpdate propertyUpdate, LockToken lockToken, HttpCompletionOption completionOption, CancellationToken cancellationToken)
-        {
-            return await PropPatchAsync(UriHelper.CreateUriFromUrl(requestUrl), propertyUpdate, lockToken, completionOption, cancellationToken);
         }
 
         /// <summary>
@@ -2081,22 +2227,15 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Sends a PROPPATCH request to the specified <see cref="Uri"/>.
+        /// Sends a PROPPATCH request to the specified URL.
         /// </summary>
-        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
-        /// <param name="propertyUpdate">A <see cref="PropertyUpdate"/> which specifies the properties and values which should be updated.</param>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="propPatchXmlString">The XML string specifying which changes to which properties should be sent with this request.</param>
         /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
-        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
-        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, PropertyUpdate propertyUpdate, LockToken lockToken, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+        public async Task<WebDavResponseMessage> PropPatchAsync(string requestUrl, string propPatchXmlString, LockToken lockToken)
         {
-            string requestContentString = string.Empty;
-
-            if (propertyUpdate != null)
-                requestContentString = WebDavHelper.GetUtf8EncodedXmlWebDavRequestString(PropertyUpdateSerializer, propertyUpdate);
-
-            return await PropPatchAsync(requestUri, requestContentString, lockToken, completionOption, cancellationToken);
+            return await PropPatchAsync(UriHelper.CreateUriFromUrl(requestUrl), propPatchXmlString, lockToken, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
         }
 
         /// <summary>
@@ -2104,12 +2243,158 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
         /// <param name="propPatchXmlString">The XML string specifying which changes to which properties should be sent with this request.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, string propPatchXmlString, LockToken lockToken)
+        {
+            return await PropPatchAsync(requestUri, propPatchXmlString, lockToken, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Sends a PROPPATCH request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="propertyUpdate">A <see cref="PropertyUpdate"/> which specifies the properties and values which should be updated.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> PropPatchAsync(string requestUrl, PropertyUpdate propertyUpdate, LockToken lockToken)
+        {
+            return await PropPatchAsync(UriHelper.CreateUriFromUrl(requestUrl), propertyUpdate, lockToken, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Sends a PROPPATCH request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="propertyUpdate">A <see cref="PropertyUpdate"/> which specifies the properties and values which should be updated.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, PropertyUpdate propertyUpdate, LockToken lockToken)
+        {
+            return await PropPatchAsync(requestUri, propertyUpdate, lockToken, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Sends a PROPPATCH request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="propPatchXmlString">The XML string specifying which changes to which properties should be sent with this request.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> PropPatchAsync(string requestUrl, string propPatchXmlString, LockToken lockToken, CancellationToken cancellationToken)
+        {
+            return await PropPatchAsync(UriHelper.CreateUriFromUrl(requestUrl), propPatchXmlString, lockToken, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Sends a PROPPATCH request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="propPatchXmlString">The XML string specifying which changes to which properties should be sent with this request.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, string propPatchXmlString, LockToken lockToken, CancellationToken cancellationToken)
+        {
+            return await PropPatchAsync(requestUri, propPatchXmlString, lockToken, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Sends a PROPPATCH request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="propertyUpdate">A <see cref="PropertyUpdate"/> which specifies the properties and values which should be updated.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> PropPatchAsync(string requestUrl, PropertyUpdate propertyUpdate, LockToken lockToken, CancellationToken cancellationToken)
+        {
+            return await PropPatchAsync(UriHelper.CreateUriFromUrl(requestUrl), propertyUpdate, lockToken, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Sends a PROPPATCH request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="propertyUpdate">A <see cref="PropertyUpdate"/> which specifies the properties and values which should be updated.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, PropertyUpdate propertyUpdate, LockToken lockToken, CancellationToken cancellationToken)
+        {
+            string requestContentString = string.Empty;
+
+            if (propertyUpdate != null)
+                requestContentString = WebDavHelper.GetUtf8EncodedXmlWebDavRequestString(PropertyUpdateSerializer, propertyUpdate);
+
+            return await PropPatchAsync(requestUri, requestContentString, lockToken, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        }
+
+        /// <summary>
+        /// Sends a PROPPATCH request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="propPatchXmlString">The XML string specifying which changes to which properties should be sent with this request.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> PropPatchAsync(string requestUrl, string propPatchXmlString, LockToken lockToken, HttpCompletionOption completionOption)
+        {
+            return await PropPatchAsync(UriHelper.CreateUriFromUrl(requestUrl), propPatchXmlString, lockToken, completionOption, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Sends a PROPPATCH request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="propPatchXmlString">The XML string specifying which changes to which properties should be sent with this request.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, string propPatchXmlString, LockToken lockToken, HttpCompletionOption completionOption)
+        {
+            return await PropPatchAsync(requestUri, propPatchXmlString, lockToken, completionOption, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Sends a PROPPATCH request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="propertyUpdate">A <see cref="PropertyUpdate"/> which specifies the properties and values which should be updated.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> PropPatchAsync(string requestUrl, PropertyUpdate propertyUpdate, LockToken lockToken, HttpCompletionOption completionOption)
+        {
+            return await PropPatchAsync(UriHelper.CreateUriFromUrl(requestUrl), propertyUpdate, lockToken, completionOption, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Sends a PROPPATCH request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="propertyUpdate">A <see cref="PropertyUpdate"/> which specifies the properties and values which should be updated.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, PropertyUpdate propertyUpdate, LockToken lockToken, HttpCompletionOption completionOption)
+        {
+            return await PropPatchAsync(requestUri, propertyUpdate, lockToken, completionOption, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Sends a PROPPATCH request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="propPatchXmlString">The XML string specifying which changes to which properties should be sent with this request.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
         /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, string propPatchXmlString, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+        public async Task<WebDavResponseMessage> PropPatchAsync(string requestUrl, string propPatchXmlString, LockToken lockToken, HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
-            return await PropPatchAsync(requestUri, propPatchXmlString, null, completionOption, cancellationToken);
+            return await PropPatchAsync(UriHelper.CreateUriFromUrl(requestUrl), propPatchXmlString, lockToken, completionOption, cancellationToken);
         }
 
         /// <summary>
@@ -2137,6 +2422,39 @@ namespace DecaTec.WebDav
 
             var httpResponseMessage = await this.SendAsync(requestMethod, completionOption, cancellationToken);
             return new WebDavResponseMessage(httpResponseMessage);
+        }
+
+        /// <summary>
+        /// Sends a PROPPATCH request to the specified URL.
+        /// </summary>
+        /// <param name="requestUrl">The URL the request is sent to.</param>
+        /// <param name="propertyUpdate">A <see cref="PropertyUpdate"/> which specifies the properties and values which should be updated.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> PropPatchAsync(string requestUrl, PropertyUpdate propertyUpdate, LockToken lockToken, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+        {
+            return await PropPatchAsync(UriHelper.CreateUriFromUrl(requestUrl), propertyUpdate, lockToken, completionOption, cancellationToken);
+        }
+
+        /// <summary>
+        /// Sends a PROPPATCH request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="propertyUpdate">A <see cref="PropertyUpdate"/> which specifies the properties and values which should be updated.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
+        /// <param name="completionOption">An <see cref="HttpCompletionOption"/> value that indicates when the operation should be considered completed.</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/> to cancel operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> PropPatchAsync(Uri requestUri, PropertyUpdate propertyUpdate, LockToken lockToken, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+        {
+            string requestContentString = string.Empty;
+
+            if (propertyUpdate != null)
+                requestContentString = WebDavHelper.GetUtf8EncodedXmlWebDavRequestString(PropertyUpdateSerializer, propertyUpdate);
+
+            return await PropPatchAsync(requestUri, requestContentString, lockToken, completionOption, cancellationToken);
         }
 
         #endregion Proppatch
@@ -2202,6 +2520,18 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Send a PUT request to the specified <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="content">The <see cref="HttpContent"/> sent to the server.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public new async Task<WebDavResponseMessage> PutAsync(Uri requestUri, HttpContent content, CancellationToken cancellationToken)
+        {
+            return await PutAsync(requestUri, content, null, cancellationToken);
+        }
+
+        /// <summary>
         /// Send a PUT request to the specified URL.
         /// </summary>
         /// <param name="requestUrl">The URL the request is sent to.</param>
@@ -2212,18 +2542,6 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> PutAsync(string requestUrl, HttpContent content, LockToken lockToken, CancellationToken cancellationToken)
         {
             return await PutAsync(UriHelper.CreateUriFromUrl(requestUrl), content, lockToken, cancellationToken);
-        }
-
-        /// <summary>
-        /// Send a PUT request to the specified <see cref="Uri"/>.
-        /// </summary>
-        /// <param name="requestUri">The <see cref="Uri"/> the request is sent to.</param>
-        /// <param name="content">The <see cref="HttpContent"/> sent to the server.</param>
-        /// <param name="cancellationToken">A <see cref="CancellationToken"/> that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public new async Task<WebDavResponseMessage> PutAsync(Uri requestUri, HttpContent content, CancellationToken cancellationToken)
-        {
-            return await PutAsync(requestUri, content, null, cancellationToken);
         }
 
         /// <summary>
@@ -2317,6 +2635,19 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Uploads a file (with progress) from a given <see cref="Stream"/> to the given <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="uri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="stream">The file's content as <see cref="Stream"/>.</param>
+        /// <param name="contentType">The content type of the file to upload.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> UploadFileWithProgressAsync(Uri uri, Stream stream, string contentType, IProgress<WebDavProgress> progress)
+        {
+            return await this.UploadFileWithProgressAsync(uri, stream, contentType, progress, CancellationToken.None, null);
+        }
+
+        /// <summary>
         /// Uploads a file (with progress) from a given <see cref="Stream"/> to the given URL.
         /// </summary>
         /// <param name="url">The URL the request is sent to.</param>
@@ -2328,19 +2659,6 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> UploadFileWithProgressAsync(string url, Stream stream, string contentType, IProgress<WebDavProgress> progress, CancellationToken cancellationToken)
         {
             return await this.UploadFileWithProgressAsync(url, stream, contentType, progress, cancellationToken, null);
-        }
-
-        /// <summary>
-        /// Uploads a file (with progress) from a given <see cref="Stream"/> to the given <see cref="Uri"/>.
-        /// </summary>
-        /// <param name="uri">The <see cref="Uri"/> the request is sent to.</param>
-        /// <param name="stream">The file's content as <see cref="Stream"/>.</param>
-        /// <param name="contentType">The content type of the file to upload.</param>
-        /// <param name="progress">An object representing the progress of the operation.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> UploadFileWithProgressAsync(Uri uri, Stream stream, string contentType, IProgress<WebDavProgress> progress)
-        {
-            return await this.UploadFileWithProgressAsync(uri, stream, contentType, progress, CancellationToken.None, null);
         }
 
         /// <summary>
@@ -2372,6 +2690,20 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
+        /// Uploads a file (with progress) from a given <see cref="Stream"/> to the given <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="uri">The <see cref="Uri"/> the request is sent to.</param>
+        /// <param name="stream">The file's content as <see cref="Stream"/>.</param>
+        /// <param name="contentType">The content type of the file to upload.</param>
+        /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
+        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<WebDavResponseMessage> UploadFileWithProgressAsync(Uri uri, Stream stream, string contentType, IProgress<WebDavProgress> progress, LockToken lockToken)
+        {
+            return await UploadFileWithProgressAsync(uri, stream, contentType, progress, CancellationToken.None, lockToken);
+        }
+
+        /// <summary>
         /// Uploads a file (with progress) from a given <see cref="Stream"/> to the given URL.
         /// </summary>
         /// <param name="url">The URL the request is sent to.</param>
@@ -2384,20 +2716,6 @@ namespace DecaTec.WebDav
         public async Task<WebDavResponseMessage> UploadFileWithProgressAsync(string url, Stream stream, string contentType, IProgress<WebDavProgress> progress, CancellationToken cancellationToken, LockToken lockToken)
         {
             return await this.UploadFileWithProgressAsync(UriHelper.CreateUriFromUrl(url), stream, contentType, progress, cancellationToken, lockToken);
-        }
-
-        /// <summary>
-        /// Uploads a file (with progress) from a given <see cref="Stream"/> to the given <see cref="Uri"/>.
-        /// </summary>
-        /// <param name="uri">The <see cref="Uri"/> the request is sent to.</param>
-        /// <param name="stream">The file's content as <see cref="Stream"/>.</param>
-        /// <param name="contentType">The content type of the file to upload.</param>
-        /// <param name="progress">An object representing the progress of the operation.</param>
-        /// <param name="lockToken">The <see cref="LockToken"/> to use or null if no lock token should be used.</param>
-        /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<WebDavResponseMessage> UploadFileWithProgressAsync(Uri uri, Stream stream, string contentType, IProgress<WebDavProgress> progress, LockToken lockToken)
-        {
-            return await UploadFileWithProgressAsync(uri, stream, contentType, progress, CancellationToken.None, lockToken);
         }
 
         /// <summary>
@@ -2439,13 +2757,6 @@ namespace DecaTec.WebDav
         private void SetHttpVersion(HttpRequestMessage httpRequestMessage)
         {
             httpRequestMessage.Version = this.HttpVersion;
-        }
-
-        private static Multistatus GetMultistatusRequestResult(HttpResponseMessage responseMessage)
-        {
-            var taskStream = responseMessage.Content.ReadAsStreamAsync();
-            taskStream.Wait();
-            return (Multistatus)MultistatusSerializer.Deserialize(taskStream.Result);
         }
 
         #endregion Private methods
