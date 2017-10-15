@@ -386,7 +386,6 @@ namespace DecaTec.WebDav
             set;
         }
         
-        /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.</param>
         /// <summary>
         /// Gets or sets a value indicating if <see cref="WebDavSession"/> should process error responses from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
         /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.
