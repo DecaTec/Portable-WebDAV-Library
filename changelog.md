@@ -1,3 +1,8 @@
+v1.1.4.0
+- WebDavSession: New property ThrowExceptions: The methods of WebDavSession usually only return a boolean value indicating if the operation completed successfully. If more information about a failed operation is needed, the WebDvSession has a new property ThrowExceptions. If set to true, errors during WebDAV operations are thrown as exceptions. This property defaults to false.
+- WebDavSession: All constructors now have an optional parameter throwExceptions which defaults to false.
+- WebDavSession/WebDavClient: Removed unnecessary async calls in overloads of methods.
+
 v1.1.3.0
 - WebDavSession: New overload for DownloadFileWithProgressAsync accepting a WebDavSessionItem to download.
 - WebDavClient: Added missing method overloads.

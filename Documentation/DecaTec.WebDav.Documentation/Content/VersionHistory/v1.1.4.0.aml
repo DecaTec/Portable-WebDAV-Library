@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="2c75c0c1-ce03-430b-9f26-63c9ed4b288a" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction></introduction>
+
+    <section>
+      <title>Changes in release v1.1.4.0</title>
+      <content>
+
+        <list class="bullet">
+
+          <listItem>
+            <para>
+              WebDavSession: New property ThrowExceptions: The methods of WebDavSession usually only return a boolean value indicating if the operation completed successfully. If more information about a failed operation is needed, the WebDvSession has a new property ThrowExceptions.
+              If set to true, errors during WebDAV operations are thrown as exceptions. This property defaults to false.
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              WebDavSession: All constructors now have an optional parameter throwExceptions which defaults to false.
+            </para>
+          </listItem>
+
+          <listItem>
+            <para>
+              WebDavSession/WebDavClient: Removed unnecessary async calls in overloads of methods.
+            </para>
+          </listItem>
+
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="55c4b378-829f-44e2-af56-20a587c2d24b" />
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>
