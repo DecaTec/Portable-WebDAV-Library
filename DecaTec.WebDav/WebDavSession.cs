@@ -361,6 +361,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="sourceUrl">The source URL.</param>
         /// <param name="destinationUrl">The destination URL.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> CopyAsync(string sourceUrl, string destinationUrl, bool throwException = false)
         {
@@ -372,6 +373,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="itemToCopy">The <see cref="WebDavSessionItem"/> to copy.</param>
         /// <param name="destinationUrl">The destination URL.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> CopyAsync(WebDavSessionItem itemToCopy, string destinationUrl, bool throwException = false)
         {
@@ -383,6 +385,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="sourceUri">The source <see cref="Uri"/>.</param>
         /// <param name="destinationUri">The destination <see cref="Uri"/>.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> CopyAsync(Uri sourceUri, Uri destinationUri, bool throwException = false)
         {
@@ -394,6 +397,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="itemToCopy">The <see cref="WebDavSessionItem"/> to copy.</param>
         /// <param name="destinationUri">The destination <see cref="Uri"/>.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> CopyAsync(WebDavSessionItem itemToCopy, Uri destinationUri, bool throwException = false)
         {
@@ -406,6 +410,7 @@ namespace DecaTec.WebDav
         /// <param name="sourceUrl">The source URL.</param>
         /// <param name="destinationUrl">The destination URL.</param>
         /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> CopyAsync(string sourceUrl, string destinationUrl, bool overwrite, bool throwException = false)
         {
@@ -418,6 +423,7 @@ namespace DecaTec.WebDav
         /// <param name="itemToCopy">The <see cref="WebDavSessionItem"/> to copy.</param>
         /// <param name="destinationUrl">The destination URL.</param>
         /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> CopyAsync(WebDavSessionItem itemToCopy, string destinationUrl, bool overwrite, bool throwException = false)
         {
@@ -430,6 +436,7 @@ namespace DecaTec.WebDav
         /// <param name="itemToCopy">The <see cref="WebDavSessionItem"/> to copy.</param>
         /// <param name="destinationUri">The destination <see cref="Uri"/>.</param>
         /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> CopyAsync(WebDavSessionItem itemToCopy, Uri destinationUri, bool overwrite, bool throwException = false)
         {
@@ -442,6 +449,7 @@ namespace DecaTec.WebDav
         /// <param name="sourceUri">The source <see cref="Uri"/>.</param>
         /// <param name="destinationUri">The destination <see cref="Uri"/>.</param>
         /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> CopyAsync(Uri sourceUri, Uri destinationUri, bool overwrite, bool throwException)
         {
@@ -465,6 +473,7 @@ namespace DecaTec.WebDav
         /// Creates a directory at the URL specified.
         /// </summary>
         /// <param name="url">The URL of the directory to create.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> CreateDirectoryAsync(string url, bool throwException = false)
         {
@@ -475,6 +484,7 @@ namespace DecaTec.WebDav
         /// Creates a directory at the <see cref="Uri"/> specified.
         /// </summary>
         /// <param name="uri">The <see cref="Uri"/> of the directory to create.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> CreateDirectoryAsync(Uri uri, bool throwException)
         {
@@ -497,6 +507,7 @@ namespace DecaTec.WebDav
         /// Deletes a directory or file at the URL specified.
         /// </summary>
         /// <param name="url">The URL of the directory or file to delete.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> DeleteAsync(string url, bool throwException = false)
         {
@@ -507,6 +518,7 @@ namespace DecaTec.WebDav
         /// Deletes a directory or file specified by a <see cref="WebDavSessionItem"/>.
         /// </summary>
         /// <param name="itemToDelete">The <see cref="WebDavSessionItem"/> to delete.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> DeleteAsync(WebDavSessionItem itemToDelete, bool throwException = false)
         {
@@ -517,6 +529,7 @@ namespace DecaTec.WebDav
         /// Deletes a directory or file at the <see cref="Uri"/> specified.
         /// </summary>
         /// <param name="uri">The <see cref="Uri"/> of the directory or file to delete.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> DeleteAsync(Uri uri, bool throwException)
         {
@@ -540,6 +553,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="url">The URL of the file to download.</param>
         /// <param name="localStream">The <see cref="Stream"/> to save the file to.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> DownloadFileAsync(string url, Stream localStream, bool throwException = false)
         {
@@ -551,6 +565,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="uri">The <see cref="Uri"/> of the file to download.</param>
         /// <param name="localStream">The <see cref="Stream"/> to save the file to.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> DownloadFileAsync(Uri uri, Stream localStream, bool throwException = false)
         {
@@ -562,6 +577,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="itemToDownload">The <see cref="WebDavSessionItem"/> to download.</param>
         /// <param name="localStream">The <see cref="Stream"/> to save the file to.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> DownloadFileAsync(WebDavSessionItem itemToDownload, Stream localStream, bool throwException = false)
         {
@@ -574,6 +590,7 @@ namespace DecaTec.WebDav
         /// <param name="url">The URL of the file to download.</param>
         /// <param name="localStream">The <see cref="Stream"/> to save the file to.</param>
         /// <param name="ct">The <see cref="CancellationToken"/> to use.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> DownloadFileAsync(string url, Stream localStream, CancellationToken ct, bool throwException = false)
         {
@@ -586,6 +603,7 @@ namespace DecaTec.WebDav
         /// <param name="itemToDownload">The <see cref="WebDavSessionItem"/> to download.</param>
         /// <param name="localStream">The <see cref="Stream"/> to save the file to.</param>
         /// <param name="ct">The <see cref="CancellationToken"/> to use.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> DownloadFileAsync(WebDavSessionItem itemToDownload, Stream localStream, CancellationToken ct, bool throwException = false)
         {
@@ -598,6 +616,7 @@ namespace DecaTec.WebDav
         /// <param name="uri">The <see cref="Uri"/> of the file to download.</param>
         /// <param name="localStream">The <see cref="Stream"/> to save the file to.</param>
         /// <param name="ct">The <see cref="CancellationToken"/> to use.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> DownloadFileAsync(Uri uri, Stream localStream, CancellationToken ct, bool throwException)
         {
@@ -636,6 +655,7 @@ namespace DecaTec.WebDav
         /// <param name="url">Te URL of the file to download.</param>
         /// <param name="localStream">The <see cref="Stream"/> to save the downloaded file to.</param> 
         /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> DownloadFileWithProgressAsync(string url, Stream localStream, IProgress<WebDavProgress> progress, bool throwException = false)
         {
@@ -648,6 +668,7 @@ namespace DecaTec.WebDav
         /// <param name="itemToDownload">The <see cref="WebDavSessionItem"/> to download.</param>
         /// <param name="localStream">The <see cref="Stream"/> to save the downloaded file to.</param> 
         /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> DownloadFileWithProgressAsync(WebDavSessionItem itemToDownload, Stream localStream, IProgress<WebDavProgress> progress, bool throwException = false)
         {
@@ -661,6 +682,7 @@ namespace DecaTec.WebDav
         /// <param name="localStream">The <see cref="Stream"/> to save the downloaded file to.</param> 
         /// <param name="progress">An object representing the progress of the operation.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> to use.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> DownloadFileWithProgressAsync(string url, Stream localStream, IProgress<WebDavProgress> progress, CancellationToken cancellationToken, bool throwException = false)
         {
@@ -674,6 +696,7 @@ namespace DecaTec.WebDav
         /// <param name="localStream">The <see cref="Stream"/> to save the downloaded file to.</param> 
         /// <param name="progress">An object representing the progress of the operation.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> to use.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> DownloadFileWithProgressAsync(WebDavSessionItem itemToDownload, Stream localStream, IProgress<WebDavProgress> progress, CancellationToken cancellationToken, bool throwException = false)
         {
@@ -686,6 +709,7 @@ namespace DecaTec.WebDav
         /// <param name="uri">Te <see cref="Uri"/> of the file to download.</param>
         /// <param name="localStream">The <see cref="Stream"/> to save the downloaded file to.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> DownloadFileWithProgressAsync(Uri uri, Stream localStream, IProgress<WebDavProgress> progress, bool throwException = false)
         {
@@ -699,6 +723,7 @@ namespace DecaTec.WebDav
         /// <param name="localStream">The <see cref="Stream"/> to save the downloaded file to.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> to use.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> DownloadFileWithProgressAsync(Uri uri, Stream localStream, IProgress<WebDavProgress> progress, CancellationToken cancellationToken, bool throwException)
         {
@@ -720,6 +745,7 @@ namespace DecaTec.WebDav
         /// Checks if a file or directory exists at the URL specified.
         /// </summary>
         /// <param name="url">The URL to check.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> ExistsAsync(string url, bool throwException = false)
         {
@@ -730,6 +756,7 @@ namespace DecaTec.WebDav
         /// Checks if a file or directory exists at the <see cref="Uri"/> specified.
         /// </summary>
         /// <param name="uri">The <see cref="Uri"/> to check.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> ExistsAsync(Uri uri, bool throwException)
         {
@@ -751,6 +778,7 @@ namespace DecaTec.WebDav
         /// Gets the WebDAV property names which are supported by the WebDAV server for the given <see cref="WebDavSessionItem"/>.
         /// </summary>
         /// <param name="item">The <see cref="WebDavSessionItem"/> to get the supported property names for.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <remarks>Not all WebDAV servers return all known property names upon such a request.</remarks>
         public async Task<string[]> GetSupportedPropertyNamesAsync(WebDavSessionItem item, bool throwException = false)
@@ -762,6 +790,7 @@ namespace DecaTec.WebDav
         /// Gets the WebDAV property names which are supported by the WebDAV server for the element at the given URL.
         /// </summary>
         /// <param name="url">The URL to get the supported property names for.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <remarks>Not all WebDAV servers return all known property names upon such a request.</remarks>
         public async Task<string[]> GetSupportedPropertyNamesAsync(string url, bool throwException = false)
@@ -773,6 +802,7 @@ namespace DecaTec.WebDav
         /// Gets the WebDAV property names which are supported by the WebDAV server for the element at the given <see cref="Uri"/>.
         /// </summary>
         /// <param name="uri">The <see cref="Uri"/> to get the supported property names for.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <remarks>Not all WebDAV servers return all known property names upon such a request.</remarks>
         public async Task<string[]> GetSupportedPropertyNamesAsync(Uri uri, bool throwException)
@@ -798,6 +828,7 @@ namespace DecaTec.WebDav
         /// Retrieves a list of files and directories of the directory at the <see cref="Uri"/> specified (using 'allprop').
         /// </summary>
         /// <param name="uri">The <see cref="Uri"/> of the directory which content should be listed. Has to be an absolute URI (including the base URI) or a relative URI (relative to base URI).</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <remarks>This method uses a so called 'allprop'. A server should return all known properties to the server.
         /// If not all of the expected properties are return by the server, use an overload of this method specifying a <see cref="PropFind"/> explicitly.</remarks>
@@ -810,6 +841,7 @@ namespace DecaTec.WebDav
         /// Retrieves a list of files and directories of the directory at the URL specified.
         /// </summary>
         /// <param name="url">The URL of the directory which content should be listed. Has to be an absolute URL (including the base URL) or a relative URL (relative to base URL).</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <remarks>This method uses a so called 'allprop'. A server should return all known properties to the server.
         /// If not all of the expected properties are return by the server, use an overload of this method specifying a <see cref="PropFind"/> explicitly.</remarks>
@@ -822,6 +854,7 @@ namespace DecaTec.WebDav
         /// Retrieves a list of files and directories of the directory from the <see cref="WebDavSessionItem"/> specified
         /// </summary>
         /// <param name="item">The <see cref="WebDavSessionItem"/> which content should be listed.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <remarks>This method uses a so called 'allprop'. A server should return all known properties to the server.
         /// If not all of the expected properties are return by the server, use an overload of this method specifying a <see cref="PropFind"/> explicitly.</remarks>
@@ -835,6 +868,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="url">The URL of the directory which content should be listed. Has to be an absolute URL (including the base URL) or a relative URL (relative to base URL).</param>
         /// <param name="propFind">The <see cref="PropFind"/> to use. Different PropFind  types can be created using the static methods of the class <see cref="PropFind"/>.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<IList<WebDavSessionItem>> ListAsync(string url, PropFind propFind)
         {
@@ -846,6 +880,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="item">The <see cref="WebDavSessionItem"/> which content should be listed. Has to be an absolute URI (including the base URI) or a relative URI (relative to base URI).</param>
         /// <param name="propFind">The <see cref="PropFind"/> to use. Different PropFind  types can be created using the static methods of the class <see cref="PropFind"/>.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<IList<WebDavSessionItem>> ListAsync(WebDavSessionItem item, PropFind propFind)
         {
@@ -857,6 +892,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="uri">The <see cref="Uri"/> of the directory which content should be listed. Has to be an absolute URI (including the base URI) or a relative URI (relative to base URI).</param>
         /// <param name="propFind">The <see cref="PropFind"/> to use. Different PropFind  types can be created using the static methods of the class <see cref="PropFind"/>.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<IList<WebDavSessionItem>> ListAsync(Uri uri, PropFind propFind)
         {
@@ -1010,6 +1046,7 @@ namespace DecaTec.WebDav
         /// Locks a file or directory at the URL specified.
         /// </summary>
         /// <param name="url">The URL of the file or directory to lock.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> LockAsync(string url, bool throwException = false)
         {
@@ -1020,6 +1057,7 @@ namespace DecaTec.WebDav
         ///  Locks a file or directory specified as <see cref="WebDavSessionItem"/>.
         /// </summary>
         /// <param name="itemToLock">The <see cref="WebDavSessionItem"/> to lock.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> LockAsync(WebDavSessionItem itemToLock, bool throwException = false)
         {
@@ -1030,6 +1068,7 @@ namespace DecaTec.WebDav
         ///  Locks a file or directory at the URL specified.
         /// </summary>
         /// <param name="uri">The URI of the file or directory to lock.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> LockAsync(Uri uri, bool throwException)
         {
@@ -1093,6 +1132,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="sourceUrl">The URL of the source.</param>
         /// <param name="destinationUrl">The URL of the destination.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> MoveAsync(string sourceUrl, string destinationUrl, bool throwException = false)
         {
@@ -1104,6 +1144,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="itemToMove">The <see cref="WebDavSessionItem"/> to move.</param>
         /// <param name="destinationUrl">The URL of the destination.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> MoveAsync(WebDavSessionItem itemToMove, string destinationUrl, bool throwException = false)
         {
@@ -1115,6 +1156,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="sourceUri">The URI of the source.</param>
         /// <param name="destinationUri">The URL of the destination.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> MoveAsync(Uri sourceUri, Uri destinationUri, bool throwException = false)
         {
@@ -1126,6 +1168,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="itemToMove">The <see cref="WebDavSessionItem"/> to move.</param>
         /// <param name="destinationUri">The URL of the destination.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> MoveAsync(WebDavSessionItem itemToMove, Uri destinationUri, bool throwException = false)
         {
@@ -1138,6 +1181,7 @@ namespace DecaTec.WebDav
         /// <param name="sourceUrl">The URL of the source.</param>
         /// <param name="destinationUrl">The URL of the destination.</param>
         /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> MoveAsync(string sourceUrl, string destinationUrl, bool overwrite, bool throwException = false)
         {
@@ -1150,6 +1194,7 @@ namespace DecaTec.WebDav
         /// <param name="itemToMove">The <see cref="WebDavSessionItem"/> to move.</param>
         /// <param name="destinationUrl">The URL of the destination.</param>
         /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> MoveAsync(WebDavSessionItem itemToMove, string destinationUrl, bool overwrite, bool throwException = false)
         {
@@ -1162,6 +1207,7 @@ namespace DecaTec.WebDav
         /// <param name="itemToMove">The <see cref="WebDavSessionItem"/> to move.</param>
         /// <param name="destinationUri">The <see cref="Uri"/> of the destination.</param>
         /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> MoveAsync(WebDavSessionItem itemToMove, Uri destinationUri, bool overwrite, bool throwException = false)
         {
@@ -1174,6 +1220,7 @@ namespace DecaTec.WebDav
         /// <param name="sourceUri">The <see cref="Uri"/> of the source.</param>
         /// <param name="destinationUri">The <see cref="Uri"/> of the destination.</param>
         /// <param name="overwrite">True, if an already existing resource should be overwritten, otherwise false.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> MoveAsync(Uri sourceUri, Uri destinationUri, bool overwrite, bool throwException)
         {
@@ -1271,6 +1318,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="url">The URL of the file to upload.</param>
         /// <param name="localStream">The <see cref="Stream"/> containing the file to upload.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> UploadFileAsync(string url, Stream localStream, bool throwException = false)
         {
@@ -1283,6 +1331,7 @@ namespace DecaTec.WebDav
         /// <param name="folderToUploadTo">The folder as <see cref="WebDavSessionItem"/> to upload to.</param>
         /// <param name="fileName">The file name of the uploaded file.</param>
         /// <param name="localStream">The <see cref="Stream"/> containing the file to upload.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> UploadFileAsync(WebDavSessionItem folderToUploadTo, string fileName, Stream localStream, bool throwException = false)
         {
@@ -1298,6 +1347,7 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="uri">The <see cref="Uri"/> of the file to upload.</param>
         /// <param name="localStream">The <see cref="Stream"/> containing the file to upload.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> UploadFileAsync(Uri uri, Stream localStream, bool throwException)
         {
@@ -1320,6 +1370,7 @@ namespace DecaTec.WebDav
         /// <param name="stream">The <see cref="Stream"/> containing the file to upload.</param>
         /// <param name="contentType">The content type of the file to upload.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> UploadFileWithProgressAsync(string url, Stream stream, string contentType, IProgress<WebDavProgress> progress, bool throwException = false)
         {
@@ -1333,6 +1384,7 @@ namespace DecaTec.WebDav
         /// <param name="stream">The <see cref="Stream"/> containing the file to upload.</param>
         /// <param name="contentType">The content type of the file to upload.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> UploadFileWithProgressAsync(Uri uri, Stream stream, string contentType, IProgress<WebDavProgress> progress, bool throwException = false)
         {
@@ -1347,6 +1399,7 @@ namespace DecaTec.WebDav
         /// <param name="stream">The <see cref="Stream"/> containing the file to upload.</param>
         /// <param name="contentType">The content type of the file to upload.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> UploadFileWithProgressAsync(WebDavSessionItem folderToUploadTo, string fileName, Stream stream, string contentType, IProgress<WebDavProgress> progress, bool throwException = false)
         {
@@ -1361,6 +1414,7 @@ namespace DecaTec.WebDav
         /// <param name="contentType">The content type of the file to upload.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> to use.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> UploadFileWithProgressAsync(string url, Stream stream, string contentType, IProgress<WebDavProgress> progress, CancellationToken cancellationToken, bool throwException = false)
         {
@@ -1376,6 +1430,7 @@ namespace DecaTec.WebDav
         /// <param name="contentType">The content type of the file to upload.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> to use.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<bool> UploadFileWithProgressAsync(WebDavSessionItem folderToUploadTo, string fileName, Stream stream, string contentType, IProgress<WebDavProgress> progress, CancellationToken cancellationToken, bool throwException = false)
         {
@@ -1394,6 +1449,7 @@ namespace DecaTec.WebDav
         /// <param name="contentType">The content type of the file to upload.</param>
         /// <param name="progress">An object representing the progress of the operation.</param>
         /// <param name="cancellationToken">The <see cref="CancellationToken"/> to use.</param>
+        /// <param name="throwException">Indicates throw exception on error or not.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<bool> UploadFileWithProgressAsync(Uri uri, Stream stream, string contentType, IProgress<WebDavProgress> progress, CancellationToken cancellationToken, bool throwException)
         {
