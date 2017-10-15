@@ -11,6 +11,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace DecaTec.WebDav.UnitTest
 {
@@ -81,15 +82,7 @@ namespace DecaTec.WebDav.UnitTest
             using (var client = CreateWebDavClient(new MockHttpMessageHandler()))
             {
                 var lockInfo = new LockInfo();
-
-                try
-                {
-                    client.LockAsync(WebDavRootFolder, WebDavTimeoutHeaderValue.CreateInfiniteWebDavTimeout(), WebDavDepthHeaderValue.One, lockInfo).Wait();
-                }
-                catch (AggregateException ae)
-                {
-                    Assert.AreEqual(ae.InnerException.GetType(), typeof(WebDavException));
-                }
+                Assert.ThrowsExceptionAsync<WebDavException>(() => client.LockAsync(WebDavRootFolder, WebDavTimeoutHeaderValue.CreateInfiniteWebDavTimeout(), WebDavDepthHeaderValue.One, lockInfo));
             }
         }
 
@@ -99,15 +92,7 @@ namespace DecaTec.WebDav.UnitTest
             using (var client = CreateWebDavClient(new MockHttpMessageHandler()))
             {
                 var lockInfo = new LockInfo();
-
-                try
-                {
-                    client.RefreshLockAsync(WebDavRootFolder, WebDavTimeoutHeaderValue.CreateInfiniteWebDavTimeout(), null).Wait();
-                }
-                catch (AggregateException ae)
-                {
-                    Assert.AreEqual(ae.InnerException.GetType(), typeof(WebDavException));
-                }
+                Assert.ThrowsExceptionAsync<WebDavException>(() => client.RefreshLockAsync(WebDavRootFolder, WebDavTimeoutHeaderValue.CreateInfiniteWebDavTimeout(), null));
             }
         }
 
@@ -116,14 +101,7 @@ namespace DecaTec.WebDav.UnitTest
         {
             using (var client = CreateWebDavClient(new MockHttpMessageHandler()))
             {
-                try
-                {
-                    client.PropFindAsync(WebDavRootFolder, null).Wait();
-                }
-                catch (AggregateException ae)
-                {
-                    Assert.AreEqual(ae.InnerException.GetType(), typeof(WebDavException));
-                }
+                Assert.ThrowsExceptionAsync<WebDavException>(() => client.PropFindAsync(WebDavRootFolder, null));
             }
         }
 
@@ -132,19 +110,12 @@ namespace DecaTec.WebDav.UnitTest
         {
             using (var client = CreateWebDavClient(new MockHttpMessageHandler()))
             {
-                try
-                {
-                    client.UnlockAsync(WebDavRootFolder, null).Wait();
-                }
-                catch (AggregateException ae)
-                {
-                    Assert.AreEqual(ae.InnerException.GetType(), typeof(WebDavException));
-                }
+                Assert.ThrowsExceptionAsync<WebDavException>(() => client.UnlockAsync(WebDavRootFolder, null));
             }
         }
 
         [TestMethod]
-        public void UT_WebDavClient_WithHttpVersionDefault()
+        public async Task UT_WebDavClient_WithHttpVersionDefault()
         {
             var mockHandler = new MockHttpMessageHandler();
             var defaultHttpVersion = new Version(1, 1);
@@ -153,14 +124,14 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var client = CreateWebDavClient(mockHandler))
             {
-                var response = client.PropFindAsync(WebDavRootFolder).Result;
+                var response = await client.PropFindAsync(WebDavRootFolder);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
             }
         }
 
         [TestMethod]
-        public void UT_WebDavClient_WithHttpVersion11()
+        public async Task UT_WebDavClient_WithHttpVersion11()
         {
             var mockHandler = new MockHttpMessageHandler();
             var defaultHttpVersion = new Version(1, 1);
@@ -170,7 +141,7 @@ namespace DecaTec.WebDav.UnitTest
             using (var client = CreateWebDavClient(mockHandler))
             {
                 client.HttpVersion = new Version(1, 1);
-                var response = client.PropFindAsync(WebDavRootFolder).Result;
+                var response = await client.PropFindAsync(WebDavRootFolder);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
             }
@@ -181,7 +152,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Copy
 
         [TestMethod]
-        public void UT_WebDavClient_Copy()
+        public async Task UT_WebDavClient_Copy()
         {
             var testFolderSource = UriHelper.CombineUrl(WebDavRootFolder, TestFolder, true);
             var testFolderDestination = UriHelper.CombineUrl(WebDavRootFolder, TestFolder + "2", true);
@@ -199,7 +170,7 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var client = CreateWebDavClient(mockHandler))
             {
-                var response = client.CopyAsync(testFolderSource, testFolderDestination).Result;
+                var response = await client.CopyAsync(testFolderSource, testFolderDestination);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
             }
@@ -210,7 +181,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Delete
 
         [TestMethod]
-        public void UT_WebDavClient_Delete()
+        public async Task UT_WebDavClient_Delete()
         {
             var testFileUrl = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
 
@@ -219,7 +190,7 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var client = CreateWebDavClient(mockHandler))
             {
-                var response = client.DeleteAsync(testFileUrl).Result;
+                var response = await client.DeleteAsync(testFileUrl);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
             }
@@ -230,7 +201,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Download file
 
         [TestMethod]
-        public void UT_WebDavClient_DownloadFileWithProgress()
+        public async Task UT_WebDavClient_DownloadFileWithProgress()
         {
             var testFile = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
             var downloadFileContent = "This is a file downloaded with progress";
@@ -254,12 +225,12 @@ namespace DecaTec.WebDav.UnitTest
 
                 using (var stream = new MemoryStream())
                 {
-                    response = client.DownloadFileWithProgressAsync(testFile, stream, CancellationToken.None, progress).Result;
+                    response = await client.DownloadFileWithProgressAsync(testFile, stream, CancellationToken.None, progress);
                     stream.Position = 0;
 
                     using (StreamReader sr = new StreamReader(stream))
                     {
-                        downloadedString = sr.ReadToEnd();
+                        downloadedString = await sr.ReadToEndAsync();
                     }
                 }
 
@@ -274,7 +245,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Get
 
         [TestMethod]
-        public void UT_WebDavClient_Get()
+        public async Task UT_WebDavClient_Get()
         {
             var testFile = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
             var downloadFileContent = "This is a file downloaded with progress";
@@ -284,8 +255,8 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var client = CreateWebDavClient(mockHandler))
             {
-                var response = client.GetAsync(testFile).Result;
-                var responseContentString = response.Content.ReadAsStringAsync().Result;
+                var response = await client.GetAsync(testFile);
+                var responseContentString = await response.Content.ReadAsStringAsync();
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
                 Assert.AreEqual(downloadFileContent, responseContentString);
@@ -297,7 +268,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Head
 
         [TestMethod]
-        public void UT_WebDavClient_Head()
+        public async Task UT_WebDavClient_Head()
         {
             var testFile = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
 
@@ -306,7 +277,7 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var client = CreateWebDavClient(mockHandler))
             {
-                var response = client.HeadAsync(testFile).Result;
+                var response = await client.HeadAsync(testFile);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
             }
@@ -317,7 +288,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Lock
 
         [TestMethod]
-        public void UT_WebDavClient_LockSingleFile()
+        public async Task UT_WebDavClient_LockSingleFile()
         {
             var testFileToLock = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
             var lockRequestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:lockinfo xmlns:D=\"DAV:\"><D:lockscope><D:exclusive /></D:lockscope><D:locktype><D:write /></D:locktype><D:owner><D:href>test@test.com</D:href></D:owner></D:lockinfo>";
@@ -344,14 +315,14 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var client = CreateWebDavClient(mockHandler))
             {
-                var response = client.LockAsync(testFileToLock, oneMinuteTimeout, depth, lockInfo).Result;
+                var response = await client.LockAsync(testFileToLock, oneMinuteTimeout, depth, lockInfo);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
             }
         }
 
         [TestMethod]
-        public void UT_WebDavClient_LockRootFolder()
+        public async Task UT_WebDavClient_LockRootFolder()
         {
             var lockRequestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:lockinfo xmlns:D=\"DAV:\"><D:lockscope><D:exclusive /></D:lockscope><D:locktype><D:write /></D:locktype><D:owner><D:href>test@test.com</D:href></D:owner></D:lockinfo>";
             var lockResponseContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:prop xmlns:D=\"DAV:\"><D:lockdiscovery><D:activelock><D:locktype><D:write/></D:locktype><D:lockscope><D:exclusive/></D:lockscope><D:depth>infinity</D:depth><D:owner><D:href>test@test.com</D:href></D:owner><D:timeout>Second-60</D:timeout><D:locktoken><D:href>opaquelocktoken:a2324814-cbe3-4fb4-9c55-cba99a62ef5d.008f01d2b2dafba0</D:href></D:locktoken><D:lockroot><D:href>http://127.0.0.1/webdav/</D:href></D:lockroot></D:activelock></D:lockdiscovery></D:prop>";
@@ -377,14 +348,13 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var client = CreateWebDavClient(mockHandler))
             {
-                var response = client.LockAsync(WebDavRootFolder, oneMinuteTimeout, depth, lockInfo).Result;
+                var response = await client.LockAsync(WebDavRootFolder, oneMinuteTimeout, depth, lockInfo);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
             }
         }
 
         [TestMethod]
-        [ExpectedException(typeof(WebDavException))]
         public void UT_WebDavClient_LockWithDepthOneShouldThrowException_ShouldThrowWebDavException()
         {
             var testFileToLock = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
@@ -400,19 +370,12 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var client = CreateWebDavClient(new MockHttpMessageHandler()))
             {
-                try
-                {
-                    var response = client.LockAsync(testFileToLock, oneMinuteTimeout, depth, lockInfo).Result;
-                }
-                catch (AggregateException ex)
-                {
-                    throw ex.InnerException;
-                }
+                Assert.ThrowsExceptionAsync<WebDavException>(() => client.LockAsync(testFileToLock, oneMinuteTimeout, depth, lockInfo));
             }
         }
 
         [TestMethod]
-        public void UT_WebDavClient_LockRefreshLock()
+        public async Task UT_WebDavClient_LockRefreshLock()
         {
             var lockResponseContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:prop xmlns:D=\"DAV:\"><D:lockdiscovery><D:activelock><D:locktype><D:write/></D:locktype><D:lockscope><D:exclusive/></D:lockscope><D:depth>infinity</D:depth><D:owner><D:href>test@test.com</D:href></D:owner><D:timeout>Second-10</D:timeout><D:locktoken><D:href>opaquelocktoken:0af5a3d3-2ccd-42fb-b8c7-9c59c9b90944.22bc01d2b2e0e947</D:href></D:locktoken><D:lockroot><D:href>http://127.0.0.1/webdav/</D:href></D:lockroot></D:activelock></D:lockdiscovery></D:prop>";
             var oneMinuteTimeout = WebDavTimeoutHeaderValue.CreateWebDavTimeout(TimeSpan.FromMinutes(1));
@@ -433,7 +396,7 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var client = CreateWebDavClient(mockHandler))
             {
-                var response = client.RefreshLockAsync(WebDavRootFolder, oneMinuteTimeout, lockToken).Result;
+                var response = await client.RefreshLockAsync(WebDavRootFolder, oneMinuteTimeout, lockToken);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
             }
@@ -444,7 +407,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Mkcol
 
         [TestMethod]
-        public void UT_WebDavClient_Mkcol()
+        public async Task UT_WebDavClient_Mkcol()
         {
             var testFolder = UriHelper.CombineUrl(WebDavRootFolder, TestFolder, true);
             var mockHandler = new MockHttpMessageHandler();
@@ -452,7 +415,7 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var client = CreateWebDavClient(mockHandler))
             {
-                var response = client.MkcolAsync(testFolder).Result;
+                var response = await client.MkcolAsync(testFolder);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
             }
@@ -463,7 +426,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Move
 
         [TestMethod]
-        public void UT_WebDavClient_Move()
+        public async Task UT_WebDavClient_Move()
         {
             var testFolderSource = UriHelper.CombineUrl(WebDavRootFolder, TestFolder, true);
             var testFolderDestination = UriHelper.CombineUrl(WebDavRootFolder, TestFolder + "Dest", true);
@@ -481,14 +444,14 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var client = CreateWebDavClient(mockHandler))
             {
-                var response = client.MoveAsync(testFolderSource, testFolderDestination).Result;
+                var response = await client.MoveAsync(testFolderSource, testFolderDestination);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
             }
         }
 
         [TestMethod]
-        public void UT_WebDavClient_Move_WithOverwrite()
+        public async Task UT_WebDavClient_Move_WithOverwrite()
         {
             var testFolderSource = UriHelper.CombineUrl(WebDavRootFolder, TestFolder, true);
             var testFolderDestination = UriHelper.CombineUrl(WebDavRootFolder, TestFolder + "Dest", true);
@@ -506,7 +469,7 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var client = CreateWebDavClient(mockHandler))
             {
-                var response = client.MoveAsync(testFolderSource, testFolderDestination, true).Result;
+                var response = await client.MoveAsync(testFolderSource, testFolderDestination, true);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
             }
@@ -517,7 +480,7 @@ namespace DecaTec.WebDav.UnitTest
         #region PropFind
 
         [TestMethod]
-        public void UT_WebDavClient_PropFind_AllPropDepthInfinity()
+        public async Task UT_WebDavClient_PropFind_AllPropDepthInfinity()
         {
             var mockHandler = new MockHttpMessageHandler();
             var requestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:allprop /></D:propfind>";
@@ -533,8 +496,8 @@ namespace DecaTec.WebDav.UnitTest
             using (var client = CreateWebDavClient(mockHandler))
             {
                 PropFind pf = PropFind.CreatePropFindAllProp();
-                var response = client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
-                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+                var response = await client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.Infinity, pf);
+                var multistatus = await WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
                 Assert.IsNotNull(multistatus);
@@ -542,7 +505,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UT_WebDavClient_PropFind_AllPropDepthOne()
+        public async Task UT_WebDavClient_PropFind_AllPropDepthOne()
         {
             var mockHandler = new MockHttpMessageHandler();
             var requestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:allprop /></D:propfind>";
@@ -558,8 +521,8 @@ namespace DecaTec.WebDav.UnitTest
             using (var client = CreateWebDavClient(mockHandler))
             {
                 PropFind pf = PropFind.CreatePropFindAllProp();
-                var response = client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.One, pf).Result;
-                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+                var response = await client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.One, pf);
+                var multistatus = await WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
                 Assert.IsNotNull(multistatus);
@@ -567,7 +530,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UT_WebDavClient_PropFind_AllPropDepthZero()
+        public async Task UT_WebDavClient_PropFind_AllPropDepthZero()
         {
             var mockHandler = new MockHttpMessageHandler();
             var requestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:allprop /></D:propfind>";
@@ -583,8 +546,8 @@ namespace DecaTec.WebDav.UnitTest
             using (var client = CreateWebDavClient(mockHandler))
             {
                 PropFind pf = PropFind.CreatePropFindAllProp();
-                var response = client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.Zero, pf).Result;
-                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+                var response = await client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.Zero, pf);
+                var multistatus = await WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
                 Assert.IsNotNull(multistatus);
@@ -592,7 +555,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UT_WebDavClient_PropFind_AllPropWithXmlContentString()
+        public async Task UT_WebDavClient_PropFind_AllPropWithXmlContentString()
         {
             var mockHandler = new MockHttpMessageHandler();
             var requestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:allprop /></D:propfind>";
@@ -607,8 +570,8 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var client = CreateWebDavClient(mockHandler))
             {
-                var response = client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.Infinity, requestContent).Result;
-                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+                var response = await client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.Infinity, requestContent);
+                var multistatus = await WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
                 Assert.IsNotNull(multistatus);
@@ -616,7 +579,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UT_WebDavClient_PropFind_NamedProperties()
+        public async Task UT_WebDavClient_PropFind_NamedProperties()
         {
             var mockHandler = new MockHttpMessageHandler();
             var requestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:prop><D:name /></D:prop></D:propfind>";
@@ -632,8 +595,8 @@ namespace DecaTec.WebDav.UnitTest
             using (var client = CreateWebDavClient(mockHandler))
             {
                 PropFind pf = PropFind.CreatePropFindWithEmptyProperties("name");
-                var response = client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
-                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+                var response = await client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.Infinity, pf);
+                var multistatus = await WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
                 Assert.IsNotNull(multistatus);
@@ -641,7 +604,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UT_WebDavClient_PropFind_PropName()
+        public async Task UT_WebDavClient_PropFind_PropName()
         {
             var mockHandler = new MockHttpMessageHandler();
             var requestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:propname /></D:propfind>";
@@ -657,8 +620,8 @@ namespace DecaTec.WebDav.UnitTest
             using (var client = CreateWebDavClient(mockHandler))
             {
                 PropFind pf = PropFind.CreatePropFindWithPropName();
-                var response = client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.Infinity, pf).Result;
-                var multistatus = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+                var response = await client.PropFindAsync(WebDavRootFolder, WebDavDepthHeaderValue.Infinity, pf);
+                var multistatus = await WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
                 Assert.IsNotNull(multistatus);
@@ -670,7 +633,7 @@ namespace DecaTec.WebDav.UnitTest
         #region PropPatch
 
         [TestMethod]
-        public void UT_WebDavClient_PropPatchSet()
+        public async Task UT_WebDavClient_PropPatchSet()
         {
             var mockHandler = new MockHttpMessageHandler();
 
@@ -692,8 +655,8 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var client = CreateWebDavClient(mockHandler))
             {
-                var response = client.PropPatchAsync(testFile, propertyUpdate).Result;
-                var multistatusPropPatch = WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content).Result;
+                var response = await client.PropPatchAsync(testFile, propertyUpdate);
+                var multistatusPropPatch = await WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content);
 
                 Assert.IsNotNull(multistatusPropPatch);
                 Assert.IsTrue(response.IsSuccessStatusCode);
@@ -701,7 +664,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UT_WebDavClient_PropPatchRemove()
+        public async Task UT_WebDavClient_PropPatchRemove()
         {
             var mockHandler = new MockHttpMessageHandler();
 
@@ -718,7 +681,7 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var client = new WebDavClient(mockHandler))
             {
-                var response = client.PropPatchAsync(testFile, propertyUpdate).Result;
+                var response = await client.PropPatchAsync(testFile, propertyUpdate);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
             }
@@ -729,7 +692,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Put
 
         [TestMethod]
-        public void UT_WebDavClient_Put()
+        public async Task UT_WebDavClient_Put()
         {
             var mockHandler = new MockHttpMessageHandler();
 
@@ -739,7 +702,7 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var client = CreateWebDavClient(mockHandler))
             {
-                var response = client.PutAsync(testFile, new StringContent(requestContentPut)).Result;
+                var response = await client.PutAsync(testFile, new StringContent(requestContentPut));
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
             }
@@ -750,7 +713,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Send
 
         [TestMethod]
-        public void UT_WebDavClient_Send()
+        public async Task UT_WebDavClient_Send()
         {
             var mockHandler = new MockHttpMessageHandler();
 
@@ -766,7 +729,7 @@ namespace DecaTec.WebDav.UnitTest
                     Content = new StringContent(requestContentPut)
                 };
 
-                var response = client.SendAsync(httpRequestMessage).Result;
+                var response = await client.SendAsync(httpRequestMessage);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
             }
@@ -777,7 +740,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Unlock
 
         [TestMethod]
-        public void UT_WebDavClient_Unlock()
+        public async Task UT_WebDavClient_Unlock()
         {
             var testFileToUnlock = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
             var lockTokenString = "<opaquelocktoken:cb2b7d6d-98ea-47cf-b569-5b98126b8f13.6df801d2b41b3b6e>";
@@ -795,7 +758,7 @@ namespace DecaTec.WebDav.UnitTest
             using (var client = CreateWebDavClient(mockHandler))
             {
                 var lockToken = new LockToken(codedUrl.AbsoluteUri);
-                var response = client.UnlockAsync(testFileToUnlock, lockToken).Result;
+                var response = await client.UnlockAsync(testFileToUnlock, lockToken);
 
                 Assert.IsTrue(response.IsSuccessStatusCode);
             }
@@ -806,7 +769,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Upload file
 
         [TestMethod]
-        public void UT_WebDavClient_UploadFileWithProgress()
+        public async Task UT_WebDavClient_UploadFileWithProgress()
         {
             var testFile = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
             var uploadFileContent = "This is a file uploaded with progress";
@@ -837,10 +800,10 @@ namespace DecaTec.WebDav.UnitTest
                 {
                     using (StreamWriter wr = new StreamWriter(stream))
                     {
-                        wr.Write(uploadFileContent);
-                        wr.Flush();
+                        await wr.WriteAsync(uploadFileContent);
+                        await wr.FlushAsync();
                         stream.Position = 0;
-                        response = client.UploadFileWithProgressAsync(testFile, stream, contentType, progress).Result;
+                        response = await client.UploadFileWithProgressAsync(testFile, stream, contentType, progress);
                     }
                 }
 
