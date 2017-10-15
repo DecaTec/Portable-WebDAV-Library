@@ -1,4 +1,5 @@
-﻿using DecaTec.WebDav.Headers;
+﻿using DecaTec.WebDav.Exceptions;
+using DecaTec.WebDav.Headers;
 using DecaTec.WebDav.MessageHandlers;
 using DecaTec.WebDav.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -124,6 +125,37 @@ namespace DecaTec.WebDav.UnitTest
                 var list = session.ListAsync(WebDavRootFolder).Result;
 
                 Assert.IsNotNull(list);
+            }
+        }
+
+        [TestMethod]
+        public void UT_WebDavSession_ShouldThrowException()
+        {
+            var testFileUrl = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
+
+            var mockHandler = new MockHttpMessageHandler();
+            mockHandler.When(HttpMethod.Delete, testFileUrl).Respond(HttpStatusCode.InternalServerError);
+
+            using (var session = CreateWebDavSession(mockHandler))
+            {
+                session.ThrowExceptions = true;
+                Assert.ThrowsExceptionAsync<WebDavException>(() => session.DeleteAsync(testFileUrl));
+            }
+        }
+
+        [TestMethod]
+        public void UT_WebDavSession_ShouldNotThrowException()
+        {
+            var testFileUrl = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
+
+            var mockHandler = new MockHttpMessageHandler();
+            mockHandler.When(HttpMethod.Delete, testFileUrl).Respond(HttpStatusCode.InternalServerError);
+
+            using (var session = CreateWebDavSession(mockHandler))
+            {
+                var successs = session.DeleteAsync(TestFile).Result;
+
+                Assert.IsFalse(successs);
             }
         }
 
