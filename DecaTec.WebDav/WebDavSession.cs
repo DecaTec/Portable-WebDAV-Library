@@ -26,6 +26,8 @@ namespace DecaTec.WebDav
     /// URL/<see cref="System.Uri"/> will be relative on this base URL/<see cref="System.Uri"/>.
     /// If no base URL/<see cref="System.Uri"/> is specified, all operations has the be called with an absolute URL/<see cref="System.Uri"/>.</para>
     /// <para>The WebDavSession uses HTTP/2 by default. To use other HTTP versions, specify the HTTP version to use in an overloaded constructor of WebDavSession or set the HTTP version with the property <see cref="HttpVersion"/>.</para>
+    /// <para>The methods of WebDavSession often return a boolean value in order to indicate if the operation was completed successfully and to avoid throwing of exceptions. 
+    /// If you prefer that exceptions are thrown with more information about what went wrong, set the property <see cref="WebDavSession.ThrowExceptions"/> to true (defaults to false).</para>
     /// </remarks>
     /// <example>See the following code to list the content of a directory with the WebDavSession:
     /// <code>
@@ -90,8 +92,10 @@ namespace DecaTec.WebDav
         /// Initializes a new instance of WebDavSession with a default <see cref="HttpClientHandler"/>.
         /// </summary>
         /// <param name="credentials">The <see cref="ICredentials"/> to use.</param>
-        public WebDavSession(ICredentials credentials)
-            : this(new HttpClientHandler() { PreAuthenticate = true, Credentials = credentials })
+        /// <param name="throwExceptions">Indicates if <see cref="WebDavSession"/> should process error responses from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
+        /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.</param>
+        public WebDavSession(ICredentials credentials, bool throwExceptions = false)
+            : this(new HttpClientHandler() { PreAuthenticate = true, Credentials = credentials }, throwExceptions)
         {
         }
 
@@ -100,8 +104,10 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="credentials">The <see cref="ICredentials"/> to use.</param>
         /// <param name="httpVersion">The HTTP <see cref="Version"/> to use for requests.</param>
-        public WebDavSession(ICredentials credentials, Version httpVersion)
-            : this(credentials)
+        /// <param name="throwExceptions">Indicates if <see cref="WebDavSession"/> should process error responses from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
+        /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.</param>
+        public WebDavSession(ICredentials credentials, Version httpVersion, bool throwExceptions = false)
+            : this(credentials, throwExceptions)
         {
             this.webDavClient.HttpVersion = httpVersion;
         }
@@ -111,8 +117,10 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="baseUrl">The base URL to use for this WebDavSession.</param>
         /// <param name="credentials">The <see cref="ICredentials"/> to use.</param>
-        public WebDavSession(string baseUrl, ICredentials credentials)
-            : this(new Uri(baseUrl), new HttpClientHandler() { PreAuthenticate = true, Credentials = credentials })
+        /// <param name="throwExceptions">Indicates if <see cref="WebDavSession"/> should process error responses from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
+        /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.</param>
+        public WebDavSession(string baseUrl, ICredentials credentials, bool throwExceptions = false)
+            : this(new Uri(baseUrl), new HttpClientHandler() { PreAuthenticate = true, Credentials = credentials }, throwExceptions)
         {
         }
 
@@ -122,8 +130,10 @@ namespace DecaTec.WebDav
         /// <param name="baseUrl">The base URL to use for this WebDavSession.</param>
         /// <param name="credentials">The <see cref="ICredentials"/> to use.</param>
         /// <param name="httpVersion">The HTTP <see cref="Version"/> to use for requests.</param>
-        public WebDavSession(string baseUrl, ICredentials credentials, Version httpVersion)
-            : this(baseUrl, credentials)
+        /// <param name="throwExceptions">Indicates if <see cref="WebDavSession"/> should process error responses from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
+        /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.</param>
+        public WebDavSession(string baseUrl, ICredentials credentials, Version httpVersion, bool throwExceptions = false)
+            : this(baseUrl, credentials, throwExceptions)
         {
             this.webDavClient.HttpVersion = httpVersion;
         }
@@ -133,8 +143,10 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="baseUri">The base <see cref="Uri"/> to use for this WebDavSession.</param>
         /// <param name="credentials">The <see cref="ICredentials"/> to use.</param>
-        public WebDavSession(Uri baseUri, ICredentials credentials)
-            : this(baseUri, new HttpClientHandler() { PreAuthenticate = true, Credentials = credentials })
+        /// <param name="throwExceptions">Indicates if <see cref="WebDavSession"/> should process error responses from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
+        /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.</param>
+        public WebDavSession(Uri baseUri, ICredentials credentials, bool throwExceptions = false)
+            : this(baseUri, new HttpClientHandler() { PreAuthenticate = true, Credentials = credentials }, throwExceptions)
         {
         }
 
@@ -144,8 +156,10 @@ namespace DecaTec.WebDav
         /// <param name="baseUri">The base <see cref="Uri"/> to use for this WebDavSession.</param>
         /// <param name="credentials">The <see cref="ICredentials"/> to use.</param>
         /// <param name="httpVersion">The HTTP <see cref="Version"/> to use for requests.</param>
-        public WebDavSession(Uri baseUri, ICredentials credentials, Version httpVersion)
-            : this(baseUri, credentials)
+        /// <param name="throwExceptions">Indicates if <see cref="WebDavSession"/> should process error responses from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
+        /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.</param>
+        public WebDavSession(Uri baseUri, ICredentials credentials, Version httpVersion, bool throwExceptions = false)
+            : this(baseUri, credentials, throwExceptions)
         {
             this.webDavClient.HttpVersion = httpVersion;
         }
@@ -154,9 +168,11 @@ namespace DecaTec.WebDav
         /// Initializes a new instance of WebDavSession with the <see cref="HttpMessageHandler"/> specified.
         /// </summary>
         /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> to use with this WebDavSession.</param>
+        /// <param name="throwExceptions">Indicates if <see cref="WebDavSession"/> should process error responses from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
+        /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.</param>
         /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
-        public WebDavSession(HttpMessageHandler httpMessageHandler)
-            : this(string.Empty, httpMessageHandler)
+        public WebDavSession(HttpMessageHandler httpMessageHandler, bool throwExceptions = false)
+            : this(string.Empty, httpMessageHandler, throwExceptions)
         {
         }
 
@@ -165,9 +181,11 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> to use with this WebDavSession.</param>
         /// <param name="httpVersion">The HTTP <see cref="Version"/> to use for requests.</param>
+        /// <param name="throwExceptions">Indicates if <see cref="WebDavSession"/> should process error responses from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
+        /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.</param>
         /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
-        public WebDavSession(HttpMessageHandler httpMessageHandler, Version httpVersion)
-            : this(httpMessageHandler)
+        public WebDavSession(HttpMessageHandler httpMessageHandler, Version httpVersion, bool throwExceptions = false)
+            : this(httpMessageHandler, throwExceptions)
         {
             this.webDavClient.HttpVersion = httpVersion;
         }
@@ -177,9 +195,11 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="baseUrl">The base URL to use for this WebDavSession.</param>
         /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> to use with this WebDavSession.</param>
+        /// <param name="throwExceptions">Indicates if <see cref="WebDavSession"/> should process error responses from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
+        /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.</param>
         /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
-        public WebDavSession(string baseUrl, HttpMessageHandler httpMessageHandler)
-            : this(string.IsNullOrEmpty(baseUrl) ? null : new Uri(baseUrl), httpMessageHandler)
+        public WebDavSession(string baseUrl, HttpMessageHandler httpMessageHandler, bool throwExceptions = false)
+            : this(string.IsNullOrEmpty(baseUrl) ? null : new Uri(baseUrl), httpMessageHandler, throwExceptions)
         {
         }
 
@@ -189,9 +209,11 @@ namespace DecaTec.WebDav
         /// <param name="baseUrl">The base URL to use for this WebDavSession.</param>
         /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> to use with this WebDavSession.</param>
         /// <param name="httpVersion">The HTTP <see cref="Version"/> to use for requests.</param>
+        /// <param name="throwExceptions">Indicates if <see cref="WebDavSession"/> should process error responses from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
+        /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.</param>
         /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
-        public WebDavSession(string baseUrl, HttpMessageHandler httpMessageHandler, Version httpVersion)
-            : this(baseUrl, httpMessageHandler)
+        public WebDavSession(string baseUrl, HttpMessageHandler httpMessageHandler, Version httpVersion, bool throwExceptions = false)
+            : this(baseUrl, httpMessageHandler, throwExceptions)
         {
             this.webDavClient.HttpVersion = httpVersion;
         }
@@ -201,9 +223,11 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="baseUri">The base <see cref="Uri"/> to use for this WebDavSession.</param>
         /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> to use with this WebDavSession.</param>
+        /// <param name="throwExceptions">Indicates if <see cref="WebDavSession"/> should process error responses from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
+        /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.</param>
         /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
-        public WebDavSession(Uri baseUri, HttpMessageHandler httpMessageHandler)
-            : this(baseUri, httpMessageHandler, WebDavClient.DefaultHttpVersion)
+        public WebDavSession(Uri baseUri, HttpMessageHandler httpMessageHandler, bool throwExceptions = false)
+            : this(baseUri, httpMessageHandler, WebDavClient.DefaultHttpVersion, throwExceptions)
         {
         }
 
@@ -213,9 +237,12 @@ namespace DecaTec.WebDav
         /// <param name="baseUri">The base <see cref="Uri"/> to use for this WebDavSession.</param>
         /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> to use with this WebDavSession.</param>
         /// <param name="httpVersion">The HTTP <see cref="Version"/> to use for requests.</param>
+        /// <param name="throwExceptions">Indicates if <see cref="WebDavSession"/> should process error responses from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
+        /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.</param>
         /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
-        public WebDavSession(Uri baseUri, HttpMessageHandler httpMessageHandler, Version httpVersion)
+        public WebDavSession(Uri baseUri, HttpMessageHandler httpMessageHandler, Version httpVersion, bool throwExceptions = false)
         {
+            this.ThrowExceptions = throwExceptions;
             this.permanentLocks = new ConcurrentDictionary<Uri, PermanentLock>();
             this.webDavClient = CreateWebDavClient(httpMessageHandler);
             this.webDavClient.HttpVersion = httpVersion;
@@ -227,9 +254,11 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="baseUrl">The base URL to use for this WebDavSession.</param>
         /// <param name="webDavClient">The base <see cref="WebDavClient"/> to use for this WebDavSession.</param>
+        /// <param name="throwExceptions">Indicates if <see cref="WebDavSession"/> should process error responses from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
+        /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.</param>
         /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
-        protected WebDavSession(string baseUrl, WebDavClient webDavClient)
-            : this(string.IsNullOrEmpty(baseUrl) ? null : new Uri(baseUrl), webDavClient, WebDavClient.DefaultHttpVersion)
+        protected WebDavSession(string baseUrl, WebDavClient webDavClient, bool throwExceptions = false)
+            : this(string.IsNullOrEmpty(baseUrl) ? null : new Uri(baseUrl), webDavClient, WebDavClient.DefaultHttpVersion, throwExceptions)
         {
         }
 
@@ -239,9 +268,11 @@ namespace DecaTec.WebDav
         /// <param name="baseUrl">The base URL to use for this WebDavSession.</param>
         /// <param name="webDavClient">The base <see cref="WebDavClient"/> to use for this WebDavSession.</param>
         /// <param name="httpVersion">The HTTP <see cref="Version"/> to use for requests.</param>
+        /// <param name="throwExceptions">Indicates if <see cref="WebDavSession"/> should process error responses from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
+        /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.</param>
         /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
-        protected WebDavSession(string baseUrl, WebDavClient webDavClient, Version httpVersion)
-            : this(string.IsNullOrEmpty(baseUrl) ? null : new Uri(baseUrl), webDavClient, httpVersion)
+        protected WebDavSession(string baseUrl, WebDavClient webDavClient, Version httpVersion, bool throwExceptions = false)
+            : this(string.IsNullOrEmpty(baseUrl) ? null : new Uri(baseUrl), webDavClient, httpVersion, throwExceptions)
         {
         }
 
@@ -250,9 +281,11 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="baseUri">The base <see cref="Uri"/> to use for this WebDavSession.</param>
         /// <param name="webDavClient">The base <see cref="WebDavClient"/> to use for this WebDavSession.</param>
+        /// <param name="throwExceptions">Indicates if <see cref="WebDavSession"/> should process error responses from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
+        /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.</param>
         /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
-        protected WebDavSession(Uri baseUri, WebDavClient webDavClient)
-            : this(baseUri, webDavClient, WebDavClient.DefaultHttpVersion)
+        protected WebDavSession(Uri baseUri, WebDavClient webDavClient, bool throwExceptions = false)
+            : this(baseUri, webDavClient, WebDavClient.DefaultHttpVersion, throwExceptions)
         {
         }
 
@@ -262,9 +295,12 @@ namespace DecaTec.WebDav
         /// <param name="baseUri">The base <see cref="Uri"/> to use for this WebDavSession.</param>
         /// <param name="webDavClient">The base <see cref="WebDavClient"/> to use for this WebDavSession.</param>
         /// <param name="httpVersion">The HTTP <see cref="Version"/> to use for requests.</param>
+        /// <param name="throwExceptions">Indicates if <see cref="WebDavSession"/> should process error responses from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
+        /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.</param>
         /// <remarks>If credentials are needed, these are part of the <see cref="HttpMessageHandler"/> and are specified with it.</remarks>
-        protected WebDavSession(Uri baseUri, WebDavClient webDavClient, Version httpVersion)
+        protected WebDavSession(Uri baseUri, WebDavClient webDavClient, Version httpVersion, bool throwExceptions = false)
         {
+            this.ThrowExceptions = throwExceptions;
             this.webDavClient = webDavClient;
             this.webDavClient.HttpVersion = httpVersion;
         }
@@ -349,12 +385,13 @@ namespace DecaTec.WebDav
             get;
             set;
         }
-
+        
+        /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.</param>
         /// <summary>
-        /// Gets or sets how <see cref="WebDavSession"/> processing error response from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
+        /// Gets or sets a value indicating if <see cref="WebDavSession"/> should process error responses from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
         /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.
         /// </summary>
-        public bool ThrowException
+        public bool ThrowExceptions
         {
             get;
             set;
@@ -459,10 +496,9 @@ namespace DecaTec.WebDav
             destinationUri = UriHelper.CombineUri(this.BaseUri, destinationUri, true);
             var lockToken = GetAffectedLockToken(destinationUri);
             var response = await webDavClient.CopyAsync(sourceUri, destinationUri, overwrite, WebDavDepthHeaderValue.Infinity, lockToken);
-            if (!response.IsSuccessStatusCode && ThrowException)
-            {
-                throw new WebDavException($"Error copy file from '{sourceUri}' to '{destinationUri}'. Response: {response.ReasonPhrase}");
-            }
+
+            if (!response.IsSuccessStatusCode && ThrowExceptions)
+                throw new WebDavException($"Error copying file from '{sourceUri}' to '{destinationUri}'. Response: {response.ReasonPhrase}");
 
             return response.IsSuccessStatusCode;
         }
@@ -491,10 +527,9 @@ namespace DecaTec.WebDav
             uri = UriHelper.CombineUri(this.BaseUri, uri, true);
             var lockToken = GetAffectedLockToken(uri);
             var response = await this.webDavClient.MkcolAsync(uri, lockToken);
-            if (!response.IsSuccessStatusCode && ThrowException)
-            {
-                throw new WebDavException($"Error create directory '{uri}'. Response: {response.ReasonPhrase}");
-            }
+
+            if (!response.IsSuccessStatusCode && ThrowExceptions)
+                throw new WebDavException($"Error creating directory '{uri}'. Response: {response.ReasonPhrase}");
 
             return response.IsSuccessStatusCode;
         }
@@ -533,10 +568,9 @@ namespace DecaTec.WebDav
             uri = UriHelper.CombineUri(this.BaseUri, uri, true);
             var lockToken = GetAffectedLockToken(uri);
             var response = await this.webDavClient.DeleteAsync(uri, lockToken);
-            if (!response.IsSuccessStatusCode && ThrowException)
-            {
-                throw new WebDavException($"Error delete '{uri}'. Response: {response.ReasonPhrase}");
-            }
+
+            if (!response.IsSuccessStatusCode && ThrowExceptions)
+                throw new WebDavException($"Error deleting '{uri}'. Response: {response.ReasonPhrase}");
 
             return response.IsSuccessStatusCode;
         }
@@ -613,10 +647,9 @@ namespace DecaTec.WebDav
         {
             uri = UriHelper.CombineUri(this.BaseUri, uri, true);
             var response = await this.webDavClient.GetAsync(uri, ct);
-            if ((!response.IsSuccessStatusCode || response.Content == null) && ThrowException)
-            {
-                throw new WebDavException($"Error download file '{uri}'. Response: {response.ReasonPhrase}");
-            }
+
+            if ((!response.IsSuccessStatusCode || response.Content == null) && ThrowExceptions)
+                throw new WebDavException($"Error downloading file '{uri}'. Response: {response.ReasonPhrase}");
 
             if (response.Content != null)
             {
@@ -628,10 +661,8 @@ namespace DecaTec.WebDav
                 }
                 catch (IOException exception)
                 {
-                    if (ThrowException)
-                    {
-                        throw new WebDavException($"Error download file '{uri}'. Message: {exception.Message}", exception);
-                    }
+                    if (ThrowExceptions)
+                        throw new WebDavException($"Error downloading file '{uri}'. Message: {exception.Message}", exception);
 
                     return false;
                 }
@@ -714,10 +745,9 @@ namespace DecaTec.WebDav
         {
             uri = UriHelper.CombineUri(this.BaseUri, uri, true);
             var response = await this.webDavClient.DownloadFileWithProgressAsync(uri, localStream, cancellationToken, progress);
-            if (!response.IsSuccessStatusCode && ThrowException)
-            {
-                throw new WebDavException($"Error download file '{uri}'. Response: {response.ReasonPhrase}");
-            }
+
+            if (!response.IsSuccessStatusCode && ThrowExceptions)
+                throw new WebDavException($"Error downloading file '{uri}'. Response: {response.ReasonPhrase}");
 
             return response.IsSuccessStatusCode;
         }
@@ -745,7 +775,7 @@ namespace DecaTec.WebDav
         {
             uri = UriHelper.CombineUri(this.BaseUri, uri, true);
             var response = await this.webDavClient.HeadAsync(uri);
-            if (!response.IsSuccessStatusCode && ThrowException)
+            if (!response.IsSuccessStatusCode && ThrowExceptions)
             {
                 throw new WebDavException($"Error check exists '{uri}'. Response: {response.ReasonPhrase}");
             }
@@ -790,10 +820,9 @@ namespace DecaTec.WebDav
             uri = UriHelper.CombineUri(this.BaseUri, uri, true);
             var propFind = PropFind.CreatePropFindWithPropName();
             var response = await this.webDavClient.PropFindAsync(uri, WebDavDepthHeaderValue.Zero, propFind);
-            if (!response.IsSuccessStatusCode && ThrowException)
-            {
-                throw new WebDavException($"Error find property {uri}. Response {response.ReasonPhrase}.");
-            }
+
+            if (!response.IsSuccessStatusCode && ThrowExceptions)
+                throw new WebDavException($"Error during profind {uri}. Response {response.ReasonPhrase}.");
 
             var propertyNames = await WebDavHelper.GetPropertyNamesKnownAndUnknownFromMultiStatusContentAsync(response.Content);
 
@@ -1086,10 +1115,8 @@ namespace DecaTec.WebDav
             if (!this.permanentLocks.TryAdd(uri, permanentLock))
                 throw new WebDavException("Lock with lock root " + uri.ToString() + " already exists.");
 
-            if (!response.IsSuccessStatusCode && ThrowException)
-            {
-                throw new WebDavException($"Error lock {uri}. Response {response.ReasonPhrase}.");
-            }
+            if (!response.IsSuccessStatusCode && ThrowExceptions)
+                throw new WebDavException($"Error locking {uri}. Response {response.ReasonPhrase}.");
 
             return response.IsSuccessStatusCode;
         }
@@ -1192,10 +1219,9 @@ namespace DecaTec.WebDav
             var lockTokenSource = GetAffectedLockToken(sourceUri);
             var lockTokenDestination = GetAffectedLockToken(destinationUri);
             var response = await this.webDavClient.MoveAsync(sourceUri, destinationUri, overwrite, lockTokenSource, lockTokenDestination);
-            if (!response.IsSuccessStatusCode && ThrowException)
-            {
-                throw new WebDavException($"Error move file from {sourceUri} to {destinationUri}. Response {response.ReasonPhrase}.");
-            }
+
+            if (!response.IsSuccessStatusCode && ThrowExceptions)
+                throw new WebDavException($"Error moving file from {sourceUri} to {destinationUri}. Response {response.ReasonPhrase}.");
 
             return response.IsSuccessStatusCode;
         }
@@ -1315,10 +1341,9 @@ namespace DecaTec.WebDav
             var lockToken = GetAffectedLockToken(uri);
             var content = new StreamContent(localStream);
             var response = await this.webDavClient.PutAsync(uri, content, lockToken);
-            if (!response.IsSuccessStatusCode && ThrowException)
-            {
-                throw new WebDavException($"Error upload file {uri}. Response {response.ReasonPhrase}.");
-            }
+
+            if (!response.IsSuccessStatusCode && ThrowExceptions)
+                throw new WebDavException($"Error uploading file {uri}. Response {response.ReasonPhrase}.");
 
             return response.IsSuccessStatusCode;
         }
@@ -1410,10 +1435,9 @@ namespace DecaTec.WebDav
             uri = UriHelper.CombineUri(this.BaseUri, uri, true);
             var lockToken = GetAffectedLockToken(uri);
             var response = await this.webDavClient.UploadFileWithProgressAsync(uri, stream, contentType, progress, cancellationToken, lockToken);
-            if (!response.IsSuccessStatusCode && ThrowException)
-            {
-                throw new WebDavException($"Error upload file {uri}. Response {response.ReasonPhrase}");
-            }
+
+            if (!response.IsSuccessStatusCode && ThrowExceptions)
+                throw new WebDavException($"Error uploading file {uri}. Response {response.ReasonPhrase}");
 
             return response.IsSuccessStatusCode;
         }
