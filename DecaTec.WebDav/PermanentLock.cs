@@ -46,7 +46,7 @@ namespace DecaTec.WebDav
                 while (true)
                 {
                     await Task.Delay(refrehTimeSpan, cts.Token);
-                    RefreshLock();
+                    await RefreshLock();
                 }
             }, cts.Token);
         }
@@ -106,12 +106,11 @@ namespace DecaTec.WebDav
 
         #region Private methods
 
-        private void RefreshLock()
+        private async Task RefreshLock()
         {
-            var task = this.WebDavClient.RefreshLockAsync(this.LockRoot, WebDavTimeoutHeaderValue.CreateWebDavTimeout(this.Timeout.Value), this.LockToken);
-            task.Wait();
+            var result = await this.WebDavClient.RefreshLockAsync(this.LockRoot, WebDavTimeoutHeaderValue.CreateWebDavTimeout(this.Timeout.Value), this.LockToken);
 
-            if (!task.Result.IsSuccessStatusCode)
+            if (!result.IsSuccessStatusCode)
                 throw new WebDavException($"The lock for {this.LockRoot.ToString()} cannot be refreshed");
         }
 

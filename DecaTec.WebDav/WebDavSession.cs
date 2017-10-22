@@ -774,10 +774,9 @@ namespace DecaTec.WebDav
         {
             uri = UriHelper.CombineUri(this.BaseUri, uri, true);
             var response = await this.webDavClient.HeadAsync(uri);
+
             if (!response.IsSuccessStatusCode && ThrowExceptions)
-            {
                 throw new WebDavException($"Error check exists '{uri}'. Response: {response.ReasonPhrase}");
-            }
 
             return response.IsSuccessStatusCode;
         }
@@ -821,7 +820,7 @@ namespace DecaTec.WebDav
             var response = await this.webDavClient.PropFindAsync(uri, WebDavDepthHeaderValue.Zero, propFind);
 
             if (!response.IsSuccessStatusCode && ThrowExceptions)
-                throw new WebDavException($"Error during profind {uri}. Response {response.ReasonPhrase}.");
+                throw new WebDavException($"Error while getting supported property names {uri}. Response {response.ReasonPhrase}.");
 
             var propertyNames = await WebDavHelper.GetPropertyNamesKnownAndUnknownFromMultiStatusContentAsync(response.Content);
 
@@ -1089,7 +1088,7 @@ namespace DecaTec.WebDav
 
             // Save the content stream as string as it will be consumed while getting the lock token.
             var responseContentString = await response.Content.ReadAsStringAsync();
-            var lockToken = WebDavHelper.GetLockTokenFromWebDavResponseMessage(response);
+            var lockToken = await WebDavHelper.GetLockTokenFromWebDavResponseMessage(response);
 
             var prop = WebDavResponseContentParser.ParsePropResponseContentString(responseContentString);
             var lockDiscovery = prop.LockDiscovery;

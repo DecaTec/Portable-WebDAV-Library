@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace DecaTec.WebDav.UnitTest
 {
@@ -82,7 +83,7 @@ namespace DecaTec.WebDav.UnitTest
         #region General
 
         [TestMethod]
-        public void UT_WebDavSession_WithExpectHeaderDefault()
+        public async Task UT_WebDavSession_WithExpectHeaderDefault()
         {
             var mockHandler = new MockHttpMessageHandler();
             var responseContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:multistatus xmlns:D=\"DAV:\"><D:response><D:href>http://127.0.0.1/webdav</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:07:38 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>/</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-06T09:32:20.983Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response><D:response><D:href>http://127.0.0.1/webdav/test1/</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:07:54 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>test1</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-08T10:07:32.205Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response><D:response><D:href>http://127.0.0.1/webdav/test2/</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:07:35 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>test2</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-08T10:07:35.866Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response></D:multistatus>";
@@ -90,14 +91,14 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var session = CreateWebDavSession(mockHandler))
             {
-                var list = session.ListAsync(WebDavRootFolder).Result;
+                var list = await session.ListAsync(WebDavRootFolder);
 
                 Assert.IsNotNull(list);
             }
         }
 
         [TestMethod]
-        public void UT_WebDavSession_WithExpectHeaderTrue()
+        public async Task UT_WebDavSession_WithExpectHeaderTrue()
         {
             var mockHandler = new MockHttpMessageHandler();
             var responseContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:multistatus xmlns:D=\"DAV:\"><D:response><D:href>http://127.0.0.1/webdav</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:07:38 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>/</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-06T09:32:20.983Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response><D:response><D:href>http://127.0.0.1/webdav/test1/</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:07:54 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>test1</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-08T10:07:32.205Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response><D:response><D:href>http://127.0.0.1/webdav/test2/</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:07:35 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>test2</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-08T10:07:35.866Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response></D:multistatus>";
@@ -106,14 +107,14 @@ namespace DecaTec.WebDav.UnitTest
             using (var session = CreateWebDavSession(mockHandler))
             {
                 session.DefaultRequestHeaders.ExpectContinue = true;
-                var list = session.ListAsync(WebDavRootFolder).Result;
+                var list = await session.ListAsync(WebDavRootFolder);
 
                 Assert.IsNotNull(list);
             }
         }
 
         [TestMethod]
-        public void UT_WebDavSession_WithExpectHeaderFalse()
+        public async Task UT_WebDavSession_WithExpectHeaderFalse()
         {
             var mockHandler = new MockHttpMessageHandler();
             var responseContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:multistatus xmlns:D=\"DAV:\"><D:response><D:href>http://127.0.0.1/webdav</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:07:38 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>/</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-06T09:32:20.983Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response><D:response><D:href>http://127.0.0.1/webdav/test1/</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:07:54 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>test1</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-08T10:07:32.205Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response><D:response><D:href>http://127.0.0.1/webdav/test2/</D:href><D:propstat><D:status>HTTP/1.1 200 OK</D:status><D:prop><D:getcontenttype/><D:getlastmodified>Sat, 08 Apr 2017 10:07:35 GMT</D:getlastmodified><D:lockdiscovery/><D:ishidden>0</D:ishidden><D:supportedlock><D:lockentry><D:lockscope><D:exclusive/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry><D:lockentry><D:lockscope><D:shared/></D:lockscope><D:locktype><D:write/></D:locktype></D:lockentry></D:supportedlock><D:getetag/><D:displayname>test2</D:displayname><D:getcontentlanguage/><D:getcontentlength>0</D:getcontentlength><D:iscollection>1</D:iscollection><D:creationdate>2017-04-08T10:07:35.866Z</D:creationdate><D:resourcetype><D:collection/></D:resourcetype></D:prop></D:propstat></D:response></D:multistatus>";
@@ -122,7 +123,7 @@ namespace DecaTec.WebDav.UnitTest
             using (var session = CreateWebDavSession(mockHandler))
             {
                 session.DefaultRequestHeaders.ExpectContinue = false;
-                var list = session.ListAsync(WebDavRootFolder).Result;
+                var list = await session.ListAsync(WebDavRootFolder);
 
                 Assert.IsNotNull(list);
             }
@@ -144,7 +145,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UT_WebDavSession_ShouldNotThrowException()
+        public async Task UT_WebDavSession_ShouldNotThrowException()
         {
             var testFileUrl = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
 
@@ -153,7 +154,7 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var session = CreateWebDavSession(mockHandler))
             {
-                var successs = session.DeleteAsync(TestFile).Result;
+                var successs = await session.DeleteAsync(TestFile);
 
                 Assert.IsFalse(successs);
             }
@@ -164,7 +165,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Copy
 
         [TestMethod]
-        public void UT_WebDavSession_Copy()
+        public async Task UT_WebDavSession_Copy()
         {
             var testFolderSource = TestFolder;
             var testFolderDestination = TestFolder + "2";
@@ -184,7 +185,7 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var sesion = CreateWebDavSession(mockHandler))
             {
-                var success = sesion.CopyAsync(testFolderSource, testFolderDestination).Result;
+                var success = await sesion.CopyAsync(testFolderSource, testFolderDestination);
 
                 Assert.IsTrue(success);
             }
@@ -195,7 +196,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Create directory
 
         [TestMethod]
-        public void UT_WebDavSesion_CreateDirectory()
+        public async Task UT_WebDavSesion_CreateDirectory()
         {
             var testFolder = UriHelper.CombineUrl(WebDavRootFolder, TestFolder, true);
 
@@ -204,7 +205,7 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var session = CreateWebDavSession(mockHandler))
             {
-                var success = session.CreateDirectoryAsync(TestFolder).Result;
+                var success = await session.CreateDirectoryAsync(TestFolder);
 
                 Assert.IsTrue(success);
             }
@@ -215,7 +216,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Delete
 
         [TestMethod]
-        public void UT_WebDavSession_DeleteFile()
+        public async Task UT_WebDavSession_DeleteFile()
         {
             var testFileUrl = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
 
@@ -224,14 +225,14 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var session = CreateWebDavSession(mockHandler))
             {
-                var successs = session.DeleteAsync(TestFile).Result;
+                var successs = await session.DeleteAsync(TestFile);
 
                 Assert.IsTrue(successs);
             }
         }
 
         [TestMethod]
-        public void UT_WebDavSession_DeleteFolder()
+        public async Task UT_WebDavSession_DeleteFolder()
         {
             var testFolderUrl = UriHelper.CombineUrl(WebDavRootFolder, TestFolder, true);
 
@@ -240,7 +241,7 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var session = CreateWebDavSession(mockHandler))
             {
-                var successs = session.DeleteAsync(TestFolder).Result;
+                var successs = await session.DeleteAsync(TestFolder);
 
                 Assert.IsTrue(successs);
             }
@@ -251,7 +252,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Download file
 
         [TestMethod]
-        public void UT_WebDavSession_DownloadFile()
+        public async Task UT_WebDavSession_DownloadFile()
         {
             var testFile = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
             var downloadFileContent = "This is a downloaded file";
@@ -266,7 +267,7 @@ namespace DecaTec.WebDav.UnitTest
 
                 using (var stream = new MemoryStream())
                 {
-                    success = session.DownloadFileAsync(TestFile, stream).Result;
+                    success = await session.DownloadFileAsync(TestFile, stream);
                     stream.Position = 0;
 
                     using (StreamReader sr = new StreamReader(stream))
@@ -281,7 +282,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UT_WebDavSession_DownloadFileWithProgress()
+        public async Task UT_WebDavSession_DownloadFileWithProgress()
         {
             var testFile = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
             var downloadFileContent = "This is a file downloaded with progress";
@@ -305,7 +306,7 @@ namespace DecaTec.WebDav.UnitTest
 
                 using (var stream = new MemoryStream())
                 {
-                    success = session.DownloadFileWithProgressAsync(TestFile, stream, progress).Result;
+                    success = await session.DownloadFileWithProgressAsync(TestFile, stream, progress);
                     stream.Position = 0;
 
                     using (StreamReader sr = new StreamReader(stream))
@@ -325,7 +326,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Exists
 
         [TestMethod]
-        public void UT_WebDavSession_Exists()
+        public async Task UT_WebDavSession_Exists()
         {
             var testFile = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
 
@@ -334,7 +335,7 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var session = CreateWebDavSession(mockHandler))
             {
-                var success = session.ExistsAsync(testFile).Result;
+                var success = await session.ExistsAsync(testFile);
 
                 Assert.IsTrue(success);
             }
@@ -345,7 +346,7 @@ namespace DecaTec.WebDav.UnitTest
         #region GetSupportedPropNames
 
         [TestMethod]
-        public void UT_WebDavSession_GetSupportedPropNames()
+        public async Task UT_WebDavSession_GetSupportedPropNames()
         {
             var mockHandler = new MockHttpMessageHandler();
             var requestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:propname /></D:propfind>";
@@ -360,7 +361,7 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var session = CreateWebDavSession(mockHandler))
             {
-                var propNames = session.GetSupportedPropertyNamesAsync(WebDavRootFolder).Result;
+                var propNames = await session.GetSupportedPropertyNamesAsync(WebDavRootFolder);
 
                 Assert.IsNotNull(propNames);
                 Assert.AreEqual(13, propNames.Length);
@@ -372,7 +373,7 @@ namespace DecaTec.WebDav.UnitTest
         #region List
 
         [TestMethod]
-        public void UT_WebDavSession_List()
+        public async Task UT_WebDavSession_List()
         {
             var mockHandler = new MockHttpMessageHandler();
             var requestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propfind xmlns:D=\"DAV:\"><D:allprop /></D:propfind>";
@@ -387,7 +388,7 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var session = CreateWebDavSession(mockHandler))
             {
-                var list = session.ListAsync(WebDavRootFolder).Result;
+                var list = await session.ListAsync(WebDavRootFolder);
 
                 Assert.IsNotNull(list);
             }
@@ -398,7 +399,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Lock
 
         [TestMethod]
-        public void UT_WebDavSession_LockSingleFile()
+        public async Task UT_WebDavSession_LockSingleFile()
         {
             var testFileToLock = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
             var lockRequestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:lockinfo xmlns:D=\"DAV:\"><D:lockscope><D:exclusive /></D:lockscope><D:locktype><D:write /></D:locktype></D:lockinfo>";
@@ -418,14 +419,14 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var session = CreateWebDavSession(mockHandler))
             {
-                var success = session.LockAsync(TestFile).Result;
+                var success = await session.LockAsync(TestFile);
 
                 Assert.IsTrue(success);
             }
         }
 
         [TestMethod]
-        public void UT_WebDavSession_LockRootFolder()
+        public async Task UT_WebDavSession_LockRootFolder()
         {
             var lockRequestContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:lockinfo xmlns:D=\"DAV:\"><D:lockscope><D:exclusive /></D:lockscope><D:locktype><D:write /></D:locktype></D:lockinfo>";
             var lockResponseContent = "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:prop xmlns:D=\"DAV:\"><D:lockdiscovery><D:activelock><D:locktype><D:write/></D:locktype><D:lockscope><D:exclusive/></D:lockscope><D:depth>infinity</D:depth><D:timeout>Infinite</D:timeout><D:locktoken><D:href>opaquelocktoken:d32688a4-478f-46eb-bcc4-cfe6129a207e.96bb01d2b440d8db</D:href></D:locktoken><D:lockroot><D:href>http://127.0.0.1/webdav/</D:href></D:lockroot></D:activelock></D:lockdiscovery></D:prop>";
@@ -444,7 +445,7 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var session = CreateWebDavSession(mockHandler))
             {
-                var success = session.LockAsync(WebDavRootFolder).Result;
+                var success = await session.LockAsync(WebDavRootFolder);
 
                 Assert.IsTrue(success);
             }
@@ -455,7 +456,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Move
 
         [TestMethod]
-        public void UT_WebDavSession_Move()
+        public async Task UT_WebDavSession_Move()
         {
             var testFolderSource = TestFolder;
             var testFolderDestination = TestFolder + "2";
@@ -475,7 +476,7 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var session = CreateWebDavSession(mockHandler))
             {
-                var success = session.MoveAsync(testFolderSource, testFolderDestination).Result;
+                var success = await session.MoveAsync(testFolderSource, testFolderDestination);
 
                 Assert.IsTrue(success);
             }
@@ -486,7 +487,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Upload file
 
         [TestMethod]
-        public void UT_WebDavSession_UploadFile()
+        public async Task UT_WebDavSession_UploadFile()
         {
             var mockHandler = new MockHttpMessageHandler();
 
@@ -505,7 +506,7 @@ namespace DecaTec.WebDav.UnitTest
                         wr.Write(uploadFileContent);
                         wr.Flush();
                         stream.Position = 0;
-                        success = session.UploadFileAsync(TestFile, stream).Result;
+                        success = await session.UploadFileAsync(TestFile, stream);
                     }
                 }
 
@@ -514,7 +515,7 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         [TestMethod]
-        public void UT_WebDavSession_UploadFileWithProgress()
+        public async Task UT_WebDavSession_UploadFileWithProgress()
         {
             var testFile = UriHelper.CombineUrl(WebDavRootFolder, TestFile, true);
             var uploadFileContent = "This is a file uploaded with progress";
@@ -548,7 +549,7 @@ namespace DecaTec.WebDav.UnitTest
                         wr.Write(uploadFileContent);
                         wr.Flush();
                         stream.Position = 0;
-                        success = session.UploadFileWithProgressAsync(TestFile, stream, contentType, progress).Result;
+                        success = await session.UploadFileWithProgressAsync(TestFile, stream, contentType, progress);
                     }
                 }
 
@@ -562,7 +563,7 @@ namespace DecaTec.WebDav.UnitTest
         #region Unlock
 
         [TestMethod]
-        public void UT_WebDavSesion_Unlock()
+        public async Task UT_WebDavSesion_Unlock()
         {
             // We have to lock before we can unlock because the lock token information 
             // is managed by the WebDavSession internally.
@@ -592,10 +593,10 @@ namespace DecaTec.WebDav.UnitTest
 
             using (var session = CreateWebDavSession(mockHandler))
             {
-                var success = session.LockAsync(TestFile).Result;
+                var success = await session.LockAsync(TestFile);
 
                 Assert.IsTrue(success);
-                success = session.UnlockAsync(testFileToLock).Result;
+                success = await session.UnlockAsync(testFileToLock);
 
                 Assert.IsTrue(success);
             }

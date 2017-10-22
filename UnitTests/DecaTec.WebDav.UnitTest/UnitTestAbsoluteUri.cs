@@ -29,8 +29,7 @@ namespace DecaTec.WebDav.UnitTest
         public void UT_AbsoluteUri_ToString_WithEncodedUri()
         {
             var input = "opaquelocktoken:dccce564-412e-11e1-b969-00059a3c7a00:%2fFolder%20Test%2fFile.xml";
-            AbsoluteUri uri;
-            var isParsed = AbsoluteUri.TryParse(input, out uri);
+            var isParsed = AbsoluteUri.TryParse(input, out AbsoluteUri uri);
             var actual = uri.ToString();
 
             Assert.IsTrue(isParsed);
@@ -41,8 +40,7 @@ namespace DecaTec.WebDav.UnitTest
         public void UT_AbsoluteUri_ToString_WithDecodedUri()
         {
             var input = "opaquelocktoken:dccce564-412e-11e1-b969-00059a3c7a00:/Folder Test/File.xml";
-            AbsoluteUri uri;
-            var isParsed = AbsoluteUri.TryParse(input, out uri);
+            var isParsed = AbsoluteUri.TryParse(input, out AbsoluteUri uri);
             var actual = uri.ToString();
 
             Assert.IsTrue(isParsed);
@@ -53,8 +51,7 @@ namespace DecaTec.WebDav.UnitTest
         public void UT_AbsoluteUri_ToString_WithEncodedSegment()
         {
             var input = "opaquelocktoken:dccce564-412e-11e1-b969-00059a3c7a00:/Folder%20Test/File.xml";
-            AbsoluteUri uri;
-            var isParsed = AbsoluteUri.TryParse(input, out uri);
+            var isParsed = AbsoluteUri.TryParse(input, out AbsoluteUri uri);
             var actual = uri.ToString();
 
             Assert.IsTrue(isParsed);
@@ -65,8 +62,7 @@ namespace DecaTec.WebDav.UnitTest
         public void UT_AbsoluteUri_ToString_WithDecodedSegment()
         {
             var input = "opaquelocktoken:dccce564-412e-11e1-b969-00059a3c7a00:%2fFolder Test%2fFile.xml";
-            AbsoluteUri uri;
-            var isParsed = AbsoluteUri.TryParse(input, out uri);
+            var isParsed = AbsoluteUri.TryParse(input, out AbsoluteUri uri);
             var actual = uri.ToString();
 
             Assert.IsTrue(isParsed);

@@ -91,7 +91,7 @@ namespace DecaTec.WebDav.WebDavArtifacts
         /// var webDavClient = new WebDavClient(httpClientHandler);
         ///
         /// PropFind pf = PropFind.CreatePropFindWithPropName();
-        /// var response = await webDavClient.PropFindAsync(@"http://www.myserver.com/webdav/", WebDavDepthHeaderValue.Infinity, pf).Result;
+        /// var response = await webDavClient.PropFindAsync(@"http://www.myserver.com/webdav/", WebDavDepthHeaderValue.Infinity, pf);
         /// var multistatus = await WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content);
         ///
         /// foreach (var multistatusResponse in multistatus.Response)

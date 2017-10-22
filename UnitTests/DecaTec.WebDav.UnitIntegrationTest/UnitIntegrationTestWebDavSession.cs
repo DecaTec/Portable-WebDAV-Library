@@ -9,6 +9,7 @@ using DecaTec.WebDav.MessageHandlers;
 using DecaTec.WebDav.Tools;
 using System.Xml.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DecaTec.WebDav.UnitIntegrationTest
 {
@@ -79,25 +80,25 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         #region List
 
         [TestMethod]
-        public void UIT_WebDavSession_List()
+        public async Task UIT_WebDavSession_List()
         {
             using (var session = CreateWebDavSession())
             {
-                var items = session.ListAsync(webDavRootFolder).Result;
+                var items = await session.ListAsync(webDavRootFolder);
 
                 Assert.IsNotNull(items);
             }
         }
 
         [TestMethod]
-        public void UIT_WebDavSession_List_WithBaseUri()
+        public async Task UIT_WebDavSession_List_WithBaseUri()
         {
             using (var session = CreateWebDavSession())
             {
                 session.BaseUri = new Uri(webDavRootFolder);
-                var created = session.CreateDirectoryAsync("Test").Result;
-                var items = session.ListAsync("Test/").Result;
-                var deleted = session.DeleteAsync("Test").Result;
+                var created = await session.CreateDirectoryAsync("Test");
+                var items = await session.ListAsync("Test/");
+                var deleted = await session.DeleteAsync("Test");
 
                 Assert.IsTrue(created);
                 Assert.IsNotNull(items);
@@ -107,13 +108,13 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void UIT_WebDavSession_List_WithBaseUriMissing()
+        public async Task UIT_WebDavSession_List_WithBaseUriMissing()
         {
             try
             {
                 using (var session = CreateWebDavSession())
                 {
-                    var created = session.CreateDirectoryAsync("Test").Result;
+                    var created = await session.CreateDirectoryAsync("Test");
                 }
             }
             catch (AggregateException ex)
@@ -123,15 +124,15 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_WebDavSession_List_WithSpaceInFolder()
+        public async Task UIT_WebDavSession_List_WithSpaceInFolder()
         {
             using (var session = CreateWebDavSession())
             {
                 session.BaseUri = new Uri(webDavRootFolder);
-                var created = session.CreateDirectoryAsync("a test").Result;
-                var items = session.ListAsync("a test/").Result;
+                var created = await session.CreateDirectoryAsync("a test");
+                var items = await session.ListAsync("a test/");
                 Assert.AreEqual(items.Count, 0);
-                var deleted = session.DeleteAsync("a test").Result;
+                var deleted = await session.DeleteAsync("a test");
 
                 Assert.IsTrue(created);
                 Assert.IsNotNull(items);
@@ -140,18 +141,18 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_WebDavSession_List_WithSpaceInFolderAndSubfolder()
+        public async Task UIT_WebDavSession_List_WithSpaceInFolderAndSubfolder()
         {
             using (var session = CreateWebDavSession())
             {
                 session.BaseUri = new Uri(webDavRootFolder);
-                var created = session.CreateDirectoryAsync("a test").Result;
-                var items = session.ListAsync("a test/").Result;
+                var created = await session.CreateDirectoryAsync("a test");
+                var items = await session.ListAsync("a test/");
                 Assert.AreEqual(items.Count, 0);
-                var created2 = session.CreateDirectoryAsync("a test/another test").Result;
-                var items2 = session.ListAsync("a test").Result;
+                var created2 = await session.CreateDirectoryAsync("a test/another test");
+                var items2 = await session.ListAsync("a test");
                 Assert.AreEqual(items2.Count, 1);
-                var deleted = session.DeleteAsync("a test").Result;
+                var deleted = await session.DeleteAsync("a test");
 
                 Assert.IsTrue(created);
                 Assert.IsTrue(created2);
@@ -162,19 +163,19 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_WebDavSession_List_ByWebDavSessionItem()
+        public async Task UIT_WebDavSession_List_ByWebDavSessionItem()
         {
             using (var session = CreateWebDavSession())
             {
                 session.BaseUri = new Uri(webDavRootFolder);
-                var created = session.CreateDirectoryAsync("test").Result;
-                var created2 = session.CreateDirectoryAsync("test/test2").Result;
-                var items = session.ListAsync("/").Result;
+                var created = await session.CreateDirectoryAsync("test");
+                var created2 = await session.CreateDirectoryAsync("test/test2");
+                var items = await session.ListAsync("/");
                 Assert.AreEqual(items.Count, 1);
-                var list = session.ListAsync(items[0]).Result;
+                var list = await session.ListAsync(items[0]);
                 Assert.AreEqual("test2", list[0].Name);
-                var delete = session.DeleteAsync(list[0]).Result;
-                var delete2 = session.DeleteAsync("test").Result;
+                var delete = await session.DeleteAsync(list[0]);
+                var delete2 = await session.DeleteAsync("test");
 
                 Assert.IsTrue(created);
                 Assert.IsTrue(created2);
@@ -190,24 +191,24 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         #region Copy
 
         [TestMethod]
-        public void UIT_WebDavSession_Copy()
+        public async Task UIT_WebDavSession_Copy()
         {
             using (var session = CreateWebDavSession())
             {
                 session.BaseUri = new Uri(webDavRootFolder);
-                var created = session.CreateDirectoryAsync("testSource").Result;
-                var created2 = session.CreateDirectoryAsync("testSource/folderToCopy").Result;
-                var created3 = session.CreateDirectoryAsync("testDestination").Result;
-                var items = session.ListAsync("/testSource").Result;
+                var created = await session.CreateDirectoryAsync("testSource");
+                var created2 = await session.CreateDirectoryAsync("testSource/folderToCopy");
+                var created3 = await session.CreateDirectoryAsync("testDestination");
+                var items = await session.ListAsync("/testSource");
                 Assert.AreEqual(items.Count, 1);
-                var copy = session.CopyAsync("testSource", "testDestination", true).Result;
-                var items2 = session.ListAsync("/testSource").Result;
+                var copy = await session.CopyAsync("testSource", "testDestination", true);
+                var items2 = await session.ListAsync("/testSource");
                 Assert.AreEqual(items2.Count, 1);
-                var items3 = session.ListAsync("/testDestination").Result;
+                var items3 = await session.ListAsync("/testDestination");
                 Assert.AreEqual(items2.Count, 1);
                 Assert.AreEqual("folderToCopy", items3[0].Name);
-                var delete = session.DeleteAsync("testSource").Result;
-                var delete2 = session.DeleteAsync("testDestination").Result;
+                var delete = await session.DeleteAsync("testSource");
+                var delete2 = await session.DeleteAsync("testDestination");
 
                 Assert.IsTrue(created);
                 Assert.IsTrue(created2);
@@ -220,30 +221,30 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_WebDavSession_CopyDelete_ByWebDavSessionItem()
+        public async Task UIT_WebDavSession_CopyDelete_ByWebDavSessionItem()
         {
             using (var session = CreateWebDavSession())
             {
                 session.BaseUri = new Uri(webDavRootFolder);
-                var created = session.CreateDirectoryAsync("testSource").Result;
-                var created2 = session.CreateDirectoryAsync("testSource/folderToCopy").Result;
-                var created3 = session.CreateDirectoryAsync("testDestination").Result;
-                var items = session.ListAsync("/testSource").Result;
+                var created = await session.CreateDirectoryAsync("testSource");
+                var created2 = await session.CreateDirectoryAsync("testSource/folderToCopy");
+                var created3 = await session.CreateDirectoryAsync("testDestination");
+                var items = await session.ListAsync("/testSource");
                 Assert.AreEqual(items.Count, 1);
-                items = session.ListAsync("/").Result;
-                var copy = session.CopyAsync(items.FirstOrDefault(x => x.Name == "testSource"), "testDestination", true).Result;
-                items = session.ListAsync("/testSource").Result;
+                items = await session.ListAsync("/");
+                var copy = await session.CopyAsync(items.FirstOrDefault(x => x.Name == "testSource"), "testDestination", true);
+                items = await session.ListAsync("/testSource");
                 Assert.AreEqual(items.Count, 1);
-                items = session.ListAsync("/testDestination").Result;
+                items = await session.ListAsync("/testDestination");
                 Assert.AreEqual(items.Count, 1);
                 Assert.AreEqual("folderToCopy", items[0].Name);
-                items = session.ListAsync("/").Result;
+                items = await session.ListAsync("/");
 
                 var deleted = true;
 
                 foreach (var item in items)
                 {
-                    deleted &= session.DeleteAsync(item).Result;
+                    deleted &= await session.DeleteAsync(item);
                 }
 
                 Assert.IsTrue(created);
@@ -260,24 +261,24 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         #region Move
 
         [TestMethod]
-        public void UIT_WebDavSession_Move()
+        public async Task UIT_WebDavSession_Move()
         {
             using (var session = CreateWebDavSession())
             {
                 session.BaseUri = new Uri(webDavRootFolder);
-                var created = session.CreateDirectoryAsync("testSource").Result;
-                var created2 = session.CreateDirectoryAsync("testSource/folderToMove").Result;
-                var created3 = session.CreateDirectoryAsync("testDestination").Result;
-                var items = session.ListAsync("/testSource").Result;
+                var created = await session.CreateDirectoryAsync("testSource");
+                var created2 = await session.CreateDirectoryAsync("testSource/folderToMove");
+                var created3 = await session.CreateDirectoryAsync("testDestination");
+                var items = await session.ListAsync("/testSource");
                 Assert.AreEqual(items.Count, 1);
-                var move = session.MoveAsync("testSource/folderToMove", "testDestination/folderToMove", true).Result;
-                var items2 = session.ListAsync("/testSource").Result;
+                var move = await session.MoveAsync("testSource/folderToMove", "testDestination/folderToMove", true);
+                var items2 = await session.ListAsync("/testSource");
                 Assert.AreEqual(items2.Count, 0);
-                var items3 = session.ListAsync("/testDestination").Result;
+                var items3 = await session.ListAsync("/testDestination");
                 Assert.AreEqual(items3.Count, 1);
                 Assert.AreEqual("folderToMove", items3[0].Name);
-                var delete = session.DeleteAsync("testSource").Result;
-                var delete2 = session.DeleteAsync("testDestination").Result;
+                var delete = await session.DeleteAsync("testSource");
+                var delete2 = await session.DeleteAsync("testDestination");
 
                 Assert.IsTrue(created);
                 Assert.IsTrue(created2);
@@ -290,25 +291,25 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_WebDavSession_Move_ByWebDavSessionItem()
+        public async Task UIT_WebDavSession_Move_ByWebDavSessionItem()
         {
             using (var session = CreateWebDavSession())
             {
                 session.BaseUri = new Uri(webDavRootFolder);
-                var created = session.CreateDirectoryAsync("testSource").Result;
-                var created2 = session.CreateDirectoryAsync("testSource/folderToMove").Result;
-                var created3 = session.CreateDirectoryAsync("testDestination").Result;
-                var items = session.ListAsync("/testSource").Result;
+                var created = await session.CreateDirectoryAsync("testSource");
+                var created2 = await session.CreateDirectoryAsync("testSource/folderToMove");
+                var created3 = await session.CreateDirectoryAsync("testDestination");
+                var items = await session.ListAsync("/testSource");
                 Assert.AreEqual(items.Count, 1);
-                var items2 = session.ListAsync("/testSource").Result;
-                var move = session.MoveAsync(items2[0], "testDestination/folderToMove", true).Result;
-                var items3 = session.ListAsync("/testSource").Result;
+                var items2 = await session.ListAsync("/testSource");
+                var move = await session.MoveAsync(items2[0], "testDestination/folderToMove", true);
+                var items3 = await session.ListAsync("/testSource");
                 Assert.AreEqual(items3.Count, 0);
-                var items4 = session.ListAsync("/testDestination").Result;
+                var items4 = await session.ListAsync("/testDestination");
                 Assert.AreEqual(items4.Count, 1);
                 Assert.AreEqual("folderToMove", items4[0].Name);
-                var delete = session.DeleteAsync("testSource").Result;
-                var delete2 = session.DeleteAsync("testDestination").Result;
+                var delete = await session.DeleteAsync("testSource");
+                var delete2 = await session.DeleteAsync("testDestination");
 
                 Assert.IsTrue(created);
                 Assert.IsTrue(created2);
@@ -325,7 +326,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         #region Lock
 
         [TestMethod]
-        public void UIT_WebDavSession_Lock()
+        public async Task UIT_WebDavSession_Lock()
         {
             // This won't work on ownCloud/Nextcloud because they do not support WebDAV locking.
             // These unit integration test are skipped for ownCloud/Nextcloud.
@@ -335,11 +336,11 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             using (var session = CreateWebDavSession())
             {
                 session.BaseUrl = webDavRootFolder;
-                var locked = session.LockAsync("/").Result;
+                var locked = await session.LockAsync("/");
                 var requestUrl = UriHelper.CombineUrl(webDavRootFolder, "Test", true);
-                var created = session.CreateDirectoryAsync(requestUrl).Result;
-                var deleted = session.DeleteAsync(requestUrl).Result;
-                var unlocked = session.UnlockAsync(webDavRootFolder).Result;
+                var created = await session.CreateDirectoryAsync(requestUrl);
+                var deleted = await session.DeleteAsync(requestUrl);
+                var unlocked = await session.UnlockAsync(webDavRootFolder);
 
                 Assert.IsTrue(locked);
                 Assert.IsTrue(created);
@@ -349,7 +350,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_WebDavSession_Lock_ByWebDavSessionItem()
+        public async Task UIT_WebDavSession_Lock_ByWebDavSessionItem()
         {
             // This won't work on ownCloud/Nextcloud because they do not support WebDAV locking.
             // These unit integration test are skipped for ownCloud/Nextcloud.
@@ -359,16 +360,16 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             using (var session = CreateWebDavSession())
             {
                 session.BaseUrl = webDavRootFolder;
-                var created = session.CreateDirectoryAsync(TestFolder).Result;
-                var list = session.ListAsync("/").Result;
+                var created = await session.CreateDirectoryAsync(TestFolder);
+                var list = await session.ListAsync("/");
                 Assert.AreEqual(1, list.Count);
-                var locked = session.LockAsync(list[0]).Result;
+                var locked = await session.LockAsync(list[0]);
                 var requestUrl = UriHelper.CombineUrl(webDavRootFolder, "Test", true);
-                var created2 = session.CreateDirectoryAsync(requestUrl).Result;
-                var deleted = session.DeleteAsync(requestUrl).Result;
-                list = session.ListAsync("/").Result;
+                var created2 = await session.CreateDirectoryAsync(requestUrl);
+                var deleted = await session.DeleteAsync(requestUrl);
+                list = await session.ListAsync("/");
                 Assert.AreEqual(1, list.Count);
-                var unlocked = session.UnlockAsync(list[0]).Result;
+                var unlocked = await session.UnlockAsync(list[0]);
 
                 Assert.IsTrue(created);
                 Assert.IsTrue(locked);
@@ -383,22 +384,22 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         #region Delete
 
         [TestMethod]
-        public void UIT_WebDavSession_DeleteFileFolder_WithBaseUri()
+        public async Task UIT_WebDavSession_DeleteFileFolder_WithBaseUri()
         {
             using (var session = CreateWebDavSession())
             {
                 session.BaseUrl = webDavRootFolder;
                 var testFile = TestFolder + "/" + TestFile;
-                var createdFolder = session.CreateDirectoryAsync(TestFolder).Result;
+                var createdFolder = await session.CreateDirectoryAsync(TestFolder);
                 var createdFile = false;
 
                 using (var stream = File.OpenRead(TestFile))
                 {
-                    createdFile = session.UploadFileAsync(testFile, stream).Result;
+                    createdFile = await session.UploadFileAsync(testFile, stream);
                 }
 
-                var deletedFile = session.DeleteAsync(testFile).Result;
-                var deletedFolder = session.DeleteAsync(TestFolder).Result;
+                var deletedFile = await session.DeleteAsync(testFile);
+                var deletedFolder = await session.DeleteAsync(TestFolder);
 
                 Assert.IsTrue(createdFolder);
                 Assert.IsTrue(createdFile);
@@ -408,22 +409,22 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_WebDavSession_DeleteFileFolder_ByWebDavSessionItem()
+        public async Task UIT_WebDavSession_DeleteFileFolder_ByWebDavSessionItem()
         {
             using (var session = CreateWebDavSession())
             {
                 session.BaseUrl = webDavRootFolder;
                 var testFile = TestFolder + "/" + TestFile;
-                var createdFolder = session.CreateDirectoryAsync(TestFolder).Result;
+                var createdFolder = await session.CreateDirectoryAsync(TestFolder);
                 var createdFile = false;
 
                 using (var stream = File.OpenRead(TestFile))
                 {
-                    createdFile = session.UploadFileAsync(testFile, stream).Result;
+                    createdFile = await session.UploadFileAsync(testFile, stream);
                 }
 
-                var deletedFile = session.DeleteAsync(testFile).Result;
-                var deletedFolder = session.DeleteAsync(TestFolder).Result;
+                var deletedFile = await session.DeleteAsync(testFile);
+                var deletedFolder = await session.DeleteAsync(TestFolder);
 
                 Assert.IsTrue(createdFolder);
                 Assert.IsTrue(createdFile);
@@ -437,7 +438,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         #region Upload/Download
 
         [TestMethod]
-        public void UIT_WebDavSession_UploadDownload()
+        public async Task UIT_WebDavSession_UploadDownload()
         {
             using (var session = CreateWebDavSession())
             {
@@ -448,10 +449,10 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
                 using (var fileStream = File.OpenRead(TestFile))
                 {
-                    responseUpload = session.UploadFileAsync(TestFile, fileStream).Result;
+                    responseUpload = await session.UploadFileAsync(TestFile, fileStream);
                 }
 
-                var list = session.ListAsync("/").Result;
+                var list = await session.ListAsync("/");
                 Assert.AreEqual(1, list.Count);
                 Assert.AreEqual(TestFile, list[0].Name);
 
@@ -461,7 +462,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
                 using (var stream = new MemoryStream())
                 {
-                    downloadSuccess = session.DownloadFileAsync(TestFile, stream).Result;
+                    downloadSuccess = await session.DownloadFileAsync(TestFile, stream);
                     stream.Position = 0;
 
                     using (StreamReader sr = new StreamReader(stream))
@@ -474,7 +475,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 Assert.AreEqual("This is a test file for WebDAV.", downloadedString);
 
                 // Delete file.
-                var delete = session.DeleteAsync(TestFile).Result;
+                var delete = await session.DeleteAsync(TestFile);
 
                 Assert.IsTrue(responseUpload);
                 Assert.IsTrue(delete);
@@ -482,7 +483,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_WebDavSession_UploadDownload_ByWebDavSessionItem()
+        public async Task UIT_WebDavSession_UploadDownload_ByWebDavSessionItem()
         {
             using (var session = CreateWebDavSession())
             {
@@ -490,17 +491,17 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
                 // Create directory/Upload file.
                 var responseUpload = false;
-                var create = session.CreateDirectoryAsync(TestFolder).Result;
+                var create = await session.CreateDirectoryAsync(TestFolder);
                 Assert.IsTrue(create);
-                var list = session.ListAsync("/").Result;
+                var list = await session.ListAsync("/");
                 Assert.AreEqual(1, list.Count);
 
                 using (var fileStream = File.OpenRead(TestFile))
                 {
-                    responseUpload = session.UploadFileAsync(list[0], TestFile, fileStream).Result;
+                    responseUpload = await session.UploadFileAsync(list[0], TestFile, fileStream);
                 }
 
-                list = session.ListAsync(TestFolder).Result;
+                list = await session.ListAsync(TestFolder);
                 Assert.AreEqual(1, list.Count);
                 Assert.AreEqual(TestFile, list[0].Name);
 
@@ -510,7 +511,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
                 using (var stream = new MemoryStream())
                 {
-                    downloadSuccess = session.DownloadFileAsync(list[0], stream).Result;
+                    downloadSuccess = await session.DownloadFileAsync(list[0], stream);
                     stream.Position = 0;
 
                     using (StreamReader sr = new StreamReader(stream))
@@ -523,8 +524,8 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 Assert.AreEqual("This is a test file for WebDAV.", downloadedString);
 
                 // Delete directory/file.
-                list = session.ListAsync("/").Result;
-                var delete = session.DeleteAsync(list[0]).Result;
+                list = await session.ListAsync("/");
+                var delete = await session.DeleteAsync(list[0]);
 
                 Assert.IsTrue(responseUpload);
                 Assert.IsTrue(delete);
@@ -536,7 +537,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         #region UpdateItem
 
         [TestMethod]
-        public void UIT_WebDavSession_UpdateItem()
+        public async Task UIT_WebDavSession_UpdateItem()
         {
             // This won't work on IIS because on IIS the 'Name' is always the same as 'DisplayName'.
             // As the unit integration tests of this library are also run against ownCloud/Nextcloud on a regular basis, just skip this test for IIS.
@@ -554,10 +555,10 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
                 using (var fileStream = File.OpenRead(TestFile))
                 {
-                    responseUpload = session.UploadFileAsync(TestFile, fileStream).Result;
+                    responseUpload = await session.UploadFileAsync(TestFile, fileStream);
                 }
 
-                var list = session.ListAsync("/", propFind).Result;
+                var list = await session.ListAsync("/", propFind);
                 Assert.AreEqual(1, list.Count);
                 Assert.AreEqual(TestFile, list[0].Name);
                 Assert.IsNull(list[0].DisplayName);
@@ -565,23 +566,23 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 // Proppatch set (DisplayName).
                 var webDavSessionItem = list[0];
                 webDavSessionItem.DisplayName = "ChangedDisplayName";
-                var proppatchResult = session.UpdateItemAsync(webDavSessionItem).Result;
+                var proppatchResult = await session.UpdateItemAsync(webDavSessionItem);
 
-                list = session.ListAsync("/", propFind).Result;
+                list = await session.ListAsync("/", propFind);
                 Assert.AreEqual(1, list.Count);
                 Assert.AreEqual("ChangedDisplayName", list[0].DisplayName);
 
                 // Proppatch remove (DisplayName).
                 webDavSessionItem = list[0];
                 webDavSessionItem.DisplayName = null;
-                proppatchResult = session.UpdateItemAsync(webDavSessionItem).Result;
+                proppatchResult = await session.UpdateItemAsync(webDavSessionItem);
 
-                list = session.ListAsync("/", propFind).Result;
+                list = await session.ListAsync("/", propFind);
                 Assert.AreEqual(1, list.Count);
                 Assert.IsNull(list[0].DisplayName);
 
                 // Delete file
-                var delete = session.DeleteAsync(TestFile).Result;
+                var delete = await session.DeleteAsync(TestFile);
 
                 Assert.IsTrue(responseUpload);
                 Assert.IsTrue(delete);
@@ -589,7 +590,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         }
 
         [TestMethod]
-        public void UIT_WebDavSession_UpdateItem_WithUnknowProperty()
+        public async Task UIT_WebDavSession_UpdateItem_WithUnknowProperty()
         {
             // This won't work on IIS because on IIS the 'Name' is always the same as 'DisplayName'.
             // As the unit integration tests of this library are also run against ownCloud/Nextcloud on a regular basis, just skip this test for IIS.
@@ -607,8 +608,12 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 XNamespace ns = "http://owncloud.org/ns";
                 var xElement = new XElement(ns + "favorite");
                 var prop = (Prop)propFind.Item;
-                var xElementList = new List<XElement>();                
-                xElementList.Add(xElement);
+
+                var xElementList = new List<XElement>
+                {
+                    xElement
+                };
+
                 prop.AdditionalProperties = xElementList.ToArray();
 
                 // Upload file.
@@ -616,10 +621,10 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
                 using (var fileStream = File.OpenRead(TestFile))
                 {
-                    responseUpload = session.UploadFileAsync(TestFile, fileStream).Result;
+                    responseUpload = await session.UploadFileAsync(TestFile, fileStream);
                 }
 
-                var list = session.ListAsync("/", propFind).Result;
+                var list = await session.ListAsync("/", propFind);
                 // Get unknown property.
                 var xName = XName.Get("favorite", "http://owncloud.org/ns");
                 var file = list.Where(x => x.Name == TestFile);
@@ -633,18 +638,18 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 // Proppatch set (favorite).
                 var webDavSessionItem = list[0];
                 webDavSessionItem.AdditionalProperties["favorite"] = "1";
-                var proppatchResult = session.UpdateItemAsync(webDavSessionItem).Result;
+                var proppatchResult = await session.UpdateItemAsync(webDavSessionItem);
 
-                list = session.ListAsync("/", propFind).Result;
+                list = await session.ListAsync("/", propFind);
                 Assert.AreEqual(1, list.Count);
                 Assert.AreEqual("1", list[0].AdditionalProperties["favorite"]);
 
                 // Proppatch remove (DisplayName).
                 webDavSessionItem = list[0];
                 webDavSessionItem.AdditionalProperties["favorite"] = null;
-                proppatchResult = session.UpdateItemAsync(webDavSessionItem).Result;
+                proppatchResult = await session.UpdateItemAsync(webDavSessionItem);
 
-                list = session.ListAsync("/", propFind).Result;
+                list = await session.ListAsync("/", propFind);
                 file = list.Where(x => x.Name == TestFile);
                 favoriteItem = file.First().AdditionalProperties["favorite"];
                 Assert.IsNotNull(favoriteItem);
@@ -652,7 +657,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 Assert.AreEqual(1, list.Count);
 
                 // Delete file
-                var delete = session.DeleteAsync(TestFile).Result;
+                var delete = await session.DeleteAsync(TestFile);
 
                 Assert.IsTrue(responseUpload);
                 Assert.IsTrue(delete);
@@ -664,12 +669,12 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         #region GetSupportedPropNames
 
         [TestMethod]
-        public void UIT_WebDavSession_GetSupportedPropNames()
+        public async Task UIT_WebDavSession_GetSupportedPropNames()
         {
             using (var session = CreateWebDavSession())
             {
                 session.BaseUrl = webDavRootFolder;
-                var supportedPropNames = session.GetSupportedPropertyNamesAsync("/").Result;
+                var supportedPropNames = await session.GetSupportedPropertyNamesAsync("/");
 
                 Assert.IsNotNull(supportedPropNames);
                 Assert.AreNotEqual(0, supportedPropNames.Count());
@@ -681,7 +686,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         #region Misc
 
         [TestMethod]
-        public void UIT_WebDavSession_CreateAndHead_WithFileUnknown()
+        public async Task UIT_WebDavSession_CreateAndHead_WithFileUnknown()
         {
             using (var session = CreateWebDavSession())
             {
@@ -690,11 +695,11 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
                 using (var stream = File.OpenRead(TestFileUnknownExtension))
                 {
-                    createdFile = session.UploadFileAsync(TestFileUnknownExtension, stream).Result;
+                    createdFile = await session.UploadFileAsync(TestFileUnknownExtension, stream);
                 }
 
-                var fileExists = session.ExistsAsync(TestFileUnknownExtension).Result;
-                var deletedFile = session.DeleteAsync(TestFileUnknownExtension).Result;
+                var fileExists = await session.ExistsAsync(TestFileUnknownExtension);
+                var deletedFile = await session.DeleteAsync(TestFileUnknownExtension);
 
                 Assert.IsTrue(createdFile);
                 Assert.IsTrue(fileExists);
