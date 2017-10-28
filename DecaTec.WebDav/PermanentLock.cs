@@ -46,7 +46,7 @@ namespace DecaTec.WebDav
                 while (true)
                 {
                     await Task.Delay(refrehTimeSpan, cts.Token);
-                    await RefreshLock();
+                    await RefreshLockAsync();
                 }
             }, cts.Token);
         }
@@ -106,7 +106,7 @@ namespace DecaTec.WebDav
 
         #region Private methods
 
-        private async Task RefreshLock()
+        private async Task RefreshLockAsync()
         {
             var result = await this.WebDavClient.RefreshLockAsync(this.LockRoot, WebDavTimeoutHeaderValue.CreateWebDavTimeout(this.Timeout.Value), this.LockToken);
 

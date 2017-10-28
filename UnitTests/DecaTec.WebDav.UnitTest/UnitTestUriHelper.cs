@@ -1623,5 +1623,66 @@ namespace DecaTec.WebDav.UnitTest
         }
 
         #endregion GetPortFromUrl
+
+        #region EscapeFolders
+
+        [TestMethod]
+        public void UT_UriHelper_EscapeFolders_Url()
+        {
+            var url = @"http://google.de/test/test2";
+            var actual = UriHelper.EscapePathSegments(url);
+            var expected = @"http://google.de/test/test2";
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UT_UriHelper_EscapeFolders_Url_DomainOnly()
+        {
+            var url = @"http://google.de/";
+            var actual = UriHelper.EscapePathSegments(url);
+            var expected = @"http://google.de/";
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UT_UriHelper_EscapeFolders_Url_WithSpecialCharacters()
+        {
+            var url = @"http://google.de/test/test2 [test3]";
+            var actual = UriHelper.EscapePathSegments(url);
+            var expected = @"http://google.de/test/test2%20%5Btest3%5D";
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UT_UriHelper_EscapeFolders_Uri()
+        {
+            var url = @"http://google.de/test/test2";
+            var uri = new Uri(url);
+            var actual = UriHelper.EscapePathSegments(uri);
+            var expected = @"http://google.de/test/test2";
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UT_UriHelper_EscapeFolders_Uri_DomainOnly()
+        {
+            var url = @"http://google.de/";
+            var uri = new Uri(url);
+            var actual = UriHelper.EscapePathSegments(uri);
+            var expected = @"http://google.de/";
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UT_UriHelper_EscapeFolders_Uri_WithSpecialCharacters()
+        {
+            var url = @"http://google.de/test/test2 [test3]";
+            var uri = new Uri(url);
+            var actual = UriHelper.EscapePathSegments(uri);
+            var expected = @"http://google.de/test/test2%20%5Btest3%5D";
+            Assert.AreEqual(expected, actual);
+        }
+
+        #endregion EscapeFolders
     }
 }

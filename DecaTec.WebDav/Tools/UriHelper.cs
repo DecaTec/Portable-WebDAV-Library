@@ -576,6 +576,47 @@ namespace DecaTec.WebDav.Tools
         }
 
         #endregion Port
+
+        #region EscapeFolders
+
+        /// <summary>
+        /// Escapes the path segments or a URL.
+        /// </summary>
+        /// <param name="urlToEscape">The URL which path segments should be escaped.</param>
+        /// <returns>The URL with escaped path segments.</returns>
+        /// <remarks>Use this method when not the complete URL should be escaped, but only the path segments. 
+        /// As an example, calling EscapePathSegments with the URL "http://domain.com/sub [path]" will return "http://domain.com/sub%20%5Bpath3%5D".</remarks>
+        public static string EscapePathSegments(string urlToEscape)
+        {
+            return EscapePathSegments(new Uri(urlToEscape));
+        }
+
+        /// <summary>
+        /// Escapes the path segments or a <see cref="Uri"/>.
+        /// </summary>
+        /// <param name="uriToEscape">The <see cref="Uri"/> which path segments should be escaped.</param>
+        /// <returns>The <see cref="Uri"/> with escaped path segments.</returns>
+        /// <remarks>Use this method when not the complete <see cref="Uri"/> should be escaped, but only the path segments. 
+        /// As an example, calling EscapePathSegments with the <see cref="Uri"/> "http://domain.com/sub [path]" will return "http://domain.com/sub%20%5Bpath3%5D".</remarks>
+        public static string EscapePathSegments(Uri uriToEscape)
+        {
+            var pathAndQuery = uriToEscape.LocalPath;
+            var splitted = pathAndQuery.Split(new char[]{'/'}, StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < splitted.Length; i++)
+            {
+                splitted[i] = Uri.EscapeDataString(splitted[i]);
+            }
+
+            var builder = new UriBuilder(uriToEscape)
+            {
+                Path = string.Join("/", splitted)
+            };
+
+            return builder.Uri.AbsoluteUri;
+        }
+
+        #endregion EscapeFolders
     }
 }
 

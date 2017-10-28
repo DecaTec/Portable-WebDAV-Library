@@ -221,6 +221,36 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         }
 
         [TestMethod]
+        public async Task UIT_WebDavSession_Copy_WithBrackets()
+        {
+            using (var session = CreateWebDavSession())
+            {
+                session.BaseUri = new Uri(webDavRootFolder);
+                var created = await session.CreateDirectoryAsync("test [Source]");
+                var created2 = await session.CreateDirectoryAsync("test [Source]/folderToCopy");
+                var created3 = await session.CreateDirectoryAsync("test [Destination]");
+                var items = await session.ListAsync("/test [Source]");
+                Assert.AreEqual(items.Count, 1);
+                var copy = await session.CopyAsync("test [Source]", "test [Destination]", true);
+                var items2 = await session.ListAsync("/test [Source]");
+                Assert.AreEqual(items2.Count, 1);
+                var items3 = await session.ListAsync("/test [Destination]");
+                Assert.AreEqual(items2.Count, 1);
+                Assert.AreEqual("folderToCopy", items3[0].Name);
+                var delete = await session.DeleteAsync("test [Source]");
+                var delete2 = await session.DeleteAsync("test [Destination]");
+
+                Assert.IsTrue(created);
+                Assert.IsTrue(created2);
+                Assert.IsTrue(created3);
+                Assert.IsNotNull(items);
+                Assert.IsNotNull(copy);
+                Assert.IsTrue(delete);
+                Assert.IsTrue(delete2);
+            }
+        }
+
+        [TestMethod]
         public async Task UIT_WebDavSession_CopyDelete_ByWebDavSessionItem()
         {
             using (var session = CreateWebDavSession())
@@ -279,6 +309,36 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 Assert.AreEqual("folderToMove", items3[0].Name);
                 var delete = await session.DeleteAsync("testSource");
                 var delete2 = await session.DeleteAsync("testDestination");
+
+                Assert.IsTrue(created);
+                Assert.IsTrue(created2);
+                Assert.IsTrue(created3);
+                Assert.IsNotNull(items);
+                Assert.IsNotNull(move);
+                Assert.IsTrue(delete);
+                Assert.IsTrue(delete2);
+            }
+        }
+
+        [TestMethod]
+        public async Task UIT_WebDavSession_Move_WithBracketsDestination()
+        {
+            using (var session = CreateWebDavSession())
+            {
+                session.BaseUri = new Uri(webDavRootFolder);
+                var created = await session.CreateDirectoryAsync("test [Source]");
+                var created2 = await session.CreateDirectoryAsync("test [Source]/folderToMove");
+                var created3 = await session.CreateDirectoryAsync("test [Destination]");
+                var items = await session.ListAsync("/test [Source]");
+                Assert.AreEqual(items.Count, 1);
+                var move = await session.MoveAsync("test [Source]/folderToMove", "test [Destination]/folderToMove", true);
+                var items2 = await session.ListAsync("/test [Source]");
+                Assert.AreEqual(items2.Count, 0);
+                var items3 = await session.ListAsync("/test [Destination]");
+                Assert.AreEqual(items3.Count, 1);
+                Assert.AreEqual("folderToMove", items3[0].Name);
+                var delete = await session.DeleteAsync("test [Source]");
+                var delete2 = await session.DeleteAsync("test [Destination]");
 
                 Assert.IsTrue(created);
                 Assert.IsTrue(created2);

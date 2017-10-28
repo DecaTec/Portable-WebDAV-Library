@@ -308,7 +308,7 @@ namespace DecaTec.WebDav
             SetHttpVersion(requestMethod);
 
             // Destination header must be present on copy commands.
-            requestMethod.Headers.Add(WebDavRequestHeader.Destination, destinationUri.ToString());
+            requestMethod.Headers.Add(WebDavRequestHeader.Destination, UriHelper.EscapePathSegments(destinationUri));
 
             if (depth != null)
             {
@@ -1598,7 +1598,7 @@ namespace DecaTec.WebDav
             SetHttpVersion(requestMethod);
 
             // Destination header must be present on MOVE commands.
-            requestMethod.Headers.Add(WebDavRequestHeader.Destination, destinationUri.ToString());
+            requestMethod.Headers.Add(WebDavRequestHeader.Destination, UriHelper.EscapePathSegments(destinationUri));
 
             // On Collections: Clients must not submit other Depth header than 'infinity', any other depth header does not make sense on non-collections.
             // So set the depth header always to 'infinity'.
