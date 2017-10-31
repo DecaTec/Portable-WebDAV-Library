@@ -232,6 +232,7 @@ namespace DecaTec.WebDav.UnitTest
                     }
                 }
 
+                Thread.Sleep(250);
                 Assert.AreEqual(downloadFileContent, downloadedString);
                 Assert.IsTrue(progressHandlerIndicator);
                 Assert.IsTrue(response.IsSuccessStatusCode);
