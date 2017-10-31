@@ -208,12 +208,10 @@ namespace DecaTec.WebDav.UnitTest
             Progress<WebDavProgress> progress = new Progress<WebDavProgress>();
             var progressHandlerIndicator = false;
 
-            EventHandler<WebDavProgress> progressHandler = (sender, e) =>
+            progress.ProgressChanged += (sender, e) =>
             {
                 progressHandlerIndicator = true;
-            };
-
-            progress.ProgressChanged += progressHandler;
+            }; ;
 
             var mockHandler = new MockHttpMessageHandler();
             mockHandler.When(HttpMethod.Get, testFile).Respond(HttpStatusCode.OK, new StringContent(downloadFileContent));
