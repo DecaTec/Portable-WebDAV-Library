@@ -211,7 +211,7 @@ namespace DecaTec.WebDav.UnitTest
             progress.ProgressChanged += (sender, e) =>
             {
                 progressHandlerIndicator = true;
-            }; ;
+            };
 
             var mockHandler = new MockHttpMessageHandler();
             mockHandler.When(HttpMethod.Get, testFile).Respond(HttpStatusCode.OK, new StringContent(downloadFileContent));
