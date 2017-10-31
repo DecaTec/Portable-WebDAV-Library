@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="99a9e6e4-4d50-4ffd-acf5-b622749f22fe" revisionNumber="1">
+  <developerConceptualDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction></introduction>
+
+    <section>
+      <title>Changes in release v1.1.6.0</title>
+      <content>
+
+        <list class="bullet">
+
+          <listItem>
+            <para>
+              The library now supports number signs ('#') in URLs which is usually a special character in URLs (fragment).
+            </para>
+          </listItem>          
+
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="55c4b378-829f-44e2-af56-20a587c2d24b" />
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

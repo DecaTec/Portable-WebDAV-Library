@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.1</TargetFramework>
     <PackageId>PortableWebDavLibrary</PackageId>
-    <Version>1.1.5.0</Version>
+    <Version>1.1.6.0</Version>
     <Authors>DecaTec</Authors>
     <Company>DecaTec</Company>
     <Product>PortableWebDavLibrary</Product>
@@ -16,8 +16,8 @@
     <PackageTags>WebDAV, portable, NETStandard, NETCore, UWP, dotnet, portable-webdav-library, Xamarin, Mono, multiplatform</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageReleaseNotes>Full documentation with changelog is available at https://decatec.de/ext/PortableWebDAVLibrary/Doc</PackageReleaseNotes>
-    <AssemblyVersion>1.1.5.0</AssemblyVersion>
-    <FileVersion>1.1.4.0</FileVersion>
+    <AssemblyVersion>1.1.6.0</AssemblyVersion>
+    <FileVersion>1.1.6.0</FileVersion>
   </PropertyGroup>
 
   <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">

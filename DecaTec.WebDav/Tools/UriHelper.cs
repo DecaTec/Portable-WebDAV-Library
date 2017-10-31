@@ -24,6 +24,9 @@ namespace DecaTec.WebDav.Tools
         /// <remarks>This method should be used instead of the Uri constructor with UriKind.RelativeOrAbsolute.</remarks>
         public static Uri CreateUriFromUrl(string url)
         {
+            if(!string.IsNullOrEmpty(url))
+                url = EscapeFragment(url);
+
             var uri = new Uri(url, UriKind.RelativeOrAbsolute);
             return CreateRelativeUriWhenSchemeIsFile(uri);
         }
@@ -600,8 +603,9 @@ namespace DecaTec.WebDav.Tools
         /// As an example, calling EscapePathSegments with the <see cref="Uri"/> "http://domain.com/sub [path]" will return "http://domain.com/sub%20%5Bpath3%5D".</remarks>
         public static string EscapePathSegments(Uri uriToEscape)
         {
+            uriToEscape = new Uri(EscapeFragment(uriToEscape.OriginalString));
             var pathAndQuery = uriToEscape.LocalPath;
-            var splitted = pathAndQuery.Split(new char[]{'/'}, StringSplitOptions.RemoveEmptyEntries);
+            var splitted = pathAndQuery.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
 
             for (int i = 0; i < splitted.Length; i++)
             {
@@ -613,10 +617,27 @@ namespace DecaTec.WebDav.Tools
                 Path = string.Join("/", splitted)
             };
 
-            return builder.Uri.AbsoluteUri;
+            return builder.Uri.AbsoluteUri;           
         }
 
         #endregion EscapeFolders
+
+        #region EscapeFragment
+
+        /// <summary>
+        /// Escapes the number sign ('#') which is a special character in a URL (fragment).
+        /// </summary>
+        /// <param name="urlToEscape">The URL to be escaped.</param>
+        /// <returns>The URL specified which escaped fragment signs.</returns>
+        public static string EscapeFragment(string urlToEscape)
+        {
+            if (string.IsNullOrEmpty(urlToEscape))
+                return null;
+
+            return urlToEscape.Replace("#", "%23");
+        }
+
+        #endregion EscapeFragment
     }
 }
 

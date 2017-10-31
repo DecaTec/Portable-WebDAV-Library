@@ -1,3 +1,6 @@
+v1.1.6.0
+- The library now supports number signs ('#') in URLs which is usually a special character in URLs (fragment).
+
 v1.1.5.0:
 - Bugfix: WebDavClient/WebDavSession methods for copy/move failed when destination Uri contained special characters.
 - UriHelper: New method EscapePathSegments which escapes only the path segments of a Uri/URL.

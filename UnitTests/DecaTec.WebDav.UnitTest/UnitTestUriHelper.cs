@@ -1676,10 +1676,20 @@ namespace DecaTec.WebDav.UnitTest
         [TestMethod]
         public void UT_UriHelper_EscapeFolders_Uri_WithSpecialCharacters()
         {
-            var url = @"http://google.de/test/test2 [test3]";
+            var url = @"http://google.de/te#st/test2# [test3]";
             var uri = new Uri(url);
             var actual = UriHelper.EscapePathSegments(uri);
-            var expected = @"http://google.de/test/test2%20%5Btest3%5D";
+            var expected = @"http://google.de/te%23st/test2%23%20%5Btest3%5D";
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void UT_UriHelper_EscapeFolders_Uri_WithPortAndSpecialCharacters()
+        {
+            var url = @"http://google.de:8080/te#st/test2# [test3]";
+            var uri = new Uri(url);
+            var actual = UriHelper.EscapePathSegments(uri);
+            var expected = @"http://google.de:8080/te%23st/test2%23%20%5Btest3%5D";
             Assert.AreEqual(expected, actual);
         }
 
