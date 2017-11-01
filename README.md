@@ -1,6 +1,7 @@
 [![NuGet](https://img.shields.io/nuget/v/PortableWebDavLibrary.svg)](https://www.nuget.org/packages/PortableWebDavLibrary/)
 [![Build status](https://ci.appveyor.com/api/projects/status/kywd18luty1eve2a?svg=true)](https://ci.appveyor.com/project/DecaTec/portable-webdav-library)
 [![GitHub Stats](https://img.shields.io/badge/github-stats-ff5500.svg)](http://githubstats.com/DecaTec/Portable-WebDAV-Library)
+[![Microsoft Public License](https://img.shields.io/github/license/DecaTec/Portable-WebDAV-Library.svg)](https://github.com/DecaTec/Portable-WebDAV-Library/blob/master/LICENSE)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=jr%40decatec%2ede&lc=US&item_name=Portable%20WebDAV%20Library&no_note=1&no_shipping=1&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted)
 
 # Project description
