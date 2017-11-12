@@ -376,15 +376,6 @@ namespace DecaTec.WebDav
                 return this.webDavClient.DefaultRequestHeaders;
             }
         }
-
-        /// <summary>
-        /// Gets or sets the <see cref="IWebProxy"/> to use with this WebDavSession.
-        /// </summary>
-        public IWebProxy WebProxy
-        {
-            get;
-            set;
-        }
         
         /// <summary>
         /// Gets or sets a value indicating if <see cref="WebDavSession"/> should process error responses from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
@@ -835,24 +826,26 @@ namespace DecaTec.WebDav
         /// Retrieves a list of files and directories of the directory at the <see cref="Uri"/> specified (using 'allprop').
         /// </summary>
         /// <param name="uri">The <see cref="Uri"/> of the directory which content should be listed. Has to be an absolute URI (including the base URI) or a relative URI (relative to base URI).</param>
+        /// <param name="uriKind">The <see cref="UriKind"/> of the resulting <see cref="Uri"/>s in the <see cref="WebDavSessionItem"/>s. Default is <see cref="UriKind.Absolute"/>. If <see cref="UriKind.RelativeOrAbsolute"/> is specified, the resulting <see cref="Uri"/>s are absolute Uris.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <remarks>This method uses a so called 'allprop'. A server should return all known properties to the server.
         /// If not all of the expected properties are return by the server, use an overload of this method specifying a <see cref="PropFind"/> explicitly.</remarks>
-        public Task<IList<WebDavSessionItem>> ListAsync(Uri uri)
+        public Task<IList<WebDavSessionItem>> ListAsync(Uri uri, UriKind uriKind = UriKind.Absolute)
         {
-            return ListAsync(uri, PropFind.CreatePropFindAllProp());
+            return ListAsync(uri, PropFind.CreatePropFindAllProp(), uriKind);
         }
 
         /// <summary>
         /// Retrieves a list of files and directories of the directory at the URL specified.
         /// </summary>
         /// <param name="url">The URL of the directory which content should be listed. Has to be an absolute URL (including the base URL) or a relative URL (relative to base URL).</param>
+        /// <param name="uriKind">The <see cref="UriKind"/> of the resulting <see cref="Uri"/>s in the <see cref="WebDavSessionItem"/>s. Default is <see cref="UriKind.Absolute"/>. If <see cref="UriKind.RelativeOrAbsolute"/> is specified, the resulting <see cref="Uri"/>s are absolute Uris.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <remarks>This method uses a so called 'allprop'. A server should return all known properties to the server.
         /// If not all of the expected properties are return by the server, use an overload of this method specifying a <see cref="PropFind"/> explicitly.</remarks>
-        public Task<IList<WebDavSessionItem>> ListAsync(string url)
+        public Task<IList<WebDavSessionItem>> ListAsync(string url, UriKind uriKind = UriKind.Absolute)
         {
-            return ListAsync(UriHelper.CreateUriFromUrl(url));
+            return ListAsync(UriHelper.CreateUriFromUrl(url), uriKind);
         }
 
         /// <summary>
@@ -860,11 +853,12 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="item">The <see cref="WebDavSessionItem"/> which content should be listed.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <param name="uriKind">The <see cref="UriKind"/> of the resulting <see cref="Uri"/>s in the <see cref="WebDavSessionItem"/>s. Default is <see cref="UriKind.Absolute"/>. If <see cref="UriKind.RelativeOrAbsolute"/> is specified, the resulting <see cref="Uri"/>s are absolute Uris.</param>
         /// <remarks>This method uses a so called 'allprop'. A server should return all known properties to the server.
         /// If not all of the expected properties are return by the server, use an overload of this method specifying a <see cref="PropFind"/> explicitly.</remarks>
-        public Task<IList<WebDavSessionItem>> ListAsync(WebDavSessionItem item)
+        public Task<IList<WebDavSessionItem>> ListAsync(WebDavSessionItem item, UriKind uriKind = UriKind.Absolute)
         {
-            return ListAsync(UriHelper.CombineUri(this.BaseUri, item.Uri, true));
+            return ListAsync(UriHelper.CombineUri(this.BaseUri, item.Uri, true), uriKind);
         }
 
         /// <summary>
@@ -872,10 +866,11 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="url">The URL of the directory which content should be listed. Has to be an absolute URL (including the base URL) or a relative URL (relative to base URL).</param>
         /// <param name="propFind">The <see cref="PropFind"/> to use. Different PropFind  types can be created using the static methods of the class <see cref="PropFind"/>.</param>
+        /// <param name="uriKind">The <see cref="UriKind"/> of the resulting <see cref="Uri"/>s in the <see cref="WebDavSessionItem"/>s. Default is <see cref="UriKind.Absolute"/>. If <see cref="UriKind.RelativeOrAbsolute"/> is specified, the resulting <see cref="Uri"/>s are absolute Uris.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public Task<IList<WebDavSessionItem>> ListAsync(string url, PropFind propFind)
+        public Task<IList<WebDavSessionItem>> ListAsync(string url, PropFind propFind, UriKind uriKind = UriKind.Absolute)
         {
-            return ListAsync(UriHelper.CreateUriFromUrl(url), propFind);
+            return ListAsync(UriHelper.CreateUriFromUrl(url), propFind, uriKind);
         }
 
         /// <summary>
@@ -883,10 +878,11 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="item">The <see cref="WebDavSessionItem"/> which content should be listed. Has to be an absolute URI (including the base URI) or a relative URI (relative to base URI).</param>
         /// <param name="propFind">The <see cref="PropFind"/> to use. Different PropFind  types can be created using the static methods of the class <see cref="PropFind"/>.</param>
+        /// <param name="uriKind">The <see cref="UriKind"/> of the resulting <see cref="Uri"/>s in the <see cref="WebDavSessionItem"/>s. Default is <see cref="UriKind.Absolute"/>. If <see cref="UriKind.RelativeOrAbsolute"/> is specified, the resulting <see cref="Uri"/>s are absolute Uris.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public Task<IList<WebDavSessionItem>> ListAsync(WebDavSessionItem item, PropFind propFind)
+        public Task<IList<WebDavSessionItem>> ListAsync(WebDavSessionItem item, PropFind propFind, UriKind uriKind = UriKind.Absolute)
         {
-            return ListAsync(UriHelper.CombineUri(this.BaseUri, item.Uri, true), propFind);
+            return ListAsync(UriHelper.CombineUri(this.BaseUri, item.Uri, true), propFind, uriKind);
         }
 
         /// <summary>
@@ -894,8 +890,9 @@ namespace DecaTec.WebDav
         /// </summary>
         /// <param name="uri">The <see cref="Uri"/> of the directory which content should be listed. Has to be an absolute URI (including the base URI) or a relative URI (relative to base URI).</param>
         /// <param name="propFind">The <see cref="PropFind"/> to use. Different PropFind  types can be created using the static methods of the class <see cref="PropFind"/>.</param>
+        /// <param name="uriKind">The <see cref="UriKind"/> of the resulting <see cref="Uri"/>s in the <see cref="WebDavSessionItem"/>s. Default is <see cref="UriKind.Absolute"/>. If <see cref="UriKind.RelativeOrAbsolute"/> is specified, the resulting <see cref="Uri"/>s are absolute Uris.</param>
         /// <returns>The <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<IList<WebDavSessionItem>> ListAsync(Uri uri, PropFind propFind)
+        public async Task<IList<WebDavSessionItem>> ListAsync(Uri uri, PropFind propFind, UriKind uriKind = UriKind.Absolute)
         {
             if (propFind == null)
                 throw new ArgumentException("Argument propFind must not be null.");
@@ -949,9 +946,16 @@ namespace DecaTec.WebDav
                 {
                     if (UriHelper.TryCreateUriFromUrl(responseItem.Href, out href))
                     {
-                        var fullQualifiedUri = UriHelper.CombineUri(uri, href, true);
-                        fullQualifiedUri = UriHelper.SetPort(fullQualifiedUri, port);
-                        webDavSessionItemUri = fullQualifiedUri;
+                        if (uriKind == UriKind.Relative)
+                        {
+                            webDavSessionItemUri = href;
+                        }
+                        else
+                        {
+                            var fullQualifiedUri = UriHelper.CombineUri(uri, href, true);
+                            fullQualifiedUri = UriHelper.SetPort(fullQualifiedUri, port);
+                            webDavSessionItemUri = fullQualifiedUri; 
+                        }                        
                     }
                 }
 
