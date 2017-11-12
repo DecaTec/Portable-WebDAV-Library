@@ -376,7 +376,7 @@ namespace DecaTec.WebDav
                 return this.webDavClient.DefaultRequestHeaders;
             }
         }
-        
+
         /// <summary>
         /// Gets or sets a value indicating if <see cref="WebDavSession"/> should process error responses from server. If value is <b>true</b> will throw <see cref="WebDavException"/>; 
         /// otherwise returns result of operation and caller must check it. Default value is <b>false</b>.
@@ -386,7 +386,7 @@ namespace DecaTec.WebDav
             get;
             set;
         }
-        
+
         #endregion Properties
 
         #region Public methods
@@ -944,18 +944,24 @@ namespace DecaTec.WebDav
 
                 if (!string.IsNullOrEmpty(responseItem.Href))
                 {
-                    if (UriHelper.TryCreateUriFromUrl(responseItem.Href, out href))
+                    if (uriKind == UriKind.Relative)
                     {
-                        if (uriKind == UriKind.Relative)
-                        {
+                        var hrefTmp = responseItem.Href;
+
+                        if (!string.IsNullOrEmpty(this.BaseUrl) && hrefTmp.StartsWith(this.BaseUrl))
+                            hrefTmp = hrefTmp.Remove(0, this.BaseUrl.Length);
+
+                        if (UriHelper.TryCreateUriFromUrl(hrefTmp, out href))
                             webDavSessionItemUri = href;
-                        }
-                        else
+                    }
+                    else
+                    {
+                        if (UriHelper.TryCreateUriFromUrl(responseItem.Href, out href))
                         {
                             var fullQualifiedUri = UriHelper.CombineUri(uri, href, true);
                             fullQualifiedUri = UriHelper.SetPort(fullQualifiedUri, port);
-                            webDavSessionItemUri = fullQualifiedUri; 
-                        }                        
+                            webDavSessionItemUri = fullQualifiedUri;
+                        }
                     }
                 }
 
@@ -1253,12 +1259,12 @@ namespace DecaTec.WebDav
         {
             var uri = UriHelper.CombineUri(this.BaseUri, item.Uri, true);
             var lockToken = GetAffectedLockToken(uri);
-            var response = await this.webDavClient.PropPatchAsync(uri, item.ToPropertyUpdate(), lockToken);            
+            var response = await this.webDavClient.PropPatchAsync(uri, item.ToPropertyUpdate(), lockToken);
             var multistatus = await WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content);
             var success = true;
 
             foreach (var msResponse in multistatus.Response)
-            {                
+            {
                 foreach (var msResponseItem in msResponse.Items)
                 {
                     if (msResponseItem is Propstat propStat)
