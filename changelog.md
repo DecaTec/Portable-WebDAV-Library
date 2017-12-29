@@ -1,3 +1,7 @@
+v1.1.7.0
+- WebDavSession.ListAsync methods now have an optional parameter specifying a UriKind (default is UriKind.Absolute). By this parameter, the format of the Uris of the resulting WebDavSessionListItems can be specified.
+- Removed the unused property IWebProxy from WebDavSession. If a proxy should be used, use one of the constructors of WebDavSession accepting a HttpMessageHandler and provide information about a proxy with a HttpClientHandler.
+
 v1.1.6.0
 - The library now supports number signs ('#') in URLs which is usually a special character in URLs (fragment).
 
