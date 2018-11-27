@@ -321,6 +321,31 @@ namespace DecaTec.WebDav.UnitIntegrationTest
         }
 
         [TestMethod]
+        public async Task UIT_WebDavSession_Move_Rename()
+        {
+            using (var session = CreateWebDavSession())
+            {
+                session.BaseUri = new Uri(webDavRootFolder);
+                var created = await session.CreateDirectoryAsync("testSource");
+                var created2 = await session.CreateDirectoryAsync("testSource/folderToRename");
+ 
+                var items = await session.ListAsync("/testSource");
+                Assert.AreEqual(items.Count, 1);
+                var move = await session.MoveAsync("testSource/folderToRename", "testSource/renamedFolder", true);
+                var items2 = await session.ListAsync("/testSource");
+                Assert.AreEqual(items2.Count, 1);               
+                Assert.AreEqual("renamedFolder", items2[0].Name);
+                var delete = await session.DeleteAsync("testSource");
+
+                Assert.IsTrue(created);
+                Assert.IsTrue(created2);
+                Assert.IsNotNull(items);
+                Assert.IsNotNull(move);
+                Assert.IsTrue(delete);
+            }
+        }
+
+        [TestMethod]
         public async Task UIT_WebDavSession_Move_WithSpecialCharacters()
         {
             using (var session = CreateWebDavSession())

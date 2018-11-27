@@ -494,6 +494,66 @@ namespace DecaTec.WebDav.UnitIntegrationTest
             }
         }
 
+        [TestMethod]
+        public async Task UIT_WebDavClient_Move_Rename()
+        {
+            using (var client = CreateWebDavClientWithDebugHttpMessageHandler())
+            {
+                var testCollectionSource = UriHelper.CombineUrl(webDavRootFolder, TestCollection, true);
+                var testFileToRename = UriHelper.CombineUrl(testCollectionSource, TestFile, true);
+                var testFileRenamed = UriHelper.CombineUrl(testCollectionSource, "RenamedFile", true);
+
+                // Create source collection.
+                var response = await client.MkcolAsync(testCollectionSource);
+                var mkColResponseSuccess = response.IsSuccessStatusCode;
+
+                // Put file.
+                using (var fileStream = File.OpenRead(TestFile))
+                {
+                    var content = new StreamContent(fileStream);
+                    response = await client.PutAsync(testFileToRename, content);
+                }
+
+                var putResponseSuccess = response.IsSuccessStatusCode;
+
+                // Move.
+                response = await client.MoveAsync(testFileToRename, testFileRenamed);
+                var moveResponseSuccess = response.IsSuccessStatusCode;
+
+                // PropFind.
+                PropFind pf = PropFind.CreatePropFindAllProp();
+                response = await client.PropFindAsync(webDavRootFolder, WebDavDepthHeaderValue.Infinity, pf);
+                var propFindResponseSuccess = response.IsSuccessStatusCode;
+
+                var multistatus = await WebDavResponseContentParser.ParseMultistatusResponseContentAsync(response.Content);
+
+                bool foundRenamedFile = false;
+                bool foundFile = false;
+
+                foreach (var item in multistatus.Response)
+                {
+                    if (item.Href.EndsWith("RenamedFile"))
+                        foundRenamedFile = true;
+
+                    if (item.Href.EndsWith(TestFile))
+                        foundFile = true;
+                }
+
+                // Delete source and destination.
+                // Delete file.
+                response = await client.DeleteAsync(testCollectionSource);
+                var deleteResponseSuccess = response.IsSuccessStatusCode;
+
+                Assert.IsTrue(mkColResponseSuccess);
+                Assert.IsTrue(putResponseSuccess);
+                Assert.IsTrue(moveResponseSuccess);
+                Assert.IsTrue(propFindResponseSuccess);
+                Assert.IsTrue(foundRenamedFile);
+                Assert.IsFalse(foundFile);
+                Assert.IsTrue(deleteResponseSuccess);
+            }
+        }
+
         #endregion Move
 
         #region Lock / unlock
