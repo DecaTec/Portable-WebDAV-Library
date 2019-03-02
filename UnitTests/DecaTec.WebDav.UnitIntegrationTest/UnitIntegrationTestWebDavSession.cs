@@ -716,7 +716,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
 
                 var favoriteItem = file.First().AdditionalProperties["favorite"];
                 Assert.IsNotNull(favoriteItem);
-                Assert.AreEqual("", favoriteItem);
+                Assert.AreEqual("0", favoriteItem);
                 Assert.AreEqual(1, list.Count);
                 Assert.AreEqual(TestFile, list[0].Name);
 
@@ -738,7 +738,7 @@ namespace DecaTec.WebDav.UnitIntegrationTest
                 file = list.Where(x => x.Name == TestFile);
                 favoriteItem = file.First().AdditionalProperties["favorite"];
                 Assert.IsNotNull(favoriteItem);
-                Assert.AreEqual("", favoriteItem);
+                Assert.AreEqual("0", favoriteItem);
                 Assert.AreEqual(1, list.Count);
 
                 // Delete file

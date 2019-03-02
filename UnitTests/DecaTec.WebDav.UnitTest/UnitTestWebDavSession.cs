@@ -66,16 +66,16 @@ namespace DecaTec.WebDav.UnitTest
         {
             var credentials = new NetworkCredential(UserName, Password);
             var session = new WebDavSession(credentials);
-            Assert.AreEqual(new Version(1, 1), session.HttpVersion);
+            Assert.AreEqual(new Version(2, 0), session.HttpVersion);
         }
 
 
         [TestMethod]
-        public void UT_WebDavSession_ConstructorWithNomDefaultHttpVersion()
+        public void UT_WebDavSession_ConstructorWithNonDefaultHttpVersion()
         {
             var credentials = new NetworkCredential(UserName, Password);
-            var session = new WebDavSession(credentials, new Version(2, 0));
-            Assert.AreEqual(new Version(2, 0), session.HttpVersion);
+            var session = new WebDavSession(credentials, new Version(1, 1));
+            Assert.AreEqual(new Version(1, 1), session.HttpVersion);
         }
 
 

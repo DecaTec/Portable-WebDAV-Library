@@ -62,14 +62,14 @@ namespace DecaTec.WebDav.UnitTest
         public void UT_WebDavClient_ConstructorWithDefaultHttpVersion()
         {
             var client = new WebDavClient();
-            Assert.AreEqual(new Version(1, 1), client.HttpVersion);
+            Assert.AreEqual(new Version(2, 0), client.HttpVersion);
         }
 
         [TestMethod]
         public void UT_WebDavClient_ConstructorWithNonDefaultHttpVersion()
         {
-            var client = new WebDavClient(new Version(2, 0));
-            Assert.AreEqual(new Version(2, 0), client.HttpVersion);
+            var client = new WebDavClient(new Version(1, 1));
+            Assert.AreEqual(new Version(1, 1), client.HttpVersion);
         }
 
         #endregion Constructor
@@ -118,7 +118,7 @@ namespace DecaTec.WebDav.UnitTest
         public async Task UT_WebDavClient_WithHttpVersionDefault()
         {
             var mockHandler = new MockHttpMessageHandler();
-            var defaultHttpVersion = new Version(1, 1);
+            var defaultHttpVersion = new Version(2, 0);
 
             mockHandler.When(WebDavMethod.PropFind, WebDavRootFolder).With(req => req.Version == defaultHttpVersion).Respond(HttpStatusCode.OK);
 

@@ -184,9 +184,14 @@
         <HelpKeyword index="K" term="version, 1.1.6.0" />
       </HelpKeywords>
     </Topic>
-    <Topic id="8e95b2e6-a780-4378-97b8-66ab70e59079" visible="True" isSelected="true" title="Version 1.1.7.0" linkText="Version 1.1.7.0">
+    <Topic id="8e95b2e6-a780-4378-97b8-66ab70e59079" visible="True" title="Version 1.1.7.0" linkText="Version 1.1.7.0">
       <HelpKeywords>
         <HelpKeyword index="K" term="verion, 1.1.7.0" />
+      </HelpKeywords>
+    </Topic>
+    <Topic id="8e7ef5eb-f397-4567-ba19-7d77f3ab46d3" visible="True" isSelected="true" title="Version 1.1.8.0" linkText="Version 1.1.8.0">
+      <HelpKeywords>
+        <HelpKeyword index="K" term="verion, 1.1.8.0" />
       </HelpKeywords>
     </Topic>
   </Topic>

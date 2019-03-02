@@ -113,7 +113,7 @@ namespace DecaTec.WebDav
 
         private const string MediaTypeXml = "application/xml";
 
-        internal static readonly Version DefaultHttpVersion = new Version(1, 1);
+        internal static readonly Version DefaultHttpVersion = new Version(2, 0);
 
         #region Constructor
 
@@ -127,7 +127,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        /// Initializes a new instance of WebDavClient.
+        /// Initializes a new instance of WebDavClient with the HTTP version specified.
         /// </summary>
         /// <param name="httpVersion">The HTTP version to use for requests.</param>
         public WebDavClient(Version httpVersion)
@@ -137,7 +137,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        ///  Initializes a new instance of WebDavClient.
+        ///  Initializes a new instance of WebDavClient with the given <see cref="HttpMessageHandler"/>.
         /// </summary>
         /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> responsible for processing the HTTP response messages.</param>
         public WebDavClient(HttpMessageHandler httpMessageHandler)
@@ -147,7 +147,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        ///  Initializes a new instance of WebDavClient.
+        ///  Initializes a new instance of WebDavClient with the given <see cref="HttpMessageHandler"/> and the HTTP version specified.
         /// </summary>
         /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> responsible for processing the HTTP response messages.</param>
         /// <param name="httpVersion">The HTTP version to use for requests.</param>
@@ -158,7 +158,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        ///  Initializes a new instance of WebDavClient.
+        ///  Initializes a new instance of WebDavClient with the given <see cref="HttpMessageHandler"/>.
         /// </summary>
         /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> responsible for processing the HTTP response messages.</param>
         /// <param name="disposeHandler">True if the inner handler should be disposed of by Dispose(), false if you intend to reuse the inner handler.</param>
@@ -169,7 +169,7 @@ namespace DecaTec.WebDav
         }
 
         /// <summary>
-        ///  Initializes a new instance of WebDavClient.
+        ///  Initializes a new instance of WebDavClient with the given <see cref="HttpMessageHandler"/> and the HTTP version specified.
         /// </summary>
         /// <param name="httpMessageHandler">The <see cref="HttpMessageHandler"/> responsible for processing the HTTP response messages.</param>
         /// <param name="disposeHandler">True if the inner handler should be disposed of by Dispose(), false if you intend to reuse the inner handler.</param>
@@ -178,19 +178,6 @@ namespace DecaTec.WebDav
             : this(httpMessageHandler, disposeHandler)
         {
             this.HttpVersion = httpVersion;
-        }
-
-        /// <summary>
-        /// Sets the default request headers to send with every request of this WebDavClient.
-        /// </summary>
-        protected void SetDefaultRequestHeaders()
-        {
-            // This is a workaround when the lib is used for WebDAV/IIS:
-            // When there is a GET request for a file with unmapped extension on IIS (e.g. 'file.01'), the IIS returns 404 ('not found').  
-            // This is due to the server trying to interpret any requested files (which makes sense for ASP, etc.).  
-            // In order that the IIS serves files with unmapped extensions, the "Translate" header has to be set to 'f'.  
-            // See: https://msdn.microsoft.com/en-us/library/cc250063.aspx  
-            this.DefaultRequestHeaders.Add(HttpHeaderNames.Translate, HttpTranslateHeaderValues.TranslateF);
         }
 
         #endregion Constructor
@@ -2739,6 +2726,23 @@ namespace DecaTec.WebDav
         }
 
         #endregion Upload file
+
+        #region Protected methods
+
+        /// <summary>
+        /// Sets the default request headers to send with every request of this WebDavClient.
+        /// </summary>
+        protected void SetDefaultRequestHeaders()
+        {
+            // This is a workaround when the lib is used for WebDAV/IIS:
+            // When there is a GET request for a file with unmapped extension on IIS (e.g. 'file.01'), the IIS returns 404 ('not found').  
+            // This is due to the server trying to interpret any requested files (which makes sense for ASP, etc.).  
+            // In order that the IIS serves files with unmapped extensions, the "Translate" header has to be set to 'f'.  
+            // See: https://msdn.microsoft.com/en-us/library/cc250063.aspx  
+            this.DefaultRequestHeaders.Add(HttpHeaderNames.Translate, HttpTranslateHeaderValues.TranslateF);
+        }
+
+        #endregion Protected methods
 
         #region Private methods
 
