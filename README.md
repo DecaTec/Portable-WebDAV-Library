@@ -24,7 +24,7 @@ So far the project is tested against IIS and ownCloud/Nextcloud (sabre/dav) (not
 # Documentation
 There is a full documentation of the library with some example code available.
 
-**[Portable WebDAV Library online documentation](https://decatec.de/ext/PortableWebDAVLibrary/Doc/index.html)**
+**[Portable WebDAV Library online documentation](https://decatec.de/ext/PortableWebDAVLibrary/Doc/)**
 
 For offline use, you can download the help file (CHM) here:
 **[Portable WebDAV Library offline documentation](https://decatec.de/ext/PortableWebDAVLibrary/Doc/DecaTec.WebDav.Documentation.chm)**
