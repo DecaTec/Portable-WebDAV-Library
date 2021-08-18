@@ -1,4 +1,6 @@
-**Archived, moced to Codeberg: https://codeberg.org/DecaTec/Portable-WebDAV-Library**
+### ⚠️ Archived, moved to Codeberg: https://codeberg.org/DecaTec/Portable-WebDAV-Library :warning:
+
+Thus, this GitHub repository is **outdated** and **not longer maintained on GitHub**. Please update your references.
 
 [![NuGet](https://img.shields.io/nuget/v/PortableWebDavLibrary.svg)](https://www.nuget.org/packages/PortableWebDavLibrary/)
 [![Github All Releases](https://img.shields.io/github/downloads/DecaTec/Portable-WebDav-Library/total.svg)](https://www.somsubhra.com/github-release-stats/?username=DecaTec&repository=Portable-WebDAV-Library)
